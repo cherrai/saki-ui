@@ -1,0 +1,23 @@
+// saki-scroll-view {
+//   max-height: 100%;
+// }
+.saki-scroll-view-component {
+  width: 100%;
+  height: 100%;
+  // &.Auto {
+  //   overflow: overlay;
+  // }
+  position: relative;
+  &.Custom {
+    overflow-y: auto;
+  }
+  .view-inherit {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    // scroll-behavior: auto;
+    // scroll-behavior: smooth;
+  }
+}

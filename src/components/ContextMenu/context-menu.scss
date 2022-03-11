@@ -1,0 +1,44 @@
+.saki-context-menu-component {
+  .context-menu-content {
+    position: fixed;
+    visibility: hidden;
+    &.show {
+      visibility: visible;
+      opacity: 1;
+    }
+    opacity: 0;
+    z-index: 1000;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    transition: opacity .1s;
+  }
+  .context-menu-content-bg {
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0);
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+    // pointer-events: none;
+    &.show {
+      visibility: visible;
+    }
+  }
+}
+.saki-context-menu-item-component {
+  padding: 6px 8px;
+  transition: background-color 0.3s;
+  cursor: pointer;
+  user-select: none;
+  &:hover {
+    background-color: #f4f4f4;
+  }
+  &:active {
+    background-color: #e7e7e7;
+  }
+}

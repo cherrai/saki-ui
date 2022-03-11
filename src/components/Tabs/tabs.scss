@@ -1,0 +1,53 @@
+.saki-tabs-component {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .s-nav {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #eee;
+    // position: fixed;
+    position: relative;
+    // bottom: 0;
+    height: 50px;
+    .nav-item {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      height: 100%;
+      cursor: pointer;
+      color: #555;
+      transition: all 0.3s;
+      &:hover {
+        background-color: #eee;
+      }
+
+      &.active {
+        color: var(--saki-default-color);
+      }
+    }
+    .nav-line {
+      position: absolute;
+      bottom: 0;
+      left: 0%;
+      height: 4px;
+      transition: all 0.3s;
+      .line {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 0);
+
+        height: 4px;
+        width: 60px;
+        border-radius: 2px;
+        background-color: var(--saki-default-color);
+      }
+    }
+  }
+  // .s-main {
+  // }
+}

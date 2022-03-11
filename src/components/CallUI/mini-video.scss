@@ -1,0 +1,65 @@
+.saki-call-mini-video-component {
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 0 1px rgb(0 0 0 / 5%);
+  cursor: pointer;
+  position: relative;
+  background-color: #000;
+  border: 1px solid rgba(238, 238, 238, 0.671);
+
+  .call-userinfo {
+    position: absolute;
+    bottom: 4px;
+    left: 4px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    .avatar {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+    }
+    .nickname {
+      color: #fff;
+      font-size: 12px;
+      padding-left: 6px;
+      text-shadow: rgb(0 0 0 / 60%) 0px 0px 4px;
+    }
+  }
+
+  .call-mini-video {
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    object-fit: cover;
+    display: block;
+  }
+  .call-signal {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    // .call-s-icon {
+    // }
+    .call-s-item {
+      color: #fff;
+      font-size: 12px;
+      margin-left: 2px;
+      text-shadow: rgb(0 0 0 / 60%) 0px 0px 4px;
+    }
+  }
+  .call-awaittext {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    color: #fff;
+    font-size: 12px;
+    margin-left: 0px;
+    text-shadow: rgb(0 0 0 / 60%) 0px 0px 4px;
+  }
+}

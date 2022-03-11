@@ -1,0 +1,44 @@
+.saki-call-header-component {
+  width: 100%;
+  padding: 0 6px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  z-index: 1;
+  background-image: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.2),
+    rgba(0, 0, 0, 0)
+  );
+  .call-h-left {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    .call-h-l-close {
+      height: 30px;
+      margin: 1px 0;
+      cursor: pointer;
+      .icon {
+        width: 28px;
+        height: 28px;
+      }
+    }
+  }
+  .call-h-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: calc(100% - (28px * 2));
+    max-width: calc(100% - 0px);
+    .call-h-l-tip {
+      color: #fff;
+      text-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+      line-height: 28px;
+    }
+  }
+  .call-h-right {
+    flex: 1;
+  }
+}

@@ -1,0 +1,16 @@
+.saki-menu-component {
+  width: 100%;
+  background-color: #fff;
+}
+.saki-menu-item-component {
+  width: 100%;
+  padding: 12px 12px;
+  cursor: pointer;
+  user-select: none;
+  &:hover {
+    background-color: #eee;
+  }
+  &:active {
+    background-color: #ddd;
+  }
+}

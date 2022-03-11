@@ -1,0 +1,62 @@
+.saki-call-main-video-component {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  .call-main-video {
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    object-fit: cover;
+  }
+  .video-signal {
+    position: absolute;
+    top: 0px;
+    right: 4px;
+    height: 32px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    .video-s-ms {
+      color: #fff;
+      font-size: 12px;
+      margin-left: 2px;
+      text-shadow: rgb(0 0 0 / 60%) 0px 0px 4px;
+    }
+  }
+  .video-user-info {
+    position: absolute;
+    left: 6px;
+    bottom: 6px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    .v-i-item {
+      color: #fff;
+      margin-right: 6px;
+      height: 30px;
+      line-height: 30px;
+      text-shadow: rgb(0 0 0 / 60%) 0px 0px 4px;
+      &.avatar {
+        img {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+  .video-parameter-info {
+    position: absolute;
+    right: 6px;
+    bottom: 6px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    .v-i-item {
+      color: #fff;
+      font-size: 12px;
+      margin-right: 6px;
+      text-shadow: rgb(0 0 0 / 60%) 0px 0px 4px;
+    }
+  }
+}

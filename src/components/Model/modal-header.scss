@@ -1,0 +1,75 @@
+.saki-modal-header-component {
+  width: 100%;
+  background-color: #fff;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 56px;
+  &.border {
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 0px;
+      width: 100%;
+      background-color: #eee;
+    }
+  }
+  .modal-left {
+    // flex: 0;
+    .modal-l-close {
+      width: 36px;
+      height: 36px;
+      margin: 10px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      &:hover {
+        background-color: #eee;
+      }
+      &:active {
+        background-color: #ddd;
+      }
+      .icon {
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+  .modal-center {
+    // flex: auto;
+    display: flex;
+    justify-content: center;
+    min-width: calc(100% - (56px * 2));
+    max-width: calc(100% - 0px);
+
+    .modal-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #222;
+
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+
+      -webkit-line-clamp: 1;
+      line-clamp: 1;
+    }
+  }
+  .modal-right {
+    // flex-basis: 200px;
+    // flex: 0;
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    // flex-shrink: 3;
+    // flex-grow: 1;
+    // flex-shrink: 2;
+  }
+}

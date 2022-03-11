@@ -1,0 +1,31 @@
+.saki-call-info-component {
+  width: 100%;
+  max-width: 320px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  .ci-userinfo {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    .ci-u-item {
+      &.avatar {
+        img {
+          width: 80px;
+          height: 80px;
+          border-radius: 50%;
+        }
+      }
+      &.nickname {
+        font-weight: 500;
+        color: #eee;
+        font-size: 18px;
+        text-align: center;
+      }
+    }
+  }
+}
