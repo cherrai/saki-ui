@@ -39,7 +39,7 @@ logs() {
 
 start() {
   echo "-> 正在启动「${name}」服务"
-  # gitpull
+  gitpull
   dependencies
   build
   run
