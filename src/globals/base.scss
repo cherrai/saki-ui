@@ -72,12 +72,14 @@ html {
   --saki-chat-bubble-right-bg-color:#b3dff0;
   --saki-chat-bubble-content-border-radius:8px;
   --saki-chat-bubble-time-color:#999;
+  --saki-chat-bubble-read-progress-color: #f185a0;
+  --saki-chat-bubble-loading-color: #f185a0;
+  --saki-chat-bubble-loading-active-color: #f3f3f3;
 
-  // Chat Bubble
+  // Chat call
   --saki-call-mini-video-width: 160px;
 
   // Loading
-
   --saki-loading-circle-bg-color: #f185a0;
   --saki-loading-circle-active-bg-color: #f3f3f3;
 }

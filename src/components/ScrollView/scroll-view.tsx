@@ -32,6 +32,7 @@ export class ScrollViewComponent {
   @Prop() keepDistanceToBottom: boolean = false;
   @Prop() maxHeight: string = "";
   @Prop() proportionalScroll: boolean = false;
+  // Inherit 继承上一级的宽高
   @Prop() mode: "Inherit" | "Custom" | "Normal" | "Auto" = "Normal";
   @Prop() scrollBar: "Default" | "Auto" = "Default";
   @Prop() offsetY: number = 0;
@@ -46,6 +47,7 @@ export class ScrollViewComponent {
   @Event() scrolltobottom: EventEmitter;
   @Event() scrolltotop: EventEmitter;
   @Event() distancetobottom: EventEmitter;
+  @Event() watchscrollto: EventEmitter;
   @Event() mounted: EventEmitter;
 
   componentWillLoad() {
@@ -58,7 +60,7 @@ export class ScrollViewComponent {
     this.init();
     switch (this.position) {
       case "bottom":
-        // console.log("bottom",this.compEl.getBoundingClientRect() ,this.compEl.scrollHeight);
+        console.log("componentDidLoad bottom");
         // console.log(
         //   "bottom",
         //   this.scrollBottom.getBoundingClientRect(),
@@ -86,7 +88,7 @@ export class ScrollViewComponent {
   }
   @Method()
   async scrollToFunc(type: string) {
-    // console.log("滚动到底部", type, this.mode);
+    console.log("滚动到底部", type, this.mode);
     switch (type) {
       case "bottom":
         if (this.mode !== "Inherit") {
@@ -98,17 +100,23 @@ export class ScrollViewComponent {
         } else {
           // 创建一个观察器实例并传入回调函数
           let timer: any;
+          // let disconnecttimer: any;
           const observer = new MutationObserver(() => {
-            // console.log("Dom发生了变化", this.scrollEl.scrollHeight);
+            // console.log("Dom发生了变化", e, this.scrollEl.scrollHeight);
             clearTimeout(timer);
+            // clearTimeout(disconnecttimer);
             timer = setTimeout(() => {
+              // console.log("开始滚动到底部");
               this.scrollEl.scrollTo(
                 0,
                 this.scrollEl.scrollHeight - this.scrollEl.offsetHeight
               );
-              setTimeout(() => {
-                observer.disconnect();
-              }, 300);
+              observer.disconnect();
+              // clearTimeout(disconnecttimer);
+              // disconnecttimer = setTimeout(() => {
+              //   observer.disconnect();
+              this.watchscrollto.emit(type);
+              // }, 300);
               clearTimeout(timer);
             }, 0);
           });
@@ -186,6 +194,7 @@ export class ScrollViewComponent {
             this.keepScrollPosition();
           }).observe(this.scrollEl);
 
+          // 渲染的时候务须调整位置，让用户自己主动
           new MutationObserver(() => {
             // console.log("Dom发生了变化", this.scrollEl.scrollHeight);
             if (this.keepDistanceToBottom) {
@@ -259,10 +268,10 @@ export class ScrollViewComponent {
   // 滚动El还没来得及更新就设置了就会出现偏差
   // 通过监听滚动El ResizeObserver来解决
   keepScrollPosition() {
-    // console.log('keepScrollPosition')
     if (this.proportionalScroll) {
       switch (this.mode) {
         case "Inherit":
+          // console.log("keepScrollPosition");
           this.scrollEl.scrollTo(
             0,
             this.scrollEl.scrollHeight -

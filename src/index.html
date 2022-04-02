@@ -10,12 +10,31 @@
 
     <script type="module" src="/build/saki-ui.esm.js"></script>
     <script nomodule src="/build/saki-ui.js"></script>
+    <style>
+      html {
+        --saki-chat-bubble-read-progress-color: #f185a0;
+      }
+      * {
+        box-sizing: border-box;
+      }
+    </style>
   </head>
   <body>
-    <my-component
-      first="Stencil"
-      last="'AAAAAA Don't call me a framework' JS"
-    ></my-component>
-    <my-first-component name="Max"></my-first-component>
+    <!-- progress="0.7"
+    width="14px"
+    bar-width="5px"
+    border-spacing-width="6px"
+    border-width="2px" -->
+    <saki-circle-progress-bar
+      progress="0.7"
+      width="94px"
+      bar-width="26px"
+      animation
+      padding="4px"
+      border-width="4px"
+      color="var(--saki-chat-bubble-read-progress-color)"
+    >
+      70
+    </saki-circle-progress-bar>
   </body>
 </html>

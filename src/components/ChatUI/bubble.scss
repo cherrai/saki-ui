@@ -6,11 +6,11 @@
   display: flex;
   justify-content: flex-start;
   position: relative;
-  &:hover {
-    .bubble-time-hover {
-      opacity: 1;
-    }
-  }
+  // &:hover {
+  //   .bubble-time-hover {
+  //     opacity: 1;
+  //   }
+  // }
 
   &.right {
     flex-flow: row-reverse;
@@ -28,9 +28,10 @@
       }
     }
     .bubble-time-hover {
-      right: 50px;
+      right: 60px;
     }
   }
+
   &.left {
     .bubble-userinfo {
       padding-left: 10px;
@@ -46,9 +47,10 @@
       }
     }
     .bubble-time-hover {
-      left: 50px;
+      left: 60px;
     }
   }
+
   &.addtime {
     padding-top: 60px;
     .bubble-time-hover {
@@ -58,10 +60,11 @@
       display: block;
     }
   }
+
   .bubble-time {
     width: 100%;
     position: absolute;
-    top: 16px;
+    top: 6px;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
@@ -81,16 +84,169 @@
   }
   .bubble-content {
     position: relative;
+    .bubble-c-status {
+      &.left {
+        .bubble-c-s-readstatus {
+          right: calc(var(--max-margin) - 16px);
+          left: auto;
+        }
+        .bubble-c-s-resend-icon {
+          right: calc(var(--max-margin) - 16px);
+          left: auto;
+        }
+        .bubble-c-s-loading {
+          right: calc(var(--max-margin) - 16px);
+          left: auto;
+        }
+      }
+      // &.right {
+      //   display: none;
+      // }
+      &.success {
+        .bubble-c-s-readstatus {
+          display: block;
+        }
+      }
+      &.sending {
+        .bubble-c-s-loading {
+          display: block;
+          &::after {
+            animation: circleAnima infinite linear 1s;
+          }
+        }
+      }
+      &.fail {
+        .bubble-c-s-loading {
+          display: block;
+          &::after {
+            display: none;
+          }
+        }
+        .bubble-c-s-resend-icon {
+          display: block;
+        }
+      }
+      .bubble-c-s-readstatus {
+        display: none;
+        // border: 2px solid var(--saki-chat-bubble-loading-color);
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        bottom: 0;
+        left: calc(var(--max-margin) - 16px);
+        cursor: pointer;
+        .bubble-c-s-readstatus-icon {
+          position: absolute;
+          top: -2px;
+          right: 0px;
+          width: 14px;
+          height: 14px;
+          fill: var(--saki-chat-bubble-read-progress-color);
+        }
+        .bubble-c-s-progress-bar {
+          .bubble-c-s-progress-bar-icon {
+            width: 8px;
+            height: 8px;
+            fill: var(--saki-chat-bubble-read-progress-color);
+          }
+        }
+      }
+      .bubble-c-s-resend-icon {
+        display: none;
+        width: 12px;
+        height: 12px;
+        bottom: 0;
+        left: calc(var(--max-margin) - 16px);
+        position: absolute;
+        // top: 50%;
+        // transform: translateY(-50%);
+        // left: calc(var(--max-margin) - 18px);
+        cursor: pointer;
+        fill: var(--saki-chat-bubble-loading-color);
+      }
+      .bubble-c-s-loading {
+        display: none;
+        width: 12px;
+        height: 12px;
+        bottom: 0;
+        left: calc(var(--max-margin) - 16px);
+        position: absolute;
+        // top: 50%;
+        // transform: translateY(-50%);
+        // left: calc(var(--max-margin) - 18px);
+
+        &::after {
+          content: "";
+          border: 2px solid var(--saki-chat-bubble-loading-color);
+          border-radius: 50%;
+          border-top: 2px solid var(--saki-chat-bubble-loading-active-color);
+          width: 100%;
+          height: 100%;
+          display: block;
+          cursor: pointer;
+        }
+        @keyframes circleAnima {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+      }
+    }
     .bubble-c-msg {
       border-radius: var(--saki-chat-bubble-content-border-radius);
       padding: 10px;
+      .bubble-c-msg-call {
+        cursor: default;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .icon {
+          width: 22px;
+          height: 22px;
+          fill: #7c8092;
+        }
+        .bubble-c-msg-call-content {
+          flex: 1;
+          text-align: center;
+          position: relative;
+          user-select: none;
+          .bubble-c-msg-call-msg {
+            opacity: 1;
+          }
+          &::after {
+            content: attr(data-hover-text);
+            position: absolute;
+            left: 0;
+            opacity: 0;
+            top: 0;
+            color: #2254f4;
+            cursor: pointer;
+          }
+        }
+        &.hover {
+          &:hover {
+            .bubble-c-msg-call-content {
+              .bubble-c-msg-call-msg {
+                opacity: 0;
+              }
+              &::after {
+                opacity: 1;
+              }
+            }
+          }
+        }
+      }
     }
   }
   .bubble-time-hover {
     position: absolute;
     top: -18px;
     // opacity: 1;
-    opacity: 0;
+    // opacity: 0;
     font-size: 12px;
     color: var(--saki-chat-bubble-time-color);
     transition: opacity 0.2s;
