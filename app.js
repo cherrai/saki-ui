@@ -1,3 +1,4 @@
+const cors = require("koa2-cors");
 let port = 8000;
 let root = "./dist";
 process.argv.some((item, index) => {
@@ -12,6 +13,13 @@ const path = require("path");
 const staticFiles = require("koa-static");
 const App = new Koa();
 
+App.use(
+  cors({
+    origin: () => {
+      return "*";
+    },
+  })
+);
 App.use(staticFiles(path.join(__dirname, root)));
 
 App.listen(port, () => {
