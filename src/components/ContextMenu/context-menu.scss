@@ -2,6 +2,7 @@
   .context-menu-content {
     position: fixed;
     visibility: hidden;
+    overflow: hidden;
     &.show {
       visibility: visible;
       opacity: 1;
@@ -10,7 +11,7 @@
     z-index: 1000;
     background-color: #fff;
     border-radius: 4px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -33,12 +34,12 @@
 .saki-context-menu-item-component {
   padding: 6px 8px;
   transition: background-color 0.3s;
-  cursor: pointer;
+  // cursor: pointer;
   user-select: none;
   &:hover {
-    background-color: #f4f4f4;
+    background-color: #ececec;
   }
   &:active {
-    background-color: #e7e7e7;
+    background-color: #d8d8d8;
   }
 }

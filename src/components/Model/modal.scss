@@ -36,3 +36,13 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   }
 }
+
+.saki-modal-buttons-component {
+  padding: 6px 12px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.saki-modal-content-component {
+  padding: 6px 12px;
+}

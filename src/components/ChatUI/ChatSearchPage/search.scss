@@ -1,0 +1,90 @@
+.saki-chat-search-component {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.saki-chat-search-title-component {
+  padding: 0 10px;
+  cursor: default;
+  user-select: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  .st-title {
+    color: #999;
+    font-size: 12px;
+  }
+  .st-subtitle {
+    color: #999;
+    font-size: 12px;
+  }
+}
+
+.saki-chat-search-item-component {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 10px;
+  cursor: default;
+  user-select: none;
+  &.selected {
+    background-color: #faebef;
+  }
+  // .si-avatar {
+  // }
+  // &:hover {
+  //   background-color: #faebef;
+  // }
+  // &:active {
+  //   background-color: #f2d0d9;
+  // }
+  span.result {
+    color: var(--saki-default-color);
+    font-weight: 600;
+  }
+  .si-right {
+    flex: 1;
+    padding: 0 0 0 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .si-r-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .si-r-t-nickname {
+        font-size: 14px;
+      }
+      .si-r-t-time {
+        color: #999;
+        font-size: 12px;
+        white-space: nowrap;
+      }
+    }
+    .si-r-desc {
+      font-size: 14px;
+      color: #999;
+    }
+  }
+}
+
+.saki-chat-search-more {
+  padding: 10px 10px;
+  cursor: pointer;
+  text-align: right;
+  user-select: none;
+  .sm-title {
+    font-weight: 700;
+    color: #888;
+    font-size: 12px;
+    &:hover {
+      color: #999;
+    }
+    &:active {
+      color: #aaa;
+    }
+  }
+}

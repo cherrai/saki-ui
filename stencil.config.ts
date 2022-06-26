@@ -3,7 +3,7 @@ import { sass } from "@stencil/sass";
 // import { reactOutputTarget } from "@stencil/react-output-target";
 
 // export const prefix = "meow";
-
+// cropperjs/dist/cropper.css
 export const config: Config = {
   namespace: "saki-ui",
   buildEs5: true,
@@ -15,13 +15,15 @@ export const config: Config = {
     //   key: readFileSync('key.pem', 'utf8')
     // }
   },
-  // globalStyle: "src/assets/iconfont/iconfont.css",
+  // globalStyle: "node_modules/cropperjs/dist/cropper.css",
   plugins: [
     sass({
       injectGlobalPaths: [
         // "src/assets/iconfont/iconfont.css",
         // "src/globals/variables.scss",
         "src/globals/base.scss",
+        "node_modules/cropperjs/dist/cropper.css"
+        // "src/components/Avatar/cropper.scss",
       ],
     }),
   ],

@@ -2,11 +2,12 @@
   width: 100%;
   height: 100%;
   position: relative;
+  background-color: #000;
   .call-main-video {
     width: 100%;
     height: 100%;
     background-color: #000;
-    object-fit: cover;
+    object-fit: contain;
   }
   .video-signal {
     position: absolute;

@@ -6,7 +6,13 @@ import {
   Prop,
   State,
   Method,
+  Event,
+  EventEmitter,
 } from "@stencil/core";
+
+import { SFUStream } from "@nyanyajs/utils";
+
+import { setStream } from "./methods";
 @Component({
   tag: "saki-call-main-video",
   styleUrl: "main-video.scss",
@@ -14,40 +20,79 @@ import {
 })
 export class CallMainVideoComponent {
   @State() video: HTMLVideoElement;
-  @State() stream: MediaStream;
+  @Prop({ mutable: true }) stream: SFUStream;
+  @Prop({ mutable: true }) streamId: string = "";
   @Prop({ mutable: true }) mediaType: "audio" | "video" = "video";
   @Prop({ mutable: true }) frameRate: number = 0;
   @Prop({ mutable: true }) width: number = 0;
+  @Prop({ mutable: true }) height: number = 0;
   @Prop({ mutable: true }) avatar: string = "";
   @Prop({ mutable: true }) nickname: string = "";
-  @Prop({ mutable: true }) height: number = 0;
   @Prop({ mutable: true }) jitter: number = 0;
   @Prop({ mutable: true }) speaker: boolean = false;
   @Prop({ mutable: true }) status: "success" | "wait" = "success";
-  @Prop({ mutable: true }) streamType: "local" | "remote" = "local";
+  @Prop({ mutable: true }) streamType: "Local" | "Remote" | "ScreenShare" = "Local";
+  @Prop({ mutable: true }) mediaDevices: MediaDeviceInfo[] = [];
+  @Prop({ mutable: true }) activeAudioDevice: string = "";
+  @Prop({ mutable: true }) activeVideoDevice: string = "";
   @Element() el: HTMLElement;
-  componentDidLoad() {}
+  @Event() changestreamid: EventEmitter;
+  componentDidLoad() {
+    this.video = this.el.querySelector(".call-main-video");
+
+    if (this.streamId) {
+      this.changestreamid.emit({
+        streamId: this.streamId,
+      });
+    }
+  }
+  @Watch("mediaDevices")
+  watchMediaDevicesFunc() {
+    console.log("mediaDevices", JSON.parse(JSON.stringify(this.mediaDevices)));
+  }
+  @Watch("streamId")
+  watchStreamIdFunc() {
+    if (this.streamId) {
+      this.changestreamid.emit({
+        streamId: this.streamId,
+      });
+    }
+  }
+  @Watch("stream")
+  watchStreamFunc() {
+    this.stream && this.setStream(this.stream);
+  }
   @Watch("speaker")
   watchSpeakerFunc() {
     if (this.speaker) {
-      console.log(this.stream?.id, "正在说话");
+      console.log(this.stream, "正在说话");
     }
   }
   @Method()
+  async setMediaDevices(mediaDevices: MediaDeviceInfo[]) {
+    this.mediaDevices = mediaDevices;
+  }
+  @Method()
+  async setStream(stream: SFUStream) {
+    setStream.call(this, stream);
+  }
+  @Method()
   async setSrcObject(stream: MediaStream) {
-    this.stream = stream;
+    // this.stream = stream;
     const videoEl: any = this.video;
     if (videoEl["srcObject"]?.id !== stream?.id) {
       videoEl["srcObject"] = stream;
     }
   }
-  formatStreamTypeText(type: "local" | "remote") {
+  formatStreamTypeText(type: "Local" | "Remote" | "ScreenShare") {
     switch (type) {
-      case "local":
+      case "Local":
         return "Local";
 
-      case "remote":
+      case "Remote":
         return "Remote";
+      case "ScreenShare":
+        return "Screen share";
 
       default:
         break;
@@ -57,14 +102,14 @@ export class CallMainVideoComponent {
     return (
       <div class={"saki-call-main-video-component"}>
         <video
-          ref={(e) => {
-            !this.video &&
-              e &&
-              ((this.video = e),
-              (this.video.onerror = (err) => {
-                console.log("sakiui-main-video", err);
-              }));
-          }}
+          // ref={(e) => {
+          //   !this.video &&
+          //     e &&
+          //     ((this.video = e),
+          //     (this.video.onerror = (err) => {
+          //       console.log("sakiui-main-video", err);
+          //     }));
+          // }}
           class="call-main-video"
           autoplay
           playsinline
@@ -120,11 +165,13 @@ export class CallMainVideoComponent {
           ) : (
             ""
           )}
-          {this.jitter && this.streamType === "remote" ? (
+          {this.jitter && this.streamType === "Remote" ? (
             <div class={"v-i-item"}>{this.jitter}ms</div>
           ) : (
             ""
           )}
+          {/* <slot name="parameter-layout"></slot> */}
+          {/* Video device not found */}
           {/* <div class={"v-i-item"}>40ms</div> */}
         </div>
       </div>

@@ -6,15 +6,16 @@ import {
   h,
   State,
   Method,
+  Watch,
 } from "@stencil/core";
 
 @Component({
   tag: "saki-context-menu",
   styleUrl: "context-menu.scss",
-  shadow: true,
 })
 export class ContextMenuComponent {
   @Element() el: Element;
+  @State() compEl: Element;
   @State() contentEl: Element;
   @State() visible: boolean = false;
   @State() updateTime = 0;
@@ -23,6 +24,21 @@ export class ContextMenuComponent {
     top: 0,
   };
   @Event() close: EventEmitter;
+  @Event() fullclose: EventEmitter;
+  @Watch("visible")
+  watchVisible() {
+    if (this.visible) {
+      if (!this.compEl) {
+        this.compEl = this.el.querySelector(".saki-context-menu-component");
+
+        this.contentEl = this.el.querySelector(".context-menu-content");
+        // console.log("this.contextEl", this.el, this.contentEl);
+      }
+      document.body.appendChild(this.compEl);
+    } else {
+      document.body.removeChild(this.compEl);
+    }
+  }
   @Method()
   async show({ x, y }: { x: number; y: number }) {
     // console.log(x, y);
@@ -37,29 +53,40 @@ export class ContextMenuComponent {
   }
   addCloseAnimate() {
     this.close.emit();
-    const animate = this.contentEl.animate([{
-      opacity: "0"
-    }], {
-      duration: 150,
-      iterations: 1,
-    });
+    const animate = this.contentEl.animate(
+      [
+        {
+          opacity: "0",
+        },
+      ],
+      {
+        duration: 150,
+        iterations: 1,
+      }
+    );
     animate.onfinish = () => {
       this.visible = false;
+      this.fullclose.emit();
     };
   }
-  componentWillLoad() {
-    if (this.el?.children?.length) {
-      for (const key in this.el.children) {
-        if (Object.prototype.hasOwnProperty.call(this.el.children, key)) {
-          const element = this.el.children[key];
-          element.addEventListener("tap", () => {
-            this.addCloseAnimate();
-          });
-        }
-      }
+  componentWillLoad() {}
+  componentDidLoad() {
+    const menuList = this.el.querySelectorAll("saki-context-menu-item");
+    if (menuList?.length) {
+      menuList.forEach((item) => {
+        item.addEventListener("tap", () => {
+          this.addCloseAnimate();
+        });
+      });
+
+      // for (const key in this.el.children) {
+      //   if (Object.prototype.hasOwnProperty.call(this.el.children, key)) {
+      //     const element = this.el.children[key];
+      //     element.addEventListener("tap", () => {});
+      //   }
+      // }
     }
   }
-  componentDidLoad() {}
   render() {
     return (
       <div
@@ -70,9 +97,9 @@ export class ContextMenuComponent {
         class={"saki-context-menu-component"}
       >
         <div
-          ref={(e) => {
-            !this.contentEl && e && (this.contentEl = e);
-          }}
+          // ref={(e) => {
+          //   !this.contentEl && e && (this.contentEl = e);
+          // }}
           style={{
             left: this.contextMenuObj.left + "px",
             top: this.contextMenuObj.top + "px",
@@ -86,8 +113,10 @@ export class ContextMenuComponent {
             e.preventDefault();
             return false;
           }}
-          onClick={() => {
+          onMouseDown={() => {
             this.addCloseAnimate();
+          }}
+          onClick={() => {
             // this.visible = false;
             // this.close.emit();
           }}

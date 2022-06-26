@@ -11,11 +11,11 @@ import {
 
 // import { debounce } from "../../plugins/methods";
 // import { prefix } from "../../../stencil.config";
-// console.log(prefix + "-tabs");
+// //console.log(prefix + "-tabs");
 @Component({
   tag: "saki-scroll-view",
   styleUrl: "scroll-view.scss",
-  // shadow: true,
+  shadow: false,
 })
 export class ScrollViewComponent {
   @State() observer: IntersectionObserver;
@@ -24,49 +24,73 @@ export class ScrollViewComponent {
     el: null,
   };
   @State() scrollElHeight: number = 0;
-  @State() scrollEl: HTMLElement | any;
-  @State() distanceToBottom: number = 0;
+  scrollEl: HTMLElement | any;
+
+  @State() distanceToBorder: {
+    top: number;
+    bottom: number;
+  } = {
+    top: 0,
+    bottom: 0,
+  };
 
   @Prop() height: string = "";
   // 保持距离底部的位置不变
   @Prop() keepDistanceToBottom: boolean = false;
   @Prop() maxHeight: string = "";
   @Prop() proportionalScroll: boolean = false;
+
+  scrollToY: number = -1;
+
   // Inherit 继承上一级的宽高
   @Prop() mode: "Inherit" | "Custom" | "Normal" | "Auto" = "Normal";
+
   @Prop() scrollBar: "Default" | "Auto" = "Default";
+
+  // 距离底部的偏移量
   @Prop() offsetY: number = 0;
   @State() startScrollY: number = 0;
   @State() scrollDirection: string = "";
-  @Prop() position: string = "top";
+
+  // 位置 Top/Bottom
+  @Prop() position: "Top" | "Bottom" = "Top";
+  // 是否保持位置不变。如聊天记录，发生了dom变化自动到底部
+  // @Prop() keepPosition: boolean = false;
+
   @State() isScrollToBottom: boolean = false;
-  @State() compEl: Element;
+  compEl: Element;
   @Element() el: Element;
-  @State() scrollBottom: Element;
+  scrollBottom: Element;
+  keepScrollPositionTimer: NodeJS.Timeout;
   //
   @Event() scrolltobottom: EventEmitter;
   @Event() scrolltotop: EventEmitter;
-  @Event() distancetobottom: EventEmitter;
+  @Event() distancetoborder: EventEmitter<typeof this.distanceToBorder>;
   @Event() watchscrollto: EventEmitter;
   @Event() mounted: EventEmitter;
 
+  scrollToObserverTimer: NodeJS.Timeout;
+  scrollToMutationObserverTimer: NodeJS.Timeout;
+
   componentWillLoad() {
-    // console.log("componentWillLoad");
+    // //console.log("componentWillLoad");
     this.mounted.emit();
   }
   componentDidLoad() {
-    // console.log("componentDidLoad");
+    // //console.log("componentDidLoad");
     // setTimeout(() => {
     this.init();
     switch (this.position) {
-      case "bottom":
-        console.log("componentDidLoad bottom");
-        // console.log(
+      case "Top":
+        break;
+      case "Bottom":
+        //console.log("componentDidLoad bottom");
+        // //console.log(
         //   "bottom",
         //   this.scrollBottom.getBoundingClientRect(),
         //   this.compEl.scrollHeight
         // );
-        this.scrollToFunc("bottom");
+        this.scrollTo("bottom");
         break;
 
       default:
@@ -86,40 +110,63 @@ export class ScrollViewComponent {
       clientHeight
     );
   }
+
+  // watchTimeout -> 监听dom多久
   @Method()
-  async scrollToFunc(type: string) {
-    console.log("滚动到底部", type, this.mode);
+  async scrollTo(type: string, options?: { watchTimeout: number }) {
+    console.log("滚动到 =>", type, this.mode);
     switch (type) {
+      case "top":
+        switch (this.mode) {
+          case "Custom":
+            this.el
+              ?.querySelector(".saki-scroll-view-component")
+              ?.scrollTo(0, 0);
+            break;
+
+          default:
+            break;
+        }
+        break;
       case "bottom":
         if (this.mode !== "Inherit") {
-          // console.log("滚动到底部1");
+          // //console.log("滚动到底部1");
           this.scrollEl.scrollTo.scrollTo(
             0,
             this.scrollEl.scrollTo.scrollHeight + 100
           );
         } else {
           // 创建一个观察器实例并传入回调函数
-          let timer: any;
+          this.scrollEl.scrollTo(
+            0,
+            this.scrollEl.scrollHeight - this.scrollEl.offsetHeight
+          );
+
           // let disconnecttimer: any;
+          // console.log("开始监听", this.scrollEl);
           const observer = new MutationObserver(() => {
-            // console.log("Dom发生了变化", e, this.scrollEl.scrollHeight);
-            clearTimeout(timer);
+            // console.log("Dom发生了变化", this.scrollEl.scrollHeight);
+            clearTimeout(this.scrollToMutationObserverTimer);
             // clearTimeout(disconnecttimer);
-            timer = setTimeout(() => {
-              // console.log("开始滚动到底部");
+            this.scrollToMutationObserverTimer = setTimeout(() => {
+              console.log("开始滚动到底部");
               this.scrollEl.scrollTo(
                 0,
                 this.scrollEl.scrollHeight - this.scrollEl.offsetHeight
               );
-              observer.disconnect();
               // clearTimeout(disconnecttimer);
               // disconnecttimer = setTimeout(() => {
               //   observer.disconnect();
               this.watchscrollto.emit(type);
               // }, 300);
-              clearTimeout(timer);
+              clearTimeout(this.scrollToMutationObserverTimer);
             }, 0);
           });
+
+          clearTimeout(this.scrollToObserverTimer);
+          this.scrollToObserverTimer = setTimeout(() => {
+            observer.disconnect();
+          }, options?.watchTimeout || 500);
 
           // 以上述配置开始观察目标节点
           observer.observe(this.scrollEl, {
@@ -140,7 +187,7 @@ export class ScrollViewComponent {
   //   var step = 0;
   //   const dis = Math.abs(target - el.scrollTop);
   //   let tempStep = 2;
-  //   console.log(dis);
+  //   //console.log(dis);
   //   if (dis > 80) {
   //     tempStep = 2;
   //   }
@@ -152,7 +199,7 @@ export class ScrollViewComponent {
   //   // }
 
   //   var timer = setInterval(() => {
-  //     console.log(step);
+  //     //console.log(step);
   //     if (tempY > y) {
   //       if (Math.floor(tempY) <= y + tempStep) {
   //         el.scrollTo(0, y);
@@ -164,7 +211,7 @@ export class ScrollViewComponent {
   //         el.scrollTo(0, tempY);
   //       }
   //     } else {
-  //       // console.log(tempY, y, tempStep);
+  //       // //console.log(tempY, y, tempStep);
   //       if (Math.ceil(tempY) >= y - 2) {
   //         el.scrollTo(0, y);
   //         clearInterval(timer);
@@ -177,7 +224,7 @@ export class ScrollViewComponent {
   //   }, 30);
   // }
   init() {
-    // console.log(this.mode);
+    // //console.log(this.mode);
     switch (this.mode) {
       case "Inherit":
         if (this.compEl) {
@@ -190,22 +237,24 @@ export class ScrollViewComponent {
         }
 
         if (this.scrollEl) {
-          new ResizeObserver(() => {
-            this.keepScrollPosition();
-          }).observe(this.scrollEl);
-
-          // 渲染的时候务须调整位置，让用户自己主动
-          new MutationObserver(() => {
-            // console.log("Dom发生了变化", this.scrollEl.scrollHeight);
-            if (this.keepDistanceToBottom) {
-              // console.log(this.distanceToBottom);
+          if (this.keepDistanceToBottom) {
+            new ResizeObserver(() => {
+              // console.log("ResizeObserver 发生了变化");
               this.keepScrollPosition();
-            }
-          }).observe(this.scrollEl, {
-            attributes: true,
-            childList: true,
-            subtree: true,
-          });
+            }).observe(this.scrollEl);
+
+            // 渲染的时候务须调整位置，让用户自己主动
+            new MutationObserver(() => {
+              // console.log("MutationObserver 发生了变化");
+              // //console.log(this.distanceToBottom);
+
+              this.keepScrollPosition();
+            }).observe(this.scrollEl, {
+              attributes: true,
+              childList: true,
+              subtree: true,
+            });
+          }
         }
         // Start observing the target node for configured mutations
         break;
@@ -230,39 +279,39 @@ export class ScrollViewComponent {
     }
   }
   // 继承模式
-  onScrollFunc(e: Event) {
-    // console.log("滚动事件", e);
-    // console.log(this.proportionalScroll);
+  onScrollFunc() {
+    // //console.log("滚动事件", e);
+    // //console.log(this.proportionalScroll);
+
+    // 当有新的dom内容的时候，保持之前的滚动距离
     if (this.proportionalScroll) {
-      // console.log(this.inheritData.el.scrollTop);
-
-      !this.scrollEl && (this.scrollEl = e.target);
-      // console.log(
-      //   e.target["scrollTop"],
-      //   this.scrollElHeight,
-      //   e.target["offsetHeight"]
-      // );
-      // if (this.scrollElHeight !== e.target["offsetHeight"]) {
-      this.distanceToBottom =
-        e.target["scrollHeight"] -
-        e.target["offsetHeight"] -
-        e.target["scrollTop"];
-      // }
-      // console.log("滚动了一下！！！");
-      // console.log(this.distanceToBottom);
-      this.distancetobottom.emit(this.distanceToBottom);
-
-      if (
-        e.target["scrollHeight"] -
-          e.target["offsetHeight"] -
-          e.target["scrollTop"] ===
-        0
-      ) {
-        this.scrolltobottom.emit();
+      if (this.scrollToY >= 0) {
+        this.scrollEl.scrollTo(0, this.scrollToY);
+        this.scrollToY = -1;
       }
-      if (e.target["scrollTop"] === 0) {
-        this.scrolltotop.emit();
-      }
+    }
+    this.distanceToBorder.bottom =
+      this.scrollEl["scrollHeight"] -
+      this.scrollEl["offsetHeight"] -
+      this.scrollEl["scrollTop"];
+    this.distanceToBorder.top = this.scrollEl["scrollTop"];
+    // }
+    // console.log("滚动了一下！！！", this.distanceToBorder);
+    // console.log(this.distanceToBottom);
+
+    // console.log(
+    //   this.scrollEl.scrollHeight,
+    //   this.scrollElHeight,
+    //   this.distanceToBottom
+    // );
+    // this.distanceToBottom
+    // console.log(this.distancetoborder);
+    this.distancetoborder.emit(this.distanceToBorder);
+    if (this.distanceToBorder.bottom === 0) {
+      this.scrolltobottom.emit();
+    }
+    if (this.scrollEl["scrollTop"] === 0) {
+      this.scrolltotop.emit();
     }
   }
   // 滚动El还没来得及更新就设置了就会出现偏差
@@ -272,12 +321,22 @@ export class ScrollViewComponent {
       switch (this.mode) {
         case "Inherit":
           // console.log("keepScrollPosition");
-          this.scrollEl.scrollTo(
-            0,
-            this.scrollEl.scrollHeight -
+
+          // 保持一致滚动在底部
+          if (this.keepDistanceToBottom) {
+            // if (this.keepScrollPositionTimer) {
+            //   clearTimeout(this.keepScrollPositionTimer);
+            // }
+            // this.keepScrollPositionTimer = setTimeout(() => {
+
+            // }, 0);
+            this.scrollToY =
+              this.scrollEl.scrollHeight -
               this.scrollElHeight -
-              this.distanceToBottom
-          );
+              this.distanceToBorder.bottom;
+            this.scrollToY <= 0 && (this.scrollToY = 0);
+            this.scrollEl.scrollTo(0, this.scrollToY);
+          }
 
           break;
       }
@@ -288,23 +347,23 @@ export class ScrollViewComponent {
       window.innerHeight ||
       document.documentElement.clientHeight ||
       document.body.clientHeight;
-    // console.log(this.el, this.el.clientHeight);
-    // console.log(this.el.getBoundingClientRect());
-    // console.log(clientHeight, this.el.getBoundingClientRect(), this.maxHeight);
+    // //console.log(this.el, this.el.clientHeight);
+    // //console.log(this.el.getBoundingClientRect());
+    // //console.log(clientHeight, this.el.getBoundingClientRect(), this.maxHeight);
 
-    // console.log(
+    // //console.log(
     //   this.scrollBottom.getBoundingClientRect().bottom + this.offsetY <=
     //     clientHeight
     // );
-    // console.log(this.el.getBoundingClientRect());
-    // console.log((clientHeight - this.el.getBoundingClientRect().top) / 1);
-    // console.log(this.compEl);
-    // console.log("line 103", this.compEl.getBoundingClientRect());
+    // //console.log(this.el.getBoundingClientRect());
+    // //console.log((clientHeight - this.el.getBoundingClientRect().top) / 1);
+    // //console.log(this.compEl);
+    // //console.log("line 103", this.compEl.getBoundingClientRect());
     if (this.compEl.getBoundingClientRect().top) {
       this.maxHeight =
         (clientHeight - this.compEl.getBoundingClientRect().top) / 1 + "px";
     }
-    // console.log(this.maxHeight);
+    // //console.log(this.maxHeight);
     if (
       this.scrollBottom.getBoundingClientRect().bottom + this.offsetY <=
       clientHeight
@@ -320,7 +379,7 @@ export class ScrollViewComponent {
       document.documentElement.clientHeight ||
       document.body.clientHeight;
 
-    // console.log(
+    // //console.log(
     //   this.scrollBottom.getBoundingClientRect(),
     //   this.offsetY,
     //   clientHeight
@@ -333,7 +392,7 @@ export class ScrollViewComponent {
       clientHeight
     ) {
       // 满足
-      // console.log("bottom");
+      // //console.log("bottom");
       if (!this.isScrollToBottom) {
         if (this.scrollDirection === "bottom") {
           this.scrolltobottom.emit();
@@ -346,11 +405,11 @@ export class ScrollViewComponent {
     return (
       <div
         ref={(e) => {
-          !this.compEl && e && (this.compEl = e);
+          this.compEl = e;
         }}
         onScroll={() => {
-          // console.log(this.el.scrollTop);
-          // console.log(this.startScrollY - this.el.scrollTop);
+          // //console.log(this.el.scrollTop);
+          // //console.log(this.startScrollY - this.el.scrollTop);
           if (this.startScrollY - this.compEl.scrollTop < 0) {
             this.scrollDirection = "bottom";
           } else {
@@ -386,12 +445,13 @@ export class ScrollViewComponent {
         {this.mode === "Inherit" ? (
           <div
             ref={(e) => {
-              if (this.mode === "Inherit") {
-                e && (this.scrollEl = e);
-                e && (this.inheritData.el = e);
-              }
+              this.scrollEl = e;
+              this.inheritData.el = e;
+              !this.scrollEl && this.onScrollFunc();
             }}
-            onScroll={this.onScrollFunc.bind(this)}
+            onScroll={() => {
+              this.onScrollFunc();
+            }}
             style={{
               height: this.inheritData.height
                 ? this.inheritData.height + "px"
@@ -407,7 +467,7 @@ export class ScrollViewComponent {
 
         <div
           ref={(e) => {
-            !this.scrollBottom && e && (this.scrollBottom = e);
+            this.scrollBottom = e;
           }}
           class="scroll-bottom"
         ></div>

@@ -1,4 +1,4 @@
-import { Component, h, Event, EventEmitter } from "@stencil/core";
+import { Component, h, Prop, Event, EventEmitter } from "@stencil/core";
 
 // import { debounce } from "../../plugins/methods";
 // import { prefix } from "../../../stencil.config";
@@ -9,6 +9,7 @@ import { Component, h, Event, EventEmitter } from "@stencil/core";
   shadow: true,
 })
 export class ContextMenuItemComponent {
+  @Prop() width: string = "";
   @Event({
     eventName: "tap",
     composed: true,
@@ -26,6 +27,9 @@ export class ContextMenuItemComponent {
         }}
         onClick={() => {
           this.tap.emit();
+        }}
+        style={{
+          ...(this.width ? { width: this.width } : {}),
         }}
         class={"saki-context-menu-item-component"}
       >

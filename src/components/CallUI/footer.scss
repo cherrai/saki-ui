@@ -1,0 +1,30 @@
+.saki-call-footer-component {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 20px 30px;
+  .footer-left {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .footer-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .footer-right {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    .footer-r-hangup-icon {
+      fill: #fff;
+      transform: translateY(-2px);
+    }
+  }
+}

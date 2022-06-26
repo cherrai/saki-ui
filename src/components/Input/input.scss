@@ -1,144 +1,183 @@
 .saki-input-component {
   width: 100%;
-  position: relative;
   --input-border-color: #eee;
   --input-border-hover-color: #f29cb2;
-  .line {
-    display: none;
+  .si-subtitle {
+    color: #666;
+    font-size: 14px;
   }
-  .placeholder {
-    display: none;
-  }
+  .si-input {
+    width: 100%;
+    position: relative;
+    .line {
+      display: none;
+    }
+    // .placeholder {
+    //   // display: none;
+    // }
+    &.Search {
+      input {
+        padding-left: 30px !important;
+      }
+      .placeholder {
+        left: 30px;
+        width: calc(100% - 50px);
+      }
+    }
 
-  &.Textarea {
-    overflow: auto;
+    &.Textarea {
+      overflow: auto;
 
-    .placeholder {
-      display: block;
+      .placeholder {
+        display: block;
+      }
+      &.havaValue {
+        .placeholder {
+          display: none;
+        }
+      }
+      // &.noValue {
+      //   height: 14px;
+      // }
+    }
+    &.MoveUp {
+      input {
+        padding-top: 14px !important;
+      }
+      .line {
+        display: block;
+      }
+      .placeholder {
+        display: block !important;
+
+        margin-top: 8px;
+      }
+      .delete-icon {
+        margin-top: 8px;
+      }
+      &.havaValue {
+        .line {
+          &::before {
+            width: 100%;
+          }
+        }
+
+        .placeholder {
+          top: 4px;
+          transform: translateY(0);
+          font-size: 12px !important;
+          margin-top: 0px;
+          color: var(--input-border-hover-color);
+        }
+        .delete-icon {
+          opacity: 1;
+        }
+      }
+    }
+    &.closeIcon {
+      input {
+        padding-right: 30px !important;
+      }
+      .delete-icon {
+        visibility: visible;
+      }
     }
     &.havaValue {
       .placeholder {
         display: none;
       }
     }
-    // &.noValue {
-    //   height: 14px;
-    // }
-  }
-  &.BottomLineSpreadsOut {
-    input {
-      padding-top: 14px !important;
-    }
-    .line {
-      display: block;
-    }
-    .placeholder {
-      display: block;
-
-      margin-top: 8px;
-    }
-    .delete-icon {
-      margin-top: 8px;
-    }
-    &.havaValue {
-      .line {
-        &::before {
-          width: 100%;
-        }
-      }
-
-      .placeholder {
-        top: 4px;
-        transform: translateY(0);
-        font-size: 12px !important;
-        color: var(--input-border-hover-color);
-      }
+    &.focus {
       .delete-icon {
         opacity: 1;
       }
     }
-  }
-  &.closeIcon {
-    input {
-      padding-right: 30px !important;
+    .placeholder {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #666;
+      left: 0px;
+      width: 100%;
+      pointer-events: none;
+      transition: all 0.3s;
+      overflow: hidden;
     }
-    .delete-icon {
-      visibility: visible;
-    }
-  }
-  &.focus {
-    .delete-icon {
-      opacity: 1;
-    }
-  }
-  .placeholder {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #666;
-    left: 0px;
-    width: 100%;
-    pointer-events: none;
-    transition: all 0.3s;
-    overflow: hidden;
-  }
-  .line {
-    width: 100%;
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    height: 1px;
-    background-color: var(--input-border-color);
-    &::before {
-      content: "";
+    .line {
+      width: 100%;
       position: absolute;
       bottom: 0;
       left: 50%;
       transform: translateX(-50%);
-      width: 0%;
-      height: 2px;
-      transition: width 0.4s;
-      background-color: var(--input-border-hover-color);
+      height: 1px;
+      background-color: var(--input-border-color);
+      &::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0%;
+        height: 2px;
+        transition: width 0.4s;
+        background-color: var(--input-border-hover-color);
+      }
     }
-  }
-  input {
-    border: none;
-    width: 100%;
-    outline: none;
-    height: 100%;
-    padding: 0;
-  }
-  textarea,
-  .textarea {
-    border: none;
-    width: 100%;
-    outline: none;
-    // height: 100%;
-    padding: 0;
-    resize: none;
-    // display: block;
-    // transition: all 0.3s;
-  }
-  .delete-icon {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 30px;
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    transition: opacity 0.3s;
-    visibility: hidden;
-    transition: all 0.3s;
-    .icon {
-      height: 18px;
-      width: 18px;
-      fill: #666;
-      cursor: pointer;
+    input {
+      border: none;
+      width: 100%;
+      outline: none;
+      height: 100%;
+      padding: 0;
+    }
+    textarea,
+    .textarea {
+      border: none;
+      width: 100%;
+      outline: none;
+      // height: 100%;
+      padding: 0;
+      resize: none;
+      // display: block;
+      // transition: all 0.3s;
+    }
+    .search-icon {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 30px;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .icon {
+        height: 18px;
+        width: 18px;
+        fill: #aaa;
+        cursor: pointer;
+      }
+    }
+    .delete-icon {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 30px;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+      visibility: hidden;
+      transition: all 0.3s;
+      .icon {
+        height: 18px;
+        width: 18px;
+        fill: #666;
+        cursor: pointer;
+      }
     }
   }
 }

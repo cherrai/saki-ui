@@ -42,6 +42,7 @@ export class CallHeaderComponent {
                 p-id="6334"
               ></path>
             </svg>
+            <slot name="left"></slot>
           </div>
         </div>
         <div class="call-h-center">
@@ -54,8 +55,11 @@ export class CallHeaderComponent {
                 
               }} */}
           </div>
+          <slot name="center"></slot>
         </div>
-        <div class="call-h-right"></div>
+        <div class="call-h-right">
+          <slot name="right"></slot>
+        </div>
       </div>
     );
   }

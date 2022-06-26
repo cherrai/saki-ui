@@ -1,0 +1,17 @@
+.saki-page-container-component {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  &.full {
+    width: 100%;
+    height: 100%;
+    .pc-main {
+      flex: 1;
+    }
+  }
+  // .pc-main {
+  //   // width: 100%;
+  //   // height: 100%;
+  // }
+}

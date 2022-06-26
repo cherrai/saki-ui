@@ -2,10 +2,10 @@ import { Component, h, Prop, Element, State } from "@stencil/core";
 
 @Component({
   tag: "saki-circle-progress-bar",
-  styleUrl: "circle-progress-bar.scss",
+  styleUrl: "progress-bar.scss",
   shadow: false,
 })
-export class ChatCircleProgressBar {
+export class CircleProgressBarComponent {
   // 0~1
   @Prop() width: string = "80px";
   @Prop() barWidth: string = "8px";

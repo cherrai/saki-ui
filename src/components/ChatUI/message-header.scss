@@ -26,6 +26,7 @@
       justify-content: center;
       align-items: flex-start;
       flex: 1;
+      transform: translateY(2px);
       .message-header-l-i-info {
         display: flex;
         flex-direction: column;
@@ -37,14 +38,43 @@
           line-height: 14px;
           flex: 1;
           font-weight: 700;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          cursor: pointer;
+          .message-header-l-i-i-n-lock {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .icon {
+              width: 10px;
+              height: 10px;
+              margin-right: 4px;
+            }
+          }
+          .message-header-l-i-i-n-anonymous {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .icon {
+              width: 12px;
+              height: 12px;
+              margin-left: 4px;
+            }
+          }
         }
       }
       .message-header-l-i-status {
-        color: #666;
+        color: #999;
         width: 100%;
         display: flex;
         justify-content: flex-start;
         align-items: center;
+        .item {
+          // color: var(--saki-chat-header-online-color);
+          margin-right: 4px;
+          font-size: 12px;
+        }
       }
     }
   }
@@ -53,6 +83,5 @@
     align-items: center;
     justify-content: flex-end;
     transition: all 0.3s;
-    
   }
 }

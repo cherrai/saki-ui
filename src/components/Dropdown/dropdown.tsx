@@ -18,7 +18,8 @@ export class DropdownComponent {
   @State() left: number = 0;
   @State() top: number = 0;
 
-  @Prop() direction: "Top" | "Bottom" = "Bottom";
+  @Prop({ mutable: true }) vertical: "Top" | "Bottom" = "Bottom";
+  @Prop({ mutable: true }) horizontal: "Left" | "Right" = "Left";
   // @Prop() isLoad: boolean = false;
   @Prop({ mutable: true }) visible: boolean = false;
   @State() isAddVisibleClass: boolean = false;
@@ -27,9 +28,9 @@ export class DropdownComponent {
   @State() coreRect: DOMRect;
   @State() contentRect: DOMRect;
 
-  @State() contentEl: HTMLDivElement;
-  @State() mainEl: HTMLDivElement;
-  @State() coreEl: HTMLDivElement;
+  contentEl: HTMLDivElement;
+  mainEl: HTMLDivElement;
+  coreEl: HTMLDivElement;
   @State() closing: boolean = false;
 
   @Event() tap: EventEmitter;
@@ -38,19 +39,21 @@ export class DropdownComponent {
   @Element() el: HTMLElement;
   @Watch("visible")
   watchVisibleFunc() {
-    // console.log("watch", this.visible);
+    // console.log("dropdown watch", this.el, this.mainEl, this.visible);
     if (this.visible) {
       this.getRect();
-      this.visibleStyle = true;
-      this.closing = false;
-      document.body.appendChild(this.mainEl);
-      this.getDropDownElePosition();
-      // console.log("this.contentEl", this.contentEl);
+      if (this.coreRect.width) {
+        this.getDropDownElePosition();
+        this.visibleStyle = true;
+        this.closing = false;
+        document.body.appendChild(this.mainEl);
+        // console.log("this.contentEl", this.contentEl);
 
-      // setTimeout(() => {
-      this.isAddVisibleClass = true;
-      // }, 10);
-      this.open.emit();
+        // setTimeout(() => {
+        this.isAddVisibleClass = true;
+        // }, 10);
+        this.open.emit();
+      }
     } else {
       this.close.emit();
       this.isAddVisibleClass = false;
@@ -68,14 +71,19 @@ export class DropdownComponent {
       document.documentElement.clientHeight ||
       document.body.clientHeight;
 
-    this.left = this.formartLeft(
-      this.coreRect.left - this.contentRect.width / 2
-    );
+    // - this.contentRect.width / 2
+    this.left = this.formartLeft(this.coreRect.left + this.coreRect.width / 2);
+
+    // console.log(this.contentRect);
+    // console.log(this.coreRect, this.coreEl.children[0]);
+    // console.log(this.coreRect.left + this.coreRect.width / 2);
     // 算右边
+    // console.log(this.left, this.contentRect.width, clientWidth);
     if (this.left + this.contentRect.width > clientWidth) {
       this.left =
         clientWidth -
         this.contentRect.width -
+        // this.coreRect.width -
         this.coreRect.width / 2 -
         10 -
         (clientWidth - this.coreRect.right);
@@ -90,6 +98,19 @@ export class DropdownComponent {
         10 -
         (clientHeight - this.coreRect.bottom);
     }
+    // console.log(this.coreRect.left, this.coreRect.top);
+    // console.log(this.left, this.top);
+    if (this.coreRect.top > this.top) {
+      this.vertical = "Bottom";
+    } else {
+      this.vertical = "Top";
+    }
+    if (this.coreRect.left > this.left) {
+      this.horizontal = "Left";
+    } else {
+      this.horizontal = "Right";
+    }
+    // console.log(this.direction);
   }
   formartTop(top: number) {
     return top < 10 ? 10 : top;
@@ -99,6 +120,7 @@ export class DropdownComponent {
   }
   getRect() {
     this.contentRect = this.contentEl.getBoundingClientRect();
+    // console.log(this.coreEl.children[0])
     this.coreRect = this.coreEl.children[0].getBoundingClientRect();
   }
   removeRect() {
@@ -122,9 +144,9 @@ export class DropdownComponent {
       <div class={"saki-dropdown-component "}>
         <div
           ref={(e) => {
-            !this.coreEl && e && (this.coreEl = e);
+            this.coreEl = e;
           }}
-          class="dropdown-core"
+          class={"dropdown-core "}
         >
           <slot></slot>
         </div>
@@ -132,21 +154,32 @@ export class DropdownComponent {
           ref={(e) => {
             !this.mainEl && e && (this.mainEl = e);
           }}
+          style={{
+            "--saki-dropdown-x": this.horizontal === "Left" ? "10px" : "-10px",
+            "--saki-dropdown-y": this.vertical === "Top" ? "-10px" : "10px",
+          }}
           class={
             "saki-dropdown-main " +
-            (this.visibleStyle ? "visibleStyle " : "") +
-            (this.isAddVisibleClass ? "visible" : "")
+            (this.visibleStyle ? "visibleStyle " : " ") +
+            (this.isAddVisibleClass ? "visible " : " ") +
+            this.vertical +
+            " " +
+            this.horizontal
           }
         >
           <div
-            onClick={() => {
+            onContextMenu={(e) => {
+              e.preventDefault();
+              return false;
+            }}
+            onMouseDown={() => {
               this.visible = false;
             }}
             class={"main-bg "}
           ></div>
           <div
             ref={(e) => {
-              !this.contentEl && e && (this.contentEl = e);
+              this.contentEl = e;
             }}
             style={{
               left: this.left + "px",
@@ -155,7 +188,10 @@ export class DropdownComponent {
             onTransitionEnd={() => {
               if (this.closing && document.body.contains(this.mainEl)) {
                 this.visibleStyle = false;
-                document.body.removeChild(this.mainEl);
+                this.el
+                  .querySelector(".saki-dropdown-component")
+                  .appendChild(this.mainEl);
+                // document.body.removeChild(this.mainEl);
               }
             }}
             class={"main-content "}

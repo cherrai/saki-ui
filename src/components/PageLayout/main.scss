@@ -1,0 +1,15 @@
+.saki-page-main-component {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  &.full {
+    height: 100%;
+    .pn-main {
+      height: 100%;
+    }
+  }
+  .pn-main {
+    width: 100%;
+  }
+}

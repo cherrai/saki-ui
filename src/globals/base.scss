@@ -48,9 +48,12 @@ html {
   --saki-button-loading-border-color: #f3f3f3;
 
   --saki-button-normal-bg-color: #f29cb2;
-
   --saki-button-normal-bg-hover-color: #f1f3f4;
   --saki-button-normal-bg-active-color: #ddd;
+
+  --saki-button-circle-icon-gray-hover-bg-color: #fff;
+  --saki-button-circle-icon-gray-hover-bg-hover-color: #f1f3f4;
+  --saki-button-circle-icon-gray-hover-bg-active-color: #ddd;
   /* --saki-button-normal-hover-color: #ddd;
 	--saki-button-normal-active-color: #ccc; */
 
@@ -62,7 +65,7 @@ html {
   --saki-chat-dialog-bg-select-color: #faebef;
   --saki-chat-dialog-message-color: #999;
   --saki-chat-dialog-time-color: #999;
-  --saki-chat-dialog-time-select-color: #222;
+  --saki-chat-dialog-time-select-color: #999;
   --saki-chat-dialog-context-menu-border: #3874fb;
   --saki-chat-dialog-count-bg-color: #ccc;
   --saki-chat-dialog-count-color: #fff;
@@ -71,10 +74,14 @@ html {
   --saki-chat-bubble-left-bg-color:#e9b0be;
   --saki-chat-bubble-right-bg-color:#b3dff0;
   --saki-chat-bubble-content-border-radius:8px;
-  --saki-chat-bubble-time-color:#999;
+  --saki-chat-bubble-time-color:#888;
   --saki-chat-bubble-read-progress-color: #f185a0;
   --saki-chat-bubble-loading-color: #f185a0;
   --saki-chat-bubble-loading-active-color: #f3f3f3;
+
+
+  // Chat header
+  --saki-chat-header-online-color: #248bb4;
 
   // Chat call
   --saki-call-mini-video-width: 160px;
@@ -82,6 +89,11 @@ html {
   // Loading
   --saki-loading-circle-bg-color: #f185a0;
   --saki-loading-circle-active-bg-color: #f3f3f3;
+
+
+  // Chat call
+  --saki-menu-active-border-color: var(--saki-default-color);
+  --saki-menu-active-background-color: #f8f7f7;
 }
 
 html,
@@ -202,6 +214,7 @@ a.link-anima {
   -webkit-line-clamp: 1;
   line-clamp: 1;
   -webkit-box-orient: vertical;
+  word-break: break-all;
 }
 
 // 超出部份省略號
@@ -213,6 +226,7 @@ a.link-anima {
   -webkit-line-clamp: 2;
   line-clamp: 2;
   -webkit-box-orient: vertical;
+  word-break: break-all;
 }
 
 .flex {

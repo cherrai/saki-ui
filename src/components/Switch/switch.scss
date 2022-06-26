@@ -1,0 +1,29 @@
+.saki-switch-component {
+  width: var(--saki-switch-width);
+  height: var(--saki-switch-height);
+  border-radius: calc(var(--saki-switch-height) / 2);
+  position: relative;
+  background-color: #eee;
+  transition: background-color 0.2s;
+  &.active {
+    background-color: var(--saki-default-color);
+    .switch-core {
+      background-color: #fff;
+      left: calc(
+        var(--saki-switch-width) - var(--saki-switch-core-width) -
+          (var(--saki-switch-height) - var(--saki-switch-core-width)) / 2
+      );
+    }
+  }
+  .switch-core {
+    width: var(--saki-switch-core-width);
+    height: var(--saki-switch-core-width);
+    border-radius: 50%;
+    position: absolute;
+    left: calc((var(--saki-switch-height) - var(--saki-switch-core-width)) / 2);
+    top: calc((var(--saki-switch-height) - var(--saki-switch-core-width)) / 2);
+    // background-color: var(--saki-default-color);
+    background-color: #fff;
+    transition: left 0.2s, background-color 0.2s;
+  }
+}

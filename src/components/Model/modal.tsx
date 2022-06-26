@@ -18,7 +18,7 @@ export class ModalComponent {
   @Prop() visible: boolean = false;
   @State() isAddVisibleClass: boolean = false;
   @State() visibleStyle: boolean = false;
-  @State() contetnEl: HTMLElement;
+  contetnEl: HTMLElement;
   @Prop() backgroundColor: string = "";
   @Prop() width: string = "";
   @Prop() height: string = "";
@@ -27,12 +27,24 @@ export class ModalComponent {
   @Prop() maxWidth: string = "";
   @Prop() maxHeight: string = "";
   @Prop() mask: boolean = false;
+  @Prop() maskBackgroundColor: string = "";
   @Prop() maskClosable: boolean = false;
   @State() closing: boolean = false;
 
-  @Event() tap: EventEmitter;
-  @Event() open: EventEmitter;
-  @Event() close: EventEmitter;
+  @Event({
+    bubbles: false,
+  })
+  tap: EventEmitter;
+
+  @Event({
+    bubbles: false,
+  })
+  open: EventEmitter;
+
+  @Event({
+    bubbles: false,
+  })
+  close: EventEmitter;
   @Element() el: HTMLElement;
   @Watch("visible")
   watchVisibleFunc() {
@@ -41,7 +53,9 @@ export class ModalComponent {
       this.open.emit();
       this.visibleStyle = true;
       document.body.appendChild(this.contetnEl);
-      this.isAddVisibleClass = true;
+      setTimeout(() => {
+        this.isAddVisibleClass = true;
+      });
     } else {
       this.close.emit();
       this.isAddVisibleClass = false;
@@ -53,9 +67,10 @@ export class ModalComponent {
     return (
       <div
         ref={(e) => {
-          if (!this.contetnEl && e) {
-            this.contetnEl = e;
-          }
+          this.contetnEl = e;
+          // if (!this.contetnEl && e) {
+          //   this.contetnEl = e;
+          // }
         }}
         style={
           {
@@ -74,6 +89,9 @@ export class ModalComponent {
               if (this.maskClosable) {
                 this.visible = false;
               }
+            }}
+            style={{
+              backgroundColor: this.maskBackgroundColor,
             }}
             class={"model-bg " + (this.isAddVisibleClass ? "visible" : "")}
           ></div>
@@ -99,7 +117,8 @@ export class ModalComponent {
           onTransitionEnd={() => {
             if (this.closing && document.body.contains(this.contetnEl)) {
               this.visibleStyle = false;
-              document.body.removeChild(this.contetnEl);
+              this.el.appendChild(this.contetnEl);
+              // document.body.removeChild(this.contetnEl);
             }
           }}
           class={"model-content " + (this.isAddVisibleClass ? "visible" : "")}

@@ -1,0 +1,19 @@
+.saki-floating-container-component {
+  &.startMove {
+    .floating-container-bg {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      background-color: rgba(0, 0, 0, 0);
+      z-index: 10000;
+    }
+  }
+  .floating-container-window {
+    position: fixed;
+    left: 0;
+    top: 0;
+    user-select: none;
+  }
+}

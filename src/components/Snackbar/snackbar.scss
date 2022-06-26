@@ -1,0 +1,202 @@
+.saki-snackbar-component {
+  width: 100%;
+  --snackbar-distance: 10px;
+  &.click {
+    .snackbar-wrap {
+      .snackbar-content {
+        cursor: pointer;
+        user-select: none;
+        transition: all 0.3s;
+        &:hover {
+          &.bgHover {
+            background-color: var(--saki-snackbar-backgroundHoverColor);
+          }
+          &.hoverColor {
+            color: var(--saki-snackbar-hoverColor);
+          }
+        }
+        &:active {
+          &.bgActive {
+            background-color: var(--saki-snackbar-backgroundActiveColor);
+          }
+          &.activeColor {
+            color: var(--saki-snackbar-activeColor);
+          }
+        }
+      }
+    }
+  }
+  &.hide {
+    .snackbar-wrap {
+      visibility: hidden;
+    }
+  }
+
+  &.none-visible {
+    .snackbar-wrap {
+      .snackbar-content {
+        transform: scale(0.9);
+        opacity: 0;
+      }
+    }
+  }
+
+  &.visible {
+    .snackbar-wrap {
+      visibility: visible;
+      .snackbar-content {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+  }
+  .snackbar-wrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100000;
+
+    &.topcenter {
+      top: var(--snackbar-distance);
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    &.topleft {
+      top: var(--snackbar-distance);
+      left: var(--snackbar-distance);
+    }
+    &.topright {
+      top: var(--snackbar-distance);
+      right: var(--snackbar-distance);
+    }
+    &.centercenter {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    &.centerleft {
+      top: 50%;
+      transform: translate(0, -50%);
+      left: var(--snackbar-distance);
+    }
+    &.centerright {
+      top: 50%;
+      transform: translate(0, -50%);
+      right: var(--snackbar-distance);
+    }
+    &.bottomcenter {
+      bottom: var(--snackbar-distance);
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    &.bottomleft {
+      bottom: var(--snackbar-distance);
+      left: var(--snackbar-distance);
+    }
+    &.bottomright {
+      bottom: var(--snackbar-distance);
+      right: var(--snackbar-distance);
+    }
+    .snackbar-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transform: scale(0.9);
+      opacity: 0;
+      transition: transform 0.3s, opacity 0.3s;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      background-color: var(--saki-snackbar-backgroundColor);
+      color: var(--saki-snackbar-color);
+      .ss-left {
+        display: flex;
+        justify-content: flex-start;
+        flex: 1;
+      }
+      .ss-right {
+        display: flex;
+        justify-content: flex-end;
+        margin-left: 10px;
+        &.closeIcon {
+          width: 36px;
+        }
+        .delete-icon {
+          position: absolute;
+          right: 6px;
+          // bottom: calc(var(--saki-snackbar-padding));
+          top: 50%;
+          transform: translateY(-50%);
+          width: 30px;
+          height: 30px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          transition: background-color 0.3s;
+          border-radius: 50%;
+          cursor: pointer;
+          &:hover {
+            background-color: #eee;
+          }
+          &:active {
+            background-color: #ccc;
+          }
+          .icon {
+            height: 18px;
+            width: 18px;
+            fill: #666;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
+
+// 暂时弃用
+.saki-snackbar-message-component {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transform: scale(0.9);
+  opacity: 0;
+  transition: transform 0.3s, opacity 0.3s;
+  .ss-left {
+    display: flex;
+    justify-content: flex-start;
+    flex: 1;
+  }
+  .ss-right {
+    display: flex;
+    justify-content: flex-end;
+    margin-left: 10px;
+    &.closeIcon {
+      width: 36px;
+    }
+    .delete-icon {
+      position: absolute;
+      right: 6px;
+      // bottom: calc(var(--saki-snackbar-padding));
+      top: 50%;
+      transform: translateY(-50%);
+      width: 30px;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: background-color 0.3s;
+      border-radius: 50%;
+      cursor: pointer;
+      &:hover {
+        background-color: #eee;
+      }
+      &:active {
+        background-color: #ccc;
+      }
+      .icon {
+        height: 18px;
+        width: 18px;
+        fill: #666;
+        cursor: pointer;
+      }
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import { Component, Element, h } from "@stencil/core";
+import { Component, Element, h, Prop } from "@stencil/core";
 
 @Component({
   tag: "saki-chat-container",
@@ -6,12 +6,22 @@ import { Component, Element, h } from "@stencil/core";
   shadow: true,
 })
 export class ChatContainerComponent {
+  @Prop() border: boolean = false;
+  @Prop() boxShadow: string = "";
   @Element() el: HTMLElement;
 
   componentDidLoad() {}
   render() {
     return (
-      <div class="saki-chat-container-component">
+      <div
+        class={"saki-chat-container-component " + (this.border ? "border" : "")}
+        style={{
+          ...["boxShadow"].reduce(
+            (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
+            {}
+          ),
+        }}
+      >
         <div class="chat-container-sidebar">
           <div class="sidebar-header">
             <slot name="sidebar-header"></slot>
@@ -24,15 +34,7 @@ export class ChatContainerComponent {
           </div>
         </div>
         <div class="chat-container-message">
-          <div class="message-header">
-            <slot name="message-header"></slot>
-          </div>
-          <div class="message-main">
-            <slot name="message-main"></slot>
-          </div>
-          <div class="message-inputbar">
-            <slot name="message-inputbar"></slot>
-          </div>
+          <slot name="message-container"></slot>
         </div>
       </div>
     );

@@ -1,0 +1,32 @@
+.saki-chat-nickname-component {
+  font-size: 14px;
+  flex: 1;
+  padding-right: 2px;
+  color: var(--saki-maintitle-color);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  .chat-dialog-i-i-lock {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: none;
+    .icon {
+      fill: var(--saki-chat-dialog-encryption-color);
+      width: 10px;
+      height: 10px;
+      margin-right: 4px;
+    }
+  }
+  .chat-dialog-i-i-anonymous {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: none;
+    .icon {
+      width: 12px;
+      height: 12px;
+      margin-left: 4px;
+    }
+  }
+}

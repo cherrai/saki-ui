@@ -1,0 +1,65 @@
+.saki-page-header-component {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &.left {
+    .pn-left {
+      display: flex;
+    }
+  }
+  &.center {
+    .pn-center {
+      display: flex;
+    }
+  }
+  &.right {
+    .pn-right {
+      display: flex;
+    }
+  }
+  .pn-left {
+    flex: 1;
+    font-weight: 700;
+    display: none;
+    align-items: center;
+    .pn-l-back {
+      width: 30px;
+      height: 30px;
+      font-weight: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.3s;
+      border-radius: 50%;
+      margin-right: 10px;
+      &:hover {
+        background-color: #eee;
+      }
+      &:active {
+        background-color: #ccc;
+      }
+      .icon {
+        height: 16px;
+        width: 16px;
+        fill: #666;
+        cursor: pointer;
+      }
+    }
+  }
+  .pn-center {
+    flex: 1;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    // background-color: #fff;
+  }
+  .pn-right {
+    flex: 1;
+    display: none;
+    justify-content: flex-end;
+    align-items: center;
+    // background-color: #fff;
+  }
+}

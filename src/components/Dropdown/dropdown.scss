@@ -3,13 +3,22 @@
 
 .saki-dropdown-main {
   visibility: hidden;
+  // &.Bottom {
+  //   .main-content {
+  //     transform: scale(0.9) translate(0px, 10px);
+  //   }
+  // }
+  // &.Top {
+  //   .main-content {;
+  //   }
+  // }
   &.visibleStyle {
     visibility: visible;
   }
   &.visible {
     .main-content {
       opacity: 1;
-      transform: translate(0px, 0px);
+      transform: scale(1) translate(0px, 0px);
     }
     .main-bg {
       // opacity: 1;
@@ -20,8 +29,10 @@
     position: fixed;
     opacity: 0;
     z-index: 1000;
-    transition: opacity 0.3s, transform 0.3s;
-    transform: translate(0px, 30px);
+    transition: opacity 0.1s, transform 0.1s;
+    transform: scale(0.9)
+      translate(var(--saki-dropdown-x), var(--saki-dropdown-y));
+    // transform: translate(0px, 10px);
     // transform: translateX(16px);
     border-radius: 10px;
     overflow: hidden;

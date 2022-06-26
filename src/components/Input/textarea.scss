@@ -1,0 +1,57 @@
+.saki-textarea-component {
+  width: 100%;
+  --input-border-color: #eee;
+  --input-border-hover-color: #f29cb2;
+
+  .si-textarea {
+    width: 100%;
+    position: relative;
+    overflow: auto;
+    // .placeholder {
+    //   // display: none;
+    // }
+
+    .placeholder {
+      display: block;
+    }
+    &.havaValue {
+      .placeholder {
+        display: none;
+      }
+    }
+    &.focus {
+      .delete-icon {
+        opacity: 1;
+      }
+    }
+    .placeholder {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #666;
+      left: 0px;
+      width: 100%;
+      pointer-events: none;
+      transition: all 0.3s;
+      overflow: hidden;
+    }
+    input {
+      border: none;
+      width: 100%;
+      outline: none;
+      height: 100%;
+      padding: 0;
+    }
+    textarea,
+    .textarea {
+      border: none;
+      width: 100%;
+      outline: none;
+      // height: 100%;
+      padding: 0;
+      resize: none;
+      // display: block;
+      // transition: all 0.3s;
+    }
+  }
+}

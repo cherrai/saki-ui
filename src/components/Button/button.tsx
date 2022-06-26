@@ -4,7 +4,9 @@ import {
   Event,
   EventEmitter,
   h,
+  State,
   Prop,
+  Watch,
 } from "@stencil/core";
 
 @Component({
@@ -12,26 +14,128 @@ import {
   styleUrl: "button.scss",
   // shadow: true,
 })
-export class TabsComponent {
-  @Prop() type: "Normal" | "Primary" = "Normal";
-  @Prop() bgHoverColor: string = "";
-  @Prop() bgActiveColor: string = "";
-  @Prop() border: string = "";
-  @Prop() margin: string = "";
-  @Prop() padding: string = "";
-  @Prop() width: string = "";
-  @Prop() height: string = "";
-  @Prop() fontSize: string = "";
+export class ButtonComponent {
+  @Prop() type: "Normal" | "Primary" | "CircleIconGrayHover" = "Normal";
+  @Prop({ mutable: true }) bgHoverColor: string = "";
+  @Prop({ mutable: true }) bgActiveColor: string = "";
+  @Prop({ mutable: true }) bgColor: string = "";
+  @Prop({ mutable: true }) border: string = "";
+  @Prop({ mutable: true }) margin: string = "";
+  @Prop({ mutable: true }) padding: string = "";
+  @Prop({ mutable: true }) borderRadius: string = "";
+  @Prop({ mutable: true }) width: string = "";
+  @Prop({ mutable: true }) height: string = "";
+  @Prop({ mutable: true }) fontSize: string = "";
+  @Prop({ mutable: true }) fontWeight: string = "";
+  @Prop({ mutable: true }) color: string = "";
+  // @Prop({ mutable: true }) hoverColor: string = "";
+  // @Prop({ mutable: true }) activeColor: string = "";
+  @Prop({ mutable: true }) disabled: boolean = false;
+  @Prop({ mutable: true }) loading: boolean = false;
+  @Prop({ mutable: true }) loadingColor: string = "";
+  @Prop({ mutable: true }) loadingWidth: string = "24px";
   // @Prop() textAlign: string = "center";
-  @Prop() loading: boolean = false;
+  @State() values: {
+    [key: string]: any;
+  } = {};
 
   @Event() tap: EventEmitter;
   @Element() el: HTMLElement;
-  // @Watch("loading")
-  // watchLoadingFunc() {
-  //   console.log("loading", this.loading);
-  // }
-  componentWillLoad() {}
+  @Watch("disabled")
+  watchDisabled() {
+    this.setColor();
+  }
+  componentWillLoad() {
+    for (const k in this) {
+      this.values[k] = this[k];
+    }
+    this.setColor();
+  }
+  setColor() {
+    this.getBgColor("bg");
+    this.getBgColor("bg-hover");
+    this.getBgColor("bg-active");
+
+    switch (this.type) {
+      case "Normal":
+        if (this.disabled) {
+          this.setPramas("border", "none");
+          this.setPramas("fontSize", "14px");
+          this.setPramas("color", "#aaa");
+          this.setPramas("bgColor", "");
+          this.setPramas("bgHoverColor", "");
+          this.setPramas("bgActiveColor", "");
+        } else {
+          this.setPramas("border", "1px solid #eee");
+          this.setPramas("fontSize", "14px");
+          this.setPramas("color", "");
+          this.setPramas("loadingColor", "var(--saki-default-color)");
+          this.setPramas("bgColor", "");
+          this.setPramas("bgHoverColor", "rgb(246, 246, 246)");
+          this.setPramas("bgActiveColor", "#eee");
+        }
+        break;
+      case "Primary":
+        if (this.disabled) {
+          this.border = "1px solid #eee";
+          this.color = "#aaa";
+          this.bgColor = "#eee";
+          this.bgHoverColor = "#eee";
+          this.bgActiveColor = "#eee";
+          // !this.color && (this.color = "var(--saki-default-color)");
+        } else {
+          this.border = "1px solid var(--saki-default-color)";
+          this.color = "#fff";
+          this.loadingColor = "#fff";
+          this.bgColor = "var(--saki-default-color)";
+          this.bgHoverColor = "var(--saki-default-hover-color)";
+          this.bgActiveColor = "var(--saki-default-active-color)";
+          this.border = "1px solid var(--saki-default-color)";
+          // !this.color && (this.color = "var(--saki-default-color)");
+        }
+        break;
+
+      case "CircleIconGrayHover":
+        if (this.disabled) {
+          this.setPramas("border", "none");
+          this.setPramas("fontSize", "14px");
+          this.setPramas("borderRadius", "50%");
+          this.setPramas("width", "36px");
+          this.setPramas("height", "36px");
+          this.setPramas("color", "#aaa");
+          this.setPramas("bgColor", "");
+          this.setPramas("bgHoverColor", "");
+          this.setPramas("bgActiveColor", "");
+        } else {
+          this.setPramas("border", "none");
+          this.setPramas("fontSize", "14px");
+          this.setPramas("borderRadius", "50%");
+          this.setPramas("width", "36px");
+          this.setPramas("height", "36px");
+          this.setPramas("color", "var(--saki-default-color)");
+          this.setPramas("loadingColor", "var(--saki-default-color)");
+          this.setPramas(
+            "bgColor",
+            "var(--saki-button-circle-icon-gray-hover-bg-color)"
+          );
+          this.setPramas(
+            "bgHoverColor",
+            "var(--saki-button-circle-icon-gray-hover-bg-hover-color)"
+          );
+          this.setPramas(
+            "bgActiveColor",
+            "var(--saki-button-circle-icon-gray-hover-bg-active-color)"
+          );
+        }
+        break;
+
+      default:
+        break;
+    }
+  }
+  setPramas(key: string, v: any) {
+    !this.values[key] && (this[key] = v);
+  }
   getBgColor(type: string) {
     let color = "";
     switch (type) {
@@ -47,6 +151,7 @@ export class TabsComponent {
           default:
             break;
         }
+        this.bgColor && (color = this.bgColor);
         break;
       case "bg-hover":
         switch (this.type) {
@@ -85,8 +190,12 @@ export class TabsComponent {
   render() {
     return (
       <div
-        onClick={() => {
-          this.tap.emit();
+        onClick={(e) => {
+          // console.log(21);
+          e.stopPropagation();
+          if (!this.disabled) {
+            this.tap.emit();
+          }
         }}
         style={{
           ...[
@@ -96,25 +205,35 @@ export class TabsComponent {
             "padding",
             "width",
             "height",
+            "borderRadius",
           ].reduce(
             (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
             {}
           ),
-          "--button-bg-color": this.getBgColor("bg"),
-          "--button-bg-hover-color": this.getBgColor("bg-hover"),
-          "--button-bg-active-color": this.getBgColor("bg-active"),
+
+          "--button-bg-color": this.bgColor,
+          "--button-bg-hover-color": this.bgHoverColor,
+          "--button-bg-active-color": this.bgActiveColor,
+          "--button-color": this.color,
+          "--button-loading-color": this.loadingColor || "#3874fb",
+          "--button-loading-width": this.loadingWidth,
+
+          // "--button-bg-color": this.bgActiveColor this.getBgColor("bg"),
+          // "--button-bg-hover-color":  this.getBgColor("bg-hover"),
+          // "--button-bg-active-color": this.getBgColor("bg-active"),
           // 'background-color': ,
           // 'border':
         }}
         class={
           "saki-button-component " +
           this.type +
-          (this.loading ? " loading" : " ")
+          (this.loading ? " loading" : " ") +
+          (this.disabled ? " disabled" : "")
         }
       >
         <div
           style={{
-            ...["textAlign"].reduce(
+            ...["textAlign", "fontWeight", "color"].reduce(
               (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
               {}
             ),
@@ -123,7 +242,8 @@ export class TabsComponent {
         >
           <slot></slot>
         </div>
-        <div class="button-loading"></div>
+        <div class={"button-loading "}></div>
+        {/* <div class="button-loading"></div> */}
       </div>
     );
   }

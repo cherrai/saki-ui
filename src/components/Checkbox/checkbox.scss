@@ -1,0 +1,66 @@
+.saki-checkbox-component {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.saki-checkbox-item-component {
+  margin-right: 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  cursor: pointer;
+  &.active {
+    .ci-radio {
+      border: 5px solid var(--saki-checkbox-item-icon-color);
+    }
+    .ci-checkbox {
+      background-color: var(--saki-checkbox-item-icon-color);
+      .icon {
+        opacity: 1;
+      }
+    }
+  }
+  &.disabled {
+    .ci-radio {
+      opacity: 0.7;
+    }
+    .ci-checkbox {
+      opacity: 0.7;
+    }
+    .ci-content {
+      color: #999;
+    }
+  }
+  .ci-checkbox {
+    width: 16px;
+    height: 16px;
+    border-radius: 2px;
+    border: 1px solid var(--saki-checkbox-item-icon-color);
+    background-color: #fff;
+    margin-right: 6px;
+    transition: background-color 0.1s;
+    position: relative;
+    .icon {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 14px;
+      height: 14px;
+      fill: #fff;
+      opacity: 0;
+      transition: opacity 0.1s;
+    }
+  }
+  .ci-radio {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 1px solid var(--saki-checkbox-item-icon-color);
+    background-color: #fff;
+    margin-right: 6px;
+    transition: border 0.1s;
+  }
+  .ci-content {
+    font-size: 14px;
+  }
+}
