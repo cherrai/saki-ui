@@ -28,3 +28,5 @@ logs/
 src/components.d.ts
 hydrate/
 src/**/readme.md
+
+package-lock.json
