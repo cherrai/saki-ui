@@ -16,6 +16,7 @@ import {
 })
 export class CheckboxComponent {
   @Prop() type: "Radio" | "Checkbox" = "Radio";
+  @Prop() flexDirection: "Row" | "Column" = "Row";
   @Prop() disabled: boolean = false;
   @Prop() value: string = "";
   @State() values: string[] = [];
@@ -26,24 +27,28 @@ export class CheckboxComponent {
   @Element() el: HTMLElement;
   @Watch("value")
   watchValue() {
-    console.log(this.value)
+    // console.log(this.value);
     this.values = this.value.split(",").filter((v) => !!v);
 
     this.initData();
   }
-  componentDidLoad() {
-    this.values = this.value.split(",").filter((v) => !!v);
-    const observer = new MutationObserver(this.watchDom);
-    this.watchDom();
-    // 以上述配置开始观察目标节点
-    observer.observe(this.el, {
-      attributes: true,
-      childList: true,
-      subtree: true,
+
+  componentWillLoad() {
+    setTimeout(() => {
+      this.values = this.value.split(",").filter((v) => !!v);
+      const observer = new MutationObserver(this.watchDom);
+      this.watchDom();
+      // 以上述配置开始观察目标节点
+      observer.observe(this.el, {
+        attributes: true,
+        childList: true,
+        subtree: true,
+      });
     });
   }
+  componentDidLoad() {}
   initData() {
-    this.list.forEach((v) => {
+    this.list?.forEach((v) => {
       v.active = false;
       this.values.some((sv) => {
         if (v.value == sv) {
@@ -99,7 +104,7 @@ export class CheckboxComponent {
         default:
           break;
       }
-      console.log(this.values, e.target.value);
+      // console.log(this.values, e.target.value);
       this.selectvalue.emit({
         value: e.target.value,
         index: valueList[e.target.value],
@@ -117,7 +122,7 @@ export class CheckboxComponent {
       item.addEventListener("tap", tapFunc);
     });
     this.list = list;
-    this.initData();
+    this?.initData?.();
   }
   render() {
     return (
@@ -138,6 +143,7 @@ export class CheckboxComponent {
             "width",
             "height",
             "borderRadius",
+            "flexDirection",
           ].reduce(
             (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
             {}

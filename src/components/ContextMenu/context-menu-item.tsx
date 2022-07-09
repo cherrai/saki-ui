@@ -10,6 +10,11 @@ import { Component, h, Prop, Event, EventEmitter } from "@stencil/core";
 })
 export class ContextMenuItemComponent {
   @Prop() width: string = "";
+  @Prop() padding: string = "";
+  @Prop() fontSize: string = "";
+  @Prop() color: string = "";
+  @Prop() disabled: boolean = false;
+  @Prop() value: string = "";
   @Event({
     eventName: "tap",
     composed: true,
@@ -26,12 +31,19 @@ export class ContextMenuItemComponent {
           return false;
         }}
         onClick={() => {
-          this.tap.emit();
+          !this.disabled && this.tap.emit();
         }}
         style={{
+          ...["padding", "fontSize", "color"].reduce(
+            (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
+            {}
+          ),
           ...(this.width ? { width: this.width } : {}),
         }}
-        class={"saki-context-menu-item-component"}
+        class={
+          "saki-context-menu-item-component " +
+          (this.disabled ? "disabled" : "")
+        }
       >
         <slot></slot>
       </div>

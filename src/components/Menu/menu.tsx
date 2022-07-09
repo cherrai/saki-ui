@@ -18,6 +18,7 @@ export class MenuComponent {
   @State() top: number = 0;
 
   @Prop() direction: "Top" | "Bottom" = "Bottom";
+  @Prop() padding: string = "6px 0";
 
   @Event() selectvalue: EventEmitter;
   @Element() el: HTMLElement;
@@ -53,7 +54,12 @@ export class MenuComponent {
   }
   render() {
     return (
-      <div class={"saki-menu-component "}>
+      <div
+        style={{
+          padding: this.padding,
+        }}
+        class={"saki-menu-component "}
+      >
         <slot></slot>
       </div>
     );

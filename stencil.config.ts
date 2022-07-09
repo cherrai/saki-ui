@@ -22,7 +22,10 @@ export const config: Config = {
         // "src/assets/iconfont/iconfont.css",
         // "src/globals/variables.scss",
         "src/globals/base.scss",
-        "node_modules/cropperjs/dist/cropper.css"
+        // quill.bubble.css quill.core.css quill.snow.css
+        "node_modules/quill/dist/quill.core.css",
+        "node_modules/quill/dist/quill.snow.css",
+        "node_modules/quill/dist/quill.bubble.css",
         // "src/components/Avatar/cropper.scss",
       ],
     }),

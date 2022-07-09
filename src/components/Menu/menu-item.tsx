@@ -14,6 +14,7 @@ export class MenuItemComponent {
   @Prop() active: boolean = false;
   @Prop() activeStyleType: "LeftLine" | "RightLine" = "RightLine";
   @Prop() subtitle: string = "";
+  @Prop() width: string = "";
   @Prop() padding: string = "";
   @Prop() margin: string = "";
   @Event() tap: EventEmitter;
@@ -33,7 +34,7 @@ export class MenuItemComponent {
         <div class={"saki-m-i-subtitle"}>{this.subtitle}</div>
         <div
           style={{
-            ...["margin", "padding"].reduce(
+            ...["width", "margin", "padding"].reduce(
               (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
               {}
             ),

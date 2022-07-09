@@ -152,12 +152,15 @@ export class TextareaComponent {
   setTextareaValue() {
     if (!this.textareaEl) return;
     // console.log(this.value, this.dValue);
+    if (this.textareaEl.innerHTML !== this.value) {
+      this.dValue = this.value;
+      this.dContent = this.value.replace(/<[^>]+>/g, "").trim();
+      this.textareaEl.innerHTML = this.value;
+    }
+
     if (!this.value || !this.dContent.trim()) {
       this.clear();
       return;
-    }
-    if (this.textareaEl.innerHTML !== this.value) {
-      this.textareaEl.innerHTML = this.dValue;
     }
     // console.log(this.value, this.dValue);
     // console.log("setTextareaValue", this.dValue);
@@ -265,7 +268,7 @@ export class TextareaComponent {
     return (
       <div
         style={{
-          ...["width", "textAlign"].reduce(
+          ...["width", "height", "textAlign"].reduce(
             (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
             {}
           ),
@@ -282,6 +285,12 @@ export class TextareaComponent {
         {/* {String(!!this.content) + this.content} */}
 
         <div
+          style={{
+            ...["width", "height"].reduce(
+              (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
+              {}
+            ),
+          }}
           class={
             "si-textarea " +
             (this.focus ? " focus " : "") +
@@ -382,6 +391,7 @@ export class TextareaComponent {
             //   // console.log("change", e.target["innerHTML"]);
             // }}
             onInput={(e) => {
+              console.log(e.target["innerHTML"]);
               if (this.disabled) {
                 e.target["innerHTML"] = this.value;
                 return;
@@ -398,7 +408,7 @@ export class TextareaComponent {
                 selection.getRangeAt(0).startOffset;
 
               this.formatContent();
-              // console.log(e["inputType"]);
+              console.log(e["inputType"]);
               if (e["inputType"] === "insertLineBreak") {
                 this.insertBr();
               }

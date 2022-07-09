@@ -269,7 +269,7 @@ a.link-anima {
   }
 
   &::-webkit-scrollbar-track:hover {
-    background-color: rgb(238, 238, 238);
+    background-color: rgba(238, 238, 238,0);
   }
 
   /*定义滑块 内阴影+圆角*/
@@ -280,10 +280,63 @@ a.link-anima {
   }
 
   &::-webkit-scrollbar-thumb:hover {
+    width: 10px;
     border-radius: 4px;
     background-color: #ccc;
   }
 }
+
+
+
+.scrollBarHover{
+  // 修改滚动条
+  overflow:overlay!important;
+  &:hover{
+    // &::-webkit-scrollbar {
+    //   width: 8px;
+    //   background-color: rgba(255, 255, 255,1);
+    // }
+    // &::-webkit-scrollbar-track {
+    //  background-color: rgba(255, 255, 255,1);
+    // }
+    &::-webkit-scrollbar-thumb{
+      background-color: rgba(204, 204, 204, 0.4);
+    }
+
+  }
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 4px;
+    background-color: rgba(255, 255, 255,0);
+    transition: all .3s;
+  }
+  &::-webkit-scrollbar:hover {
+    background-color: rgba(0, 128, 0, 0);
+  }
+
+  /*定义滚动条轨道 内阴影+圆角*/
+  &::-webkit-scrollbar-track {
+    background-color: rgba(255, 255, 255,0);
+  }
+
+  &::-webkit-scrollbar-track:hover {
+    background-color: rgba(238, 238, 238,0);
+  }
+
+  /*定义滑块 内阴影+圆角*/
+  &::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(221, 221, 221, 0.2);
+    transition: all 0.3s;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    width: 10px;
+    border-radius: 4px;
+    background-color: rgba(204, 204, 204, 1);
+  }
+}
+
 .scrollBarAuto {
   overflow: overlay;
   &:hover {

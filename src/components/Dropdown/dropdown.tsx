@@ -20,6 +20,8 @@ export class DropdownComponent {
 
   @Prop({ mutable: true }) vertical: "Top" | "Bottom" = "Bottom";
   @Prop({ mutable: true }) horizontal: "Left" | "Right" = "Left";
+  @Prop({ mutable: true }) floatingDirection: "Left" | "Center" = "Center";
+
   // @Prop() isLoad: boolean = false;
   @Prop({ mutable: true }) visible: boolean = false;
   @State() isAddVisibleClass: boolean = false;
@@ -72,21 +74,44 @@ export class DropdownComponent {
       document.body.clientHeight;
 
     // - this.contentRect.width / 2
-    this.left = this.formartLeft(this.coreRect.left + this.coreRect.width / 2);
 
-    // console.log(this.contentRect);
-    // console.log(this.coreRect, this.coreEl.children[0]);
-    // console.log(this.coreRect.left + this.coreRect.width / 2);
-    // 算右边
-    // console.log(this.left, this.contentRect.width, clientWidth);
-    if (this.left + this.contentRect.width > clientWidth) {
-      this.left =
-        clientWidth -
-        this.contentRect.width -
-        // this.coreRect.width -
-        this.coreRect.width / 2 -
-        10 -
-        (clientWidth - this.coreRect.right);
+    switch (this.floatingDirection) {
+      case "Center":
+        this.left = this.formartLeft(
+          this.coreRect.left + this.coreRect.width / 2
+        );
+
+        // console.log(this.contentRect);
+        // console.log(this.coreRect, this.coreEl.children[0]);
+        // console.log(this.coreRect.left + this.coreRect.width / 2);
+        // 算右边
+        // console.log(this.left, this.contentRect.width, clientWidth);
+        if (this.left + this.contentRect.width > clientWidth) {
+          this.left =
+            clientWidth -
+            this.contentRect.width -
+            // this.coreRect.width -
+            this.coreRect.width / 2 -
+            10 -
+            (clientWidth - this.coreRect.right);
+        }
+        break;
+      case "Left":
+        this.left = this.formartLeft(
+          this.coreRect.left 
+        );
+        if (this.left + this.contentRect.width > clientWidth) {
+          this.left =
+            clientWidth -
+            this.contentRect.width -
+            // this.coreRect.width -
+            10 -
+            (clientWidth - this.coreRect.right);
+        }
+        break;
+
+      default:
+        break;
     }
     this.top = this.formartTop(this.coreRect.top + this.coreRect.height / 2);
 

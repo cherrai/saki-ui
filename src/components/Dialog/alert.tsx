@@ -44,7 +44,9 @@ export class DialogAlertComponent {
   }
   componentWillLoad() {}
   componentDidLoad() {
-    this.open();
+    setTimeout(() => {
+      this.open();
+    });
   }
   render() {
     return (

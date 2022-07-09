@@ -18,6 +18,7 @@ export class CheckboxItemComponent {
   @Prop() type: "Radio" | "Checkbox" = "Radio";
   @Prop() value: string = "";
   @Prop() content: string = "";
+  @Prop() height: string = "";
   @Prop() margin: string = "0 16px 0 0";
   @Prop() padding: string = "";
   @Prop() activeColor: string = "var(--saki-default-color)";

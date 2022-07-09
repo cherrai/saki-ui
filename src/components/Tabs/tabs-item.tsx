@@ -17,6 +17,9 @@ import {
 })
 export class TabsItemComponent {
   @Prop() name: string;
+  @Prop() fontSize: string = "14px";
+  @Prop() fontWeight: string = "500";
+
   @State() isShow: boolean;
   @Event() changename: EventEmitter;
   @Watch("name")

@@ -15,6 +15,7 @@ import {
 })
 export class ContextMenuComponent {
   @Element() el: Element;
+  label: string = "";
   @State() compEl: Element;
   @State() contentEl: Element;
   @State() visible: boolean = false;
@@ -25,6 +26,11 @@ export class ContextMenuComponent {
   };
   @Event() close: EventEmitter;
   @Event() fullclose: EventEmitter;
+  @Event() selectvalue: EventEmitter<{
+    index: number;
+    value: string;
+    label: string;
+  }>;
   @Watch("visible")
   watchVisible() {
     if (this.visible) {
@@ -40,8 +46,9 @@ export class ContextMenuComponent {
     }
   }
   @Method()
-  async show({ x, y }: { x: number; y: number }) {
+  async show({ x, y, label }: { x: number; y: number; label: string }) {
     // console.log(x, y);
+    this.label = label;
     this.contextMenuObj.left = x;
     this.contextMenuObj.top = y;
     this.visible = true;
@@ -73,9 +80,14 @@ export class ContextMenuComponent {
   componentDidLoad() {
     const menuList = this.el.querySelectorAll("saki-context-menu-item");
     if (menuList?.length) {
-      menuList.forEach((item) => {
-        item.addEventListener("tap", () => {
+      menuList.forEach((v, i) => {
+        v.addEventListener("tap", () => {
           this.addCloseAnimate();
+          this.selectvalue.emit({
+            index: i,
+            value: v.value,
+            label: this.label,
+          });
         });
       });
 

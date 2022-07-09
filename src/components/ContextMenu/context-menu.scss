@@ -15,7 +15,7 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    transition: opacity .1s;
+    transition: opacity 0.1s;
   }
   .context-menu-content-bg {
     position: fixed;
@@ -36,6 +36,9 @@
   transition: background-color 0.3s;
   // cursor: pointer;
   user-select: none;
+  &.disabled {
+    color: #ccc;
+  }
   &:hover {
     background-color: #ececec;
   }
