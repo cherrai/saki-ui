@@ -27,6 +27,7 @@
     "@nyanyajs/utils": "^1.0.4",
     "@stencil/core": "^2.11.0",
     "@stencil/sass": "^1.3.2",
+    "@types/sortablejs": "^1.13.0",
     "cropperjs": "^1.5.12",
     "dhkea-js": "^1.0.0",
     "ion-sdk-js": "^1.8.2",
@@ -35,7 +36,8 @@
     "koa2-cors": "^2.0.6",
     "moment": "^2.29.1",
     "nyanyajs-log": "^1.0.10",
-    "quill": "^1.3.7"
+    "quill": "^1.3.7",
+    "sortablejs": "^1.15.0"
   },
   "license": "MIT",
   "devDependencies": {

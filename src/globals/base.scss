@@ -94,20 +94,23 @@ html {
   // Chat call
   --saki-menu-active-border-color: var(--saki-default-color);
   --saki-menu-active-background-color: #f8f7f7;
+
+  // Chat drag sort
+  --saki-drag-sort-selected-color: var(--saki-default-color);
 }
 
 html,
 body {
   width: 100%;
-  height: 100%;
+  // height: 100%;
 }
 
 #__nuxt {
-  height: 100%;
+  // height: 100%;
 }
 
 #__layout {
-  height: 100%;
+  // height: 100%;
 }
 
 *,

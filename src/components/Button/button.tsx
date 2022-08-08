@@ -12,7 +12,7 @@ import {
 @Component({
   tag: "saki-button",
   styleUrl: "button.scss",
-  // shadow: true,
+  shadow: true,
 })
 export class ButtonComponent {
   @Prop() type: "Normal" | "Primary" | "CircleIconGrayHover" = "Normal";
@@ -39,7 +39,10 @@ export class ButtonComponent {
     [key: string]: any;
   } = {};
 
-  @Event() tap: EventEmitter;
+  @Event({
+    bubbles: false,
+  })
+  tap: EventEmitter;
   @Element() el: HTMLElement;
   @Watch("disabled")
   watchDisabled() {

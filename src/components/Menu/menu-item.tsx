@@ -1,9 +1,16 @@
-import { Component, Event, EventEmitter, h, Prop } from "@stencil/core";
+import {
+  Component,
+  Event,
+  EventEmitter,
+  h,
+  Prop,
+  Element,
+} from "@stencil/core";
 
 @Component({
   tag: "saki-menu-item",
   styleUrl: "menu.scss",
-  shadow: true,
+  // shadow: true,
 })
 export class MenuItemComponent {
   @Prop() value: string = "";
@@ -14,16 +21,28 @@ export class MenuItemComponent {
   @Prop() active: boolean = false;
   @Prop() activeStyleType: "LeftLine" | "RightLine" = "RightLine";
   @Prop() subtitle: string = "";
+  @Prop() tapHighlightColor: string = "rgba(0, 0, 0, 0)";
   @Prop() width: string = "";
   @Prop() padding: string = "";
+  @Prop() fontSize: string = "";
+  @Prop() color: string = "";
   @Prop() margin: string = "";
+  @Element() el: HTMLSakiMenuItemElement;
   @Event() tap: EventEmitter;
+  @Event() opencontextmenu: EventEmitter;
   componentDidLoad() {}
   render() {
     return (
       <div
         onClick={() => {
           this.tap.emit();
+        }}
+        onContextMenu={(e) => {
+          this.opencontextmenu.emit({
+            pageX: e.pageX,
+            pageY: e.pageY,
+          });
+          e.preventDefault();
         }}
         class={
           "saki-menu-item-component " +
@@ -34,10 +53,11 @@ export class MenuItemComponent {
         <div class={"saki-m-i-subtitle"}>{this.subtitle}</div>
         <div
           style={{
-            ...["width", "margin", "padding"].reduce(
+            ...["width", "margin", "fontSize", "color", "padding"].reduce(
               (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
               {}
             ),
+            "-webkit-tap-highlight-color": this.tapHighlightColor,
           }}
           class={"saki-m-i-title"}
         >

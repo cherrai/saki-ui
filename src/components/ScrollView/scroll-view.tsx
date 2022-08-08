@@ -267,6 +267,30 @@ export class ScrollViewComponent {
         );
         window.addEventListener("resize", this.getScrollHeight.bind(this), !0);
 
+        new ResizeObserver(() => {
+          this.getScrollHeight();
+        }).observe(this.compEl);
+
+        // 渲染的时候务须调整位置，让用户自己主动
+        new MutationObserver(() => {
+          this.getScrollHeight();
+        }).observe(this.compEl, {
+          attributes: true,
+          childList: true,
+          subtree: true,
+        });
+        // new ResizeObserver(() => {
+        //   this.getScrollHeight();
+        // }).observe(this.compEl);
+
+        // // 渲染的时候务须调整位置，让用户自己主动
+        // new MutationObserver(() => {
+        //   this.getScrollHeight();
+        // }).observe(this.compEl, {
+        //   attributes: false,
+        //   childList: true,
+        //   subtree: true,
+        // });
         break;
       case "Normal":
         window.removeEventListener("scroll", this.scrollEvent.bind(this), !0);

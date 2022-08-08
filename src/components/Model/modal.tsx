@@ -26,9 +26,13 @@ export class ModalComponent {
   @Prop() minHeight: string = "";
   @Prop() maxWidth: string = "";
   @Prop() maxHeight: string = "";
+  @Prop() borderRadius: string = "";
+  @Prop() boxShadow: string = "";
+  @Prop() border: string = "";
   @Prop() mask: boolean = false;
   @Prop() maskBackgroundColor: string = "";
   @Prop() maskClosable: boolean = false;
+  @Prop({ mutable: true }) zIndex: number = 999;
   @State() closing: boolean = false;
 
   @Event({
@@ -92,6 +96,7 @@ export class ModalComponent {
             }}
             style={{
               backgroundColor: this.maskBackgroundColor,
+              zIndex: String(this.zIndex - 1),
             }}
             class={"model-bg " + (this.isAddVisibleClass ? "visible" : "")}
           ></div>
@@ -109,10 +114,14 @@ export class ModalComponent {
               "height",
               "width",
               "backgroundColor",
+              "borderRadius",
+              "boxShadow",
+              "border",
             ].reduce(
               (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
               {}
             ),
+            zIndex: String(this.zIndex),
           }}
           onTransitionEnd={() => {
             if (this.closing && document.body.contains(this.contetnEl)) {

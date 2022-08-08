@@ -6,6 +6,11 @@
     color: #666;
     font-size: 14px;
   }
+  &.error {
+    .si-error {
+      display: block;
+    }
+  }
   .si-input {
     width: 100%;
     position: relative;
@@ -22,6 +27,14 @@
       .placeholder {
         left: 30px;
         width: calc(100% - 50px);
+      }
+    }
+    &.Password {
+      input {
+        padding-right: 30px !important;
+      }
+      .placeholder {
+        width: calc(100% - 30px);
       }
     }
 
@@ -53,6 +66,9 @@
         margin-top: 8px;
       }
       .delete-icon {
+        margin-top: 8px;
+      }
+      .showpassword-icon {
         margin-top: 8px;
       }
       &.havaValue {
@@ -168,9 +184,26 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      opacity: 0;
       transition: opacity 0.3s;
-      visibility: hidden;
+      .icon {
+        height: 18px;
+        width: 18px;
+        fill: #666;
+        cursor: pointer;
+      }
+    }
+    .showpassword-icon {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 30px;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 1;
+      transition: opacity 0.3s;
       transition: all 0.3s;
       .icon {
         height: 18px;
@@ -179,5 +212,11 @@
         cursor: pointer;
       }
     }
+  }
+  .si-error {
+    display: none;
+    font-size: 12px;
+    color: rgb(205, 35, 35);
+    margin: 4px 0 0;
   }
 }

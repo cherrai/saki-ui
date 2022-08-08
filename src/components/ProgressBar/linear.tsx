@@ -1,4 +1,4 @@
-import { Component, h, Prop } from "@stencil/core";
+import { Component, h, Prop, EventEmitter, Event } from "@stencil/core";
 
 @Component({
   tag: "saki-linear-progress-bar",
@@ -7,17 +7,24 @@ import { Component, h, Prop } from "@stencil/core";
 })
 export class LinearProgressBarComponent {
   @Prop() width: string = "80px";
+  @Prop() maxWidth: string = "";
+  @Prop() minWidth: string = "";
   @Prop() height: string = "0px";
   @Prop() borderRadius: string = "0px";
   @Prop() progress: number = 0;
   @Prop() trackColor: string = "#eee";
   @Prop() color: string = "var(--saki-default-color)";
-  componentWillLoad() {}
+  @Prop() transition: string = "width 0.5s";
+  @Event() loaded: EventEmitter;
+  @Event() transitionEnd: EventEmitter;
+  componentDidLoad() {
+    this.loaded.emit();
+  }
   render() {
     return (
       <div
         style={{
-          ...["height", "width", "borderRadius"].reduce(
+          ...["height", "maxWidth", "minWidth", "width", "borderRadius"].reduce(
             (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
             {}
           ),
@@ -28,7 +35,7 @@ export class LinearProgressBarComponent {
       >
         <div
           style={{
-            ...["borderRadius"].reduce(
+            ...["borderRadius", "transition"].reduce(
               (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
               {}
             ),
@@ -40,6 +47,9 @@ export class LinearProgressBarComponent {
                 : this.progress) *
                 100 +
               "%",
+          }}
+          onTransitionEnd={() => {
+            this.transitionEnd.emit(this.progress);
           }}
           class={"lpb-inner"}
         ></div>

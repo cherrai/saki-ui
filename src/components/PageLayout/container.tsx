@@ -1,4 +1,4 @@
-import { Component, h, Prop } from "@stencil/core";
+import { Component, h, Prop, Watch } from "@stencil/core";
 
 @Component({
   tag: "saki-page-container",
@@ -8,7 +8,12 @@ import { Component, h, Prop } from "@stencil/core";
 export class PageContainerComponent {
   @Prop() padding: string = "0px";
   @Prop() margin: string = "0px";
+  @Prop() visible: boolean = false;
   @Prop() full: boolean = false;
+  @Watch("visible")
+  watchVisible() {
+    console.log(this.visible);
+  }
   render() {
     return (
       <div
@@ -20,6 +25,7 @@ export class PageContainerComponent {
         }}
         class={"saki-page-container-component " + (this.full ? "full" : "")}
       >
+        {/* {this.visible ? "true" : "false"} */}
         <div class="pc-header">
           <slot name="header"></slot>
         </div>

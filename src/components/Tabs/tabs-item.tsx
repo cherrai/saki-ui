@@ -9,6 +9,8 @@ import {
   State,
 } from "@stencil/core";
 
+import { v4 as uuidv4 } from "uuid";
+
 @Component({
   // tag: prefix + "-tabs-item",
   tag: "saki-tabs-item",
@@ -16,10 +18,13 @@ import {
   shadow: true,
 })
 export class TabsItemComponent {
+  @State() id: string = uuidv4();
   @Prop() name: string;
+  @Prop() label: string;
   @Prop() fontSize: string = "14px";
   @Prop() fontWeight: string = "500";
-
+  @Prop() borderBottom: boolean = false;
+  
   @State() isShow: boolean;
   @Event() changename: EventEmitter;
   @Watch("name")
@@ -30,14 +35,20 @@ export class TabsItemComponent {
   async switchActiveFunc(bool: boolean) {
     this.isShow = bool;
   }
-  componentWillLoad() {}
+  @Method()
+  async getId(): Promise<string> {
+    return this.id;
+  }
+  componentWillLoad() {
+    // console.log(this.id);
+  }
   render() {
     return (
       <div
         style={{
           display: this.isShow ? "block" : "none",
         }}
-        class="saki-tabs-item-component"
+        class={"saki-tabs-item-component "}
       >
         <slot></slot>
       </div>

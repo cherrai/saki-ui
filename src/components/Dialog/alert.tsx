@@ -20,6 +20,7 @@ export class DialogAlertComponent {
   @Prop() confirmText: string = "";
   @Prop() autoHideDuration: number = 0;
 
+  @Prop() flexButton: boolean = false;
   @State() visible: boolean = false;
   @Event({
     bubbles: false,
@@ -58,6 +59,7 @@ export class DialogAlertComponent {
         onClose={() => {
           this.visible = false;
         }}
+        zIndex={999999}
         visible={this.visible}
       >
         <div>
@@ -82,11 +84,11 @@ export class DialogAlertComponent {
             ""
           )}
           {this.cancelText || this.confirmText ? (
-            <saki-modal-buttons margin="6px 0">
+            <saki-modal-buttons flexButton={this.flexButton} margin="6px 0">
               {this.cancelText ? (
                 <saki-button
                   margin="0 4px"
-                  width="80px"
+                  width={this.flexButton ? "auto" : "80px"}
                   height="30px"
                   font-size="13px"
                   border="1px solid #eee"
@@ -105,7 +107,7 @@ export class DialogAlertComponent {
               {this.confirmText ? (
                 <saki-button
                   margin="0 4px"
-                  width="80px"
+                  width={this.flexButton ? "auto" : "80px"}
                   height="30px"
                   font-size="13px"
                   onTap={() => {

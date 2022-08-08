@@ -17,7 +17,7 @@ import {
 })
 export class InputComponent {
   @Prop() backgroundColor: string = "";
-  @Prop() type: "Text" | "Number" | "Textarea" | "Search" = "Text";
+  @Prop() type: "Text" | "Password" | "Number" | "Textarea" | "Search" = "Text";
   @Prop() placeholderAnimation: "MoveUp" | "" = "";
   @State() defaultValue = {
     value: "<p><br></p>",
@@ -30,6 +30,7 @@ export class InputComponent {
   @Prop() minLength: number = 0;
   @Prop() closeIcon: boolean = false;
   @Prop() disabled: boolean = false;
+  @Prop() autoComplete: string = "";
   @Prop() textAlign: string = "left";
   @Prop() subtitle: string = "";
   @Prop() borderRadius: string = "";
@@ -41,8 +42,13 @@ export class InputComponent {
   @Prop() textareaHeight: string = "";
   @Prop() width: string = "";
   @Prop() padding: string = "";
+  @Prop() margin: string = "";
   @Prop() fontSize: string = "";
   @Prop() placeholder: string = "";
+  @Prop() error: string = "";
+  @Prop() errorColor: string = "";
+  @Prop() errorFontSize: string = "";
+  @State() passwordIcon: boolean = true;
   @State() editRange = {
     startOffset: 0,
     endOffset: 0,
@@ -52,6 +58,7 @@ export class InputComponent {
   paddingPixel: string = "";
   paddingLeftPixel: string = "";
   @State() focus: boolean = false;
+  @State() showPassword: boolean = false;
   @Event() tap: EventEmitter;
   @Event() changevalue: EventEmitter;
   @Event() changecontent: EventEmitter;
@@ -117,8 +124,6 @@ export class InputComponent {
         break;
 
       default:
-        if (this.type === "Number") {
-        }
         this.content = this.value;
         // console.log("this.content",this.content)
         this.changevalue.emit(this.value || "");
@@ -136,7 +141,9 @@ export class InputComponent {
     }
     this.setTextareaValue();
   }
-  componentDidLoad() {}
+  componentDidLoad() {
+    // console.log(this.inputEl);
+  }
 
   @Method()
   async getFocus() {
@@ -318,7 +325,7 @@ export class InputComponent {
     return (
       <div
         style={{
-          ...["width", "textAlign"].reduce(
+          ...["width", "margin", "textAlign"].reduce(
             (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
             {}
           ),
@@ -330,12 +337,11 @@ export class InputComponent {
             Number(e.style.paddingLeft.split("px")[0]) +
             "px";
         }}
-        class={"saki-input-component "}
+        class={"saki-input-component " + (this.error ? " error " : "")}
       >
         {/* {String(!!this.content) + this.content} */}
 
         {this.subtitle ? <div class="si-subtitle">{this.subtitle}</div> : ""}
-
         <div
           class={
             "si-input " +
@@ -345,7 +351,7 @@ export class InputComponent {
             this.type +
             " " +
             (this.focus ? " focus " : "") +
-            (this.content ? " havaValue " : "noValue")
+            (this.value ? " havaValue " : "noValue")
           }
         >
           {this.type !== "Textarea" ? (
@@ -366,10 +372,17 @@ export class InputComponent {
                   {}
                 ),
               }}
-              type="text"
+              type={
+                this.type === "Password"
+                  ? this.showPassword
+                    ? "text"
+                    : "password"
+                  : "text"
+              }
               disabled={this.disabled}
               minLength={this.minLength}
               maxLength={this.maxLength}
+              autocomplete={this.autoComplete}
               onKeyDown={(e) => {
                 if (e.keyCode === 13) {
                   this.pressenter.emit();
@@ -378,6 +391,10 @@ export class InputComponent {
               onInput={(e) => {
                 // console.log("value:", this.type, e.target["value"]);
                 this.value = e.target["value"];
+                if (this.type === "Number") {
+                  this.value = this.value.replace(/\D/g, "");
+                  e.target["value"] = this.value;
+                }
                 this.content = this.value;
               }}
               onFocus={() => {
@@ -596,6 +613,45 @@ export class InputComponent {
           ) : (
             ""
           )}
+          {this.type === "Password" && this.passwordIcon ? (
+            <div class={"showpassword-icon "}>
+              {this.showPassword ? (
+                <svg
+                  class="icon"
+                  viewBox="0 0 1024 1024"
+                  version="1.1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  p-id="2816"
+                  onClick={() => {
+                    this.showPassword = false;
+                  }}
+                >
+                  <path
+                    d="M895.887692 510.817058l-0.124843 0c-29.429263-75.876108-78.742389-141.076062-141.17737-188.484815l34.131355-30.912034c10.169617-9.215896 10.918677-24.899086 1.654686-35.036981l-3.435239-3.749394c-9.247618-10.137895-24.993231-10.887978-35.161824-1.671059l-44.488237 40.316218c-58.170864-32.661887-124.650975-51.204196-195.302081-51.204196-173.684738 0-322.204329 112.030539-383.764384 270.742261l-0.109494 0c0.016373 0.062422 0.031722 0.093121 0.062422 0.155543-0.030699 0.031722-0.046049 0.094144-0.062422 0.125867l0.109494 0c28.210505 73.291237 74.680886 136.709615 133.476991 183.884031l-41.565674 37.676088c-10.169617 9.216919-10.918677 24.899086-1.671059 35.021631l3.436262 3.780093c9.247618 10.122545 24.993231 10.871605 35.177174 1.655709l50.735521-45.986357c60.232826 36.145222 129.899512 56.795541 204.175169 56.795541 173.714414 0 322.218656-112.873744 383.77871-272.826735l0.124843 0c-0.030699-0.031722-0.046049-0.094144-0.062422-0.125867C895.841643 510.910179 895.856993 510.87948 895.887692 510.817058L895.887692 510.817058zM184.906825 510.972601c58.248635-128.017652 182.619224-216.71067 327.077314-216.71067 54.686507 0 106.46887 12.715603 152.892179 35.443233l-76.024487 68.870554c-21.963221-14.69877-48.4075-23.258727-76.853365-23.258727-76.258825 0-138.084938 61.575404-138.084938 137.561006 0 23.681352 5.998621 45.955658 16.588817 65.418942l-88.427982 80.101339C252.10632 620.75289 211.586464 570.017368 184.906825 510.972601L184.906825 510.972601zM595.241354 512.87902c0 45.768393-37.286208 82.913385-83.241866 82.913385-16.511046 0-31.896454-4.779863-44.831045-13.059434l118.903064-107.718327C591.945285 486.354923 595.241354 499.226069 595.241354 512.87902L595.241354 512.87902zM428.773995 512.87902c0-45.807279 37.254485-82.936921 83.225493-82.936921 12.184507 0 23.759123 2.608407 34.193777 7.29515L433.210028 539.590382C430.33556 531.216667 428.773995 522.219759 428.773995 512.87902L428.773995 512.87902zM511.984139 729.284745c-58.280358 0-113.279996-14.558577-162.000628-40.36329l75.759451-68.636217c23.617907 18.869766 53.609988 30.147624 86.256526 30.147624 76.258825 0 138.084938-61.575404 138.084938-137.553842 0-27.835975-8.31027-53.741995-22.586414-75.407434l86.661755-78.493725c53.532217 37.879726 96.878444 90.3651 124.933407 151.99474C780.828167 639.935788 656.457578 729.284745 511.984139 729.284745L511.984139 729.284745zM511.984139 729.284745"
+                    p-id="2817"
+                  ></path>
+                </svg>
+              ) : (
+                <svg
+                  class="icon"
+                  viewBox="0 0 1024 1024"
+                  version="1.1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  p-id="3572"
+                  onClick={() => {
+                    this.showPassword = true;
+                  }}
+                >
+                  <path
+                    d="M895.887692 510.808872l-0.12382 0c-61.560054-158.704558-210.064296-270.734074-383.779733-270.734074-173.684738 0-322.204329 112.030539-383.764384 270.734074l-0.109494 0c0.01535 0.063445 0.030699 0.109494 0.062422 0.155543-0.031722 0.047072-0.047072 0.094144-0.062422 0.141216l0.109494 0c61.560054 159.946852 210.064296 272.818549 383.764384 272.818549 173.715437 0 322.219679-112.87272 383.779733-272.818549l0.12382 0c-0.030699-0.047072-0.046049-0.094144-0.062422-0.141216C895.841643 510.918365 895.856993 510.872317 895.887692 510.808872zM511.984139 729.284745c-144.458089 0-268.829701-89.348957-327.077314-218.320331 58.248635-128.009466 182.619224-216.703507 327.077314-216.703507 144.473439 0 268.844028 88.694041 327.108013 216.703507C780.828167 639.935788 656.457578 729.284745 511.984139 729.284745zM623.779318 447.920566c0 35.302017-28.647457 63.950498-63.981197 63.950498-35.349089 0-63.981197-28.64848-63.981197-63.950498s28.632107-63.949474 63.981197-63.949474c0.177032 0 0.352017 0.01228 0.529049 0.013303-15.042601-5.599532-31.324426-8.667404-48.327682-8.667404-76.258825 0-138.084938 61.576427-138.084938 137.553842 0 75.986625 61.826114 137.562029 138.084938 137.562029 76.259848 0 138.084938-61.575404 138.084938-137.562029 0-32.108279-11.04352-61.644989-29.550013-85.049025C622.629121 434.144818 623.779318 440.897615 623.779318 447.920566z"
+                    p-id="3573"
+                  ></path>
+                </svg>
+              )}
+            </div>
+          ) : (
+            ""
+          )}
 
           <div
             style={{
@@ -615,6 +671,15 @@ export class InputComponent {
             }}
             class="line"
           ></div>
+        </div>
+        <div
+          style={{
+            color: this.errorColor,
+            fontSize: this.errorFontSize,
+          }}
+          class={"si-error"}
+        >
+          {this.error}
         </div>
       </div>
     );

@@ -1,31 +1,32 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
-    />
-    <title>Stencil Component Starter</title>
 
-    <script type="module" src="/build/saki-ui.esm.js"></script>
-    <script nomodule src="/build/saki-ui.js"></script>
-    <style>
-      html {
-        --saki-chat-bubble-read-progress-color: #f185a0;
-      }
-      * {
-        box-sizing: border-box;
-      }
-    </style>
-  </head>
-  <body>
-    <!-- progress="0.7"
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+  <title>Stencil Component Starter</title>
+
+  <script type="module" src="/build/saki-ui.esm.js"></script>
+  <script nomodule src="/build/saki-ui.js"></script>
+  <style>
+    html {
+      --saki-chat-bubble-read-progress-color: #f185a0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+  </style>
+</head>
+
+<body>
+  <!-- progress="0.7"
     width="14px"
     bar-width="5px"
     border-spacing-width="6px"
     border-width="2px" -->
-    <!-- <saki-progress-bar
+  <!-- <saki-progress-bar
     type="Circle"
     progress="0.3"
     width="94px"
@@ -37,7 +38,7 @@
   >
     70
   </saki-circle-progress-bar> -->
-    <!-- <saki-progress-bar
+  <!-- <saki-progress-bar
     type="Circle"
     progress="0.7"
     width="94px"
@@ -50,7 +51,7 @@
     70
   </saki-circle-progress-bar> -->
 
-    <saki-linear-progress-bar
+  <!-- <saki-linear-progress-bar
     progress="0.7"
     width="374px"
     height="16px"
@@ -60,6 +61,155 @@
     border-width="4px"
     color="var(--saki-chat-bubble-read-progress-color)"
   >
-  </saki-circle-progress-bar>
-  </body>
+  </saki-circle-progress-bar> -->
+
+  <!-- <saki-tabs type='Flex' header-padding='0 10px' header-item-min-width="80px">
+    <saki-tabs-item font-size='14px' name='个人信息'>
+      csasa
+    </saki-tabs-item>
+    <saki-tabs-item font-size='14px' name='帐号安全'>
+      <saki-scroll-view mode='Auto'>
+        <div className='p-account-security'>帐号安全</div>
+      </saki-scroll-view>
+    </saki-tabs-item>
+    <saki-tabs-item font-size='14px' name='帐号安'>
+      <saki-scroll-view mode='Auto'>
+        <div className='p-account-security'>帐号安</div>
+      </saki-scroll-view>
+    </saki-tabs-item>
+    <saki-tabs-item font-size='14px' name='帐号安全'>
+      <saki-scroll-view mode='Auto'>
+        <div className='p-account-security'>帐号安全</div>
+      </saki-scroll-view>
+    </saki-tabs-item>
+    <saki-tabs-item font-size='14px' name='帐号'>
+      <saki-scroll-view mode='Auto'>
+        <div className='p-account-security'>帐号</div>
+      </saki-scroll-view>
+    </saki-tabs-item>
+    <saki-tabs-item font-size='14px' name='帐号安全'>
+      <saki-scroll-view mode='Auto'>
+        <div className='p-account-security'>帐号安全</div>
+      </saki-scroll-view>
+    </saki-tabs-item>
+    <saki-tabs-item font-size='14px' name='帐号'>
+      <saki-scroll-view mode='Auto'>
+        <div className='p-account-security'>帐号</div>
+      </saki-scroll-view>
+    </saki-tabs-item>
+    <saki-tabs-item font-size='14px' name='帐号安全'>
+      <saki-scroll-view mode='Auto'>
+        <div className='p-account-security'>帐号安全</div>
+      </saki-scroll-view>
+    </saki-tabs-item>
+    <saki-tabs-item font-size='14px' name='帐号'>
+      <saki-scroll-view mode='Auto'>
+        <div className='p-account-security'>帐号</div>
+      </saki-scroll-view>
+    </saki-tabs-item>
+    <saki-tabs-item font-size='14px' name='帐号安全'>
+      <saki-scroll-view mode='Auto'>
+        <div className='p-account-security'>帐号安全</div>
+      </saki-scroll-view>
+    </saki-tabs-item>
+    <saki-tabs-item font-size='14px' name='帐号安'>
+      <saki-scroll-view mode='Auto'>
+        <div className='p-account-security'>帐号安</div>
+      </saki-scroll-view>
+    </saki-tabs-item>
+    <saki-tabs-item font-size='14px' name='帐号安全'>
+      <saki-scroll-view mode='Auto'>
+        <div className='p-account-security'>帐号安全</div>
+      </saki-scroll-view>
+    </saki-tabs-item>
+    <saki-tabs-item font-size='14px' name='帐号安全'>
+      <saki-scroll-view mode='Auto'>
+        <div className='p-account-security'>帐号安全</div>
+      </saki-scroll-view>
+    </saki-tabs-item>
+  </saki-tabs> -->
+  <style>
+    .item {
+      padding: 20px 10px;
+      border: 1px solid #eee;
+      background-color: #eee;
+      width: 300px;
+      cursor: pointer;
+    }
+
+  </style>
+  <saki-menu>
+    <saki-drag-sort>
+      <div>
+        <saki-drag-sort-item>
+          <saki-menu-item>
+            <div class="item">
+              <p>-------------------1-------------------</p>
+              <p>11111111111111111111111111111111111111</p>
+              <p>11111111111111111111111111111111111111</p>
+              <p>11111111111111111111111111111111111111</p>
+              <p>11111111111111111111111111111111111111</p>
+              <p>-------------------1-------------------</p>
+            </div>
+          </saki-menu-item>
+        </saki-drag-sort-item>
+      </div>
+      <div>
+        <saki-drag-sort-item>
+          <saki-menu-item>
+            <div class="item">
+              <p>-------------------2-------------------</p>
+              <p>22222222222222222222222222222222222222</p>
+              <p>-------------------2-------------------</p>
+            </div>
+          </saki-menu-item>
+        </saki-drag-sort-item>
+      </div>
+      <div>
+        <saki-drag-sort-item>
+          <saki-menu-item>
+            <div class="item">
+              <p>-------------------3-------------------</p>
+              <p>33333333333333333333333333333333333333</p>
+              <p>33333333333333333333333333333333333333</p>
+              <p>33333333333333333333333333333333333333</p>
+              <p>33333333333333333333333333333333333333</p>
+              <p>33333333333333333333333333333333333333</p>
+              <p>33333333333333333333333333333333333333</p>
+              <p>-------------------3-------------------</p>
+            </div>
+          </saki-menu-item>
+        </saki-drag-sort-item>
+      </div>
+      <saki-drag-sort-item>
+        <saki-menu-item>
+          <div class="item">
+            <p>-------------------4-------------------</p>
+            <p>4444444444444444444444444444444444444444</p>
+            <p>-------------------4-------------------</p>
+          </div>
+        </saki-menu-item>
+      </saki-drag-sort-item>
+      <saki-drag-sort-item>
+        <saki-menu-item>
+          <div class="item">
+            <p>-------------------false-------------------</p>
+            <p>falsefalsefalsefalsefalsefalsefalsefalsefalse</p>
+            <p>-------------------false-------------------</p>
+          </div>
+        </saki-menu-item>
+      </saki-drag-sort-item>
+      <saki-drag-sort-item>
+        <saki-menu-item>
+          <div class="item">
+            <p>-------------------5-------------------</p>
+            <p>555555555555555555555555555555555555555</p>
+            <p>-------------------5-------------------</p>
+          </div>
+        </saki-menu-item>
+      </saki-drag-sort-item>
+    </saki-drag-sort>
+  </saki-menu>
+</body>
+
 </html>

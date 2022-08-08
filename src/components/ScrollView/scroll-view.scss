@@ -4,9 +4,11 @@
 .saki-scroll-view-component {
   width: 100%;
   height: 100%;
-  // &.Auto {
-  //   overflow: overlay;
-  // }
+  &.Auto {
+    overflow-y: auto;
+    overflow-x: hidden;
+    // overflow: overlay;
+  }
   position: relative;
   &.Custom {
     overflow-y: auto;

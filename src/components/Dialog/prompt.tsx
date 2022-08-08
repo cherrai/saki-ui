@@ -16,10 +16,16 @@ import {
 export class DialogPromptComponent {
   @Prop() title: string = "";
   @Prop() value: string = "";
+  @Prop() subtitle: string = "";
   @Prop() placeholder: string = "";
   @Prop() cancelText: string = "";
   @Prop() confirmText: string = "";
   @Prop() autoHideDuration: number = 0;
+  @Prop() error = "";
+  @Prop() errorColor: string = "";
+  @Prop() errorFontSize: string = "";
+  @Prop() autoCloseAfterButtonClick: boolean = true;
+  @Prop() flexButton: boolean = false;
 
   @State() visible: boolean = false;
   @Event({
@@ -73,9 +79,12 @@ export class DialogPromptComponent {
         onClose={() => {
           this.close();
         }}
+        zIndex={999999}
         visible={this.visible}
       >
-        <div class={"saki-dialog-prompt-component"}>
+        <div
+          class={"saki-dialog-prompt-component " + (this.error ? "error " : "")}
+        >
           {this.title ? (
             <saki-modal-header
               closeIcon={false}
@@ -91,7 +100,11 @@ export class DialogPromptComponent {
               value={this.value}
               placeholder={this.placeholder || ""}
               height="56px"
+              subtitle={this.subtitle}
               placeholderAnimation="MoveUp"
+              error={this.error}
+              errorColor={this.errorColor}
+              errorFontSize={this.errorFontSize}
               onChangevalue={(e) => {
                 this.changevalue.emit(e.detail);
               }}
@@ -99,17 +112,17 @@ export class DialogPromptComponent {
           </div>
 
           {this.cancelText || this.confirmText ? (
-            <saki-modal-buttons margin="6px 0">
+            <saki-modal-buttons flexButton={this.flexButton} margin="0 0">
               {this.cancelText ? (
                 <saki-button
                   margin="0 4px"
-                  width="80px"
+                  width={this.flexButton ? "auto" : "80px"}
                   height="30px"
                   font-size="13px"
                   border="1px solid #eee"
                   onTap={() => {
                     this.cancel.emit();
-                    this.close();
+                    this.autoCloseAfterButtonClick && this.close();
                   }}
                   type="Normal"
                 >
@@ -121,12 +134,12 @@ export class DialogPromptComponent {
               {this.confirmText ? (
                 <saki-button
                   margin="0 4px"
-                  width="80px"
+                  width={this.flexButton ? "auto" : "80px"}
                   height="30px"
                   font-size="13px"
                   onTap={() => {
                     this.confirm.emit();
-                    this.close();
+                    this.autoCloseAfterButtonClick && this.close();
                   }}
                   type="Primary"
                 >

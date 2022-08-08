@@ -24,6 +24,7 @@ export class DropdownComponent {
 
   // @Prop() isLoad: boolean = false;
   @Prop({ mutable: true }) visible: boolean = false;
+  @Prop({ mutable: true }) zIndex: number = 999;
   @State() isAddVisibleClass: boolean = false;
   @State() visibleStyle: boolean = false;
 
@@ -49,7 +50,7 @@ export class DropdownComponent {
         this.visibleStyle = true;
         this.closing = false;
         document.body.appendChild(this.mainEl);
-        // console.log("this.contentEl", this.contentEl);
+        // console.log("this.mainEl", this.mainEl);
 
         // setTimeout(() => {
         this.isAddVisibleClass = true;
@@ -75,6 +76,8 @@ export class DropdownComponent {
 
     // - this.contentRect.width / 2
 
+    // console.log(this.contentRect);
+    // console.log(this.coreRect, this.coreEl.children[0]);
     switch (this.floatingDirection) {
       case "Center":
         this.left = this.formartLeft(
@@ -97,9 +100,7 @@ export class DropdownComponent {
         }
         break;
       case "Left":
-        this.left = this.formartLeft(
-          this.coreRect.left 
-        );
+        this.left = this.formartLeft(this.coreRect.left);
         if (this.left + this.contentRect.width > clientWidth) {
           this.left =
             clientWidth -
@@ -200,6 +201,9 @@ export class DropdownComponent {
             onMouseDown={() => {
               this.visible = false;
             }}
+            style={{
+              zIndex: String(this.zIndex - 1),
+            }}
             class={"main-bg "}
           ></div>
           <div
@@ -209,6 +213,7 @@ export class DropdownComponent {
             style={{
               left: this.left + "px",
               top: this.top + "px",
+              zIndex: String(this.zIndex),
             }}
             onTransitionEnd={() => {
               if (this.closing && document.body.contains(this.mainEl)) {

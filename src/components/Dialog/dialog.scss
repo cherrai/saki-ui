@@ -2,14 +2,25 @@
   opacity: 1;
 }
 .saki-dialog-prompt-component {
+  padding: 10px 0;
   .dp-input {
     padding: 0 20px 20px;
   }
 }
+.saki-dialog-multiple-prompts-component {
+  padding: 10px 0;
+  .dp-content {
+    padding: 10px 20px 10px;
+  }
+  .dp-input {
+    padding: 0 20px 20px;
+  }
+}
+
 .saki-dialog-progress-bar-component {
   padding: 20px 20px 18px;
   background-color: #fff;
-  // .dpb-tip{
-
-  // }
+  .dpb-tip {
+    margin-top: 4px;
+  }
 }

@@ -14,6 +14,9 @@ import {
   styleUrl: "dialog.scss",
 })
 export class DialogProgressBarComponent {
+  @Prop() maxWidth: string = "400px";
+  @Prop() minWidth: string = "300px";
+  @Prop() width: string = "100&";
   @Prop() progress: number = 0;
   @Prop() tipText: string = "";
   @Prop() tipColor: string = "";
@@ -40,15 +43,16 @@ export class DialogProgressBarComponent {
   render() {
     return (
       <saki-modal
-        maxWidth="400px"
-        width="100%"
-        minWidth="300px"
+        maxWidth={this.maxWidth}
+        minWidth={this.minWidth}
+        width={this.width}
         mask
         maskBackgroundColor="rgba(0,0,0,0)"
         background-color="#fff"
         onClose={() => {
           this.close();
         }}
+        zIndex={999999}
         visible={this.visible}
       >
         <div class={"saki-dialog-progress-bar-component"}>

@@ -29,6 +29,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -20%);
+    z-index: 1000;
     opacity: -1;
     transition: all 0.3s;
     border-radius: 4px;
@@ -42,6 +43,12 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  &.flexButton {
+    justify-content: space-between;
+    & > saki-button {
+      flex: 1;
+    }
+  }
 }
 .saki-modal-content-component {
   padding: 6px 12px;

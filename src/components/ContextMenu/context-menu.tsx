@@ -7,6 +7,7 @@ import {
   State,
   Method,
   Watch,
+  Prop,
 } from "@stencil/core";
 
 @Component({
@@ -14,10 +15,11 @@ import {
   styleUrl: "context-menu.scss",
 })
 export class ContextMenuComponent {
+  @Prop({ mutable: true }) zIndex: number = 1100;
   @Element() el: Element;
   label: string = "";
-  @State() compEl: Element;
-  @State() contentEl: Element;
+  compEl: HTMLDivElement;
+  contentEl: HTMLDivElement;
   @State() visible: boolean = false;
   @State() updateTime = 0;
   @State() contextMenuObj = {
@@ -34,23 +36,37 @@ export class ContextMenuComponent {
   @Watch("visible")
   watchVisible() {
     if (this.visible) {
-      if (!this.compEl) {
-        this.compEl = this.el.querySelector(".saki-context-menu-component");
+      // if (!this.compEl) {
+      //   this.compEl = this.el.querySelector(".saki-context-menu-component");
 
-        this.contentEl = this.el.querySelector(".context-menu-content");
-        // console.log("this.contextEl", this.el, this.contentEl);
-      }
+      //   this.contentEl = this.el.querySelector(".context-menu-content");
+      //   // console.log("this.contextEl", this.el, this.contentEl);
+      // }
       document.body.appendChild(this.compEl);
     } else {
       document.body.removeChild(this.compEl);
+      this.el.appendChild(this.compEl);
     }
   }
   @Method()
   async show({ x, y, label }: { x: number; y: number; label: string }) {
-    // console.log(x, y);
+    // console.log(
+    //   x + this.contentEl.offsetWidth,
+    //   y + this.contentEl.offsetHeight,
+    //   window.innerWidth,
+    //   window.innerHeight,
+    //   this.contentEl.offsetWidth,
+    //   this.contentEl.offsetHeight
+    // );
     this.label = label;
-    this.contextMenuObj.left = x;
-    this.contextMenuObj.top = y;
+    this.contextMenuObj.left =
+      x + this.contentEl.offsetWidth < window.innerWidth - 10
+        ? x
+        : window.innerWidth - 10 - this.contentEl.offsetWidth;
+    this.contextMenuObj.top =
+      y + this.contentEl.offsetHeight < window.innerHeight - 10
+        ? y
+        : window.innerHeight - 10 - this.contentEl.offsetHeight;
     this.visible = true;
     this.updateTime = new Date().getTime();
   }
@@ -106,21 +122,28 @@ export class ContextMenuComponent {
           e.preventDefault();
           return false;
         }}
+        ref={(e) => {
+          e && (this.compEl = e);
+        }}
         class={"saki-context-menu-component"}
       >
         <div
-          // ref={(e) => {
-          //   !this.contentEl && e && (this.contentEl = e);
-          // }}
+          ref={(e) => {
+            e && (this.contentEl = e);
+          }}
           style={{
             left: this.contextMenuObj.left + "px",
             top: this.contextMenuObj.top + "px",
+            zIndex: String(this.zIndex),
           }}
           class={"context-menu-content " + (this.visible ? "show" : "hide")}
         >
           <slot></slot>
         </div>
         <div
+          style={{
+            zIndex: String(this.zIndex - 1),
+          }}
           onContextMenu={(e) => {
             e.preventDefault();
             return false;

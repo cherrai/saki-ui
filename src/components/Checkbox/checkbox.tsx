@@ -36,11 +36,11 @@ export class CheckboxComponent {
   componentWillLoad() {
     setTimeout(() => {
       this.values = this.value.split(",").filter((v) => !!v);
-      const observer = new MutationObserver(this.watchDom);
+      const observer = new MutationObserver(this.watchDom.bind(this));
       this.watchDom();
       // 以上述配置开始观察目标节点
       observer.observe(this.el, {
-        attributes: true,
+        attributes: false,
         childList: true,
         subtree: true,
       });

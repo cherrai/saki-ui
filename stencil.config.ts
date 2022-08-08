@@ -26,7 +26,7 @@ export const config: Config = {
         "node_modules/quill/dist/quill.core.css",
         "node_modules/quill/dist/quill.snow.css",
         "node_modules/quill/dist/quill.bubble.css",
-        // "src/components/Avatar/cropper.scss",
+        "src/components/Avatar/cropper.scss",
       ],
     }),
   ],

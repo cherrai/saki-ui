@@ -16,14 +16,25 @@ import {
 export class MenuComponent {
   @State() left: number = 0;
   @State() top: number = 0;
+  @State() valueList: {
+    [value: string]: number;
+  } = {};
 
   @Prop() direction: "Top" | "Bottom" = "Bottom";
   @Prop() padding: string = "6px 0";
 
   @Event() selectvalue: EventEmitter;
+  @Event() dragdone: EventEmitter;
   @Element() el: HTMLElement;
+
+  // @Method()
+  // async dragTo(el: HTMLSakiMenuItemElement) {
+  //   console.log(el);
+  // }
+  componentWillLoad() {}
   componentDidLoad() {
-    const observer = new MutationObserver(this.watchDom);
+    // console.log("this.el", this.el);
+    const observer = new MutationObserver(this.watchDom.bind(this));
     this.watchDom();
     // 以上述配置开始观察目标节点
     observer.observe(this.el, {
@@ -32,24 +43,21 @@ export class MenuComponent {
       subtree: true,
     });
   }
+  tapFunc = (e: any) => {
+    this.selectvalue.emit({
+      value: e.target.value,
+      index: this.valueList[e.target.value],
+    });
+  };
   watchDom() {
-    let valueList: {
-      [value: string]: number;
-    } = {};
-
-    const tapFunc = (e: any) => {
-      this.selectvalue.emit({
-        value: e.target.value,
-        index: valueList[e.target.value],
-      });
-    };
     // console.log(this.el);
     const list: NodeListOf<HTMLSakiMenuItemElement> =
       this.el?.querySelectorAll("saki-menu-item");
     list?.forEach((item, index) => {
-      valueList[item.value] = index;
-      item.removeEventListener("tap", tapFunc);
-      item.addEventListener("tap", tapFunc);
+      this.valueList[item.value] = index;
+
+      item.removeEventListener("tap", this.tapFunc);
+      item.addEventListener("tap", this.tapFunc);
     });
   }
   render() {
