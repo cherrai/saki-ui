@@ -1,11 +1,11 @@
-FROM node:16.13.1
+FROM node:16.15.1
 WORKDIR /saki-ui
 
-COPY . .
 COPY ./.npmrc /root/.npmrc
+COPY . .
 RUN \
-  npm install && \
-  npm run build
+  yarn && \
+  yarn build
 
 EXPOSE 32300
 

@@ -10,7 +10,7 @@ import {
   Watch,
 } from "@stencil/core";
 
-import { SFUStream } from "@nyanyajs/utils";
+import { SFUStream } from "@nyanyajs/utils/dist/ionSfuSdk";
 
 import { setStream } from "./methods";
 

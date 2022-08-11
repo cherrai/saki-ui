@@ -2,12 +2,9 @@ import {
   Component,
   Event,
   EventEmitter,
-  Method,
   Prop,
-  State,
   Element,
   h,
-  Watch,
 } from "@stencil/core";
 
 @Component({

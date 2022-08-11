@@ -1,4 +1,4 @@
-import { Component, Element, h, Prop, State, Watch } from "@stencil/core";
+import { Component, Element, h, Prop, State} from "@stencil/core";
 
 @Component({
   tag: "saki-chat-search",
@@ -14,8 +14,6 @@ export class InputComponent {
   @State() updateTime: number = 0;
 
   @Element() el: HTMLElement;
-  @Watch("value")
-  watchValueFunc() {}
   componentWillLoad() {}
   componentDidLoad() {}
 

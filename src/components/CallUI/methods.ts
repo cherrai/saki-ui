@@ -1,4 +1,4 @@
-import { SFUStream } from "@nyanyajs/utils";
+import { SFUStream } from "@nyanyajs/utils/dist/ionSfuSdk";
 export const setStream = async function (stream: SFUStream) {
   this.stream?.id !== stream?.id && (this.stream = stream);
 

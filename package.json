@@ -1,5 +1,5 @@
 {
-  "name": "meow-ui",
+  "name": "saki-ui",
   "version": "0.0.1",
   "description": "Stencil Component Starter",
   "main": "dist/index.cjs.js",
@@ -21,16 +21,13 @@
     "start": "node ./app.js --port 32300",
     "test.watch": "stencil test --spec --e2e --watchAll",
     "generate": "stencil generate",
-    "docker": "./docker.sh start"
+    "release": "./release.sh start"
   },
   "dependencies": {
-    "@nyanyajs/utils": "^1.0.4",
+    "@nyanyajs/utils": "^1.0.8",
     "@stencil/core": "^2.11.0",
     "@stencil/sass": "^1.3.2",
-    "@types/sortablejs": "^1.13.0",
     "cropperjs": "^1.5.12",
-    "dhkea-js": "^1.0.0",
-    "ion-sdk-js": "^1.8.2",
     "koa": "^2.13.4",
     "koa-static": "^5.0.0",
     "koa2-cors": "^2.0.6",
@@ -45,6 +42,7 @@
     "@types/crypto-js": "^4.1.1",
     "@types/jsrsasign": "^10.2.1",
     "@types/quill": "^2.0.9",
+    "@types/sortablejs": "^1.13.0",
     "typescript": "^4.5.2"
   }
 }

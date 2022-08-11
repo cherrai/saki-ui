@@ -94,8 +94,8 @@ export class RichTextComponent {
     // if (this.cursorPosition === 0 && this.value.length > cursorPosition) {
     // }
   }
-  @Watch("focus")
-  watchFocusFunc() {}
+  // @Watch("focus")
+  // watchFocusFunc() {}
   inputValue() {}
   componentWillLoad() {}
   componentDidLoad() {

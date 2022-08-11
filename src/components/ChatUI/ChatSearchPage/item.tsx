@@ -6,7 +6,6 @@ import {
   h,
   Prop,
   State,
-  Watch,
 } from "@stencil/core";
 import moment from "moment";
 @Component({
@@ -45,8 +44,6 @@ export class InputComponent {
   @Event() tap: EventEmitter;
 
   @Element() el: HTMLElement;
-  @Watch("value")
-  watchValueFunc() {}
   componentWillLoad() {
     console.log(this.keywords);
   }

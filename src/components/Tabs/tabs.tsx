@@ -71,8 +71,8 @@ export class TabsComponent {
   })
   tap: EventEmitter;
   @Element() el: HTMLElement;
-  @Watch("navEl")
-  watchItemList() {}
+  // @Watch("navEl")
+  // watchItemList() {}
   @Watch("activeIndex")
   watchActiveIndex() {
     setTimeout(() => {
