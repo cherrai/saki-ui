@@ -2,6 +2,8 @@
 name="saki-ui"
 port=32300
 branch="main"
+allowMethods=("protos stop npmconfig install gitpull dockerremove start dockerlogs")
+
 
 gitpull() {
   echo "-> 正在拉取远程仓库"
@@ -15,7 +17,7 @@ logs() {
 
 start() {
   echo "-> 正在启动「${name}」服务"
-  gitpull
+  # gitpull
 
   echo "-> 正在准备相关资源"
   # 删除无用镜像
@@ -41,10 +43,13 @@ start() {
     --restart=always \
     -d $name
 }
+stop() {
+  docker stop $name
+}
+
 
 main() {
-  cmd_list=("logs start")
-  if echo "${cmd_list[@]}" | grep -wq "$1"; then
+  if echo "${allowMethods[@]}" | grep -wq "$1"; then
     "$1"
   else
     echo "Invalid command: $1"

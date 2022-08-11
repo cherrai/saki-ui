@@ -1,5 +1,5 @@
-FROM node:16.15.1
-WORKDIR /saki-ui
+FROM node:16.15.1 as BUILD_IMAGE
+WORKDIR /app
 
 COPY ./.npmrc /root/.npmrc
 COPY . .
@@ -7,6 +7,18 @@ RUN \
   yarn && \
   yarn build
 
+FROM node:16.13.1-alpine3.13
+
+WORKDIR /
+
+COPY --from=BUILD_IMAGE \
+  /app/dist \
+  /dist
+
+RUN \ 
+  yarn global add spa-http-server --registry https://registry.npmmirror.com/
+
 EXPOSE 32300
 
-CMD ["npm","start"]
+CMD ["http-server","./dist","-p","32300","--push-state"]
+
