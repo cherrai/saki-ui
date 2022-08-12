@@ -2,7 +2,7 @@
 name="saki-ui"
 port=32300
 branch="main"
-allowMethods=("protos stop npmconfig install gitpull dockerremove start dockerlogs")
+allowMethods=("protos stop npmconfig install gitpull dockerremove start logs")
 
 
 gitpull() {
@@ -46,6 +46,11 @@ start() {
 stop() {
   docker stop $name
 }
+
+logs() {
+  docker logs -f $name
+}
+
 
 
 main() {
