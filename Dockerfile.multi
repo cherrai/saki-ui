@@ -16,8 +16,7 @@ COPY --from=BUILD_IMAGE \
   /dist
 
 RUN \ 
-  yarn global add spa-http-server --registry https://registry.npmmirror.com/
-
+  yarn global add spa-http-server  --cors --silent  --registry https://registry.npmmirror.com/
 EXPOSE 32300
 
 CMD ["http-server","./dist","-p","32300","--push-state"]
