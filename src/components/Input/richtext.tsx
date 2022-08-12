@@ -245,8 +245,10 @@ export class RichTextComponent {
   }
   @Method()
   async initValue(value: string) {
-    this.quill.root.innerHTML = value || this.value;
-    this.cursorPosition = (value || this.value)?.length - 1;
+    if (this.quill) {
+      this.quill.root.innerHTML = value || this.value;
+      this.cursorPosition = (value || this.value)?.length - 1;
+    }
   }
   @Method()
   async getFocus() {
