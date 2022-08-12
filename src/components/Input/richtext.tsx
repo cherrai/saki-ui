@@ -246,8 +246,11 @@ export class RichTextComponent {
   @Method()
   async initValue(value: string) {
     if (this.quill) {
-      this.quill.root.innerHTML = value || this.value;
-      this.cursorPosition = (value || this.value)?.length - 1;
+      if (this.value !== value) {
+        this.quill.root.innerHTML = value || this.value;
+        this.value = value || this.value;
+        this.cursorPosition = (value || this.value)?.length - 1;
+      }
     }
   }
   @Method()
@@ -288,6 +291,7 @@ export class RichTextComponent {
         content: this.quill.getText(),
         richText: this.quill.root.innerHTML,
       });
+      this.value = this.quill.root.innerHTML;
     } else {
       this.isInit = true;
     }
