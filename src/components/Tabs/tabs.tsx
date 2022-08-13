@@ -100,10 +100,10 @@ export class TabsComponent {
 
       this.itemComponents.forEach(async (item, index) => {
         item.switchActiveFunc(this.activeIndex === index);
-        // item.addEventListener("changename", () => {
-        //   this.itemList[index].name = item.name;
-        //   this.updateTime = new Date().getTime();
-        // });
+        item.addEventListener("changename", () => {
+          this.itemList[index].name = item.name;
+          this.updateTime = new Date().getTime();
+        });
         this.itemList.push({
           id: await item.getId(),
           name: item.name,
