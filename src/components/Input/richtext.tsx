@@ -246,7 +246,10 @@ export class RichTextComponent {
   @Method()
   async initValue(value: string) {
     if (this.quill) {
-      if (this.value !== value) {
+      // console.log("initValue", this.value);
+      // console.log("initValue", value);
+      // console.log("initValue", this.value === value);
+      if (this.quill.root.innerHTML !== value) {
         this.quill.root.innerHTML = value || this.value;
         this.value = value || this.value;
         this.cursorPosition = (value || this.value)?.length - 1;
