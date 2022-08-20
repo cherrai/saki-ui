@@ -105,7 +105,7 @@ export class DragSortComponent {
     DragSortComponent.draggingELement = v;
   }
   watchDom() {
-    console.log("this.el", this.el);
+    // console.log("this.el", this.el);
     // .querySelector(".sortttt")
     // this.sortable && this.sortable.destroy();
 
@@ -174,7 +174,7 @@ export class DragSortComponent {
       //   // 与onEnd相同的属性
       // },
     });
-    console.log(this.sortable);
+    // console.log(this.sortable);
     // console.log(sortable.destroy());
     // const list: NodeListOf<HTMLSakiDragSortItemElement> =
     //   this.el?.querySelectorAll("saki-drag-sort-item");
