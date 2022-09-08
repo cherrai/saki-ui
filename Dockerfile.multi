@@ -5,7 +5,7 @@ COPY ./.npmrc /root/.npmrc
 COPY . .
 RUN \
   yarn && \
-  yarn build
+  yarn build 
 
 FROM node:16.13.1-alpine3.13
 
@@ -16,6 +16,9 @@ COPY --from=BUILD_IMAGE \
   /dist
 
 RUN \ 
+  cp -r /dist/saki-ui/ / && \
+  tar cpvzf /dist/saki-ui.tgz /saki-ui/ && \
+  rm -rf /saki-ui && \
   yarn global add spa-http-server  --registry https://registry.npmmirror.com/
 
 EXPOSE 32300

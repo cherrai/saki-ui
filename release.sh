@@ -17,7 +17,7 @@ logs() {
 
 start() {
   echo "-> 正在启动「${name}」服务"
-  gitpull
+  # gitpull
 
   echo "-> 正在准备相关资源"
   # 删除无用镜像
