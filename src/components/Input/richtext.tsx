@@ -135,6 +135,11 @@ export class RichTextComponent {
     this.quill = new Quill(this.editorEl, {
       theme: this.theme,
       modules: {
+        history: {
+          delay: 2000,
+          maxStack: 500,
+          userOnly: true,
+        },
         toolbar: {
           container: [
             "bold",
@@ -220,7 +225,7 @@ export class RichTextComponent {
     };
 
     this.quill.on("editor-change", (eventName: string, params: any) => {
-      console.log(eventName, params);
+      // console.log(eventName, params);
       if (eventName === "selection-change") {
         this.selectionRangeStatic = params;
       }
@@ -239,6 +244,26 @@ export class RichTextComponent {
       }
     );
 
+    this.quill.keyboard.addBinding(
+      {
+        key: "Z",
+        ctrlKey: true,
+      },
+      () => {
+        this.quill.getModule("history").undo();
+      }
+    );
+
+    this.quill.keyboard.addBinding(
+      {
+        key: "Y",
+        ctrlKey: true,
+      },
+      () => {
+        this.quill.getModule("history").redo();
+      }
+    );
+
     const el: HTMLElement = this.editorEl.querySelector(".ql-editor");
     el.classList.add("scrollBarDefault");
     this.isInit = true;
@@ -254,6 +279,8 @@ export class RichTextComponent {
         this.value = value || this.value;
         this.cursorPosition = (value || this.value)?.length - 1;
       }
+
+      this.quill.getModule("history").clear();
     }
   }
   @Method()
@@ -314,6 +341,26 @@ export class RichTextComponent {
         }}
         class={"saki-richtext-component "}
       >
+        {/* <div
+          onClick={() => {
+            console.log("撤销");
+            let history = this.quill.getModule("history");
+            console.log(history);
+            history.undo();
+          }}
+        >
+          Undo
+        </div>
+        <div
+          onClick={() => {
+            console.log("恢复");
+            let history = this.quill.getModule("history");
+            console.log(history);
+            history.redo();
+          }}
+        >
+          Redo
+        </div> */}
         <div
           style={{
             height: "calc(100% - " + this.toolBarHeight + ")",

@@ -1,0 +1,71 @@
+.saki-loading-component {
+  &.rotateEaseInOut {
+    .l-loading {
+      position: relative;
+      width: var(--saki-loading-width);
+      height: var(--saki-loading-height);
+      animation: circleAnimation 1.2s linear infinite;
+      margin-right: 6px;
+
+      border-radius: 50%;
+
+      animation: rotate 45s infinite linear;
+
+      &::before {
+        animation: rotate 2s infinite ease-out;
+      }
+
+      &::after {
+        animation: rotate 2s infinite ease-in-out;
+      }
+
+      &::before,
+      &::after {
+        position: absolute;
+        content: "";
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: rotate(720deg);
+      }
+      &::before {
+        top: 0px;
+        left: 0px;
+        right: 0px;
+        bottom: 0px;
+        border-top: var(--saki-loading-border) solid var(--saki-loading-border-color);
+        border-left: var(--saki-loading-border) solid var(--saki-loading-border-color);
+        border-bottom: var(--saki-loading-border) solid transparent;
+        border-right: var(--saki-loading-border) solid transparent;
+      }
+
+      &::after {
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        border-bottom: calc(
+            var(--saki-loading-width) / 2 - var(--saki-loading-border)
+          )
+          solid transparent;
+        border-right: calc(
+            var(--saki-loading-width) / 2 - var(--saki-loading-border)
+          )
+          solid transparent;
+        border-top: calc(
+            var(--saki-loading-width) / 2 - var(--saki-loading-border)
+          )
+          solid transparent;
+        border-left: calc(
+            var(--saki-loading-width) / 2 - var(--saki-loading-border)
+          )
+          solid transparent;
+        transition: border-color 0.3s;
+      }
+      @keyframes rotate {
+        100% {
+          transform: rotate(0deg);
+        }
+      }
+    }
+  }
+}
