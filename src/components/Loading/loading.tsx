@@ -1,13 +1,4 @@
-import {
-  Component,
-  Element,
-  Event,
-  EventEmitter,
-  h,
-  State,
-  Prop,
-  Watch,
-} from "@stencil/core";
+import { Component, h, Prop } from "@stencil/core";
 
 @Component({
   tag: "saki-loading",
@@ -20,17 +11,6 @@ export class SakiLoadingComponent {
   @Prop() height = "20px";
   @Prop() border = "3px";
   @Prop() borderColor = "var(--saki-default-color)";
-  @State() values: {
-    [key: string]: any;
-  } = {};
-
-  @Event({
-    bubbles: false,
-  })
-  tap: EventEmitter;
-  @Element() el: HTMLElement;
-  @Watch("disabled")
-  watchDisabled() {}
   componentWillLoad() {}
 
   render() {
