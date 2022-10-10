@@ -41,6 +41,7 @@ export class InputComponent {
   @Prop() height: string = "";
   @Prop() textareaHeight: string = "";
   @Prop() width: string = "";
+  @Prop() border: string = "";
   @Prop() padding: string = "";
   @Prop() margin: string = "";
   @Prop() fontSize: string = "";
@@ -111,16 +112,20 @@ export class InputComponent {
         (this.value = String(this.min));
     }
   }
-  inputValue({ content, value }: { content: string; value: string }) {
+  inputValue(_: { content: string; value: string }) {
     switch (this.type) {
       case "Textarea":
-        if (content === "") {
-          this.setTextareaValue();
-        }
-        this.changevalue.emit({
-          content: content.trim() || "",
-          richText: value || "",
-        });
+        // if (content === "") {
+        //   this.setTextareaValue();
+        // }
+        // this.changevalue.emit({
+        //   content: content.trim() || "",
+        //   richText: value || "",
+        // });
+
+        this.content = this.value;
+        // console.log("this.content",this.content)
+        this.changevalue.emit(this.value || "");
         break;
 
       default:
@@ -181,6 +186,13 @@ export class InputComponent {
       // this.content = this.defaultValue.content;
       // this.setTextareaValue();
     }
+  }
+  // 暂时仅Textare
+  @Method()
+  async select(startIndex: number, endIndex: number) {
+    const el: HTMLTextAreaElement = this.textareaEl;
+    el.setSelectionRange(startIndex, endIndex, "forward");
+    el.focus();
   }
   setTextareaValue() {
     if (!this.textareaEl) return;
@@ -366,6 +378,7 @@ export class InputComponent {
                   "height",
                   "padding",
                   "backgroundColor",
+                  "border",
                 ].reduce(
                   (fin, cur) =>
                     this[cur] ? { ...fin, [cur]: this[cur] } : fin,
@@ -409,17 +422,136 @@ export class InputComponent {
               value={this.value}
             />
           ) : (
-            <div
-              class={"textarea saki-editor scrollBarAuto"}
+            // <div
+            //   class={"textarea saki-editor scrollBarAuto"}
+            //   style={{
+            //     ...[
+            //       "height",
+            //       "maxHeight",
+            //       "minHeight",
+            //       "fontSize",
+            //       "padding",
+            //       "borderRadius",
+            //       "backgroundColor",
+            //     ].reduce(
+            //       (fin, cur) =>
+            //         this[cur] ? { ...fin, [cur]: this[cur] } : fin,
+            //       {}
+            //     ),
+            //     ...(this.textareaHeight
+            //       ? {
+            //           height: this.textareaHeight,
+            //         }
+            //       : {}),
+            //   }}
+            //   ref={(e) => {
+            //     this.textareaEl = e;
+            //     this.setTextareaValue();
+            //   }}
+            //   contenteditable="plaintext-only"
+            //   // min={this.minLength}
+            //   // max={this.maxLength}
+            //   // value={this.value}
+            //   onFocus={() => {
+            //     // console.log("focus: ", this.value);
+
+            //     this.focus = true;
+            //     // if (!this.value) {
+            //     // setTimeout(() => {
+            //     //   this.insertHtmlAtCaretNew("<p>21</p>");
+            //     // }, 300);
+            //     // }
+            //     switch (this.type) {
+            //       case "Textarea":
+            //         this.setTextareaValue();
+            //         break;
+            //     }
+            //     this.focusfunc.emit();
+            //     // this.setCursorToLastPostion(this.textareaEl);
+            //   }}
+            //   onBlur={() => {
+            //     this.focus = false;
+            //     this.blurfunc.emit();
+            //   }}
+            //   onKeyUp={(e) => {
+            //     // console.log("放开", e.keyCode);
+            //     if (this.keyPressing === 16 && e.keyCode === 16) {
+            //       this.keyPressing = 0;
+            //     }
+            //     // console.log("KeyWord啊啊啊啊");
+            //     // this.setTextareaValue();
+            //     // this.textareaEl.focus();
+            //   }}
+            //   // onKeyPress={(e) => {
+            //   //   console.log("keypress", e);
+            //   // }}
+            //   onKeyDown={(e) => {
+            //     // console.log(e.key, e);
+            //     // console.log("按下", e.keyCode, this.keyPressing);
+            //     // console.log(e.keyCode === 13 && this.keyPressing === 0);
+            //     if (e.keyCode === 13 && this.keyPressing === 0) {
+            //       // console.log(e);
+            //       // console.log("send");
+            //       this.pressenter.emit();
+            //       // this.textareaEl.blur();
+            //     }
+            //     e.keyCode === 16 && (this.keyPressing = e.keyCode);
+            //   }}
+            //   onChange={(e) => {
+            //     console.log("change", e.target["innerHTML"]);
+            //   }}
+            //   onInput={(e) => {
+            //     if (this.disabled) {
+            //       e.target["innerHTML"] = this.value;
+            //       return;
+            //     }
+            //     // 获取选定对象
+            //     const selection = getSelection();
+            //     // console.log("input: ", selection.getRangeAt(0));
+            //     this.editRange = {
+            //       startOffset: selection.getRangeAt(0).startOffset,
+            //       endOffset: selection.getRangeAt(0).endOffset,
+            //       el: selection.getRangeAt(0).endContainer,
+            //     };
+            //     this.lastEditRangeStartOffset =
+            //       selection.getRangeAt(0).startOffset;
+
+            //     this.formatContent();
+            //     console.log(e["inputType"], this.keyPressing);
+            //     console.log(
+            //       e["inputType"] === "insertLineBreak" &&
+            //         this.keyPressing === 16
+            //     );
+            //     if (
+            //       e["inputType"] === "insertLineBreak" &&
+            //       this.keyPressing === 16
+            //     ) {
+            //       this.insertBr();
+            //     }
+            //     this.content = e.target["innerText"];
+            //     this.value = e.target["innerHTML"];
+            //     if (this.content === "\n") {
+            //       this.content = this.replaceBlank(e.target["innerText"]);
+            //       this.value = this.replaceBlank(e.target["innerHTML"]);
+            //       e.target["innerHTML"] = this.value;
+            //     }
+            //   }}
+            //   // placeholder={
+            //   //   this.animation !== "BottomLineSpreadsOut" ? this.placeholder : ""
+            //   // }
+            // ></div>
+
+            <textarea
               style={{
                 ...[
                   "height",
                   "maxHeight",
                   "minHeight",
-                  "fontSize",
                   "padding",
-                  "borderRadius",
+                  "fontSize",
                   "backgroundColor",
+                  "border",
+                  "borderRadius",
                 ].reduce(
                   (fin, cur) =>
                     this[cur] ? { ...fin, [cur]: this[cur] } : fin,
@@ -433,143 +565,29 @@ export class InputComponent {
               }}
               ref={(e) => {
                 this.textareaEl = e;
-                this.setTextareaValue();
               }}
-              contenteditable="plaintext-only"
-              // min={this.minLength}
-              // max={this.maxLength}
-              // value={this.value}
+              minLength={this.minLength}
+              maxLength={this.maxLength}
+              value={this.value}
               onFocus={() => {
-                // console.log("focus: ", this.value);
-
                 this.focus = true;
-                // if (!this.value) {
-                // setTimeout(() => {
-                //   this.insertHtmlAtCaretNew("<p>21</p>");
-                // }, 300);
-                // }
-                switch (this.type) {
-                  case "Textarea":
-                    this.setTextareaValue();
-                    break;
+              }}
+              onKeyDown={(e) => {
+                if (e.keyCode === 13) {
+                  this.pressenter.emit();
                 }
-                this.focusfunc.emit();
-                // this.setCursorToLastPostion(this.textareaEl);
+              }}
+              onInput={(e) => {
+                this.value = e.target["value"];
+                e.target["style"].height = this.minHeight;
+                e.target["style"].height = e.target["scrollHeight"] + "px";
+                // console.log(e.target["style"].height);
               }}
               onBlur={() => {
                 this.focus = false;
-                this.blurfunc.emit();
               }}
-              onKeyUp={(e) => {
-                // console.log("放开", e.keyCode);
-                if (this.keyPressing === 16 && e.keyCode === 16) {
-                  this.keyPressing = 0;
-                }
-                // console.log("KeyWord啊啊啊啊");
-                // this.setTextareaValue();
-                // this.textareaEl.focus();
-              }}
-              // onKeyPress={(e) => {
-              //   console.log("keypress", e);
-              // }}
-              onKeyDown={(e) => {
-                // console.log(e.key, e);
-                // console.log("按下", e.keyCode, this.keyPressing);
-                // console.log(e.keyCode === 13 && this.keyPressing === 0);
-                if (e.keyCode === 13 && this.keyPressing === 0) {
-                  // console.log(e);
-                  // console.log("send");
-                  this.pressenter.emit();
-                  // this.textareaEl.blur();
-                }
-                e.keyCode === 16 && (this.keyPressing = e.keyCode);
-              }}
-              onChange={(e) => {
-                console.log("change", e.target["innerHTML"]);
-              }}
-              onInput={(e) => {
-                if (this.disabled) {
-                  e.target["innerHTML"] = this.value;
-                  return;
-                }
-                // 获取选定对象
-                const selection = getSelection();
-                // console.log("input: ", selection.getRangeAt(0));
-                this.editRange = {
-                  startOffset: selection.getRangeAt(0).startOffset,
-                  endOffset: selection.getRangeAt(0).endOffset,
-                  el: selection.getRangeAt(0).endContainer,
-                };
-                this.lastEditRangeStartOffset =
-                  selection.getRangeAt(0).startOffset;
-
-                this.formatContent();
-                console.log(e["inputType"], this.keyPressing);
-                console.log(
-                  e["inputType"] === "insertLineBreak" &&
-                    this.keyPressing === 16
-                );
-                if (
-                  e["inputType"] === "insertLineBreak" &&
-                  this.keyPressing === 16
-                ) {
-                  this.insertBr();
-                }
-                this.content = e.target["innerText"];
-                this.value = e.target["innerHTML"];
-                if (this.content === "\n") {
-                  this.content = this.replaceBlank(e.target["innerText"]);
-                  this.value = this.replaceBlank(e.target["innerHTML"]);
-                  e.target["innerHTML"] = this.value;
-                }
-              }}
-              // placeholder={
-              //   this.animation !== "BottomLineSpreadsOut" ? this.placeholder : ""
-              // }
-            ></div>
-            // <textarea
-            //   style={{
-            //     ...[
-            //       "height",
-            //       "maxHeight",
-            //       "minHeight",
-            //       "padding",
-            //       "fontSize",
-            //       "backgroundColor",
-            //     ].reduce(
-            //       (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
-            //       {}
-            //     ),
-            //     ...(this.textareaHeight
-            //       ? {
-            //           height: this.textareaHeight,
-            //         }
-            //       : {}),
-            //   }}
-            //   minLength={this.minLength}
-            //   maxLength={this.maxLength}
-            //   value={this.value}
-            //   onFocus={() => {
-            //     this.focus = true;
-            //   }}
-            //   onKeyDown={(e) => {
-            //     if (e.keyCode === 13) {
-            //       this.pressenter.emit();
-            //     }
-            //   }}
-            //   onInput={(e) => {
-            //     this.value = e.target["value"];
-            //     e.target["style"].height = this.minHeight;
-            //     e.target["style"].height = e.target["scrollHeight"] + "px";
-            //     console.log(e.target["style"].height);
-            //   }}
-            //   onBlur={() => {
-            //     this.focus = false;
-            //   }}
-            //   placeholder={
-            //     this.animation !== "BottomLineSpreadsOut" ? this.placeholder : ""
-            //   }
-            // />
+              placeholder={this.placeholder}
+            />
           )}
           {this.type === "Search" ? (
             <div class="search-icon">
@@ -653,24 +671,34 @@ export class InputComponent {
             ""
           )}
 
-          <div
-            style={{
-              ...["fontSize"].reduce(
-                (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
-                {}
-              ),
-              left: this.paddingLeftPixel,
-            }}
-            class="placeholder text-elipsis"
-          >
-            {this.placeholder}
-          </div>
-          <div
-            style={{
-              width: "calc(100% - " + this.paddingPixel + ")",
-            }}
-            class="line"
-          ></div>
+          {this.placeholderAnimation === "MoveUp" ? (
+            <div
+              style={{
+                ...["fontSize"].reduce(
+                  (fin, cur) =>
+                    this[cur] ? { ...fin, [cur]: this[cur] } : fin,
+                  {}
+                ),
+                left: this.paddingLeftPixel,
+              }}
+              class="placeholder text-elipsis"
+            >
+              {this.placeholder}
+            </div>
+          ) : (
+            ""
+          )}
+
+          {this.placeholderAnimation === "MoveUp" ? (
+            <div
+              style={{
+                width: "calc(100% - " + this.paddingPixel + ")",
+              }}
+              class="line"
+            ></div>
+          ) : (
+            ""
+          )}
         </div>
         <div
           style={{

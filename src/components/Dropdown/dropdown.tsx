@@ -95,18 +95,25 @@ export class DropdownComponent {
             this.contentRect.width -
             // this.coreRect.width -
             this.coreRect.width / 2 -
-            10 -
+            25 -
             (clientWidth - this.coreRect.right);
         }
         break;
       case "Left":
         this.left = this.formartLeft(this.coreRect.left);
+        // console.log(
+        //   this.left,
+        //   this.contentRect.width,
+        //   clientWidth,
+        //   this.left + this.contentRect.width > clientWidth
+        // );
+
         if (this.left + this.contentRect.width > clientWidth) {
           this.left =
             clientWidth -
             this.contentRect.width -
             // this.coreRect.width -
-            10 -
+            25 -
             (clientWidth - this.coreRect.right);
         }
         break;
