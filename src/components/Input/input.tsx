@@ -409,6 +409,8 @@ export class InputComponent {
               disabled={this.disabled}
               minLength={this.minLength}
               maxLength={this.maxLength}
+              min={this.min}
+              max={this.max}
               autocomplete={this.autoComplete}
               onKeyDown={(e) => {
                 if (e.keyCode === 13) {
