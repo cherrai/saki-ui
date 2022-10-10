@@ -17,7 +17,13 @@ import {
 })
 export class InputComponent {
   @Prop() backgroundColor: string = "";
-  @Prop() type: "Text" | "Password" | "Number" | "Textarea" | "Search" = "Text";
+  @Prop() type:
+    | "Text"
+    | "Password"
+    | "Number"
+    | "Textarea"
+    | "Search"
+    | "Range" = "Text";
   @Prop() placeholderAnimation: "MoveUp" | "" = "";
   @State() defaultValue = {
     value: "<p><br></p>",
@@ -341,6 +347,12 @@ export class InputComponent {
             (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
             {}
           ),
+          "--saki-input-range-background-color":
+            this.backgroundColor || "var(--saki-default-color)",
+          "--saki-input-range-width": this.width || "10px",
+          "--saki-input-range-height": this.height || "10px",
+          "--saki-input-range-thumb":
+            "calc(var(--saki-input-range-height) + 8px)",
         }}
         ref={(e) => {
           this.paddingLeftPixel = e.style.paddingLeft;
@@ -390,6 +402,8 @@ export class InputComponent {
                   ? this.showPassword
                     ? "text"
                     : "password"
+                  : this.type === "Range"
+                  ? "range"
                   : "text"
               }
               disabled={this.disabled}

@@ -37,6 +37,44 @@
         width: calc(100% - 30px);
       }
     }
+    &.Range {
+      input[type="range"] {
+        -webkit-appearance: none;
+      }
+
+      input[type="range"]::-webkit-slider-runnable-track {
+        width: var(--saki-input-range-width);
+        height: var(--saki-input-range-height);
+        background: #eee;
+        border: none;
+        border-radius: calc(var(--saki-input-range-height) / 2);
+      }
+
+      input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        border: none;
+        width: var(--saki-input-range-thumb);
+        height: var(--saki-input-range-thumb);
+        border-radius: 50%;
+        background: var(--saki-input-range-background-color);
+        box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+        margin-top: -4px;
+      }
+
+      // input[type="range"]::-webkit-slider-thumb {
+      //   -webkit-appearance: none;
+      //   border: none;
+      //   // width: 10px;
+      //   // width: 10px;
+      //   width: clac(var(--saki-input-range-height) + 10px);
+      //   height: clac(var(--saki-input-range-height) + 10px);
+      //   // cursor: ew-resize;
+      //   background: var(--saki-input-range-background-color);
+      //   // box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+      //   border-radius: 50%;
+      //   margin-top: -3px;
+      // }
+    }
 
     &.Textarea {
       overflow: auto;
