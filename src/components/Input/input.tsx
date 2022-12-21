@@ -434,7 +434,9 @@ export class InputComponent {
                 this.focus = false;
                 this.blurfunc.emit();
               }}
-              placeholder={""}
+              placeholder={
+                this.placeholderAnimation === "" ? this.placeholder : ""
+              }
               value={this.value}
             />
           ) : (

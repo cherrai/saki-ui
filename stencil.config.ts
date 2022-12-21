@@ -10,11 +10,13 @@ export const config: Config = {
   devServer: {
     reloadStrategy: "pageReload",
     port: 32300,
+    openBrowser: false,
     // https: {
     //   cert: readFileSync('cert.pem', 'utf8'),
     //   key: readFileSync('key.pem', 'utf8')
     // }
   },
+  
   // globalStyle: "node_modules/cropperjs/dist/cropper.css",
   plugins: [
     sass({

@@ -2,12 +2,30 @@
   width: 100%;
   background-color: #fff;
   // padding: 6px 0;
+  &.Icons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
 }
 .saki-menu-item-component {
   width: 100%;
   display: flex;
   flex-direction: column;
   position: relative;
+  &.Icons {
+    align-items: center;
+    .item-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      .item-c-icon{
+        margin: 0;
+      }
+    }
+  }
 
   &.LeftLine {
     .saki-m-i-title {

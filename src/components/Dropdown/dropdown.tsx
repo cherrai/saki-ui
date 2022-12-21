@@ -25,6 +25,12 @@ export class DropdownComponent {
   // @Prop() isLoad: boolean = false;
   @Prop({ mutable: true }) visible: boolean = false;
   @Prop({ mutable: true }) zIndex: number = 999;
+  @Prop({ mutable: true }) width = "";
+  @Prop({ mutable: true }) height = "";
+  @Prop({ mutable: true }) minWidth = "";
+  @Prop({ mutable: true }) minHeight = "";
+  @Prop({ mutable: true }) maxWidth = "";
+  @Prop({ mutable: true }) maxHeight = "";
   @State() isAddVisibleClass: boolean = false;
   @State() visibleStyle: boolean = false;
 
@@ -123,6 +129,8 @@ export class DropdownComponent {
     }
     this.top = this.formartTop(this.coreRect.top + this.coreRect.height / 2);
 
+    // console.log(this.top);
+    // 当内容在顶部、且高度超过浏览器高度、则会出现内容在顶部之上的情况
     if (this.top + this.contentRect.height > clientHeight) {
       this.top =
         clientHeight -
@@ -133,6 +141,15 @@ export class DropdownComponent {
     }
     // console.log(this.coreRect.left, this.coreRect.top);
     // console.log(this.left, this.top);
+    // console.log(
+    //   "",
+    //   this.coreRect,
+    //   this.contentRect,
+    //   clientHeight,
+    //   this.top,
+    //   this.coreRect.top > this.top,
+    //   this.top + this.contentRect.height > clientHeight
+    // );
     if (this.coreRect.top > this.top) {
       this.vertical = "Bottom";
     } else {
@@ -220,6 +237,17 @@ export class DropdownComponent {
             style={{
               left: this.left + "px",
               top: this.top + "px",
+              ...[
+                "width",
+                "height",
+                "minWidth",
+                "minHeight",
+                "maxWidth",
+                "maxHeight",
+              ].reduce(
+                (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
+                {}
+              ),
               zIndex: String(this.zIndex),
             }}
             onTransitionEnd={() => {
@@ -231,7 +259,7 @@ export class DropdownComponent {
                 // document.body.removeChild(this.mainEl);
               }
             }}
-            class={"main-content "}
+            class={"main-content scrollBarDefault"}
           >
             <slot name="main"></slot>
           </div>

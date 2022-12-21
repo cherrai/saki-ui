@@ -16,10 +16,11 @@ import {
 export class MenuComponent {
   @State() left: number = 0;
   @State() top: number = 0;
+  @Prop() type: "Icons" | "List" = "List";
   @State() valueList: {
     [value: string]: number;
   } = {};
-
+  @Prop() width: string = "";
   @Prop() direction: "Top" | "Bottom" = "Bottom";
   @Prop() padding: string = "6px 0";
 
@@ -55,7 +56,6 @@ export class MenuComponent {
       this.el?.querySelectorAll("saki-menu-item");
     list?.forEach((item, index) => {
       this.valueList[item.value] = index;
-
       item.removeEventListener("tap", this.tapFunc);
       item.addEventListener("tap", this.tapFunc);
     });
@@ -64,9 +64,12 @@ export class MenuComponent {
     return (
       <div
         style={{
-          padding: this.padding,
+          ...["width", "padding"].reduce(
+            (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
+            {}
+          ),
         }}
-        class={"saki-menu-component "}
+        class={"saki-menu-component " + this.type}
       >
         <slot></slot>
       </div>

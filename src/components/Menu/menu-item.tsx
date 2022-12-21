@@ -5,7 +5,9 @@ import {
   h,
   Prop,
   Element,
+  State,
 } from "@stencil/core";
+import { MenuComponent } from "./menu";
 
 @Component({
   tag: "saki-menu-item",
@@ -25,12 +27,18 @@ export class MenuItemComponent {
   @Prop() width: string = "";
   @Prop() padding: string = "";
   @Prop() fontSize: string = "";
+  @Prop() borderRadius: string = "";
   @Prop() color: string = "";
   @Prop() margin: string = "";
+  @State() type: MenuComponent["type"] = "List";
   @Element() el: HTMLSakiMenuItemElement;
   @Event() tap: EventEmitter;
   @Event() opencontextmenu: EventEmitter;
-  componentDidLoad() {}
+  componentDidLoad() {
+    setTimeout(() => {
+      this.type = this.el?.parentNode?.["type"] || "List";
+    });
+  }
   render() {
     return (
       <div
@@ -46,14 +54,23 @@ export class MenuItemComponent {
         }}
         class={
           "saki-menu-item-component " +
-          (this.active ? "active " : " ") +
+          this.type +
+          " " +
+          (this.active ? " active " : " ") +
           this.activeStyleType
         }
       >
         <div class={"saki-m-i-subtitle"}>{this.subtitle}</div>
         <div
           style={{
-            ...["width", "margin", "fontSize", "color", "padding"].reduce(
+            ...[
+              "borderRadius",
+              "width",
+              "margin",
+              "fontSize",
+              "color",
+              "padding",
+            ].reduce(
               (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
               {}
             ),

@@ -151,6 +151,10 @@ export class TextareaComponent {
   }
   setTextareaValue() {
     if (!this.textareaEl) return;
+    if (!this.value || !this.dContent.trim()) {
+      this.clear();
+      return;
+    }
     // console.log(this.value, this.dValue);
     if (this.textareaEl.innerHTML !== this.value) {
       this.dValue = this.value;
@@ -158,10 +162,6 @@ export class TextareaComponent {
       this.textareaEl.innerHTML = this.value;
     }
 
-    if (!this.value || !this.dContent.trim()) {
-      this.clear();
-      return;
-    }
     // console.log(this.value, this.dValue);
     // console.log("setTextareaValue", this.dValue);
     // setTimeout(() => {

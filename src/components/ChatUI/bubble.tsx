@@ -18,33 +18,32 @@ import moment from "moment";
 })
 export class ChatBubbleComponent {
   centerTimeMomentConfig = {
-    sameDay: "[Today]",
-    nextDay: "[Tomorrow]",
-    nextWeek: "dddd",
-    lastDay: "[Yesterday]",
-    lastWeek: "YYYY-MM-DD",
-    sameElse: "YYYY-MM-DD",
+    sameDay: "[Today] HH:mm:ss",
+    nextDay: "[Tomorrow] HH:mm:ss",
+    nextWeek: "dddd H:mm:ss",
+    lastDay: "[Yesterday] HH:mm:ss",
+    lastWeek: "YY-MM-DD HH:mm:ss",
+    sameElse: "YYYY-MM-DD HH:mm:ss",
   };
   sendTimeFullMomentConfig = {
-    sameDay: "[Today] HH:mm",
-    nextDay: "[Tomorrow] HH:mm",
-    nextWeek: "dddd HH:mm",
-    lastDay: "[Yesterday] HH:mm",
-    lastWeek: "YY-MM-DD HH:mm",
-    sameElse: "YYYY-MM-DD HH:mm",
+    sameDay: "[Today] HH:mm:ss",
+    nextDay: "[Tomorrow] HH:mm:ss",
+    nextWeek: "dddd H:mm:ss",
+    lastDay: "[Yesterday] HH:mm:ss",
+    lastWeek: "YY-MM-DD HH:mm:ss",
+    sameElse: "YYYY-MM-DD HH:mm:ss",
   };
   sendTimeMomentConfig = {
-    sameDay: "HH:mm",
-    nextDay: "HH:mm",
-    nextWeek: "HH:mm",
-    lastDay: "HH:mm",
-    lastWeek: "HH:mm",
-    sameElse: "HH:mm",
+    sameDay: "H:mm",
+    nextDay: "H:mm",
+    nextWeek: "H:mm",
+    lastDay: "H:mm",
+    lastWeek: "H:mm",
+    sameElse: "H:mm",
   };
   @Prop() type: "receiver" | "sender" = "sender";
 
   isShowCenterTime: boolean = false;
-
 
   @Prop() uid: string = "";
 
@@ -303,6 +302,7 @@ export class ChatBubbleComponent {
         {this.isShowCenterTime ? (
           <div class={"bubble-center-time"}>
             <span>
+              {/* {this.sendTime + ", "} */}
               {moment(this.sendTime * 1000).calendar(
                 this.centerTimeMomentConfig
               )}
@@ -332,6 +332,7 @@ export class ChatBubbleComponent {
             </div>
           </div>
           <div class={"bubble-m-main"}>
+            {/* {this.sendTime + ", "} */}
             <div class="bubble-time">
               <span class={"full-time"}>
                 {moment(this.sendTime * 1000).calendar(

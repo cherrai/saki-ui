@@ -7,6 +7,10 @@
   box-sizing: content-box;
   border: var(--saki-avatar-border);
   transition: border 0.2s;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
   &:hover {
     .edit {
       &.Hover {
@@ -30,6 +34,7 @@
     padding: 2px;
     text-align: center;
     display: flex;
+    justify-content: center;
     word-break: break-all;
     white-space: pre-wrap;
     overflow: hidden;
