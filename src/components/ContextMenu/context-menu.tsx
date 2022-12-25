@@ -125,7 +125,9 @@ export class ContextMenuComponent {
         ref={(e) => {
           e && (this.compEl = e);
         }}
-        class={"saki-context-menu-component"}
+        class={
+          "saki-context-menu-component " + (this.visible ? "show" : "hide")
+        }
       >
         <div
           ref={(e) => {

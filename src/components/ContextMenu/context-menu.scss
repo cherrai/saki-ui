@@ -1,4 +1,8 @@
 .saki-context-menu-component {
+  display: none;
+  &.show {
+    display: block;
+  }
   .context-menu-content {
     position: fixed;
     visibility: hidden;
@@ -24,9 +28,9 @@
     background-color: rgba(0, 0, 0, 0);
     width: 100%;
     height: 100%;
-    visibility: hidden;
     z-index: 999;
     // pointer-events: none;
+    visibility: hidden;
     &.show {
       visibility: visible;
     }
