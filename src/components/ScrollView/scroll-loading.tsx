@@ -60,7 +60,14 @@ export class TabsComponent {
         class="saki-scroll-loading-component"
       >
         {this.loadingAnimation ? (
-          <div class={"loading-animation"}></div>
+          <div class={"loading-animation"}>
+            <saki-animation-loading
+              width="30px"
+              height="30px"
+              type="rotateEaseInOut"
+              loading-animation
+            ></saki-animation-loading>
+          </div>
         ) : (
           this.loadingText
         )}
@@ -68,3 +75,8 @@ export class TabsComponent {
     );
   }
 }
+
+            {/* <saki-animation-loading
+              type="rotateEaseInOut"
+              loading-animation
+            ></saki-animation-loading> */}

@@ -4,8 +4,9 @@
   .bubble-center-time {
     text-align: center;
     margin: 18px 0 10px;
+    margin-top: calc(var(--vertical-margin) + 14px);
     color: var(--saki-chat-bubble-time-color);
-    font-size: 12px;
+    font-size: 13px;
     cursor: default;
     user-select: none;
     span {
@@ -35,7 +36,8 @@
     justify-content: flex-start;
     position: relative;
     padding: 0 10px;
-    margin: 4px 0 0px;
+    margin: 10px 0 0px;
+    margin-top: var(--vertical-margin);
 
     &.selected {
       .bubble-c-msg {
@@ -63,7 +65,7 @@
           right: 0;
         }
         .bubble-content {
-          padding-left: var(--max-margin);
+          padding-left: var(--horizontal-margin);
           position: relative;
           .bubble-c-msg {
             background-color: var(--saki-chat-bubble-right-bg-color);
@@ -89,7 +91,7 @@
         }
 
         .bubble-content {
-          padding-right: var(--max-margin);
+          padding-right: var(--horizontal-margin);
           position: relative;
           .bubble-c-msg {
             background-color: var(--saki-chat-bubble-left-bg-color);
@@ -102,14 +104,16 @@
     }
     &.showTime {
       margin: 6px 0 0px;
-      .bubble-m-userinfo {
-        .bubble-u-avatar {
-          display: block;
-        }
-      }
       .bubble-m-main {
         padding-top: 20px;
         .bubble-time {
+          display: block;
+        }
+      }
+    }
+    &.showUserInfo{
+      .bubble-m-userinfo {
+        .bubble-u-avatar {
           display: block;
         }
       }
@@ -138,7 +142,7 @@
       }
     }
     .bubble-m-main {
-      max-width: calc(100% - var(--max-margin));
+      max-width: calc(100% - var(--horizontal-margin));
       display: flex;
       flex-direction: column;
       position: relative;
@@ -149,7 +153,7 @@
         // left: 50%;
         // transform: translateX(-50%);
         text-align: center;
-        font-size: 12px;
+        font-size: 13px;
         display: none;
         color: var(--saki-chat-bubble-time-color);
         margin: 0px 0 2px;
@@ -165,55 +169,28 @@
         .bubble-c-status {
           &.receiver {
             .bubble-c-s-readstatus {
-              right: calc(var(--max-margin) - 16px);
+              right: calc(var(--horizontal-margin) - 16px);
               left: auto;
             }
             .bubble-c-s-resend-icon {
-              right: calc(var(--max-margin) - 16px);
+              right: calc(var(--horizontal-margin) - 16px);
               left: auto;
             }
             .bubble-c-s-loading {
-              right: calc(var(--max-margin) - 16px);
+              right: calc(var(--horizontal-margin) - 16px);
               left: auto;
             }
           }
           // &.right {
           //   display: none;
           // }
-          &.success {
-            .bubble-c-s-readstatus {
-              display: block;
-            }
-          }
-          &.sending {
-            .bubble-c-s-loading {
-              display: block;
-              opacity: 1;
-              &::after {
-                animation: circleAnima infinite linear 1s;
-              }
-            }
-          }
-          &.fail {
-            .bubble-c-s-loading {
-              display: block;
-              &::after {
-                display: none;
-              }
-            }
-            .bubble-c-s-resend-icon {
-              display: block;
-              opacity: 1;
-            }
-          }
           .bubble-c-s-readstatus {
-            display: none;
             // border: 2px solid var(--saki-chat-bubble-loading-color);
             position: absolute;
             width: 12px;
             height: 12px;
             bottom: 0;
-            left: calc(var(--max-margin) - 16px);
+            left: calc(var(--horizontal-margin) - 16px);
             cursor: pointer;
             .bubble-c-s-readstatus-icon {
               position: absolute;
@@ -232,51 +209,22 @@
             }
           }
           .bubble-c-s-resend-icon {
-            display: none;
             width: 12px;
             height: 12px;
             bottom: 0;
-            opacity: 0;
-            left: calc(var(--max-margin) - 16px);
+            left: calc(var(--horizontal-margin) - 16px);
             position: absolute;
             transition: all 0.3s;
             // top: 50%;
             // transform: translateY(-50%);
-            // left: calc(var(--max-margin) - 18px);
+            // left: calc(var(--horizontal-margin) - 18px);
             cursor: pointer;
             fill: var(--saki-chat-bubble-loading-color);
           }
-          .bubble-c-s-loading {
-            display: none;
-            width: 12px;
-            height: 12px;
-            bottom: 0;
-            opacity: 0;
-            transition: all 0.3s;
-            left: calc(var(--max-margin) - 16px);
+          saki-animation-loading {
             position: absolute;
-            // top: 50%;
-            // transform: translateY(-50%);
-            // left: calc(var(--max-margin) - 18px);
-
-            &::after {
-              content: "";
-              border: 2px solid var(--saki-chat-bubble-loading-color);
-              border-radius: 50%;
-              border-top: 2px solid var(--saki-chat-bubble-loading-active-color);
-              width: 100%;
-              height: 100%;
-              display: block;
-              cursor: pointer;
-            }
-            @keyframes circleAnima {
-              0% {
-                transform: rotate(0deg);
-              }
-              100% {
-                transform: rotate(360deg);
-              }
-            }
+            left: calc(var(--horizontal-margin) - 16px);
+            bottom: 0;
           }
         }
         .bubble-c-msg {
@@ -331,7 +279,7 @@
         top: -14px;
         // opacity: 1;
         // opacity: 0;
-        font-size: 12px;
+        font-size: 13px;
         color: var(--saki-chat-bubble-time-color);
         transition: opacity 0.2s;
       }

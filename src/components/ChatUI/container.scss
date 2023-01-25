@@ -33,13 +33,15 @@
   }
 }
 
-.saki-chat-container-main-component {
+.saki-chat-message-container-component {
   flex: 1;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   position: relative;
+  width: 100%;
+  height: 100%;
   .message-header {
     border-bottom: 1px solid var(--saki-defalut-border-color);
   }

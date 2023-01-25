@@ -67,7 +67,6 @@ export class TextareaComponent {
   @Element() el: HTMLElement;
   @Watch("dValue")
   watchDValueFunc() {
-    // // console.log("this.value", this.value, this.content);
     // // console.log(this);
     if (!this.dValue) {
       this.content = "";
@@ -104,16 +103,6 @@ export class TextareaComponent {
   }
   @Watch("focus")
   watchFocusFunc() {}
-  inputValue() {
-    if (this.dContent === "") {
-      this.setTextareaValue();
-    }
-
-    this.changevalue.emit({
-      content: this.dContent.trim() || "",
-      richText: this.dValue || "",
-    });
-  }
   componentWillLoad() {
     this.setTextareaValue();
   }
@@ -143,11 +132,23 @@ export class TextareaComponent {
   }
   @Method()
   async clear() {
+    // console.log("clear");
     this.textareaEl.innerHTML = "<p><br></p>";
-    this.dValue = "<p><br></p>";
-    this.value = this.dValue;
     this.dContent = "";
+    this.value = "<p><br></p>";
+    this.dValue = "<p><br></p>";
     // console.log(this.value, this.dValue);
+  }
+  inputValue() {
+    if (this.dContent === "") {
+      this.setTextareaValue();
+    }
+
+    // console.log(this.dContent, this.dValue);
+    this.changevalue.emit({
+      content: this.dContent.trim() || "",
+      richText: this.dValue || "",
+    });
   }
   setTextareaValue() {
     if (!this.textareaEl) return;
@@ -157,10 +158,19 @@ export class TextareaComponent {
     }
     // console.log(this.value, this.dValue);
     if (this.textareaEl.innerHTML !== this.value) {
-      this.dValue = this.value;
-      this.dContent = this.value.replace(/<[^>]+>/g, "").trim();
       this.textareaEl.innerHTML = this.value;
+      this.dContent = this.value.replace(/<[^>]+>/g, "").trim();
+      this.dValue = this.value;
     }
+
+    // console.log(
+    //   this.textareaEl.innerHTML !== this.value,
+    //   this.textareaEl.innerHTML,
+    //   this.value,
+    //   this.dContent,
+    //   this.value,
+    //   this.dValue
+    // );
 
     // console.log(this.value, this.dValue);
     // console.log("setTextareaValue", this.dValue);
@@ -391,7 +401,7 @@ export class TextareaComponent {
             //   // console.log("change", e.target["innerHTML"]);
             // }}
             onInput={(e) => {
-              console.log(e.target["innerHTML"]);
+              // console.log(e.target["innerHTML"]);
               if (this.disabled) {
                 e.target["innerHTML"] = this.value;
                 return;
@@ -408,7 +418,7 @@ export class TextareaComponent {
                 selection.getRangeAt(0).startOffset;
 
               this.formatContent();
-              console.log(e["inputType"]);
+              // console.log(e["inputType"]);
               if (e["inputType"] === "insertLineBreak") {
                 this.insertBr();
               }

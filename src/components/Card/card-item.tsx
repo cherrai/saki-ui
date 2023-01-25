@@ -6,13 +6,14 @@ import { Component, Event, EventEmitter, Prop, h } from "@stencil/core";
   shadow: true,
 })
 export class CardItemComponent {
+  // 改版了。其他项目发现异常记得改一下，尤其是sso和喵笔记
   @Prop() type: "Defalut" | "Flex" = "Defalut";
   @Prop() border: boolean = false;
   @Prop() backIcon: boolean = false;
   @Prop() disabledTap: boolean = false;
-  @Prop() backgroundColor: string = ""
-  @Prop() backgroundHoverColor: string = "#eee"
-  @Prop() backgroundActiveColor: string = "#ddd"
+  @Prop() backgroundColor: string = "";
+  @Prop() backgroundHoverColor: string = "#eee";
+  @Prop() backgroundActiveColor: string = "#ddd";
   @Prop() margin = "";
   @Prop() padding = "";
   // Flex
@@ -33,9 +34,9 @@ export class CardItemComponent {
               (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
               {}
             ),
-            "--saki-card-item-bg-color":this.backgroundColor,
-            "--saki-card-item-bg-hover-color":this.backgroundHoverColor,
-            "--saki-card-item-bg-active-color":this.backgroundActiveColor,
+            "--saki-card-item-bg-color": this.backgroundColor,
+            "--saki-card-item-bg-hover-color": this.backgroundHoverColor,
+            "--saki-card-item-bg-active-color": this.backgroundActiveColor,
           }}
           onClick={() => {
             !this.disabledTap && this.tap.emit();

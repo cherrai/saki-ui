@@ -1,11 +1,11 @@
 import { Component, h, Prop } from "@stencil/core";
 
 @Component({
-  tag: "saki-loading",
+  tag: "saki-animation-loading",
   styleUrl: "loading.scss",
   shadow: true,
 })
-export class SakiLoadingComponent {
+export class SakiAnimationLoadingComponent {
   @Prop() type: "rotateEaseInOut" | "rotateLinear" = "rotateEaseInOut";
   @Prop() width = "20px";
   @Prop() height = "20px";
@@ -22,13 +22,9 @@ export class SakiLoadingComponent {
           "--saki-loading-border": this.border,
           "--saki-loading-border-color": this.borderColor,
         }}
-        class={"saki-loading-component " + this.type}
+        class={"saki-animation-loading-component " + this.type}
       >
-        {this.type === "rotateEaseInOut" ? (
-          <div class={"l-loading "}></div>
-        ) : (
-          ""
-        )}
+        <div class={"l-loading "}></div>
       </div>
     );
   }

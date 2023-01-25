@@ -117,6 +117,8 @@ export class CheckboxComponent {
     list?.forEach((item, index) => {
       valueList[item.value] = index;
 
+      item.flexDirection = this.flexDirection;
+
       item.type = this.type;
       item.removeEventListener("tap", tapFunc);
       item.addEventListener("tap", tapFunc);
@@ -143,13 +145,16 @@ export class CheckboxComponent {
             "width",
             "height",
             "borderRadius",
-            "flexDirection",
           ].reduce(
             (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
             {}
           ),
         }}
-        class={"saki-checkbox-component "}
+        class={
+          "saki-checkbox-component " +
+          this.flexDirection +
+          (this.disabled ? "disabled " : "")
+        }
       >
         <slot></slot>
       </div>

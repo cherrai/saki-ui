@@ -6,8 +6,14 @@ import { Component, h, Prop } from "@stencil/core";
   shadow: true,
 })
 export class PageMainComponent {
-  @Prop() maxWidth: string = "";
-  @Prop() maxHeight: string = "";
+  @Prop({
+    mutable: true,
+  })
+  maxWidth: string = "";
+  @Prop({
+    mutable: true,
+  })
+  maxHeight: string = "";
   @Prop() align: string = "center";
   @Prop() full: boolean = false;
 

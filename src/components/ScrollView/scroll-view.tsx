@@ -18,7 +18,7 @@ import {
   shadow: false,
 })
 export class ScrollViewComponent {
-  @State() observer: IntersectionObserver;
+  observer: IntersectionObserver;
   @State() inheritData = {
     height: 0,
     el: null,
@@ -37,7 +37,11 @@ export class ScrollViewComponent {
   @Prop() height: string = "";
   // 保持距离底部的位置不变
   @Prop() keepDistanceToBottom: boolean = false;
-  @Prop() maxHeight: string = "";
+  @Prop({
+    mutable: true,
+  })
+  maxHeight: string = "";
+
   @Prop() proportionalScroll: boolean = false;
 
   scrollToY: number = -1;
@@ -382,7 +386,7 @@ export class ScrollViewComponent {
     // //console.log(this.el.getBoundingClientRect());
     // //console.log((clientHeight - this.el.getBoundingClientRect().top) / 1);
     // //console.log(this.compEl);
-    // //console.log("line 103", this.compEl.getBoundingClientRect());
+    // console.log("line 103", this.compEl.getBoundingClientRect());
     if (this.compEl.getBoundingClientRect().top) {
       this.maxHeight =
         (clientHeight - this.compEl.getBoundingClientRect().top) / 1 + "px";

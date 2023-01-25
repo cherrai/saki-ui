@@ -24,9 +24,13 @@ export class TabsItemComponent {
   @Prop() fontSize: string = "14px";
   @Prop() fontWeight: string = "500";
   @Prop() borderBottom: boolean = false;
-  
+  @Prop() full = false;
+
   @State() isShow: boolean;
-  @Event() changename: EventEmitter;
+  @Event({
+    bubbles: false,
+  })
+  changename: EventEmitter;
   @Watch("name")
   watchNameFunc() {
     this.changename.emit();
@@ -48,7 +52,7 @@ export class TabsItemComponent {
         style={{
           display: this.isShow ? "block" : "none",
         }}
-        class={"saki-tabs-item-component "}
+        class={"saki-tabs-item-component " + (this.full ? "full" : "")}
       >
         <slot></slot>
       </div>

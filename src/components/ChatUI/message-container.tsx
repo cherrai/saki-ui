@@ -1,21 +1,29 @@
 import { Component, Element, h, Prop } from "@stencil/core";
 
 @Component({
-  tag: "saki-chat-container-main",
+  tag: "saki-chat-message-container",
   styleUrl: "container.scss",
   shadow: true,
 })
-export class ChatContainerMainComponent {
+export class ChatMessageContainerComponent {
   @Prop() border: boolean = false;
+  @Prop() full: boolean = false;
+  @Prop() visible: boolean = false;
   @Prop() boxShadow: string = "";
   @Element() el: HTMLElement;
 
-  componentDidLoad() {}
+  componentWillLoad() {
+    this.full && this.el.classList.add("saki-full-page");
+  }
   render() {
     return (
       <div
+        style={{
+          display: this.visible ? "flex" : "none",
+        }}
         class={
-          "saki-chat-container-main-component " + (this.border ? "border" : "")
+          "saki-chat-message-container-component " +
+          (this.border ? "border" : "")
         }
       >
         <div class="message-header">

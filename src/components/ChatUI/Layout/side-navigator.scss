@@ -1,0 +1,34 @@
+.saki-chat-layout-side-navigator-component {
+  width: 220px;
+  height: 100%;
+  border-right: 1px solid #eee;
+  padding: 14px;
+  transition: width 0.3s;
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  &.expand {
+    // width: 68px;
+  }
+  .sn-top {
+    .sn-t-menu {
+      margin-bottom: 12px;
+    }
+    .sn-t-nav {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      width: 100%;
+    }
+  }
+  .sn-bottom {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    width: 100%;
+  }
+}

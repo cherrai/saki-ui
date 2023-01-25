@@ -15,6 +15,8 @@ import {
 export class SSOLoginComponent {
   @Prop() url = "";
   @Prop() appId = "";
+  @Prop() appToken = "";
+  @Prop() appName = "";
   @Prop() disableHeader = false;
   @Event() login: EventEmitter;
   @Event() updateUser: EventEmitter;
@@ -62,6 +64,10 @@ export class SSOLoginComponent {
             this.url +
             "?appId=" +
             this.appId +
+            "&appToken=" +
+            this.appToken +
+            "&appName=" +
+            this.appName +
             "&iframe=true&disableHeader=" +
             (!this.disableHeader ? "false" : "true")
           }

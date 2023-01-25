@@ -13,11 +13,15 @@ import {
   shadow: true,
 })
 export class CardComponent {
-  @Prop() border: boolean = false;
+  @Prop() defaultBorder: boolean = false;
   @Prop() title = "";
   @Prop() hideTitle = false;
   @Prop() subtitle = "";
   @Prop() hideSubtitle = false;
+  @Prop() margin = "";
+  @Prop() padding = "";
+  @Prop() border = "";
+  @Prop() borderRadius = "";
   @Element() el: HTMLElement;
   @Event() tap: EventEmitter;
   @Event() changestreamid: EventEmitter;
@@ -25,8 +29,13 @@ export class CardComponent {
   render() {
     return (
       <div
-        style={{}}
-        class={"saki-card-component " + (this.border ? "border " : "")}
+        style={{
+          ...["border", "borderRadius", "margin", "padding"].reduce(
+            (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
+            {}
+          ),
+        }}
+        class={"saki-card-component " + (this.defaultBorder ? "border " : "")}
       >
         {!this.hideTitle ? (
           <div class="c-title">

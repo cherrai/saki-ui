@@ -34,11 +34,11 @@ export class TransitionComponent {
   setClassName() {
     this.timer && clearTimeout(this.timer);
 
-    console.log("transition", this.in);
+    // console.log("transition", this.in);
 
-    console.log(this.el);
+    // console.log(this.el);
     let el = this.el?.children?.[0];
-    console.log(el);
+    // console.log(el);
     if (!el) return;
     el.classList.remove(this.className + "-leave-done");
     el.classList.remove(this.className + "-enter-done");

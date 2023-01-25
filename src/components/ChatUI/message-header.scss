@@ -13,12 +13,7 @@
     .message-header-l-avatar {
       width: 36px;
       height: 36px;
-      margin-right: 10px;
-      .message-header-l-avatar-img {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-      }
+      cursor: pointer;
     }
     .message-header-l-info {
       display: flex;
@@ -27,6 +22,8 @@
       align-items: flex-start;
       flex: 1;
       transform: translateY(2px);
+      padding: 0 0 0 10px;
+
       .message-header-l-i-info {
         display: flex;
         flex-direction: column;

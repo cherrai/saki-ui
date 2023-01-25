@@ -16,11 +16,13 @@ import {
 })
 export class CheckboxItemComponent {
   @Prop() type: "Radio" | "Checkbox" = "Radio";
+  @Prop() flexDirection: "Row" | "Column" = "Row";
   @Prop() value: string = "";
   @Prop() content: string = "";
   @Prop() height: string = "";
   @Prop() margin: string = "0 16px 0 0";
   @Prop() padding: string = "";
+  @Prop() hoverBackgroundColor: string = "rgba(0,0,0,0)";
   @Prop() activeColor: string = "var(--saki-default-color)";
   @Prop() iconActiveColor: string = "var(--saki-default-color)";
   // @Prop() textAlign: string = "center";
@@ -50,6 +52,7 @@ export class CheckboxItemComponent {
           }
         }}
         style={{
+          "--saki-hover-background-color": this.hoverBackgroundColor,
           ...[
             "border",
             "fontSize",
@@ -69,7 +72,8 @@ export class CheckboxItemComponent {
           "saki-checkbox-item-component " +
           this.type +
           (this.active ? " active " : " ") +
-          (this.disabled ? " disabled " : " ")
+          (this.disabled ? " disabled " : " ") +
+          this.flexDirection
         }
       >
         {this.type === "Radio" ? <div class={"ci-radio"}></div> : ""}

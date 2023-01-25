@@ -32,16 +32,20 @@ export class TabsComponent {
   @State() navMoreIcon = false;
   @State() dropdownStartIndex = -1;
   @State() navMoreShowDropDown = false;
+
   @Prop() type: "Flex" | "Default" = "Default";
   @Prop() headerBackgroundColor = "";
+  @Prop() full = false;
 
   @Prop() headerMaxWidth = "";
+  @Prop() activeTabLabel = "";
   @Prop() headerBorderBottom = "1px solid #eee";
 
   // Flex
   @Prop() headerItemMinWidth = "auto";
   // Default
   @Prop() headerPadding = "";
+
   @State() itemComponents: NodeListOf<HTMLSakiTabsItemElement>;
   @State() itemList: {
     id: string;
@@ -98,14 +102,18 @@ export class TabsComponent {
       this.itemComponents = this.el.querySelectorAll("saki-tabs-item");
       this.itemList = [];
 
-      this.itemComponents.forEach(async (item, index) => {
-        item.switchActiveFunc(this.activeIndex === index);
+      this.itemComponents.forEach((item, index) => {
+        item.full = this.full;
+        if (this.activeTabLabel === item.label) {
+          this.activeIndex = index;
+        }
         item.addEventListener("changename", () => {
           this.itemList[index].name = item.name;
           this.updateTime = new Date().getTime();
         });
+
         this.itemList.push({
-          id: await item.getId(),
+          id: "",
           name: item.name,
           label: item.label,
           fontSize: item.fontSize,
@@ -114,6 +122,13 @@ export class TabsComponent {
           dropdown: false,
           width: 0,
         });
+        item.getId().then((v) => {
+          this.itemList[index].id = v;
+        });
+      });
+
+      this.itemComponents.forEach((item, index) => {
+        item.switchActiveFunc(this.activeIndex === index);
       });
       // console.log(this.navEl);
     }, 10);
@@ -173,17 +188,19 @@ export class TabsComponent {
     }
     this.getLineStyle.call(this, this.activeIndex);
 
-    this.tap.emit({
-      name: this.itemList[this.activeIndex].name,
-      label: this.itemList[this.activeIndex].label,
-      activeIndex: this.activeIndex,
-    });
+    // this.tap.emit({
+    //   name: this.itemList[this.activeIndex].name,
+    //   label: this.itemList[this.activeIndex].label,
+    //   activeIndex: this.activeIndex,
+    // });
   };
   render() {
     switch (this.type) {
       case "Flex":
         return (
-          <div class="saki-tabs-component flex">
+          <div
+            class={"saki-tabs-component flex " + (this.full ? "full" : "")}
+          >
             {/* {this.activeIndex},{this.dropdownStartIndex} */}
             <div
               style={{
@@ -372,7 +389,9 @@ export class TabsComponent {
 
       case "Default":
         return (
-          <div class="saki-tabs-component defalut">
+          <div
+            class={"saki-tabs-component defalut " + (this.full ? "full" : "")}
+          >
             <div
               style={{
                 backgroundColor: this.headerBackgroundColor,

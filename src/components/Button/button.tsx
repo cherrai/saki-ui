@@ -34,6 +34,7 @@ export class ButtonComponent {
   @Prop({ mutable: true }) loading: boolean = false;
   @Prop({ mutable: true }) loadingColor: string = "";
   @Prop({ mutable: true }) loadingWidth: string = "24px";
+  @Prop({ mutable: true }) bindKeys: string[] = [];
   // @Prop() textAlign: string = "center";
   @State() values: {
     [key: string]: any;

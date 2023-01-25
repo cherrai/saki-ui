@@ -1,0 +1,58 @@
+.saki-chat-layout-contact-tag-component {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+  padding: 0;
+  transition: all 0.2s;
+  user-select: none;
+  background-color: rgb(243, 243, 243);
+  border-radius: 15px;
+  // @media (any-hover: hover) {
+  //   &:hover {
+  //     // background-color: var(--saki-hover-background-color);
+  //   }
+  // }
+  &.deleteIcon {
+    .item-avatar {
+      position: relative;
+      &:hover {
+        .delete-icon {
+          opacity: 1;
+        }
+      }
+      .delete-icon {
+        opacity: 0;
+        transition: opacity 0.2s;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 30px;
+        height: 30px;
+        background-color: rgba(0, 0, 0, 0.3);
+        border-radius: 30px;
+        saki-icon {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
+    }
+  }
+  .item-avatar {
+    width: 30px;
+  }
+
+  .item-info {
+    flex: 1;
+    padding: 0 8px 0 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .i-i-nickname {
+      font-size: 14px;
+      color: #222;
+    }
+  }
+}

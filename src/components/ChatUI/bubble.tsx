@@ -58,7 +58,12 @@ export class ChatBubbleComponent {
   // -1 fail
   @Prop() status: 1 | 0 | -1 = 0;
   @Prop() selected: boolean = false;
-  @Prop() hideStatsIcon: boolean = false;
+  @Prop() readStatsIcon: boolean = false;
+  @Prop() statusIcon: boolean = false;
+  @Prop() displayTime: boolean = false;
+  @Prop() timeDisplayInterval = 2 * 60;
+  @Prop() userInfoDisplayMode: "Merge" | "Full" = "Full";
+
   @Prop() border: string = "1px solid rgba(0,0,0,0)";
   // 0~1
   @Prop() readProgress: number = 0;
@@ -75,7 +80,9 @@ export class ChatBubbleComponent {
   @Prop() nickname: string = "";
 
   @Prop() backgroundColor: string = "";
-  @Prop() maxMargin: string = "46px";
+  @Prop() horizontalMargin: string = "46px";
+  @Prop() verticalMargin: string = "2px";
+  // @Prop() padding: string = "";
 
   @Prop() watchStatus: boolean = false;
   @Prop() watchStatusTimeout: number = 5;
@@ -216,18 +223,20 @@ export class ChatBubbleComponent {
     if (
       sendTime.year() !== previousMessageSendTime.year() ||
       sendTime.month() !== previousMessageSendTime.month() ||
-      sendTime.date() !== previousMessageSendTime.date()
+      sendTime.date() !== previousMessageSendTime.date() ||
+      this.sendTime - this.previousMessageSendTime >= this.timeDisplayInterval
     ) {
       return true;
     }
     return false;
   }
   isShowTime() {
+    if (this.userInfoDisplayMode === "Full") return true;
     return (
       this.isShowCenterTime ||
       this.type !== this.previousMessageType ||
       this.uid !== this.previousMessageUid ||
-      this.sendTime - this.previousMessageSendTime >= 6 * 60
+      this.sendTime - this.previousMessageSendTime >= this.timeDisplayInterval
     );
   }
   render() {
@@ -284,8 +293,13 @@ export class ChatBubbleComponent {
     return (
       <div
         style={{
-          "--max-margin": this.maxMargin,
+          "--horizontal-margin": this.horizontalMargin,
+          "--vertical-margin": this.verticalMargin,
           "--width": "0px",
+          ...["padding"].reduce(
+            (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
+            {}
+          ),
         }}
         ref={(e) => {
           this.bubbleEl = e;
@@ -293,11 +307,7 @@ export class ChatBubbleComponent {
         onClick={() => {
           this.tap.emit();
         }}
-        class={
-          "saki-chat-bubble-component " +
-          " " +
-          (this.hideStatsIcon ? "hideStatsIcon " : "")
-        }
+        class={"saki-chat-bubble-component " + " "}
       >
         {this.isShowCenterTime ? (
           <div class={"bubble-center-time"}>
@@ -317,7 +327,12 @@ export class ChatBubbleComponent {
             "bubble-message " +
             this.type +
             (this.selected ? " selected " : "") +
-            (this.isShowTime() ? " showTime " : "")
+            (this.isShowTime() && this.displayTime ? " showTime " : "") +
+            (this.userInfoDisplayMode === "Full"
+              ? " showUserInfo "
+              : this.isShowTime()
+              ? " showUserInfo "
+              : "")
           }
         >
           <div class="bubble-m-userinfo">
@@ -333,29 +348,33 @@ export class ChatBubbleComponent {
           </div>
           <div class={"bubble-m-main"}>
             {/* {this.sendTime + ", "} */}
-            <div class="bubble-time">
-              <span class={"full-time"}>
-                {moment(this.sendTime * 1000).calendar(
-                  this.sendTimeFullMomentConfig
-                )}
-              </span>
-              <span class={"short-time"}>
-                {moment(this.sendTime * 1000).calendar(
-                  this.sendTimeMomentConfig
-                )}
-              </span>
-            </div>
+            {this.displayTime ? (
+              <div class="bubble-time">
+                <span class={"full-time"}>
+                  {moment(this.sendTime * 1000).calendar(
+                    this.sendTimeFullMomentConfig
+                  )}
+                </span>
+                <span class={"short-time"}>
+                  {moment(this.sendTime * 1000).calendar(
+                    this.sendTimeMomentConfig
+                  )}
+                </span>
+              </div>
+            ) : (
+              ""
+            )}
 
             <div class="bubble-content">
-              {!this.hideStatsIcon ? (
-                <div
-                  class={
-                    "bubble-c-status " +
-                    this.type +
-                    " " +
-                    this.formatStatusText(this.status)
-                  }
-                >
+              <div
+                class={
+                  "bubble-c-status " +
+                  this.type +
+                  " " +
+                  this.formatStatusText(this.status)
+                }
+              >
+                {this.readStatsIcon && this.status === 1 ? (
                   <div class={"bubble-c-s-readstatus"}>
                     <saki-circle-progress-bar
                       class={"bubble-c-s-progress-bar"}
@@ -385,83 +404,44 @@ export class ChatBubbleComponent {
                         ""
                       )}
                     </saki-circle-progress-bar>
-                    {/* {this.readProgress === 1 ? (
-                  <svg
-                    class="bubble-c-s-readstatus-icon"
-                    viewBox="0 0 1024 1024"
-                    version="1.1"
-                    xmlns="http://www.w3.org/2000/svg"
-                    p-id="11280"
-                    width="200"
-                    height="200"
-                  >
-                    <path
-                      d="M512 960c-247.424 0-448-200.576-448-448 0-247.424 200.576-448 448-448 247.424 0 448 200.576 448 448C960 759.424 759.424 960 512 960L512 960zM512 163.584C319.552 163.584 163.584 319.552 163.584 512c0 192.448 155.968 348.48 348.416 348.48 192.448 0 348.416-156.032 348.416-348.416C860.416 319.68 704.448 163.584 512 163.584L512 163.584zM776 400.576l-316.8 316.8c-9.728 9.728-25.472 9.728-35.2 0l-176-176c-9.728-9.728-9.728-25.472 0-35.2l35.2-35.2c9.728-9.728 25.472-9.728 35.2 0L441.6 594.176l264-264c9.728-9.728 25.472-9.728 35.2 0l35.2 35.2C785.728 375.104 785.728 390.848 776 400.576L776 400.576z"
-                      p-id="11281"
-                    ></path>
-                  </svg>
-                ) : (
-                )} */}
                   </div>
-                  <div class={"bubble-c-s-loading"}></div>
-                  {/* <svg
-                class="bubble-c-s-resend-icon"
-                viewBox="0 0 1024 1024"
-                version="1.1"
-                xmlns="http://www.w3.org/2000/svg"
-                p-id="2065"
-                width="200"
-                height="200"
-                onClick={() => {
-                  this.resend.emit();
-                }}
-              >
-                <path
-                  d="M528.896 998.4c-262.656 0-476.672-214.016-476.672-476.672S266.24 45.056 528.896 45.056c163.84 0 314.368 82.432 402.432 221.184 14.336 22.528 7.68 53.248-14.848 67.584a49.3568 49.3568 0 0 1-67.584-14.848 377.2416 377.2416 0 0 0-320-175.616c-208.896 0-378.88 169.984-378.88 378.88s169.984 378.88 378.88 378.88a378.88 378.88 0 0 0 349.184-231.424c10.752-25.088 39.424-36.352 64-26.112 25.088 10.752 36.352 39.424 26.112 64a476.16 476.16 0 0 1-439.296 290.816z"
-                  fill=""
-                  p-id="2066"
-                ></path>
-                <path
-                  d="M889.344 341.504h-217.6a49.152 49.152 0 0 1 0-98.304h168.96v-168.96a49.152 49.152 0 0 1 98.304 0v218.112c-1.024 27.136-22.528 49.152-49.664 49.152z"
-                  fill=""
-                  p-id="2067"
-                ></path>
-              </svg> */}
-                  <svg
-                    class="bubble-c-s-resend-icon"
-                    viewBox="0 0 1024 1024"
-                    version="1.1"
-                    xmlns="http://www.w3.org/2000/svg"
-                    p-id="2594"
-                    width="200"
-                    height="200"
-                    onClick={() => {
-                      this.resend.emit();
-                    }}
-                  >
-                    <path
-                      d="M684.032 403.456q-17.408-8.192-15.872-22.016t11.776-22.016q3.072-2.048 19.968-15.872t41.472-33.28q-43.008-49.152-102.4-77.312t-129.024-28.16q-64.512 0-120.832 24.064t-98.304 66.048-66.048 98.304-24.064 120.832q0 63.488 24.064 119.808t66.048 98.304 98.304 66.048 120.832 24.064q53.248 0 100.864-16.896t87.04-47.616 67.584-72.192 41.472-90.624q7.168-23.552 26.624-38.912t46.08-15.36q31.744 0 53.76 22.528t22.016 53.248q0 14.336-5.12 27.648-21.504 71.68-63.488 132.096t-99.84 103.936-128.512 68.096-148.48 24.576q-95.232 0-179.2-35.84t-145.92-98.304-98.304-145.92-36.352-178.688 36.352-179.2 98.304-145.92 145.92-98.304 179.2-36.352q105.472 0 195.584 43.52t153.6 118.272q23.552-17.408 39.424-30.208t19.968-15.872q6.144-5.12 13.312-7.68t13.312 0 10.752 10.752 6.656 24.576q1.024 9.216 2.048 31.232t2.048 51.2 1.024 60.416-1.024 58.88q-1.024 34.816-16.384 50.176-8.192 8.192-24.576 9.216t-34.816-3.072q-27.648-6.144-60.928-13.312t-63.488-14.848-53.248-14.336-29.184-9.728z"
-                      p-id="2595"
-                    ></path>
-                  </svg>
-                  {/* <svg
-              class="icon"
-              viewBox="0 0 1024 1024"
-              version="1.1"
-              xmlns="http://www.w3.org/2000/svg"
-              p-id="2576"
-              width="200"
-              height="200"
-            >
-              <path
-                d="M1018.88 240.64l-72.704-72.704-542.72 543.232-326.144-325.632L5.12 457.728l398.336 398.336 72.192-72.704L1018.88 240.64z"
-                p-id="2577"
-              ></path>
-            </svg> */}
-                </div>
-              ) : (
-                ""
-              )}
+                ) : (
+                  ""
+                )}
+                {this.statusIcon ? (
+                  this.status === 0 ? (
+                    <saki-animation-loading
+                      width="12px"
+                      height="12px"
+                      border="2px"
+                      type="rotateLinear"
+                      color="var(--saki-default-color)"
+                    ></saki-animation-loading>
+                  ) : this.status === -1 ? (
+                    <svg
+                      class="bubble-c-s-resend-icon"
+                      viewBox="0 0 1024 1024"
+                      version="1.1"
+                      xmlns="http://www.w3.org/2000/svg"
+                      p-id="2594"
+                      width="200"
+                      height="200"
+                      onClick={() => {
+                        this.resend.emit();
+                      }}
+                    >
+                      <path
+                        d="M684.032 403.456q-17.408-8.192-15.872-22.016t11.776-22.016q3.072-2.048 19.968-15.872t41.472-33.28q-43.008-49.152-102.4-77.312t-129.024-28.16q-64.512 0-120.832 24.064t-98.304 66.048-66.048 98.304-24.064 120.832q0 63.488 24.064 119.808t66.048 98.304 98.304 66.048 120.832 24.064q53.248 0 100.864-16.896t87.04-47.616 67.584-72.192 41.472-90.624q7.168-23.552 26.624-38.912t46.08-15.36q31.744 0 53.76 22.528t22.016 53.248q0 14.336-5.12 27.648-21.504 71.68-63.488 132.096t-99.84 103.936-128.512 68.096-148.48 24.576q-95.232 0-179.2-35.84t-145.92-98.304-98.304-145.92-36.352-178.688 36.352-179.2 98.304-145.92 145.92-98.304 179.2-36.352q105.472 0 195.584 43.52t153.6 118.272q23.552-17.408 39.424-30.208t19.968-15.872q6.144-5.12 13.312-7.68t13.312 0 10.752 10.752 6.656 24.576q1.024 9.216 2.048 31.232t2.048 51.2 1.024 60.416-1.024 58.88q-1.024 34.816-16.384 50.176-8.192 8.192-24.576 9.216t-34.816-3.072q-27.648-6.144-60.928-13.312t-63.488-14.848-53.248-14.336-29.184-9.728z"
+                        p-id="2595"
+                      ></path>
+                    </svg>
+                  ) : (
+                    ""
+                  )
+                ) : (
+                  ""
+                )}
+              </div>
 
               <div
                 style={{

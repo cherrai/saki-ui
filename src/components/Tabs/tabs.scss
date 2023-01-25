@@ -2,7 +2,14 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
+  &.full {
+    width: 100%;
+    height: 100%;
+    .s-main{
+      flex: 1;
+    }
+  }
 
   &.flex {
     .s-nav {
@@ -197,4 +204,8 @@
 }
 
 .saki-tabs-item-component {
+  &.full {
+    width: 100%;
+    height: 100%;
+  }
 }

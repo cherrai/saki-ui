@@ -27,7 +27,9 @@ export class ChatContainerComponent {
             <slot name="sidebar-header"></slot>
           </div>
           <div class="sidebar-main">
-            <slot name="sidebar-main"></slot>
+            <saki-scroll-view mode="Inherit">
+              <slot name="sidebar-main"></slot>
+            </saki-scroll-view>
           </div>
           <div class="sidebar-footer">
             <slot name="sidebar-footer"></slot>

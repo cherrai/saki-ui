@@ -1,0 +1,17 @@
+.saki-chat-layout-contact-component {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  .clc-main {
+    flex: 1;
+  }
+  .clc-alphabet-avigation {
+    width: 100px;
+    .an-item {
+      color: #555;
+      &.disable {
+        color: #aaa;
+      }
+    }
+  }
+}

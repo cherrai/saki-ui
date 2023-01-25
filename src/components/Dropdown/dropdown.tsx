@@ -109,6 +109,10 @@ export class DropdownComponent {
         this.left = this.formartLeft(this.coreRect.left);
         // console.log(
         //   this.left,
+        //   this.contentRect,
+        //   this.contentEl,
+        //   this.contentEl.offsetWidth,
+        //   this.contentEl.getBoundingClientRect(),
         //   this.contentRect.width,
         //   clientWidth,
         //   this.left + this.contentRect.width > clientWidth
@@ -170,6 +174,7 @@ export class DropdownComponent {
   }
   getRect() {
     this.contentRect = this.contentEl.getBoundingClientRect();
+    this.contentRect.width = this.contentEl.offsetWidth
     // console.log(this.coreEl.children[0])
     this.coreRect = this.coreEl.children[0].getBoundingClientRect();
   }

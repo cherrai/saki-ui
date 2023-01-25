@@ -225,7 +225,6 @@ export class RichTextComponent {
     };
 
     this.quill.on("editor-change", (eventName: string, params: any) => {
-      // console.log(eventName, params);
       if (eventName === "selection-change") {
         this.selectionRangeStatic = params;
       }

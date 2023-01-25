@@ -32,7 +32,10 @@ export class MenuItemComponent {
   @Prop() margin: string = "";
   @State() type: MenuComponent["type"] = "List";
   @Element() el: HTMLSakiMenuItemElement;
-  @Event() tap: EventEmitter;
+  @Event({
+    cancelable: false,
+  })
+  tap: EventEmitter;
   @Event() opencontextmenu: EventEmitter;
   componentDidLoad() {
     setTimeout(() => {

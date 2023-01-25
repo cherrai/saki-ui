@@ -15,10 +15,11 @@ import {
 })
 export class ChatDialogComponent {
   @Prop() avatar: string = "";
+  @Prop() avatarText: string = "";
   @Prop() selected: boolean = false;
   @Prop() contextMenuActive: boolean = false;
   @Prop() nickname: string = "";
-  @Prop() lastSeenTime: string = "";
+  @Prop() lastMessageTime: string = "";
   @Prop() lastMessage: string = "";
   @Prop() count: number = 0;
   @Prop() anonymous: boolean = false;
@@ -84,7 +85,13 @@ export class ChatDialogComponent {
           测试是所所
         </div> */}
         <div class="chat-dialog-avatar">
-          <img class="chat-dialog-avatar-img" src={this.avatar} alt="" />
+          <saki-avatar
+            width="40px"
+            height="40px"
+            borderRadius="50%"
+            nickname={!this.avatar ? this.avatarText : ""}
+            src={this.avatar}
+          ></saki-avatar>
         </div>
         <div class="chat-dialog-info">
           <div class="chat-dialog-i-info">
@@ -135,7 +142,7 @@ export class ChatDialogComponent {
             {this.close ? (
               ""
             ) : (
-              <div class="chat-dialog-i-i-time">{this.lastSeenTime}</div>
+              <div class="chat-dialog-i-i-time">{this.lastMessageTime}</div>
             )}
           </div>
           <div class={"chat-dialog-i-bottom"}>

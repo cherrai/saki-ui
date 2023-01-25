@@ -1,10 +1,40 @@
-.saki-loading-component {
-  &.rotateEaseInOut {
+.saki-animation-loading-component {
+  &.rotateLinear {
     .l-loading {
       position: relative;
       width: var(--saki-loading-width);
       height: var(--saki-loading-height);
       animation: circleAnimation 1.2s linear infinite;
+      margin-right: 6px;
+
+      border-radius: 50%;
+
+      &::after {
+        content: "";
+        border: var(--saki-loading-border) solid var(--saki-loading-border-color);
+        border-radius: 50%;
+        border-top: var(--saki-loading-border) solid transparent;
+        width: 100%;
+        height: 100%;
+        display: block;
+        cursor: pointer;
+      }
+      @keyframes circleAnimation {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    }
+  }
+  &.rotateEaseInOut {
+    .l-loading {
+      position: relative;
+      width: var(--saki-loading-width);
+      height: var(--saki-loading-height);
+      // animation: circleAnimation 1.2s linear infinite;
       margin-right: 6px;
 
       border-radius: 50%;
@@ -32,8 +62,10 @@
         left: 0px;
         right: 0px;
         bottom: 0px;
-        border-top: var(--saki-loading-border) solid var(--saki-loading-border-color);
-        border-left: var(--saki-loading-border) solid var(--saki-loading-border-color);
+        border-top: var(--saki-loading-border) solid
+          var(--saki-loading-border-color);
+        border-left: var(--saki-loading-border) solid
+          var(--saki-loading-border-color);
         border-bottom: var(--saki-loading-border) solid transparent;
         border-right: var(--saki-loading-border) solid transparent;
       }

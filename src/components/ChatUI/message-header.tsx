@@ -15,6 +15,7 @@ import {
 })
 export class ChatMessageHeaderComponent {
   @Prop() avatar: string = "";
+  @Prop() avatarText: string = "";
   @Prop() nickname: string = "";
   @Prop() anonymous: boolean = false;
   @Prop() encryption: boolean = false;
@@ -35,8 +36,19 @@ export class ChatMessageHeaderComponent {
     return (
       <div class="saki-chat-message-header-component">
         <div class="message-header-left">
-          <div class="message-header-l-avatar">
-            <img class="message-header-l-avatar-img" src={this.avatar} alt="" />
+          <div
+            onClick={() => {
+              this.clickinfo.emit();
+            }}
+            class="message-header-l-avatar"
+          >
+              <saki-avatar
+                width="36px"
+                height="36px"
+                borderRadius="50%"
+                nickname={!this.avatar ? this.avatarText : ""}
+                src={this.avatar}
+              ></saki-avatar>
           </div>
           <div class="message-header-l-info">
             <div class="message-header-l-i-info">
