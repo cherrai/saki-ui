@@ -16,7 +16,11 @@ import {
 })
 export class ModalComponent {
   @Prop() visible: boolean = false;
+  // hide用于部分情况如通讯、只能隐藏不能删除dom
+  @Prop() hide: boolean = false;
+
   @State() isAddVisibleClass: boolean = false;
+  @State() isAddHideClass: boolean = false;
   @State() visibleStyle: boolean = false;
   contetnEl: HTMLElement;
   @Prop() backgroundColor: string = "";
@@ -59,16 +63,36 @@ export class ModalComponent {
       document.body.appendChild(this.contetnEl);
       setTimeout(() => {
         this.isAddVisibleClass = true;
-      });
+      }, 10);
     } else {
       this.close.emit();
       this.isAddVisibleClass = false;
       this.closing = true;
     }
   }
+  @Watch("hide")
+  watchHideFunc() {
+    if (this.hide) {
+      this.isAddVisibleClass = false;
+      setTimeout(() => {
+        this.isAddHideClass = true;
+      }, 300);
+    } else {
+      this.isAddHideClass = false;
+      setTimeout(() => {
+        this.isAddVisibleClass = true;
+      }, 10);
+    }
+  }
   componentDidLoad() {}
   render() {
     return (
+      // <saki-transition
+      //   animation-duration={2000}
+      //   in={this.hide}
+      //   class-name={"hide-modal-transition"}
+      // >
+      // {/* </saki-transition> */}
       <div
         ref={(e) => {
           this.contetnEl = e;
@@ -81,10 +105,12 @@ export class ModalComponent {
             // display: this.visibleStyle ? "block" : "none",
           }
         }
+        data-hide={this.hide}
         class={
           "saki-modal-component " +
           (this.visibleStyle ? "visibleStyle " : "") +
-          (this.isAddVisibleClass ? "visible" : "")
+          (this.isAddVisibleClass && !this.hide ? "visible " : "") +
+          (this.isAddHideClass ? "hide " : "")
         }
       >
         {this.mask ? (

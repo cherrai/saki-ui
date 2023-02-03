@@ -1,4 +1,12 @@
-import { Component, h, Prop, Event, EventEmitter } from "@stencil/core";
+import {
+  Component,
+  h,
+  Prop,
+  Event,
+  EventEmitter,
+  Watch,
+  Method,
+} from "@stencil/core";
 
 // import { debounce } from "../../plugins/methods";
 // import { prefix } from "../../../stencil.config";
@@ -9,10 +17,12 @@ import { Component, h, Prop, Event, EventEmitter } from "@stencil/core";
   shadow: true,
 })
 export class ContextMenuItemComponent {
+  index = -1;
   @Prop() width: string = "";
-  @Prop() padding: string = "";
+  @Prop() padding: string = "10px 12px";
   @Prop() fontSize: string = "";
   @Prop() color: string = "";
+  @Prop() hide: boolean = false;
   @Prop() disabled: boolean = false;
   @Prop() value: string = "";
   @Event({
@@ -23,6 +33,10 @@ export class ContextMenuItemComponent {
   })
   tap: EventEmitter;
   componentWillLoad() {}
+  @Method()
+  async setIndex(i: number) {
+    this.index = i;
+  }
   render() {
     return (
       <div
@@ -31,10 +45,16 @@ export class ContextMenuItemComponent {
           return false;
         }}
         onClick={() => {
-          !this.disabled && this.tap.emit();
+          console.log(1, !this.disabled);
+          !this.disabled &&
+            this.tap.emit({
+              index: this.index,
+              value: this.value,
+            });
         }}
         style={{
-          ...["padding", "fontSize", "color"].reduce(
+          color: this.color || (this.disabled ? "#999" : "#000"),
+          ...["padding", "fontSize"].reduce(
             (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
             {}
           ),
@@ -42,7 +62,8 @@ export class ContextMenuItemComponent {
         }}
         class={
           "saki-context-menu-item-component " +
-          (this.disabled ? "disabled" : "")
+          (this.disabled ? "disabled " : "")+
+          (this.hide ? "hide " : "")
         }
       >
         <slot></slot>

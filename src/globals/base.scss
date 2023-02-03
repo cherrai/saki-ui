@@ -66,14 +66,14 @@ html {
   --saki-chat-dialog-message-color: #999;
   --saki-chat-dialog-time-color: #999;
   --saki-chat-dialog-time-select-color: #999;
-  --saki-chat-dialog-context-menu-border: #3874fb;
+  --saki-chat-dialog-context-menu-background-color:#eee;
   --saki-chat-dialog-count-bg-color: #ccc;
   --saki-chat-dialog-count-color: #fff;
   // #3874fb
   // Chat Bubble
   --saki-chat-bubble-left-bg-color:#e9b0be;
   --saki-chat-bubble-right-bg-color:#b3dff0;
-  --saki-chat-bubble-content-border-radius:8px;
+  --saki-chat-bubble-content-border-radius:10px;
   --saki-chat-bubble-time-color:#888;
   --saki-chat-bubble-read-progress-color: #f185a0;
   --saki-chat-bubble-loading-color: #f185a0;
@@ -93,7 +93,7 @@ html {
 
   // Chat call
   --saki-menu-active-border-color: var(--saki-default-color);
-  --saki-menu-active-background-color: #f8f7f7;
+  --saki-menu-active-background-color: #eee;
 
   // Chat drag sort
   --saki-drag-sort-selected-color: var(--saki-default-color);

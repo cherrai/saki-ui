@@ -151,12 +151,13 @@ export class TextareaComponent {
     });
   }
   setTextareaValue() {
+    console.log(this.value, this.dValue, this.dContent);
     if (!this.textareaEl) return;
-    if (!this.value || !this.dContent.trim()) {
+    // || !this.dContent.trim()
+    if (!this.value) {
       this.clear();
       return;
     }
-    // console.log(this.value, this.dValue);
     if (this.textareaEl.innerHTML !== this.value) {
       this.textareaEl.innerHTML = this.value;
       this.dContent = this.value.replace(/<[^>]+>/g, "").trim();

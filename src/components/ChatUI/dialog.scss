@@ -79,15 +79,16 @@
     }
   }
   &.contextMenuActive {
-    &::after {
-      content: "";
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      border: 2px solid var(--saki-chat-dialog-context-menu-border);
-      left: 0;
-      top: 0;
-    }
+    background-color: var(--saki-chat-dialog-context-menu-background-color);
+    // &::after {
+    //   content: "";
+    //   position: absolute;
+    //   width: 100%;
+    //   height: 100%;
+    //   border: 2px solid var(--saki-chat-dialog-context-menu-border-color-local);
+    //   left: 0;
+    //   top: 0;
+    // }
   }
   .chat-dialog-avatar {
     width: 40px;

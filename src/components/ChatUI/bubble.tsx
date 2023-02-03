@@ -63,8 +63,8 @@ export class ChatBubbleComponent {
   @Prop() displayTime: boolean = false;
   @Prop() timeDisplayInterval = 2 * 60;
   @Prop() userInfoDisplayMode: "Merge" | "Full" = "Full";
+  @Prop() editText: string = "";
 
-  @Prop() border: string = "1px solid rgba(0,0,0,0)";
   // 0~1
   @Prop() readProgress: number = 0;
   // 1 connected successfully
@@ -80,9 +80,13 @@ export class ChatBubbleComponent {
   @Prop() nickname: string = "";
 
   @Prop() backgroundColor: string = "";
+  @Prop() bubbleBackgroundColor: string = "";
+  @Prop() border: string = "1px solid rgba(0,0,0,0)";
+  @Prop() padding: string = "8px 10px";
+  @Prop() borderRadius: string =
+    "var(--saki-chat-bubble-content-border-radius)";
   @Prop() horizontalMargin: string = "46px";
   @Prop() verticalMargin: string = "2px";
-  // @Prop() padding: string = "";
 
   @Prop() watchStatus: boolean = false;
   @Prop() watchStatusTimeout: number = 5;
@@ -148,10 +152,10 @@ export class ChatBubbleComponent {
           moment({ h: hours, m: minutes, s: seconds }).format("HH:mm:ss");
         break;
       case 0:
-        message = "正在进行" + this.formatCallTypeText(this.callType) + "通话";
+        message = "正在进行" + this.formatCallTypeText(this.callType);
         break;
       case -1:
-        message = "语音通话未接通";
+        message = this.formatCallTypeText(this.callType) + "未接通";
         break;
       case -2:
         message = "已在其他设备处理";
@@ -160,7 +164,7 @@ export class ChatBubbleComponent {
         message = `${this.type === "sender" ? "发起了一个" : "正在邀请你加入"}${
           this.callType === "ScreenShare"
             ? "屏幕共享"
-            : this.formatCallTypeText(this.callType) + "通话"
+            : this.formatCallTypeText(this.callType)
         }`;
         break;
 
@@ -173,9 +177,9 @@ export class ChatBubbleComponent {
     // console.log("formatCallTypeText", type);
     switch (type) {
       case "Video":
-        return "视频";
+        return "视频通话";
       case "Audio":
-        return "语音";
+        return "语音通话";
       case "ScreenShare":
         return "屏幕共享";
 
@@ -274,9 +278,7 @@ export class ChatBubbleComponent {
             ></path>
           </svg>
           <div
-            data-hover-text={
-              "进入" + this.formatCallTypeText(this.callType) + "通话"
-            }
+            data-hover-text={"进入" + this.formatCallTypeText(this.callType)}
             class={"bubble-c-msg-call-content"}
           >
             <div class={"bubble-c-msg-call-msg"}>
@@ -301,11 +303,12 @@ export class ChatBubbleComponent {
             {}
           ),
         }}
+        onContextMenu={(e) => {
+          e.preventDefault();
+          return false;
+        }}
         ref={(e) => {
           this.bubbleEl = e;
-        }}
-        onClick={() => {
-          this.tap.emit();
         }}
         class={"saki-chat-bubble-component " + " "}
       >
@@ -323,6 +326,11 @@ export class ChatBubbleComponent {
         )}
 
         <div
+          style={{
+            ...(this.backgroundColor
+              ? { backgroundColor: this.backgroundColor }
+              : {}),
+          }}
           class={
             "bubble-message " +
             this.type +
@@ -351,11 +359,13 @@ export class ChatBubbleComponent {
             {this.displayTime ? (
               <div class="bubble-time">
                 <span class={"full-time"}>
+                  {this.editText ? this.editText + " · " : ""}
                   {moment(this.sendTime * 1000).calendar(
                     this.sendTimeFullMomentConfig
                   )}
                 </span>
                 <span class={"short-time"}>
+                  {this.editText ? this.editText + " · " : ""}
                   {moment(this.sendTime * 1000).calendar(
                     this.sendTimeMomentConfig
                   )}
@@ -375,7 +385,10 @@ export class ChatBubbleComponent {
                 }
               >
                 {this.readStatsIcon && this.status === 1 ? (
-                  <div class={"bubble-c-s-readstatus"}>
+                  <div
+                    data-read-progress={this.readProgress}
+                    class={"bubble-c-s-readstatus"}
+                  >
                     <saki-circle-progress-bar
                       class={"bubble-c-s-progress-bar"}
                       progress={this.readProgress === 1 ? 0 : this.readProgress}
@@ -385,7 +398,7 @@ export class ChatBubbleComponent {
                       border-width="1px"
                       color="var(--saki-chat-bubble-read-progress-color)"
                     >
-                      {this.readProgress === 1 ? (
+                      {this.readProgress >= 1 ? (
                         <svg
                           class="bubble-c-s-progress-bar-icon"
                           viewBox="0 0 1024 1024"
@@ -445,14 +458,16 @@ export class ChatBubbleComponent {
 
               <div
                 style={{
-                  ...(this.backgroundColor
-                    ? { backgroundColor: this.backgroundColor }
+                  padding: this.padding || "8px 10px",
+                  borderRadius:
+                    this.borderRadius ||
+                    "var(--saki-chat-bubble-content-border-radius)",
+
+                  border: this.border || "1px solid rgba(0,0,0,0)",
+
+                  ...(this.bubbleBackgroundColor
+                    ? { backgroundColor: this.bubbleBackgroundColor }
                     : {}),
-                  ...(this.border
-                    ? { border: this.border }
-                    : {
-                        border: "1px solid rgba(0,0,0,0)",
-                      }),
                 }}
                 onMouseDown={(e) => {
                   switch (e.button) {
@@ -471,6 +486,9 @@ export class ChatBubbleComponent {
                 onContextMenu={(e) => {
                   e.preventDefault();
                   return false;
+                }}
+                onClick={() => {
+                  this.tap.emit();
                 }}
                 class="bubble-c-msg"
               >

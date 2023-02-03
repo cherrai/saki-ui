@@ -23,6 +23,13 @@ export class IconComponent {
   @Prop() title = "";
   @Prop() type:
     | ""
+    | "ArrowLeft"
+    | "Emoji"
+    | "Reply"
+    | "ScreeShareFill"
+    | "ScreeShare"
+    | "Eye"
+    | "EyeSlash"
     | "Detail"
     | "File"
     | "Video"
@@ -45,10 +52,156 @@ export class IconComponent {
 
   getTypeEl() {
     switch (this.type) {
+      case "ArrowLeft":
+        return (
+          <svg
+            class="saki-icon emoji"
+            fill={this.color}
+            width={this.width}
+            height={this.height}
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            p-id="3090"
+          >
+            <path
+              d="M810.666667 554.666667H213.333333c-25.6 0-42.666667-17.066667-42.666666-42.666667s17.066667-42.666667 42.666666-42.666667h597.333334c25.6 0 42.666667 17.066667 42.666666 42.666667s-17.066667 42.666667-42.666666 42.666667z"
+              p-id="3091"
+            ></path>
+            <path
+              d="M512 853.333333c-12.8 0-21.333333-4.266667-29.866667-12.8l-298.666666-298.666666c-17.066667-17.066667-17.066667-42.666667 0-59.733334l298.666666-298.666666c17.066667-17.066667 42.666667-17.066667 59.733334 0s17.066667 42.666667 0 59.733333L273.066667 512l268.8 268.8c17.066667 17.066667 17.066667 42.666667 0 59.733333-8.533333 8.533333-17.066667 12.8-29.866667 12.8z"
+              p-id="3092"
+            ></path>
+          </svg>
+        );
+      case "Emoji":
+        return (
+          <svg
+            class="saki-icon emoji"
+            fill={this.color}
+            width={this.width}
+            height={this.height}
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            p-id="2363"
+          >
+            <path
+              d="M872.802928 755.99406 872.864326 755.99406 872.864326 755.624646Z"
+              p-id="2364"
+            ></path>
+            <path
+              d="M807.273469 216.727043c-162.808016-162.836669-427.736874-162.836669-590.544891 0-162.836669 162.806993-162.836669 427.736874 0 590.543867 162.808016 162.837692 427.737898 162.837692 590.544891 0C970.110137 644.462894 970.110137 379.534036 807.273469 216.727043M764.893242 764.92036c-139.444912 139.443889-366.370225 139.414213-505.798764 0-139.459239-139.473565-139.459239-366.354875 0-505.827417 139.428539-139.429563 366.354875-139.460262 505.798764 0C904.336108 398.521482 904.336108 625.476471 764.893242 764.92036"
+              p-id="2365"
+            ></path>
+            <path
+              d="M381.724423 468.02137c24.783453 0 44.953841-20.169365 44.953841-44.967144 0-24.828478-20.170388-45.027519-44.953841-45.027519-24.842805 0-45.013193 20.199041-45.013193 45.027519C336.71123 447.852004 356.881618 468.02137 381.724423 468.02137"
+              p-id="2366"
+            ></path>
+            <path
+              d="M640.680243 468.095048c24.812105 0 45.010123-20.213367 45.010123-45.01217 0-24.827455-20.198018-44.99682-45.010123-44.99682-24.785499 0-44.953841 20.169365-44.953841 44.99682C595.726401 447.88168 615.894743 468.095048 640.680243 468.095048"
+              p-id="2367"
+            ></path>
+            <path
+              d="M642.245901 619.058294l-2.453888 0.798179c-40.310078 18.248619-83.548858 27.5341-128.411625 27.5341-46.343491 0-90.173742-9.375531-130.305765-27.799136l-2.425236-0.741897c-1.508353-0.413416-3.548826-1.003863-6.092765-1.003863-14.757099 0-26.734898 11.977799-26.734898 26.675546 0 6.978948 3.282766 13.988596 8.695033 19.253506l-0.325411 1.62501 6.831592 3.076058c47.911196 21.679765 100.021018 33.095769 150.681838 33.095769 51.608402 0 102.180194-11.120268 150.978597-33.361829 8.575306-4.703115 13.928221-13.721513 13.928221-23.511483C676.611593 627.458615 661.027663 613.290941 642.245901 619.058294"
+              p-id="2368"
+            ></path>
+          </svg>
+        );
+      case "Reply":
+        return (
+          <svg
+            class="saki-icon"
+            fill={this.color}
+            width={this.width}
+            height={this.height}
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            p-id="4050"
+          >
+            <path
+              d="M625.550222 398.279111l-226.360889 0.113778-1.080889-0.113778H306.858667l188.700444-188.814222a55.580444 55.580444 0 0 0 0-78.620445l-0.796444-0.796444a55.580444 55.580444 0 0 0-78.563556 0L136.590222 409.827556c-1.991111 1.479111-3.982222 2.901333-5.745778 4.721777l-0.284444 0.284445-0.170667 0.227555-0.284444 0.284445a46.819556 46.819556 0 0 0-5.006222 6.200889c-0.512 0.625778-1.137778 1.194667-1.536 1.877333a55.296 55.296 0 0 0-9.671111 31.516444V455.452444a55.296 55.296 0 0 0 9.671111 31.516445c0.455111 0.682667 1.024 1.194667 1.479111 1.877333 1.592889 2.104889 3.185778 4.266667 5.063111 6.200889l0.284444 0.284445 0.170667 0.170666 0.284444 0.284445c1.763556 1.820444 3.754667 3.242667 5.745778 4.721777l279.608889 279.779556a55.580444 55.580444 0 0 0 78.563556 0l0.796444-0.796444a55.580444 55.580444 0 0 0 0-78.620445L306.858667 512.056889h91.249777l1.080889-0.113778v0.113778h226.360889a170.837333 170.837333 0 0 1 170.609778 170.723555V853.333333a56.888889 56.888889 0 1 0 113.777778 0v-170.552889a284.387556 284.387556 0 0 0-284.330667-284.501333z"
+              p-id="4051"
+            ></path>
+          </svg>
+        );
+      case "ScreeShareFill":
+        return (
+          <svg
+            class="saki-icon"
+            fill={this.color}
+            width={this.width}
+            height={this.height}
+            viewBox="0 0 1025 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            p-id="5913"
+          >
+            <path
+              d="M523.795 615.317a20.7 20.7 0 0 1 5.216 5.215l107.457 154.973c6.514 9.395 4.18 22.291-5.216 28.806A20.7 20.7 0 0 1 619.457 808H404.543c-11.433 0-20.7-9.268-20.7-20.7a20.7 20.7 0 0 1 3.689-11.795l107.457-154.973c6.515-9.394 19.411-11.73 28.806-5.215zM847.65 150c60.832 0 109.372 51.556 110.336 114.546l0.015 1.912v356.084c0 63.217-47.932 115.405-108.51 116.442l-1.84 0.016H645.795L528.633 580.842a20.7 20.7 0 0 0-3.868-3.974l-0.443-0.338c-9.086-6.73-21.866-4.916-28.729 4.012l-0.226 0.3L378.203 739H176.351c-60.832 0-109.372-51.556-110.336-114.546L66 622.542V266.458c0-63.217 47.932-115.405 108.51-116.442l1.84-0.016h671.3zM363.775 516.911c-9.676 8.227-10.856 22.747-2.636 32.431 8.22 9.684 22.73 10.865 32.405 2.638 76.547-65.082 145.915-68.249 223.786-0.203 9.565 8.357 24.088 7.373 32.438-2.199 8.351-9.572 7.367-24.106-2.197-32.464-95.836-83.743-190.63-79.415-283.796-0.203zM249.247 392.588c-9.661 8.245-10.815 22.767-2.577 32.436s22.748 10.824 32.41 2.58c153.102-130.646 296.488-137.217 452.715-0.204 9.55 8.374 24.074 7.416 32.442-2.14 8.368-9.557 7.41-24.093-2.138-32.468-174.215-152.787-343.11-145.048-512.852-0.204z"
+              p-id="5914"
+            ></path>
+          </svg>
+        );
+      case "ScreeShare":
+        return (
+          <svg
+            class="saki-icon"
+            fill={this.color}
+            width={this.width}
+            height={this.height}
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            p-id="2537"
+          >
+            <path
+              d="M889.6 127.488H141.696c-38.656 0-70.08 31.488-70.08 70.144v467.392c0 38.656 31.488 70.144 70.08 70.144h342.976v99.456H368.384c-18.688 0-33.792 13.888-33.792 30.976s15.104 30.976 33.792 30.976h294.592c18.688 0 33.792-13.888 33.792-30.976s-15.104-30.976-33.792-30.976H546.688v-99.456H889.6c38.656 0 70.144-31.424 70.144-70.144V197.568c0-38.592-31.424-70.08-70.144-70.08z m4.864 526.592a22.272 22.272 0 0 1-22.272 22.336H159.168a22.272 22.272 0 0 1-22.272-22.336V208.512c0-12.352 10.048-22.272 22.272-22.272h713.024c12.288 0 22.272 9.92 22.272 22.272V654.08zM566.976 313.984c-13.184-10.624-23.936-2.88-23.936 15.872v49.984h-2.176c-77.056 0-208.128 89.024-209.216 168.192 0 6.336 5.12 8.128 10.048 0 24.896-44.416 129.536-67.456 182.848-67.456h18.496v52.736c0 15.744 11.648 26.496 24.896 15.872l121.856-97.792c13.184-10.56 13.184-27.904 0-38.528l-122.816-98.88z"
+              p-id="2538"
+            ></path>
+          </svg>
+        );
+      case "Eye":
+        return (
+          <svg
+            class="saki-icon"
+            fill={this.color}
+            width={this.width}
+            height={this.height}
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            p-id="9757"
+          >
+            <path
+              d="M512 192C298.666667 192 116.48 324.693333 42.666667 512c73.813333 187.306667 256 320 469.333333 320s395.52-132.693333 469.333333-320c-73.813333-187.306667-256-320-469.333333-320zM512 725.333333c-117.76 0-213.333333-95.573333-213.333333-213.333333s95.573333-213.333333 213.333333-213.333333 213.333333 95.573333 213.333333 213.333333-95.573333 213.333333-213.333333 213.333333z m0-341.333333c-70.826667 0-128 57.173333-128 128s57.173333 128 128 128 128-57.173333 128-128-57.173333-128-128-128z"
+              p-id="9758"
+            ></path>
+          </svg>
+        );
+      case "EyeSlash":
+        return (
+          <svg
+            class="saki-icon"
+            fill={this.color}
+            width={this.width}
+            height={this.height}
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            p-id="5663"
+          >
+            <path
+              d="M512.11 288.06c36.88 0 70.87 9.11 101.97 27.55 31.1 18.44 55.99 43.32 74.43 74.43 18.44 31.1 27.55 65.09 27.55 101.98 0 25.32-5.11 50.21-15.33 74.43l118.19 118.19c63.54-52.22 110.64-116.2 141.08-192.62-35.55-90.2-93.98-163.74-175.51-220.17-81.31-56.65-172.18-84.87-272.6-84.87-55.99 0-109.97 9.55-161.96 28.66l87.76 87.76c24.21-10.23 49.1-15.34 74.42-15.34zM105.99 177.42l91.53 93.53 19.11 17.11C146.65 344.04 95.77 412.03 64 492c35.55 90.2 93.98 163.74 175.51 220.17 81.31 56.65 172.18 84.87 272.6 84.87 62.21 0 121.3-11.33 177.29-34.21l137.3 135.3 51.54-51.54-720.71-720.72-51.54 51.55z m225.06 225.06l62.87 62.88c-2.44 8.88-3.78 17.77-3.78 26.66 0 34.21 11.78 63.32 35.32 86.64 23.55 23.32 52.43 35.33 86.65 35.33 8.89 0 17.77-1.33 26.66-3.78l62.87 62.88c-29.32 15.33-59.1 22.88-89.53 22.88-36.88 0-70.87-9.11-101.97-27.55-31.1-18.44-55.99-43.32-74.43-74.43-18.44-31.1-27.55-65.09-27.55-101.98 0-30.44 7.56-60.43 22.89-89.53z m173.51-32.44L634.3 497.79v-5.78c0-34.21-11.78-63.32-35.32-86.64-23.55-23.55-52.43-35.33-86.65-35.33h-7.77z"
+              p-id="5664"
+            ></path>
+          </svg>
+        );
       case "Detail":
         return (
           <svg
-            class="saki-icon-component"
+            class="saki-icon"
             fill={this.color}
             width={this.width}
             height={this.height}
@@ -66,7 +219,7 @@ export class IconComponent {
       case "File":
         return (
           <svg
-            class="saki-icon-component"
+            class="saki-icon"
             fill={this.color}
             width={this.width}
             height={this.height}
@@ -84,7 +237,7 @@ export class IconComponent {
       case "Video":
         return (
           <svg
-            class="saki-icon-component"
+            class="saki-icon"
             fill={this.color}
             width={this.width}
             height={this.height}
@@ -102,7 +255,7 @@ export class IconComponent {
       case "Image":
         return (
           <svg
-            class="saki-icon-component"
+            class="saki-icon"
             fill={this.color}
             width={this.width}
             height={this.height}
@@ -120,7 +273,7 @@ export class IconComponent {
       case "Paperclip":
         return (
           <svg
-            class="saki-icon-component"
+            class="saki-icon"
             fill={this.color}
             width={this.width}
             height={this.height}
@@ -138,7 +291,7 @@ export class IconComponent {
       case "Send":
         return (
           <svg
-            class="saki-icon-component"
+            class="saki-icon"
             fill={this.color}
             width={this.width}
             height={this.height}
@@ -156,7 +309,7 @@ export class IconComponent {
       case "Pen":
         return (
           <svg
-            class="saki-icon-component"
+            class="saki-icon"
             fill={this.color}
             width={this.width}
             height={this.height}
@@ -174,7 +327,7 @@ export class IconComponent {
       case "Magnifier":
         return (
           <svg
-            class="saki-icon-component"
+            class="saki-icon"
             fill={this.color}
             width={this.width}
             height={this.height}
@@ -196,7 +349,7 @@ export class IconComponent {
       case "Close":
         return (
           <svg
-            class="saki-icon-component"
+            class="saki-icon"
             fill={this.color}
             width={this.width}
             height={this.height}
@@ -214,7 +367,7 @@ export class IconComponent {
       case "Message":
         return (
           <svg
-            class="saki-icon-component"
+            class="saki-icon"
             fill={this.color}
             width={this.width}
             height={this.height}
@@ -232,7 +385,7 @@ export class IconComponent {
       case "Call":
         return (
           <svg
-            class="saki-icon-component"
+            class="saki-icon"
             viewBox="0 0 1024 1024"
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
@@ -250,7 +403,7 @@ export class IconComponent {
       case "More":
         return (
           <svg
-            class="saki-icon-component"
+            class="saki-icon"
             viewBox="0 0 1024 1024"
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
@@ -276,7 +429,7 @@ export class IconComponent {
       case "JoinGroup":
         return (
           <svg
-            class="saki-icon-component"
+            class="saki-icon"
             viewBox="0 0 1024 1024"
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
@@ -294,7 +447,7 @@ export class IconComponent {
       case "Group":
         return (
           <svg
-            class="saki-icon-component"
+            class="saki-icon"
             viewBox="0 0 1024 1024"
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
@@ -312,7 +465,7 @@ export class IconComponent {
       case "AddUser":
         return (
           <svg
-            class="saki-icon-component add-user"
+            class="saki-icon add-user"
             viewBox="0 0 1024 1024"
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
@@ -330,7 +483,7 @@ export class IconComponent {
       case "Messages":
         return (
           <svg
-            class="saki-icon-component"
+            class="saki-icon"
             viewBox="0 0 1098 1024"
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
@@ -349,7 +502,7 @@ export class IconComponent {
       case "Settings":
         return (
           <svg
-            class="saki-icon-component"
+            class="saki-icon"
             viewBox="0 0 1024 1024"
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
@@ -367,7 +520,7 @@ export class IconComponent {
       case "User":
         return (
           <svg
-            class="saki-icon-component"
+            class="saki-icon"
             viewBox="0 0 1032 1024"
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
@@ -385,7 +538,7 @@ export class IconComponent {
       case "Notifications":
         return (
           <svg
-            class="saki-icon-component"
+            class="saki-icon"
             viewBox="0 0 1024 1024"
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"

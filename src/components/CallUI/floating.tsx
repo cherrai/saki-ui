@@ -6,7 +6,7 @@ import { Component, Event, EventEmitter, Prop, h } from "@stencil/core";
   shadow: true,
 })
 export class CallFloatingComponent {
-  @Prop({ mutable: true }) coverUrl: string = "";
+  @Prop({ mutable: true }) avatar: string = "";
   @Prop({ mutable: true }) nickname: string = "";
   @Prop({ mutable: true }) time: string = "";
   @Prop({ mutable: true }) buttonText: string = "";
@@ -21,7 +21,13 @@ export class CallFloatingComponent {
       <div class={"saki-call-floating-component "}>
         <div class={"floating-header"}>
           <div class={"floating-h-logo"}>
-            <img src={this.coverUrl} alt="cover" />
+            <saki-avatar
+              width={"40px"}
+              height={"40px"}
+              borderRadius={"50%"}
+              nickname={this.nickname}
+              src={this.avatar}
+            ></saki-avatar>
           </div>
           <div class={"floating-h-content"}>
             <div class={"floating-h-c-top"}>

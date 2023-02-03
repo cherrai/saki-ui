@@ -14,6 +14,8 @@ import {
   styleUrl: "dialog.scss",
 })
 export class DialogAlertComponent {
+  @Prop() titleAvatar: string = "";
+  @Prop() titleAvatarText: string = "";
   @Prop() title: string = "";
   @Prop() content: string = "";
   @Prop() cancelText: string = "";
@@ -23,9 +25,10 @@ export class DialogAlertComponent {
   @Prop() flexButton: boolean = false;
   @State() visible: boolean = false;
   @Event({
+    eventName:"close",
     bubbles: false,
   })
-  close: EventEmitter;
+  closeFunc: EventEmitter;
   @Event() cancel: EventEmitter;
   @Event() confirm: EventEmitter;
   @Watch("visible")
@@ -39,9 +42,9 @@ export class DialogAlertComponent {
       }, this.autoHideDuration);
   }
   @Method()
-  async hide() {
+  async close() {
     this.visible = false;
-    this.close.emit();
+    this.closeFunc.emit();
   }
   componentWillLoad() {}
   componentDidLoad() {
@@ -68,6 +71,8 @@ export class DialogAlertComponent {
               closeIcon={false}
               height="40px"
               fontSize="16px"
+              titleAvatar={this.titleAvatar}
+              titleAvatarText={this.titleAvatarText}
               title={this.title}
             ></saki-modal-header>
           ) : (
@@ -94,7 +99,7 @@ export class DialogAlertComponent {
                   border="1px solid #eee"
                   onTap={() => {
                     this.visible = false;
-                    this.close.emit();
+                    this.closeFunc.emit();
                     this.cancel.emit();
                   }}
                   type="Normal"
@@ -112,7 +117,7 @@ export class DialogAlertComponent {
                   font-size="13px"
                   onTap={() => {
                     this.visible = false;
-                    this.close.emit();
+                    this.closeFunc.emit();
                     this.confirm.emit();
                   }}
                   type="Primary"

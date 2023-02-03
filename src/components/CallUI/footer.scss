@@ -4,6 +4,34 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px 20px 30px;
+  transition: transform 0.3s, opacity 0.3s;
+  background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));
+
+  &.call-footer-leave,
+  &.call-footer-enter-done {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+
+  &.call-footer-enter,
+  &.call-footer-leave-done {
+    transform: translate(0, 30px);
+    opacity: 0;
+  }
+  
+  &.call-footer-enter-active {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+
+  &.call-footer-leave-active {
+    transform: translate(0, 30px);
+    opacity: 0;
+  }
+
+  &.call-footer-leave-done {
+    display: none;
+  }
   .footer-left {
     flex: 1;
     display: flex;

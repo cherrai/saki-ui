@@ -13,6 +13,8 @@ import {
   // shadow: true,
 })
 export class ModalHeaderComponent {
+  @Prop() titleAvatar: string = "";
+  @Prop() titleAvatarText: string = "";
   @Prop() title: string = "";
   @Prop() border: boolean = false;
   @Prop() height: string = "56px";
@@ -90,7 +92,20 @@ export class ModalHeaderComponent {
           )}
         </div>
         <div class="modal-center">
-          <div
+          {this.titleAvatar || this.titleAvatarText ? (
+            <saki-avatar
+              width={"24px"}
+              height={"24px"}
+              borderRadius={"50%"}
+              margin={"0 6px 0 0"}
+              nickname={this.titleAvatarText}
+              src={this.titleAvatar}
+            ></saki-avatar>
+          ) : (
+            ""
+          )}
+
+          <span
             style={{
               ...["fontSize"].reduce(
                 (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
@@ -100,7 +115,7 @@ export class ModalHeaderComponent {
             class="modal-title"
           >
             {this.title}
-          </div>
+          </span>
         </div>
         <div class="modal-right">
           <div></div>

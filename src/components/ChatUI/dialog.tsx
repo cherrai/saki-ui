@@ -26,6 +26,8 @@ export class ChatDialogComponent {
   @Prop() close: boolean = false;
   @Prop() encryption: boolean = false;
   @Prop() encryptionColor: string = "#25af36";
+  // @Prop() contextMenuActiveBorderColor =
+  //   "var(--saki-chat-dialog-context-menu-border-color)";
 
   @State() updateTime = 0;
   @Element() el: HTMLElement;
@@ -72,6 +74,8 @@ export class ChatDialogComponent {
           (this.encryption ? "encryption " : "")
         }
         style={{
+          // "--saki-chat-dialog-context-menu-border-color-local":
+          //   this.contextMenuActiveBorderColor,
           "--saki-chat-dialog-encryption-color": this.encryptionColor,
         }}
       >

@@ -20,8 +20,11 @@ export class ImagesComponent {
   @Prop() src: string = "";
   @Prop() defaultSrc: string = "";
   @Prop() defaultBackgroundColor: string = "";
-  @Prop() width: string = "40px";
-  @Prop() height: string = "40px";
+  @Prop() width: string = "auto";
+  @Prop() height: string = "auto";
+  @Prop() fileWidth: number = 0;
+  @Prop() fileHeight: number = 0;
+  @Prop() maxPixel: number = 0;
   @Prop() border: string = "";
   @Prop() borderRadius: string = "";
   @Prop() padding: string = "";
@@ -36,25 +39,56 @@ export class ImagesComponent {
   @Element() el: HTMLElement;
   @Watch("src")
   watchSrc() {
+    console.log("watchSrc", this.src);
     this.loaded = false;
   }
   componentDidLoad() {}
+
+  getPixel(width: number, height: number, maxPixel: number) {
+    if (!this.maxPixel || !this.fileWidth || !this.fileHeight) {
+      return {
+        width: 0,
+        height: 0,
+      };
+    }
+    if (width > height) {
+      if (maxPixel > width) {
+        return {
+          width,
+          height,
+        };
+      } else {
+        return {
+          width: maxPixel,
+          height: (maxPixel * height) / width,
+        };
+      }
+    } else {
+      if (maxPixel > height) {
+        return {
+          width,
+          height,
+        };
+      } else {
+        return {
+          width: (maxPixel * width) / height,
+          height: maxPixel,
+        };
+      }
+    }
+  }
   render() {
+    const pixel = this.getPixel(this.fileWidth, this.fileHeight, this.maxPixel);
     return (
       <div
         style={{
-          ...[
-            "width",
-            "height",
-            "margin",
-            "padding",
-            "border",
-            "borderRadius",
-          ].reduce(
+          width: pixel.width ? pixel.width + "px" : this.width,
+          height: pixel.height ? pixel.height + "px" : this.height,
+          ...["margin", "padding", "border", "borderRadius"].reduce(
             (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
             {}
           ),
-          "--saki-images-width": this.width,
+          "--saki-images-width": pixel.width ? pixel.width + "px" : this.width,
           "--saki-images-default-background-color": this.defaultBackgroundColor,
         }}
         class={"saki-images-component " + (this.loaded ? "load" : "")}

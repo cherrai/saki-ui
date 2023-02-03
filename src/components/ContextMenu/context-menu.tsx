@@ -15,12 +15,14 @@ import {
   styleUrl: "context-menu.scss",
 })
 export class ContextMenuComponent {
+  list: NodeListOf<HTMLSakiContextMenuItemElement>;
   @Prop({ mutable: true }) zIndex: number = 1100;
   @Element() el: Element;
   label: string = "";
   compEl: HTMLDivElement;
   contentEl: HTMLDivElement;
   @State() visible: boolean = false;
+  @State() showContent: boolean = false;
   @State() updateTime = 0;
   @State() contextMenuObj = {
     left: 0,
@@ -50,25 +52,50 @@ export class ContextMenuComponent {
   }
   @Method()
   async show({ x, y, label }: { x: number; y: number; label: string }) {
-    // console.log(
-    //   x + this.contentEl.offsetWidth,
-    //   y + this.contentEl.offsetHeight,
-    //   window.innerWidth,
-    //   window.innerHeight,
-    //   this.contentEl.offsetWidth,
-    //   this.contentEl.offsetHeight
-    // );
-    this.label = label;
-    this.contextMenuObj.left =
-      x + this.contentEl.offsetWidth < window.innerWidth - 10
-        ? x
-        : window.innerWidth - 10 - this.contentEl.offsetWidth;
-    this.contextMenuObj.top =
-      y + this.contentEl.offsetHeight < window.innerHeight - 10
-        ? y
-        : window.innerHeight - 10 - this.contentEl.offsetHeight;
     this.visible = true;
-    this.updateTime = new Date().getTime();
+    setTimeout(() => {
+      // console.log(
+      //   x,
+      //   y,
+      //   x + this.contentEl.offsetWidth,
+      //   y + this.contentEl.offsetHeight,
+      //   window.innerWidth,
+      //   window.innerHeight,
+      //   this.contentEl,
+      //   document.body.querySelector(".context-menu-content"),
+      //   document.body.querySelector(".context-menu-content").clientWidth,
+      //   this.contentEl.clientWidth,
+      //   this.contentEl.offsetWidth,
+      //   this.contentEl.offsetHeight
+      // );
+      // console.log(x + this.contentEl.offsetWidth < window.innerWidth - 10);
+
+      this.label = label;
+      this.contextMenuObj.left =
+        x + this.contentEl.offsetWidth < window.innerWidth - 10
+          ? x
+          : window.innerWidth - 10 - this.contentEl.offsetWidth;
+      this.contextMenuObj.top =
+        y + this.contentEl.offsetHeight < window.innerHeight - 10
+          ? y
+          : window.innerHeight - 10 - this.contentEl.offsetHeight;
+
+      this.updateTime = new Date().getTime();
+      const animate = this.contentEl.animate(
+        [
+          {
+            opacity: "1",
+          },
+        ],
+        {
+          duration: 150,
+          iterations: 1,
+        }
+      );
+      animate.onfinish = () => {
+        this.showContent = true;
+      };
+    });
   }
   @Method()
   async hide() {
@@ -89,22 +116,36 @@ export class ContextMenuComponent {
     );
     animate.onfinish = () => {
       this.visible = false;
+      this.showContent = false;
       this.fullclose.emit();
     };
   }
   componentWillLoad() {}
   componentDidLoad() {
-    const menuList = this.el.querySelectorAll("saki-context-menu-item");
-    if (menuList?.length) {
-      menuList.forEach((v, i) => {
-        v.addEventListener("tap", () => {
-          this.addCloseAnimate();
-          this.selectvalue.emit({
-            index: i,
-            value: v.value,
-            label: this.label,
-          });
-        });
+    const observer = new MutationObserver(this.watchDom.bind(this));
+    this.watchDom();
+    // 以上述配置开始观察目标节点
+    observer.observe(this.el, {
+      attributes: false,
+      childList: true,
+      subtree: false,
+    });
+  }
+  tapFunc = (e: any) => {
+    this.addCloseAnimate();
+    this.selectvalue.emit({
+      index: e.detail.index,
+      value: e.detail.value,
+      label: this.label,
+    });
+  };
+  watchDom() {
+    this.list = this.el.querySelectorAll("saki-context-menu-item");
+    if (this.list?.length) {
+      this.list.forEach((v, i) => {
+        v.setIndex(i);
+        v.removeEventListener("tap", this.tapFunc);
+        v.addEventListener("tap", this.tapFunc);
       });
 
       // for (const key in this.el.children) {
@@ -138,7 +179,7 @@ export class ContextMenuComponent {
             top: this.contextMenuObj.top + "px",
             zIndex: String(this.zIndex),
           }}
-          class={"context-menu-content " + (this.visible ? "show" : "hide")}
+          class={"context-menu-content " + (this.showContent ? "show" : "hide")}
         >
           <slot></slot>
         </div>

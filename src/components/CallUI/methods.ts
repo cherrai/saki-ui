@@ -17,6 +17,7 @@ export const setStream = async function (stream: SFUStream) {
       this.width = this.stream.stats?.video?.frameWidth || 1920;
       this.height = this.stream.stats?.video?.frameHeight || 1080;
       this.frameRate = this.stream.stats.video.framesPerSecond;
+      this.volume = 0;
 
       stream.stream.getTracks().forEach((track) => {
         // console.log(track);
@@ -49,6 +50,7 @@ export const setStream = async function (stream: SFUStream) {
           0) * 1000
       );
       this.frameRate = this.stream.stats.video.framesPerSecond;
+      this.volume = 1;
 
       stream.addEventListener("speaker", () => {
         this.speaker = this.stream.isSpeaker;

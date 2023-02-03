@@ -83,7 +83,7 @@ export class SnackbarComponent {
   @Method()
   async open() {
     // params: OpenParams
-    console.log("open")
+    // console.log("open")
     this.visible = true;
     // console.log(params);
     // // const el = <saki-snackbar-message message={message} />;

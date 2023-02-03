@@ -12,12 +12,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 6px;
     .floating-h-logo {
-      img {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-      }
     }
     .floating-h-content {
       flex: 1;

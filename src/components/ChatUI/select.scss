@@ -1,0 +1,33 @@
+.saki-chat-select-component {
+  width: 100%;
+  height: 50px;
+  background-color: #fff;
+  transition: all 0.3s;
+  &.sc-select-transition-will-load {
+    display: none !important;
+  }
+  &.sc-select-transition-leave,
+  &.sc-select-transition-enter-done {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+
+  &.sc-select-transition-enter,
+  &.sc-select-transition-leave-done {
+    transform: translate(0, -30px);
+    opacity: 0;
+  }
+
+  &.sc-select-transition-enter-active {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  &.sc-select-transition-leave-active {
+    transform: translate(0, -30px);
+    opacity: 0;
+  }
+
+  &.sc-select-transition-leave-done {
+    display: none;
+  }
+}

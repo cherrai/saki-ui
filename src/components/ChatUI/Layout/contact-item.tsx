@@ -21,7 +21,9 @@ export class ChatLayoutContactItemComponent {
   @Prop() padding = "10px";
   @Prop() margin = "10px 0";
   @Prop() lastSeenTime = "";
-  @Prop() displayIconsLayout = true;
+  @Prop() displayIconsLayout = false;
+  @Prop() displayCenterLayout = false;
+
   @Prop() displayIconsLayoutWidth = "auto";
   @Prop() hoverBackgroundColor: string = "#eee";
   @Event({
@@ -60,7 +62,6 @@ export class ChatLayoutContactItemComponent {
 
         <div
           class={"clci-container"}
-         
           style={{
             ...["padding"].reduce(
               (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
@@ -118,21 +119,25 @@ export class ChatLayoutContactItemComponent {
                 </saki-col>
               </saki-row>
             </saki-col>
-            <saki-col
-              justifyContent={
-                this.displayIconsLayout ? "flex-start" : "flex-end"
-              }
-              span={1}
-            >
-              <div
-                style={{
-                  fontSize: this.timeFontSize,
-                }}
-                class="clci-lasttime text-elipsis"
+            {this.displayCenterLayout ? (
+              <saki-col
+                justifyContent={
+                  this.displayIconsLayout ? "flex-start" : "flex-end"
+                }
+                span={1}
               >
-                {this.lastSeenTime}
-              </div>
-            </saki-col>
+                <div
+                  style={{
+                    fontSize: this.timeFontSize,
+                  }}
+                  class="clci-lasttime text-elipsis"
+                >
+                  {this.lastSeenTime}
+                </div>
+              </saki-col>
+            ) : (
+              ""
+            )}
 
             {this.displayIconsLayout ? (
               <saki-col

@@ -6,7 +6,6 @@ import {
   EventEmitter,
   Prop,
   State,
-  Watch,
 } from "@stencil/core";
 
 @Component({
@@ -16,6 +15,7 @@ import {
 })
 export class ChatLayoutComponent {
   @Prop() deviceType: "Mobile" | "Pad" | "PC" = "Mobile";
+  @Prop() bottomNavigator = false;
 
   @State() language: string = "en";
   @Event() tap: EventEmitter;
@@ -36,15 +36,21 @@ export class ChatLayoutComponent {
 
   render() {
     return (
-      <div class={"saki-chat-layout-component " + this.deviceType}>
+      <div
+        class={
+          "saki-chat-layout-component " +
+          this.deviceType +
+          (this.bottomNavigator ? " bottom-navigator " : "")
+        }
+      >
         <div class={"l-side"}>
           <slot name="side-navigator"></slot>
         </div>
         <div class={"l-main"}>
           <div class={"l-m-main"}>
-            <saki-scroll-view mode="Auto">
-              <slot></slot>
-            </saki-scroll-view>
+            {/* <saki-scroll-view mode="Auto"> */}
+            <slot></slot>
+            {/* </saki-scroll-view> */}
           </div>
           <div class={"l-m-bottom"}>
             <slot name="bottom-navigator"></slot>

@@ -19,7 +19,7 @@ import { setStream } from "./methods";
   shadow: false,
 })
 export class CallMainVideoComponent {
-  @State() video: HTMLVideoElement;
+  video: HTMLVideoElement;
   @Prop({ mutable: true }) stream: SFUStream;
   @Prop({ mutable: true }) streamId: string = "";
   @Prop({ mutable: true }) mediaType: "audio" | "video" = "video";
@@ -28,18 +28,19 @@ export class CallMainVideoComponent {
   @Prop({ mutable: true }) height: number = 0;
   @Prop({ mutable: true }) avatar: string = "";
   @Prop({ mutable: true }) nickname: string = "";
+  // 自己的不需要音量
+  @Prop({ mutable: true }) volume: number = 1;
   @Prop({ mutable: true }) jitter: number = 0;
   @Prop({ mutable: true }) speaker: boolean = false;
   @Prop({ mutable: true }) status: "success" | "wait" = "success";
-  @Prop({ mutable: true }) streamType: "Local" | "Remote" | "ScreenShare" = "Local";
+  @Prop({ mutable: true }) streamType: "Local" | "Remote" | "ScreenShare" =
+    "Local";
   @Prop({ mutable: true }) mediaDevices: MediaDeviceInfo[] = [];
   @Prop({ mutable: true }) activeAudioDevice: string = "";
   @Prop({ mutable: true }) activeVideoDevice: string = "";
   @Element() el: HTMLElement;
   @Event() changestreamid: EventEmitter;
   componentDidLoad() {
-    this.video = this.el.querySelector(".call-main-video");
-
     if (this.streamId) {
       this.changestreamid.emit({
         streamId: this.streamId,
@@ -68,6 +69,11 @@ export class CallMainVideoComponent {
       console.log(this.stream, "正在说话");
     }
   }
+  @Watch("volume")
+  watchVolumeFunc() {
+    this.video && (this.video.volume = this.volume);
+  }
+
   @Method()
   async setMediaDevices(mediaDevices: MediaDeviceInfo[]) {
     this.mediaDevices = mediaDevices;
@@ -102,6 +108,10 @@ export class CallMainVideoComponent {
     return (
       <div class={"saki-call-main-video-component"}>
         <video
+          ref={(e) => {
+            this.video = e;
+            this.video.volume = this.volume;
+          }}
           // ref={(e) => {
           //   !this.video &&
           //     e &&
@@ -110,6 +120,11 @@ export class CallMainVideoComponent {
           //       console.log("sakiui-main-video", err);
           //     }));
           // }}
+          onError={(e) => {
+            console.log("sakiui-video", e);
+          }}
+          data-volume={this.volume}
+          data-stream-id={this.streamId}
           class="call-main-video"
           autoplay
           playsinline

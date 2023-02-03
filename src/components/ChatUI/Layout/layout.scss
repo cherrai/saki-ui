@@ -3,6 +3,13 @@
   height: 100%;
   display: flex;
   justify-content: flex-start;
+  &.bottom-navigator {
+    .l-main {
+      .l-m-bottom {
+        height: 60px;
+      }
+    }
+  }
   &.Mobile {
     .l-side {
       display: none;
@@ -32,6 +39,9 @@
     }
     .l-m-bottom {
       width: 100%;
+      height: 0px;
+      overflow: hidden;
+      transition: height 0.3s;
     }
   }
 }

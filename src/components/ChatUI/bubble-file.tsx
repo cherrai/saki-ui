@@ -17,7 +17,10 @@ import {
 export class ChatBubbleFileComponent {
   @Prop() type: "Audio" | "Image" | "Video" | "File" = "Image";
   @Prop() src: string = "";
-  @Prop() width: string = "120px";
+  @Prop() fileWidth: number = 0;
+  @Prop() fileHeight: number = 0;
+  @Prop() width: string = "100%";
+  @Prop() maxWidth: number = 120;
   @Prop() name: string = "";
   //  unit byte
   @Prop() size: number = 0;
@@ -27,6 +30,7 @@ export class ChatBubbleFileComponent {
   @Prop() time: number = 0;
   @Event() tap: EventEmitter;
   @Event() download: EventEmitter;
+  @Event() load: EventEmitter;
   @Element() el: HTMLElement;
   @Watch("progress")
   watchProgress() {
@@ -38,7 +42,7 @@ export class ChatBubbleFileComponent {
   }
 
   componentDidLoad() {
-    console.log("componentDidLoad", this);
+    // console.log("componentDidLoad", this);
   }
   formartSize() {
     if (this.size > 1024 * 1024 * 1024) {
@@ -70,16 +74,52 @@ export class ChatBubbleFileComponent {
     return "expired";
   }
   render() {
+    // console.log(
+    //   "bubbbbb",
+    //   this.fileWidth > this.fileHeight
+    //     ? `calc(${this.maxWidth} * ${this.fileWidth}px / ${this.fileHeight}px)`
+    //     : "0px"
+    // );
+
+    // console.log("getPixel", this.getPixel());
     return (
       <div
         style={{
-          "--saki-chat-bubble-file-image-width": this.width,
+          "--saki-chat-bubble-file-width": this.width,
+          "--saki-chat-bubble-file-max-width": this.maxWidth + "px",
         }}
         class={"saki-chat-bubble-file-component "}
       >
         {this.type === "Image" ? (
-          <div class={"cbf-image"}>
-            <img src={this.src}></img>
+          <div
+            class={"cbf-image"}
+            data-file-width={this.fileWidth}
+            data-file-height={this.fileHeight}
+            // style={{
+            //   height:
+            //     this.fileWidth > this.fileHeight
+            //       ? `calc(${this.maxWidth} * ${this.fileHeight} / ${this.fileWidth})`
+            //       : `calc(${this.maxWidth} * ${this.fileHeight} / ${this.fileWidth})`,
+            // }}
+          >
+            <saki-images
+              maxPixel={this.maxWidth}
+              fileWidth={this.fileWidth}
+              fileHeight={this.fileHeight}
+              src={this.src}
+            ></saki-images>
+            {/* <img
+              onLoad={(e) => {
+                console.log("eeeeeeee", e);
+                setTimeout(() => {
+                  this.el
+                    .querySelector(".cbf-image")
+                    .setAttribute("data-load", "true");
+                }, 100);
+                this.load.emit();
+              }}
+              src={this.src}
+            ></img> */}
           </div>
         ) : this.type === "File" ? (
           <div class={"cbf-file"}>

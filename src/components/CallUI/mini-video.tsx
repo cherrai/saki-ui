@@ -20,27 +20,29 @@ import { setStream } from "./methods";
   shadow: false,
 })
 export class CallMiniVideoComponent {
-  @State() video: HTMLVideoElement;
+  video: HTMLVideoElement;
   @Prop({ mutable: true }) stream: SFUStream;
   @Prop({ mutable: true }) streamId: string = "";
   @Prop({ mutable: true }) mediaType: "audio" | "video" = "video";
   @Prop({ mutable: true }) frameRate: number = 0;
   @Prop({ mutable: true }) avatar: string = "";
+  @Prop({ mutable: true }) avatarText: string = "";
   @Prop({ mutable: true }) nickname: string = "";
   @Prop({ mutable: true }) width: string = "0px";
   @Prop({ mutable: true }) height: string = "0px";
+  // 自己的不需要音量
+  @Prop({ mutable: true }) volume: number = 1;
   @Prop({ mutable: true }) jitter: number = 0;
   @Prop({ mutable: true }) speaker: boolean = false;
   @Prop({ mutable: true }) status: "success" | "wait" = "success";
-  @Prop({ mutable: true }) streamType: "Local" | "Remote" | "ScreenShare" = "Local";
+  @Prop({ mutable: true }) streamType: "Local" | "Remote" | "ScreenShare" =
+    "Local";
 
   @Prop({ mutable: true }) waitText: string = "Awaiting response...";
   @Element() el: HTMLElement;
   @Event() tap: EventEmitter;
   @Event() changestreamid: EventEmitter;
   componentDidLoad() {
-    this.video = this.el.querySelector(".call-mini-video");
-
     if (this.streamId) {
       this.changestreamid.emit({
         streamId: this.streamId,
@@ -65,6 +67,10 @@ export class CallMiniVideoComponent {
     if (this.speaker) {
       console.log(this.stream, "正在说话");
     }
+  }
+  @Watch("volume")
+  watchVolumeFunc() {
+    this.video && (this.video.volume = this.volume);
   }
   @Method()
   async setStream(stream: SFUStream) {
@@ -134,18 +140,26 @@ export class CallMiniVideoComponent {
           </svg>
         </div>
         <div class={"call-userinfo"}>
-          <img class={"avatar"} src={this.avatar} alt="" />
+          <saki-avatar
+            width={"20px"}
+            height={"20px"}
+            borderRadius={"50%"}
+            nickname={this.avatarText}
+            src={this.avatar}
+          ></saki-avatar>
+
           <span class={"nickname text-elipsis"}>{this.nickname}</span>
         </div>
         <video
-          // ref={(e) => {
-          //   !this.video &&
-          //     e &&
-          //     ((this.video = e),
-          //     (this.video.onerror = (err) => {
-          //       console.log("sakiui-video", err);
-          //     }));
-          // }}
+          ref={(e) => {
+            this.video = e;
+            this.video.volume = this.volume;
+          }}
+          onError={(e) => {
+            console.log("sakiui-video", e);
+          }}
+          data-volume={this.volume}
+          data-stream-id={this.streamId}
           class="call-mini-video"
           autoplay
           playsinline

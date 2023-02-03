@@ -12,16 +12,15 @@ import {
 import { v5 as uuidv5, v4 as uuidv4 } from "uuid";
 
 @Component({
-  tag: "saki-chat-layout-side-navigator-menu-item",
-  styleUrl: "side-navigator-menu-item.scss",
+  tag: "saki-chat-layout-bottom-navigator-item",
+  styleUrl: "bottom-navigator.scss",
   shadow: true,
 })
-export class ChatLayoutSideNavigatorMenuItemComponent {
+export class ChatLayoutBottomNavigatorMenuItemComponent {
   @Prop() id = "";
   @Prop() margin = "";
   @Prop() padding = "";
   @Prop() active = false;
-  @Prop() expand = false;
 
   @Prop() iconType: HTMLSakiIconElement["type"] = "";
   @Prop() iconSize = "18px";
@@ -38,9 +37,8 @@ export class ChatLayoutSideNavigatorMenuItemComponent {
     return (
       <div
         class={
-          "saki-chat-layout-side-navigator-menu-item-component " +
-          (this.active ? "active " : "") +
-          (!this.expand ? "shrink " : "")
+          "saki-chat-layout-bottom-navigator-menu-item-component " +
+          (this.active ? "active " : "")
         }
         style={{
           ...["margin", "padding"].reduce(
@@ -58,9 +56,11 @@ export class ChatLayoutSideNavigatorMenuItemComponent {
         <div class="item-icon">
           {this.iconType ? (
             <saki-icon
-              style={{
-                // transform: "translateY(2px)",
-              }}
+              style={
+                {
+                  // transform: "translateY(2px)",
+                }
+              }
               color={this.active ? "var(--saki-default-color)" : "#999"}
               width={this.iconSize}
               height={this.iconSize}
@@ -71,9 +71,7 @@ export class ChatLayoutSideNavigatorMenuItemComponent {
           )}
         </div>
         <div class="item-main">
-          <div v-if="item.name" class="item-m-name">
-            {this.name}
-          </div>
+          <div class="item-m-name">{this.name}</div>
           {this.count ? (
             <div class="item-m-count">
               {this.count > 99 ? "99+" : this.count}
@@ -82,11 +80,6 @@ export class ChatLayoutSideNavigatorMenuItemComponent {
             ""
           )}
         </div>
-        {!this.expand && this.count ? (
-          <div class="item-count">{this.count > 99 ? "99+" : this.count}</div>
-        ) : (
-          ""
-        )}
       </div>
     );
   }

@@ -4,6 +4,15 @@
   &.visibleStyle {
     visibility: visible;
   }
+  &.hide{
+    display: none;
+    // &.hide-modal-transition-enter-done{
+
+    // }
+    //   &.hide-modal-transition-leave-done{
+
+    //   }
+  }
   &.visible {
     .model-bg {
       opacity: 1;

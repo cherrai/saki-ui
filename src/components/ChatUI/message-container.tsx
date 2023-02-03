@@ -27,7 +27,12 @@ export class ChatMessageContainerComponent {
         }
       >
         <div class="message-header">
-          <slot name="message-header"></slot>
+          <div class={"mh-header"}>
+            <slot name="message-header"></slot>
+          </div>
+          <div class={"mh-select"}>
+            <slot name="message-select"></slot>
+          </div>
         </div>
         <div class="message-main">
           <slot name="message-main"></slot>

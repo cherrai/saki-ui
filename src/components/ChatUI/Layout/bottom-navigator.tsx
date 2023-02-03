@@ -4,9 +4,7 @@ import {
   Element,
   h,
   EventEmitter,
-  Prop,
   State,
-  Watch,
 } from "@stencil/core";
 
 @Component({
@@ -15,29 +13,43 @@ import {
   shadow: true,
 })
 export class ChatLayoutBottomNavigatorComponent {
-  @Prop() type: "receiver" | "sender" = "sender";
+  @State() navWidth = "220px";
+  @State() activeMenuItemId = "";
+  @Element() el: HTMLDivElement;
+  menuItems: NodeListOf<HTMLSakiChatLayoutBottomNavigatorItemElement>;
 
-  @State() language: string = "en";
-  @Event() tap: EventEmitter;
-  @Event() resend: EventEmitter;
-  @Event() sendfailed: EventEmitter<{
-    totalCount: number;
-    currentCount: number;
-  }>;
+  @Event() change: EventEmitter;
 
-  @Event({
-    eventName: "opencontextmenu",
-    composed: true,
-    cancelable: true,
-    bubbles: true,
-  })
-  opencontextmenu: EventEmitter;
-  @Element() el: HTMLElement;
-
+  componentWillLoad() {
+    const observer = new MutationObserver(this.watchDom.bind(this));
+    this.watchDom();
+    // 以上述配置开始观察目标节点
+    observer.observe(this.el, {
+      attributes: true,
+      childList: true,
+      subtree: true,
+    });
+  }
+  tapFunc = (e: any) => {
+    this.activeMenuItemId = e.target.id;
+    this.menuItems.forEach((v) => {
+      v.active = v.id === this.activeMenuItemId;
+    });
+    this.change.emit(e.detail);
+  };
+  watchDom() {
+    this.menuItems = this.el.querySelectorAll(
+      "saki-chat-layout-bottom-navigator-item"
+    );
+    this.menuItems.forEach((v) => {
+      v.removeEventListener("tap", this.tapFunc);
+      v.addEventListener("tap", this.tapFunc);
+    });
+  }
   render() {
     return (
       <div class={"saki-chat-layout-bottom-navigator-component"}>
-        bottom-navigator
+        <slot></slot>
       </div>
     );
   }

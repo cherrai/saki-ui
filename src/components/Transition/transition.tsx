@@ -6,27 +6,30 @@ import { Component, h, Prop, State, Watch, Element } from "@stencil/core";
   shadow: false,
 })
 export class TransitionComponent {
+  // 解决刚开始是关闭状态的动画问题
+  @State() load: boolean = false;
   @Element() el: HTMLDivElement;
-  @Prop() animation: string = "SlideInRight";
+  // @Prop() animation: string = "SlideInRight";
   @Prop() className: string = "";
-  @Prop() animationEnd: boolean = false;
+  // @Prop() animationEnd: boolean = false;
   @Prop() animationDuration: number = 300;
-  @Prop() visibleStartStyle: string = "";
-  @Prop() visibleEndStyle: string = "";
-  @Prop() hiddenStartStyle: string = "";
-  @Prop() hiddenEndStyle: string = "";
+  // @Prop() visibleStartStyle: string = "";
+  // @Prop() visibleEndStyle: string = "";
+  // @Prop() hiddenStartStyle: string = "";
+  // @Prop() hiddenEndStyle: string = "";
   @Prop() in: boolean = false;
-  @Prop() full: boolean = false;
+  // @Prop() full: boolean = false;
   timer: NodeJS.Timeout;
 
-  @State() isVisible: boolean = false;
+  // @State() isVisible: boolean = false;
 
   @Watch("in")
   watchIn() {
+    // console.log("this.in", this.in);
     this.setClassName();
   }
   componentWillLoad() {
-    this.isVisible = this.in;
+    // this.isVisible = this.in;
   }
   componentDidLoad() {
     this.setClassName();
@@ -40,6 +43,12 @@ export class TransitionComponent {
     let el = this.el?.children?.[0];
     // console.log(el);
     if (!el) return;
+
+    if (!this.load) {
+      this.load = true;
+      el.classList.add(this.className + "-will-load");
+    }
+
     el.classList.remove(this.className + "-leave-done");
     el.classList.remove(this.className + "-enter-done");
     if (this.in) {
@@ -56,6 +65,7 @@ export class TransitionComponent {
         el.classList.remove(this.className + "-leave");
         el.classList.remove(this.className + "-leave-active");
         el.classList.remove(this.className + "-leave-done");
+        el.classList.remove(this.className + "-will-load");
       }, this.animationDuration);
     } else {
       el.classList.add(this.className + "-leave");
@@ -71,6 +81,7 @@ export class TransitionComponent {
         el.classList.remove(this.className + "-enter");
         el.classList.remove(this.className + "-enter-active");
         el.classList.remove(this.className + "-enter-done");
+        el.classList.remove(this.className + "-will-load");
       }, this.animationDuration);
     }
   }

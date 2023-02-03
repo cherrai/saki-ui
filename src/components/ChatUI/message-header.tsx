@@ -19,11 +19,13 @@ export class ChatMessageHeaderComponent {
   @Prop() nickname: string = "";
   @Prop() anonymous: boolean = false;
   @Prop() encryption: boolean = false;
+  @Prop() backIcon: boolean = false;
   @Prop() desc: string = "";
   @Prop() online: number = -1;
   @Prop() members: number = -1;
   @State() updateTime: number = 0;
   @Event() clickinfo: EventEmitter;
+  @Event() back: EventEmitter;
   @Element() el: HTMLElement;
   // @Watch("avatar")
   // watchAvatar() {
@@ -36,19 +38,34 @@ export class ChatMessageHeaderComponent {
     return (
       <div class="saki-chat-message-header-component">
         <div class="message-header-left">
+          {this.backIcon ? (
+            <saki-button
+              onTap={() => {
+                this.back.emit();
+              }}
+              width="40px"
+              height="40px"
+              margin="0 4px 0 0"
+              type="CircleIconGrayHover"
+            >
+              <saki-icon type="ArrowLeft"></saki-icon>
+            </saki-button>
+          ) : (
+            ""
+          )}
           <div
             onClick={() => {
               this.clickinfo.emit();
             }}
             class="message-header-l-avatar"
           >
-              <saki-avatar
-                width="36px"
-                height="36px"
-                borderRadius="50%"
-                nickname={!this.avatar ? this.avatarText : ""}
-                src={this.avatar}
-              ></saki-avatar>
+            <saki-avatar
+              width="36px"
+              height="36px"
+              borderRadius="50%"
+              nickname={!this.avatar ? this.avatarText : ""}
+              src={this.avatar}
+            ></saki-avatar>
           </div>
           <div class="message-header-l-info">
             <div class="message-header-l-i-info">

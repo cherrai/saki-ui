@@ -14,18 +14,14 @@
     flex-direction: column;
     .ci-u-item {
       &.avatar {
-        img {
-          width: 80px;
-          height: 80px;
-          border-radius: 50%;
-        }
       }
       &.nickname {
+        margin-top: 10px;
         font-weight: 500;
         color: #eee;
         font-size: 18px;
         text-align: center;
-        text-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+        text-shadow: 0 0 6px rgba(0, 0, 0, 0.9);
       }
     }
   }

@@ -36,9 +36,9 @@ export class ChatLayoutSideNavigatorComponent {
   }
   tapFunc = (e: any) => {
     this.activeMenuItemId = e.target.id;
-    this.menuItems.forEach((v) => {
-      v.active = v.id === this.activeMenuItemId;
-    });
+    // this.menuItems.forEach((v) => {
+    //   v.active = v.id === this.activeMenuItemId;
+    // });
     this.change.emit(e.detail);
   };
   watchDom() {
