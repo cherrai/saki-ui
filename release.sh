@@ -15,6 +15,8 @@ logs() {
 }
 
 copyFile() {
+  yarn buildScss
+  
   mkdir -p ./dist/saki-ui/css
   cp -r node_modules/quill/dist/quill.core.css ./dist/saki-ui/css
   cp -r node_modules/quill/dist/quill.snow.css ./dist/saki-ui/css

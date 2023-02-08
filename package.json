@@ -18,7 +18,7 @@
     "buildScss": "sass src/globals:src/globals && sass src/components/Avatar/cropper.scss:src/globals/cropper.css",
     "copyFile": "chmod u+x ./release.sh && ./release.sh copyFile",
     "copyConfig": "cp -r ./config.ts ./src/config-temp.ts",
-    "build": "cp -r ./config.ts ./src/config-temp.ts && stencil build --docs && yarn buildScss && yarn copyFile",
+    "build": "cp -r ./config.ts ./src/config-temp.ts && stencil build --docs && yarn copyFile",
     "dev": "cp -r ./config.ts ./src/config-temp.ts && stencil build --dev --watch --serve",
     "test": "stencil test --spec --e2e",
     "start": "node ./app.js --port 32300",

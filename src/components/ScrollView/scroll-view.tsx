@@ -16,7 +16,7 @@ import { Debounce } from "@nyanyajs/utils/dist/debounce";
 
 @Component({
   tag: "saki-scroll-view",
-  styleUrl: "scroll-view.scss",
+  styleUrls: ["scroll-view.scss"],
   shadow: false,
 })
 export class ScrollViewComponent {

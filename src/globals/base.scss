@@ -1,4 +1,4 @@
-
+@import "./common.scss";
 html {
   // font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI",
   //   Roboto, "Helvetica Neue", Arial, sans-serif, microsoft yahei;
@@ -130,108 +130,101 @@ ol {
   list-style: none;
 }
 
-a,
-nuxt-link,
-.noTextDec {
+a {
   text-decoration: none;
 }
 
-a.link-anima {
-  position: relative;
-  padding-bottom: 5px;
+// a.link-anima {
+//   position: relative;
+//   padding-bottom: 5px;
 
-  &::after {
-    content: "";
-    width: 0%;
-    height: 3px;
-    position: absolute;
-    bottom: 0;
-    background-color: var(--saki-default-bottom-border-color);
-    z-index: 10000;
-    left: 50%;
-    transform: translateX(-50%);
-    transition: all 0.5s;
-  }
+//   &::after {
+//     content: "";
+//     width: 0%;
+//     height: 3px;
+//     position: absolute;
+//     bottom: 0;
+//     background-color: var(--saki-default-bottom-border-color);
+//     z-index: 10000;
+//     left: 50%;
+//     transform: translateX(-50%);
+//     transition: all 0.5s;
+//   }
 
-  &:hover {
-    // background-color: var(--saki-default-bottom-border-color);
-    // text-decoration: underline;
-    &::after {
-      width: 40px;
-      // @media screen and (max-width: 1024px) {
-      //   // width: 100% !important;
-      // }
-    }
-  }
-}
+//   &:hover {
+//     // background-color: var(--saki-default-bottom-border-color);
+//     // text-decoration: underline;
+//     &::after {
+//       width: 40px;
+//       // @media screen and (max-width: 1024px) {
+//       //   // width: 100% !important;
+//       // }
+//     }
+//   }
+// }
 
 // 点赞变色
-.goodActive {
-  display: inline-block;
-  background-image: linear-gradient(to right, #6815cd, #2672fa);
-  background-clip: text;
-  color: transparent;
-  animation: animateGood 0.5s linear forwards;
-}
+// .goodActive {
+//   display: inline-block;
+//   background-image: linear-gradient(to right, #6815cd, #2672fa);
+//   background-clip: text;
+//   color: transparent;
+//   animation: animateGood 0.5s linear forwards;
+// }
 
-// 取消点赞动画
-.goodNone {
-  display: inline-block;
-  animation: animateNone 0.5s linear;
-}
+// // 取消点赞动画
+// .goodNone {
+//   display: inline-block;
+//   animation: animateNone 0.5s linear;
+// }
 
-@keyframes animateGood {
-  0% {
-    transform: scale(1);
-  }
+// @keyframes animateGood {
+//   0% {
+//     transform: scale(1);
+//   }
 
-  50% {
-    transform: scale(1.2);
-  }
+//   50% {
+//     transform: scale(1.2);
+//   }
 
-  100% {
-    transform: scale(1);
-  }
-}
+//   100% {
+//     transform: scale(1);
+//   }
+// }
 
-@keyframes animateNone {
-  0% {
-    transform: scale(1);
-  }
+// @keyframes animateNone {
+//   0% {
+//     transform: scale(1);
+//   }
 
-  50% {
-    transform: scale(1.2);
-  }
+//   50% {
+//     transform: scale(1.2);
+//   }
 
-  100% {
-    transform: scale(1);
-  }
-}
+//   100% {
+//     transform: scale(1);
+//   }
+// }
 
 // 超出部份省略號
-.text-elipsis {
+.text-elipsis,.text-two-elipsis{
   text-overflow: -o-ellipsis-lastline;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 1;
-  line-clamp: 1;
   -webkit-box-orient: vertical;
   // white-space: pre-wrap;
   word-break: break-word;
+}
+.text-elipsis {
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
 }
 
 // 超出部份省略號
 .text-two-elipsis {
-  text-overflow: -o-ellipsis-lastline;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
   -webkit-line-clamp: 2;
   line-clamp: 2;
-  -webkit-box-orient: vertical;
-  // white-space: pre-wrap;
-  word-break: break-word;
 }
 
 .flex {
@@ -256,154 +249,3 @@ a.link-anima {
 
   // }
 }
-
-.scrollBarDefault {
-  // 修改滚动条
-  overflow:overlay!important;
-  &::-webkit-scrollbar {
-    width: 8px;
-    height: 4px;
-    background-color: rgb(255, 255, 255);
-  }
-  &::-webkit-scrollbar:hover {
-    background-color: rgba(0, 128, 0, 0);
-  }
-
-  /*定义滚动条轨道 内阴影+圆角*/
-  &::-webkit-scrollbar-track {
-    background-color: rgb(255, 255, 255);
-  }
-
-  &::-webkit-scrollbar-track:hover {
-    background-color: rgba(238, 238, 238,0);
-  }
-
-  /*定义滑块 内阴影+圆角*/
-  &::-webkit-scrollbar-thumb {
-    border-radius: 4px;
-    background-color: #ddd;
-    transition: all 0.3s;
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    width: 10px;
-    border-radius: 4px;
-    background-color: #ccc;
-  }
-}
-
-
-
-.scrollBarHover{
-  // 修改滚动条
-  overflow:overlay!important;
-  &:hover{
-    // &::-webkit-scrollbar {
-    //   width: 8px;
-    //   background-color: rgba(255, 255, 255,1);
-    // }
-    // &::-webkit-scrollbar-track {
-    //  background-color: rgba(255, 255, 255,1);
-    // }
-    &::-webkit-scrollbar-thumb{
-      background-color: rgba(204, 204, 204, 0.4);
-    }
-
-  }
-  &::-webkit-scrollbar {
-    width: 8px;
-    height: 4px;
-    background-color: rgba(255, 255, 255,0);
-    transition: all .3s;
-    cursor: pointer;
-  }
-  &::-webkit-scrollbar:hover {
-    background-color: rgba(0, 128, 0, 0);
-  }
-
-  /*定义滚动条轨道 内阴影+圆角*/
-  &::-webkit-scrollbar-track {
-    background-color: rgba(255, 255, 255,0);
-  }
-
-  &::-webkit-scrollbar-track:hover {
-    background-color: rgba(238, 238, 238,0);
-  }
-
-  /*定义滑块 内阴影+圆角*/
-  &::-webkit-scrollbar-thumb {
-    border-radius: 4px;
-    background-color: rgba(221, 221, 221, 0.2);
-    transition: all 0.3s;
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    width: 10px;
-    border-radius: 4px;
-    background-color: rgba(204, 204, 204, 1);
-  }
-}
-
-.scrollBarAuto {
-  overflow: overlay;
-  &:hover {
-    &::-webkit-scrollbar-thumb {
-      // background-color: #afafb0;
-      background-color: #afafb06e;
-    }
-  }
-  // 修改滚动条
-  &::-webkit-scrollbar {
-    width: 8px;
-    height: 4px;
-    background-color: rgba(255, 255, 255, 0);
-    cursor: pointer;
-  }
-  &::-webkit-scrollbar:hover {
-    background-color: rgba(19, 124, 19, 0);
-  }
-
-  /*定义滚动条轨道 内阴影+圆角*/
-  &::-webkit-scrollbar-track {
-    background-color: rgba(255, 255, 255, 0);
-  }
-
-  &::-webkit-scrollbar-track:hover {
-    background-color: rgba(238, 238, 238, 0);
-    &::-webkit-scrollbar-thumb {
-      background-color: #ddd;
-    }
-  }
-
-  /*定义滑块 内阴影+圆角*/
-  &::-webkit-scrollbar-thumb {
-    border-radius: 4px;
-    // background-color: #ddd;
-    background-color: rgba(0, 0, 0, 0);
-    transition: all 0.3s;
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    border-radius: 4px;
-    // background-color: #868788;
-    background-color: #afafb0;
-  }
-}
-
-
-
-.saki-editor {
-  p {
-    font-size: 14px;
-    margin: 0;
-    word-wrap:break-word;
-    word-break:break-all;
-  }
-}
-
-
-.saki-full-page{
-  width: 100%;
-  height: 100%;
-}
-

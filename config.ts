@@ -6,4 +6,5 @@ export const styles = [
   "css/quill.bubble.css",
   "css/cropper.css",
   "css/base.css",
+  // "css/common.css",
 ];
