@@ -22,12 +22,12 @@ export const config: Config = {
     sass({
       injectGlobalPaths: [
         "src/globals/base.scss",
-        // "src/globals/common.scss",
         // "node_modules/quill/dist/quill.core.css",
         // "node_modules/quill/dist/quill.snow.css",
         // "node_modules/quill/dist/quill.bubble.css",
         // "src/components/Avatar/cropper.scss",
-        // 
+        //
+        // "src/globals/common.scss",
         // "src/assets/iconfont/iconfont.css",
         // "src/globals/variables.scss",
         // quill.bubble.css quill.core.css quill.snow.css
