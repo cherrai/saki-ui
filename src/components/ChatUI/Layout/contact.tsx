@@ -1,13 +1,4 @@
-import {
-  Component,
-  Event,
-  Element,
-  h,
-  EventEmitter,
-  Prop,
-  State,
-  Watch,
-} from "@stencil/core";
+import { Component, Element, h, Prop } from "@stencil/core";
 
 @Component({
   tag: "saki-chat-layout-contact",

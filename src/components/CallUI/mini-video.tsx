@@ -4,7 +4,6 @@ import {
   EventEmitter,
   Method,
   Prop,
-  State,
   Element,
   h,
   Watch,

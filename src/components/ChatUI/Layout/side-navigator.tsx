@@ -6,7 +6,6 @@ import {
   EventEmitter,
   Prop,
   State,
-  Watch,
 } from "@stencil/core";
 
 @Component({

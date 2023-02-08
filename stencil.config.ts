@@ -16,19 +16,20 @@ export const config: Config = {
     //   key: readFileSync('key.pem', 'utf8')
     // }
   },
-  
+
   // globalStyle: "node_modules/cropperjs/dist/cropper.css",
   plugins: [
     sass({
       injectGlobalPaths: [
+        // "src/globals/base.scss",
+        // "node_modules/quill/dist/quill.core.css",
+        // "node_modules/quill/dist/quill.snow.css",
+        // "node_modules/quill/dist/quill.bubble.css",
+        // "src/components/Avatar/cropper.scss",
+        // 
         // "src/assets/iconfont/iconfont.css",
         // "src/globals/variables.scss",
-        "src/globals/base.scss",
         // quill.bubble.css quill.core.css quill.snow.css
-        "node_modules/quill/dist/quill.core.css",
-        "node_modules/quill/dist/quill.snow.css",
-        "node_modules/quill/dist/quill.bubble.css",
-        "src/components/Avatar/cropper.scss",
       ],
     }),
   ],

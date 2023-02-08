@@ -2,8 +2,7 @@
 name="saki-ui"
 port=32300
 branch="main"
-allowMethods=("protos stop npmconfig install gitpull dockerremove start logs")
-
+allowMethods=("copyFile protos stop npmconfig install gitpull dockerremove start logs")
 
 gitpull() {
   echo "-> 正在拉取远程仓库"
@@ -13,6 +12,22 @@ gitpull() {
 
 logs() {
   docker logs -f $name
+}
+
+copyFile() {
+  mkdir -p ./dist/saki-ui/css
+  cp -r node_modules/quill/dist/quill.core.css ./dist/saki-ui/css
+  cp -r node_modules/quill/dist/quill.snow.css ./dist/saki-ui/css
+  cp -r node_modules/quill/dist/quill.bubble.css ./dist/saki-ui/css
+  cp -r src/globals/cropper.css ./dist/saki-ui/css
+  cp -r src/globals/base.css ./dist/saki-ui/css
+
+  mkdir -p ./www/build/css
+  cp -r node_modules/quill/dist/quill.core.css ./www/build/css
+  cp -r node_modules/quill/dist/quill.snow.css ./www/build/css
+  cp -r node_modules/quill/dist/quill.bubble.css ./www/build/css
+  cp -r src/globals/cropper.css ./www/build/css
+  cp -r src/globals/base.css ./www/build/css
 }
 
 start() {
@@ -50,8 +65,6 @@ stop() {
 logs() {
   docker logs -f $name
 }
-
-
 
 main() {
   if echo "${allowMethods[@]}" | grep -wq "$1"; then

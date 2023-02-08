@@ -1,12 +1,4 @@
-import {
-  Component,
-  h,
-  Prop,
-  Event,
-  EventEmitter,
-  Watch,
-  Method,
-} from "@stencil/core";
+import { Component, h, Prop, Event, EventEmitter, Method } from "@stencil/core";
 
 // import { debounce } from "../../plugins/methods";
 // import { prefix } from "../../../stencil.config";
@@ -62,7 +54,7 @@ export class ContextMenuItemComponent {
         }}
         class={
           "saki-context-menu-item-component " +
-          (this.disabled ? "disabled " : "")+
+          (this.disabled ? "disabled " : "") +
           (this.hide ? "hide " : "")
         }
       >

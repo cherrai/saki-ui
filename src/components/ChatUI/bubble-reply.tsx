@@ -1,14 +1,10 @@
 import {
   Component,
   Event,
-  Element,
   h,
   EventEmitter,
   Prop,
-  State,
-  Watch,
 } from "@stencil/core";
-import moment from "moment";
 // import * as nyanyalog from "nyanyajs-log";
 // import "moment/dist/locale/zh-cn";
 @Component({

@@ -1,15 +1,6 @@
-import {
-  Component,
-  Event,
-  Element,
-  h,
-  EventEmitter,
-  Prop,
-  State,
-  Watch,
-} from "@stencil/core";
+import { Component, Event, h, EventEmitter, Prop } from "@stencil/core";
 
-import { v5 as uuidv5, v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from "uuid";
 
 @Component({
   tag: "saki-chat-layout-side-navigator-menu-item",
@@ -58,9 +49,11 @@ export class ChatLayoutSideNavigatorMenuItemComponent {
         <div class="item-icon">
           {this.iconType ? (
             <saki-icon
-              style={{
-                // transform: "translateY(2px)",
-              }}
+              style={
+                {
+                  // transform: "translateY(2px)",
+                }
+              }
               color={this.active ? "var(--saki-default-color)" : "#999"}
               width={this.iconSize}
               height={this.iconSize}

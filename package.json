@@ -15,8 +15,11 @@
     "loader/"
   ],
   "scripts": {
-    "build": "stencil build --docs",
-    "dev": "stencil build --dev --watch --serve",
+    "buildScss": "sass src/globals:src/globals && sass src/components/Avatar/cropper.scss:src/globals/cropper.css",
+    "copyFile": "chmod u+x ./release.sh && ./release.sh copyFile",
+    "copyConfig": "cp -r ./config.ts ./src/config-temp.ts",
+    "build": "cp -r ./config.ts ./src/config-temp.ts && stencil build --docs && yarn buildScss && yarn copyFile",
+    "dev": "cp -r ./config.ts ./src/config-temp.ts && stencil build --dev --watch --serve",
     "test": "stencil test --spec --e2e",
     "start": "node ./app.js --port 32300",
     "test.watch": "stencil test --spec --e2e --watchAll",
@@ -39,6 +42,7 @@
     "@stencil/react-output-target": "0.0.9",
     "@types/crypto-js": "^4.1.1",
     "@types/quill": "^2.0.9",
+    "sass": "^1.58.0",
     "typescript": "^4.5.2"
   }
 }
