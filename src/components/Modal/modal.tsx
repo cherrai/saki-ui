@@ -22,7 +22,8 @@ export class ModalComponent {
   @State() isAddVisibleClass: boolean = false;
   @State() isAddHideClass: boolean = false;
   @State() visibleStyle: boolean = false;
-  contetnEl: HTMLElement;
+  modalEl: HTMLElement;
+  contentEl: HTMLElement;
   @Prop() backgroundColor: string = "";
   @Prop() width: string = "";
   @Prop() height: string = "";
@@ -60,7 +61,7 @@ export class ModalComponent {
       this.closing = false;
       this.open.emit();
       this.visibleStyle = true;
-      document.body.appendChild(this.contetnEl);
+      document.body.appendChild(this.modalEl);
       setTimeout(() => {
         this.isAddVisibleClass = true;
       }, 10);
@@ -95,16 +96,15 @@ export class ModalComponent {
       // {/* </saki-transition> */}
       <div
         ref={(e) => {
-          this.contetnEl = e;
-          // if (!this.contetnEl && e) {
-          //   this.contetnEl = e;
+          this.modalEl = e;
+          // if (!this.modalEl && e) {
+          //   this.modalEl = e;
           // }
         }}
-        style={
-          {
-            // display: this.visibleStyle ? "block" : "none",
-          }
-        }
+        style={{
+          "--saki-modal-max-width": this.maxWidth,
+          // display: this.visibleStyle ? "block" : "none",
+        }}
         data-hide={this.hide}
         class={
           "saki-modal-component " +
@@ -149,11 +149,14 @@ export class ModalComponent {
             ),
             zIndex: String(this.zIndex),
           }}
+          ref={(e) => {
+            this.contentEl = e;
+          }}
           onTransitionEnd={() => {
-            if (this.closing && document.body.contains(this.contetnEl)) {
+            if (this.closing && document.body.contains(this.modalEl)) {
               this.visibleStyle = false;
-              this.el.appendChild(this.contetnEl);
-              // document.body.removeChild(this.contetnEl);
+              this.el.appendChild(this.modalEl);
+              // document.body.removeChild(this.modalEl);
             }
           }}
           class={"model-content " + (this.isAddVisibleClass ? "visible" : "")}

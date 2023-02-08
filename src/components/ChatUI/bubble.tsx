@@ -97,6 +97,9 @@ export class ChatBubbleComponent {
   bubbleEl: HTMLElement = null;
   @State() bubbleElWidth: number;
   @State() language: string = "en";
+
+  clickTime: number = 0;
+
   @Event() tap: EventEmitter;
   @Event() resend: EventEmitter;
   @Event() sendfailed: EventEmitter<{
@@ -469,7 +472,10 @@ export class ChatBubbleComponent {
                     ? { backgroundColor: this.bubbleBackgroundColor }
                     : {}),
                 }}
+                // onTouchStart={(e) => {}}
                 onMouseDown={(e) => {
+                  console.log(e);
+                  this.clickTime = new Date().getTime();
                   switch (e.button) {
                     case 2:
                       this.opencontextmenu.emit({
@@ -484,6 +490,11 @@ export class ChatBubbleComponent {
                   }
                 }}
                 onContextMenu={(e) => {
+                  // console.log("onContextMenu", e);
+                  this.opencontextmenu.emit({
+                    x: e.x,
+                    y: e.y,
+                  });
                   e.preventDefault();
                   return false;
                 }}
