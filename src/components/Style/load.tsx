@@ -21,7 +21,8 @@ export class BaseStyleComponent {
         // } else {
         //   url = "http://" + url;
         // }
-        url = v.src.split(namespace)[0];
+
+        url = v.src.substring(0, v.src.lastIndexOf(namespace));
         break;
       }
     }
