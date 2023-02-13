@@ -18,6 +18,7 @@ export class PageHeaderComponent {
   @Prop() titleFontSize: string = "22px";
   @Prop() titleFontWeight: string = "700";
   @Prop() padding: string = "0 10px";
+  @Prop() border: string = "0 10px";
   @Prop() height: string = "";
   @Prop() backIcon: boolean = false;
   @Prop() left: boolean = false;
@@ -32,7 +33,7 @@ export class PageHeaderComponent {
     return (
       <div
         style={{
-          ...["padding", "width", "backgroundColor"].reduce(
+          ...["padding", "border", "width", "backgroundColor"].reduce(
             (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
             {}
           ),

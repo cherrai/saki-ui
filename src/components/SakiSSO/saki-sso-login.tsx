@@ -15,8 +15,10 @@ import {
 export class SSOLoginComponent {
   @Prop() url = "";
   @Prop() appId = "";
-  @Prop() appToken = "";
+  // @Prop() appToken = "";
   @Prop() appName = "";
+  @Prop() language = "zh-CN";
+
   @Prop() disableHeader = false;
   @Event() login: EventEmitter;
   @Event() updateUser: EventEmitter;
@@ -64,8 +66,10 @@ export class SSOLoginComponent {
             this.url +
             "?appId=" +
             this.appId +
-            "&appToken=" +
-            this.appToken +
+            // "&appToken=" +
+            // this.appToken +
+            "&language=" +
+            this.language +
             "&appName=" +
             this.appName +
             "&iframe=true&disableHeader=" +

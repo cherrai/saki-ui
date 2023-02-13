@@ -22,6 +22,7 @@ import { Debounce } from "@nyanyajs/utils/dist/debounce";
 export class ScrollViewComponent {
   debounce = new Debounce();
   scrollToDebounce = new Debounce();
+  getScrollHeightDebounce = new Debounce();
   observer: IntersectionObserver;
   @State() inheritData = {
     height: 0,
@@ -105,6 +106,12 @@ export class ScrollViewComponent {
     }
     // }, 100);
   }
+  // componentWillUpdate() {
+  //   console.log("componentWillUpdate");
+  // }
+  // componentWillRender() {
+  //   console.log("componentWillRender");
+  // }
   // 主动获取是否到最底部
   @Method()
   async getIsScrollToBottom() {
@@ -283,11 +290,14 @@ export class ScrollViewComponent {
         window.addEventListener("resize", this.getScrollHeight.bind(this), !0);
 
         new ResizeObserver(() => {
+          // console.log("ResizeObserver");
           this.getScrollHeight();
         }).observe(this.compEl);
 
         // 渲染的时候务须调整位置，让用户自己主动
         new MutationObserver(() => {
+          // console.log("MutationObserver");
+
           this.getScrollHeight();
         }).observe(this.compEl, {
           attributes: true,
@@ -404,34 +414,42 @@ export class ScrollViewComponent {
     }, 50);
   }
   getScrollHeight() {
-    const clientHeight =
-      window.innerHeight ||
-      document.documentElement.clientHeight ||
-      document.body.clientHeight;
-    // //console.log(this.el, this.el.clientHeight);
-    // //console.log(this.el.getBoundingClientRect());
-    // //console.log(clientHeight, this.el.getBoundingClientRect(), this.maxHeight);
+    this.getScrollHeightDebounce.increase(() => {
+      const clientHeight =
+        window.innerHeight ||
+        document.documentElement.clientHeight ||
+        document.body.clientHeight;
+      // //console.log(this.el, this.el.clientHeight);
+      // //console.log(this.el.getBoundingClientRect());
+      // //console.log(clientHeight, this.el.getBoundingClientRect(), this.maxHeight);
 
-    // //console.log(
-    //   this.scrollBottom.getBoundingClientRect().bottom + this.offsetY <=
-    //     clientHeight
-    // );
-    // //console.log(this.el.getBoundingClientRect());
-    // //console.log((clientHeight - this.el.getBoundingClientRect().top) / 1);
-    // //console.log(this.compEl);
-    // console.log("line 103", this.compEl.getBoundingClientRect());
-    if (this.compEl.getBoundingClientRect().top) {
-      this.maxHeight =
-        (clientHeight - this.compEl.getBoundingClientRect().top) / 1 + "px";
-    }
-    // //console.log(this.maxHeight);
-    if (
-      this.scrollBottom.getBoundingClientRect().bottom + this.offsetY <=
-      clientHeight
-    ) {
-      // this.scrolltobottom.emit();
-    }
-    // if(this.bottom)
+      // //console.log(
+      //   this.scrollBottom.getBoundingClientRect().bottom + this.offsetY <=
+      //     clientHeight
+      // );
+      // //console.log(this.el.getBoundingClientRect());
+      // //console.log((clientHeight - this.el.getBoundingClientRect().top) / 1);
+      // //console.log(this.compEl);
+      // console.log("line 103", this.compEl.getBoundingClientRect());
+      if (this.compEl.getBoundingClientRect().top) {
+        this.maxHeight =
+          (clientHeight - this.compEl.getBoundingClientRect().top) / 1 + "px";
+      }
+      // console.log(
+      //   "this.maxHeight",
+      //   this.compEl,
+      //   this.compEl.parentElement,
+      //   this.compEl.getBoundingClientRect(),
+      //   this.maxHeight
+      // );
+      if (
+        this.scrollBottom.getBoundingClientRect().bottom + this.offsetY <=
+        clientHeight
+      ) {
+        // this.scrolltobottom.emit();
+      }
+      // if(this.bottom)
+    }, 50);
   }
   // 普通模式
   scrollEvent() {

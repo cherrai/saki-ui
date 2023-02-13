@@ -78,13 +78,13 @@ export class AvatarEditComponent {
     this.cropper?.destroy();
   }
   loadCropper() {
-    console.log("编辑头像");
+    console.log("编辑头像", this.outputWidth, this.outputHeight);
     // const image = document.getElementById("image");
     this.cropper = new Cropper(
       this.el.querySelector(".saki-avatar-edit-component img"),
       {
-        minCanvasWidth: this.outputWidth,
-        minCanvasHeight: this.outputHeight,
+        // minCanvasWidth: this.outputWidth,
+        // minCanvasHeight: this.outputHeight,
 
         center: true,
         // autoCrop: false,
