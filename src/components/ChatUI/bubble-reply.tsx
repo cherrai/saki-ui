@@ -1,10 +1,4 @@
-import {
-  Component,
-  Event,
-  h,
-  EventEmitter,
-  Prop,
-} from "@stencil/core";
+import { Component, Event, h, EventEmitter, Prop } from "@stencil/core";
 // import * as nyanyalog from "nyanyajs-log";
 // import "moment/dist/locale/zh-cn";
 @Component({
@@ -61,7 +55,14 @@ export class ChatBubbleReplyComponent {
                     <div class={"cr-nickname"}>{this.nickname}</div>
                   </saki-col>
                   <saki-col>
-                    <div class={"cr-message text-elipsis"}>{this.message}</div>
+                    <div
+                      // ref={(e) => {
+                      //   e.innerHTML = this.message;
+                      // }}
+                      class={"cr-message text-elipsis"}
+                    >
+                      <slot></slot>
+                    </div>
                   </saki-col>
                 </saki-row>
               </saki-col>

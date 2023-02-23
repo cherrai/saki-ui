@@ -20,6 +20,9 @@ export class ImagesComponent {
   @Prop() src: string = "";
   @Prop() defaultSrc: string = "";
   @Prop() defaultBackgroundColor: string = "";
+  @Prop() backgroundColor: string = "";
+  @Prop() backgroundHoverColor: string = "";
+  @Prop() backgroundActiveColor: string = "";
   @Prop() width: string = "auto";
   @Prop() height: string = "auto";
   @Prop() fileWidth: number = 0;
@@ -30,19 +33,64 @@ export class ImagesComponent {
   @Prop() padding: string = "";
   @Prop() margin: string = "";
   @Prop() objectFit: string = "cover";
+  @Prop() load: boolean = true;
+  @Prop() lazyload: boolean = true;
+  imgEl: HTMLElement;
 
+  @State() toDisplayArea: boolean = false;
   @State() loaded: boolean = false;
 
-  @Event() tap: EventEmitter;
-  @Event() output: EventEmitter;
-  @Event() cancel: EventEmitter;
+  // @Event() click: EventEmitter;
+  // @Event() output: EventEmitter;
+  // @Event() cancel: EventEmitter;
   @Element() el: HTMLElement;
   @Watch("src")
   watchSrc() {
-    console.log("watchSrc", this.src);
+    // console.log("watchSrc", this.src);
     this.loaded = false;
   }
-  componentDidLoad() {}
+  componentDidLoad() {
+    console.log("this.lazyload", this.lazyload, this.src);
+    if (this.src.indexOf("https://apps.aiiko.club") >= 0) {
+      console.log("saaaaaaaaaaaa", this.getParentElement(this.el));
+    }
+    if (this.lazyload) {
+      let options = {
+        root: this.getParentElement(this.el),
+        rootMargin: "0px",
+        threshold: 1.0,
+      };
+
+      let observer = new IntersectionObserver((e) => {
+        if (this.src.indexOf("https://apps.aiiko.club") >= 0) {
+          console.log("saaaaaaaaaaaa", e);
+        }
+        if (e?.[0]?.intersectionRatio === 1 && !this.toDisplayArea) {
+          console.log("imagesssssss obs", e, e?.[0]?.intersectionRatio);
+          this.toDisplayArea = true;
+          observer.disconnect();
+        }
+      }, options);
+      observer.observe(this.el);
+    }
+  }
+
+  getParentElement(el: HTMLElement) {
+    if (!el?.parentElement) {
+      return el?.localName !== "saki-scroll-view" ? document.body : el;
+    }
+    if (
+      el?.parentElement.classList.contains("scrollBarDefault") ||
+      el?.parentElement.classList.contains("scrollBarAuto") ||
+      el?.parentElement.classList.contains("scrollBarHover") ||
+      el?.parentElement.classList.contains("saki-images-lazyload")
+    ) {
+      return el.parentElement;
+    }
+    return el?.parentElement?.localName === "saki-scroll-view"
+      ? el
+      : this.getParentElement(el.parentElement);
+  }
 
   getPixel(width: number, height: number, maxPixel: number) {
     if (!this.maxPixel || !this.fileWidth || !this.fileHeight) {
@@ -90,6 +138,9 @@ export class ImagesComponent {
           ),
           "--saki-images-width": pixel.width ? pixel.width + "px" : this.width,
           "--saki-images-default-background-color": this.defaultBackgroundColor,
+          "--saki-images-background-color": this.backgroundColor,
+          "--saki-images-background-hover-color": this.backgroundHoverColor,
+          "--saki-images-background-active-color": this.backgroundActiveColor,
         }}
         class={"saki-images-component " + (this.loaded ? "load" : "")}
       >
@@ -98,19 +149,32 @@ export class ImagesComponent {
         ) : (
           ""
         )}
-        <img
-          style={{
-            ...["objectFit"].reduce(
-              (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
-              {}
-            ),
-          }}
-          onLoad={() => {
-            this.loaded = true;
-          }}
-          src={this.src || this.defaultSrc}
-          alt="avatar"
-        />
+        {(this.load && this.toDisplayArea) || this.loaded ? (
+          <img
+            ref={(e) => {
+              this.imgEl = e;
+
+              // console.log("e.scrollTop", e, e.offsetTop);
+              // setTimeout(() => {
+              //   console.log("e.scrollTop", e, e.getBoundingClientRect());
+              // }, 3000);
+            }}
+            style={{
+              ...["objectFit"].reduce(
+                (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
+                {}
+              ),
+            }}
+            onLoad={() => {
+              this.loaded = true;
+            }}
+            src={this.src || this.defaultSrc}
+            alt="avatar"
+          />
+        ) : (
+          ""
+        )}
+
         {this.src ? (
           <div class={"loading-wrap"}>
             <div class="loading">

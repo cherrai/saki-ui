@@ -7,6 +7,7 @@
   flex-direction: column;
   height: 100%;
   .ql-toolbar {
+    display: var(--toolbar-display);
     &.ql-snow {
       border: none;
       padding: var(--toolbar-padding);
@@ -94,3 +95,4 @@
     }
   }
 }
+

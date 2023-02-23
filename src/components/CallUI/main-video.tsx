@@ -19,6 +19,7 @@ import { setStream } from "./methods";
 })
 export class CallMainVideoComponent {
   video: HTMLVideoElement;
+  timer: NodeJS.Timeout;
   @Prop({ mutable: true }) stream: SFUStream;
   @Prop({ mutable: true }) streamId: string = "";
   @Prop({ mutable: true }) mediaType: "audio" | "video" = "video";
@@ -27,11 +28,17 @@ export class CallMainVideoComponent {
   @Prop({ mutable: true }) height: number = 0;
   @Prop({ mutable: true }) avatar: string = "";
   @Prop({ mutable: true }) nickname: string = "";
+  @Prop({ mutable: true }) backgroundColor: string = "#000";
   // 自己的不需要音量
   @Prop({ mutable: true }) volume: number = 1;
   @Prop({ mutable: true }) jitter: number = 0;
   @Prop({ mutable: true }) speaker: boolean = false;
-  @Prop({ mutable: true }) status: "success" | "wait" = "success";
+  @Prop({ mutable: true }) status:
+    | "connected"
+    | "connecting"
+    | "disconnect"
+    | "fail"
+    | "" = "";
   @Prop({ mutable: true }) streamType: "Local" | "Remote" | "ScreenShare" =
     "Local";
   @Prop({ mutable: true }) mediaDevices: MediaDeviceInfo[] = [];
@@ -39,6 +46,7 @@ export class CallMainVideoComponent {
   @Prop({ mutable: true }) activeVideoDevice: string = "";
   @Element() el: HTMLElement;
   @Event() changestreamid: EventEmitter;
+  @Event() connectionStatus: EventEmitter;
   componentDidLoad() {
     if (this.streamId) {
       this.changestreamid.emit({
@@ -79,6 +87,7 @@ export class CallMainVideoComponent {
   }
   @Method()
   async setStream(stream: SFUStream) {
+    this.status = "connecting";
     setStream.call(this, stream);
   }
   @Method()
@@ -103,9 +112,35 @@ export class CallMainVideoComponent {
         break;
     }
   }
+
+  onConnect(v: "connected" | "connecting" | "disconnect" | "fail") {
+    if (v && v !== this.status && this.status !== "fail") {
+      this.status = v;
+      console.log("onConnect main", v);
+      this.stream?.setStatus?.(this.status);
+      this.connectionStatus.emit(this.status);
+      if (v === "disconnect") {
+        // repushStream
+        this.timer = setTimeout(() => {
+          this.status = "fail";
+          console.log("报错啦！");
+          this.stream?.setStatus?.(this.status);
+          this.connectionStatus.emit(this.status);
+          clearTimeout(this.timer);
+        }, 4000);
+      } else {
+        clearTimeout(this.timer);
+      }
+    }
+  }
   render() {
     return (
-      <div class={"saki-call-main-video-component"}>
+      <div
+        style={{
+          "--background-color": this.backgroundColor,
+        }}
+        class={"saki-call-main-video-component"}
+      >
         <video
           ref={(e) => {
             this.video = e;
@@ -120,7 +155,23 @@ export class CallMainVideoComponent {
           //     }));
           // }}
           onError={(e) => {
-            console.log("sakiui-video", e);
+            console.log("sakiui-video error", e);
+          }}
+          onTimeUpdate={() => {
+            // if (this.video.currentTime > 5) {
+            if (this.status !== "connecting" && this.video.currentTime === 0) {
+              this.onConnect(this.stream ? "disconnect" : "connecting");
+            } else {
+              this.onConnect("connected");
+            }
+            // this.onConnect("disconnect");
+            // console.log(
+            //   "main onTimeUpdate",
+            //   this.video.currentTime,
+            //   this.stream,
+            //   this.stream.stream?.["pc"]?.["connectionState"],
+            //   this.stream.stream?.["pc"]?.["signalingState"]
+            // );
           }}
           data-volume={this.volume}
           data-stream-id={this.streamId}

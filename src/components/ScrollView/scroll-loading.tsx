@@ -18,6 +18,7 @@ import {
 })
 export class TabsComponent {
   @Prop() type: "loading" | "loaded" | "noMore" = "loading";
+  @Prop() language = "en-US";
   @Prop() loadingAnimation: boolean = false;
   @State() loadingText: string = "Loading.";
   @Prop() margin: string = "";
@@ -32,13 +33,51 @@ export class TabsComponent {
   formatLoadingText() {
     switch (this.type) {
       case "loading":
-        this.loadingText = "Loading...";
+        switch (this.language) {
+          case "zh-CN":
+            this.loadingText = "正在加载...";
+
+            break;
+          case "zh-TW":
+            this.loadingText = "正在加载...";
+
+            break;
+
+          default:
+            this.loadingText = "Loading...";
+            break;
+        }
         break;
       case "loaded":
-        this.loadingText = "Load more";
+        switch (this.language) {
+          case "zh-CN":
+            this.loadingText = "加载更多";
+
+            break;
+          case "zh-TW":
+            this.loadingText = "加載更多";
+
+            break;
+
+          default:
+            this.loadingText = "View more";
+            break;
+        }
         break;
       case "noMore":
-        this.loadingText = "No more";
+        switch (this.language) {
+          case "zh-CN":
+            this.loadingText = "没有更多内容了";
+
+            break;
+          case "zh-TW":
+            this.loadingText = "沒有更多內容了";
+            break;
+
+          default:
+            this.loadingText = "All loaded";
+            break;
+        }
         break;
 
       default:
@@ -76,7 +115,9 @@ export class TabsComponent {
   }
 }
 
-            {/* <saki-animation-loading
+{
+  /* <saki-animation-loading
               type="rotateEaseInOut"
               loading-animation
-            ></saki-animation-loading> */}
+            ></saki-animation-loading> */
+}

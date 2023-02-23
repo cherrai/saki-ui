@@ -11,41 +11,20 @@ import {
 import moment from "moment";
 // import * as nyanyalog from "nyanyajs-log";
 // import "moment/dist/locale/zh-cn";
+
 @Component({
   tag: "saki-chat-bubble",
   styleUrl: "bubble.scss",
   shadow: true,
 })
 export class ChatBubbleComponent {
-  centerTimeMomentConfig = {
-    sameDay: "[Today] HH:mm:ss",
-    nextDay: "[Tomorrow] HH:mm:ss",
-    nextWeek: "dddd H:mm:ss",
-    lastDay: "[Yesterday] HH:mm:ss",
-    lastWeek: "YY-MM-DD HH:mm:ss",
-    sameElse: "YYYY-MM-DD HH:mm:ss",
-  };
-  sendTimeFullMomentConfig = {
-    sameDay: "[Today] HH:mm:ss",
-    nextDay: "[Tomorrow] HH:mm:ss",
-    nextWeek: "dddd H:mm:ss",
-    lastDay: "[Yesterday] HH:mm:ss",
-    lastWeek: "YY-MM-DD HH:mm:ss",
-    sameElse: "YYYY-MM-DD HH:mm:ss",
-  };
-  sendTimeMomentConfig = {
-    sameDay: "H:mm",
-    nextDay: "H:mm",
-    nextWeek: "H:mm",
-    lastDay: "H:mm",
-    lastWeek: "H:mm",
-    sameElse: "H:mm",
-  };
   @Prop() type: "receiver" | "sender" = "sender";
 
   isShowCenterTime: boolean = false;
 
   @Prop() uid: string = "";
+
+  @Prop() language: string = "en-US";
 
   // 单位秒
   @Prop() sendTime: number = 0;
@@ -56,7 +35,7 @@ export class ChatBubbleComponent {
   // 1 success
   // 0 sending
   // -1 fail
-  @Prop() status: 1 | 0 | -1 = 0;
+  @Prop({ mutable: true }) status: 1 | 0 | -1 = 0;
   @Prop() selected: boolean = false;
   @Prop() readStatsIcon: boolean = false;
   @Prop() statusIcon: boolean = false;
@@ -92,11 +71,10 @@ export class ChatBubbleComponent {
   @Prop() watchStatusTimeout: number = 5;
   @Prop() watchStatusCount: number = 30;
   currentWatchStatusCount: number = 0;
-  tiemr: NodeJS.Timer;
+  @State() timer: NodeJS.Timer;
 
   bubbleEl: HTMLElement = null;
   @State() bubbleElWidth: number;
-  @State() language: string = "en";
 
   clickTime: number = 0;
 
@@ -143,52 +121,25 @@ export class ChatBubbleComponent {
   }
 
   formatCallMsgText() {
-    let message = "";
-    switch (this.callStatus) {
-      case 1:
-        let time = moment.duration(this.callTime, "seconds"); //得到一个对象，里面有对应的时分秒等时间对象值
-        let hours = time.hours();
-        let minutes = time.minutes();
-        let seconds = time.seconds();
-        message =
-          "通话时长 " +
-          moment({ h: hours, m: minutes, s: seconds }).format("HH:mm:ss");
-        break;
-      case 0:
-        message = "正在进行" + this.formatCallTypeText(this.callType);
-        break;
-      case -1:
-        message = this.formatCallTypeText(this.callType) + "未接通";
-        break;
-      case -2:
-        message = "已在其他设备处理";
-        break;
-      case -3:
-        message = `${this.type === "sender" ? "发起了一个" : "正在邀请你加入"}${
-          this.callType === "ScreenShare"
-            ? "屏幕共享"
-            : this.formatCallTypeText(this.callType)
-        }`;
-        break;
-
-      default:
-        break;
-    }
-    return message;
+    return (
+      window["mwc"]?.methods?.formatCallMsgText?.({
+        isAuthor: this.type === "sender",
+        callType: this.callType,
+        status: this.callStatus,
+        callTime: this.callTime || 0,
+      }) || ""
+    );
   }
   formatCallTypeText(type: "Audio" | "Video" | "ScreenShare" | "") {
     // console.log("formatCallTypeText", type);
-    switch (type) {
-      case "Video":
-        return "视频通话";
-      case "Audio":
-        return "语音通话";
-      case "ScreenShare":
-        return "屏幕共享";
 
-      default:
-        break;
-    }
+    return window["mwc"]?.methods?.formatCallTypeText?.(type) || "";
+  }
+
+  getTimeConfig(language: string, name: string) {
+    // console.log("formatCallTypeText", type);
+
+    return window["mwc"]?.l?.(language, name) || "";
   }
 
   componentWillLoad() {
@@ -196,7 +147,8 @@ export class ChatBubbleComponent {
     this.isShowCenterTime = this.isShowCenterTimeFunc();
   }
   watchStatusFunc() {
-    clearInterval(this.tiemr);
+    clearInterval(this.timer);
+
     if (
       !this.watchStatus ||
       this.watchStatusTimeout <= 0 ||
@@ -205,8 +157,7 @@ export class ChatBubbleComponent {
     ) {
       return;
     }
-
-    this.tiemr = setInterval(() => {
+    this.timer = setInterval(() => {
       if (this.status === 0) {
         this.currentWatchStatusCount++;
         this.sendfailed.emit({
@@ -214,13 +165,14 @@ export class ChatBubbleComponent {
           totalCount: this.watchStatusCount,
         });
         if (this.currentWatchStatusCount >= this.watchStatusCount) {
-          clearInterval(this.tiemr);
+          clearInterval(this.timer);
           return;
         }
       } else {
-        clearInterval(this.tiemr);
+        clearInterval(this.timer);
       }
     }, this.watchStatusTimeout * 1000);
+    console.log(this.timer);
   }
   isShowCenterTimeFunc() {
     // 超过6分钟？
@@ -281,7 +233,12 @@ export class ChatBubbleComponent {
             ></path>
           </svg>
           <div
-            data-hover-text={"进入" + this.formatCallTypeText(this.callType)}
+            data-hover-text={window["mwc"]?.methods?.formatCallMsgText?.({
+              isAuthor: this.type === "sender",
+              callType: this.callType,
+              status: 0,
+              callTime: this.callTime || 0,
+            })}
             class={"bubble-c-msg-call-content"}
           >
             <div class={"bubble-c-msg-call-msg"}>
@@ -306,10 +263,10 @@ export class ChatBubbleComponent {
             {}
           ),
         }}
-        onContextMenu={(e) => {
-          e.preventDefault();
-          return false;
-        }}
+        // onContextMenu={() => {
+        //   // e.preventDefault();
+        //   // return false;
+        // }}
         ref={(e) => {
           this.bubbleEl = e;
         }}
@@ -320,7 +277,7 @@ export class ChatBubbleComponent {
             <span>
               {/* {this.sendTime + ", "} */}
               {moment(this.sendTime * 1000).calendar(
-                this.centerTimeMomentConfig
+                this.getTimeConfig(this.language, "centerTimeMomentConfig")
               )}
             </span>
           </div>
@@ -347,7 +304,12 @@ export class ChatBubbleComponent {
           }
         >
           <div class="bubble-m-userinfo">
-            <div class="bubble-u-avatar">
+            <div
+              onClick={() => {
+                this.tap.emit("avatar");
+              }}
+              class="bubble-u-avatar"
+            >
               <saki-avatar
                 width={"36px"}
                 height={"36px"}
@@ -364,13 +326,16 @@ export class ChatBubbleComponent {
                 <span class={"full-time"}>
                   {this.editText ? this.editText + " · " : ""}
                   {moment(this.sendTime * 1000).calendar(
-                    this.sendTimeFullMomentConfig
+                    this.getTimeConfig(
+                      this.language,
+                      "sendTimeFullMomentConfig"
+                    )
                   )}
                 </span>
                 <span class={"short-time"}>
                   {this.editText ? this.editText + " · " : ""}
                   {moment(this.sendTime * 1000).calendar(
-                    this.sendTimeMomentConfig
+                    this.getTimeConfig(this.language, "sendTimeMomentConfig")
                   )}
                 </span>
               </div>
@@ -473,22 +438,22 @@ export class ChatBubbleComponent {
                     : {}),
                 }}
                 // onTouchStart={(e) => {}}
-                onMouseDown={(e) => {
-                  console.log(e);
-                  this.clickTime = new Date().getTime();
-                  switch (e.button) {
-                    case 2:
-                      this.opencontextmenu.emit({
-                        x: e.x,
-                        y: e.y,
-                      });
-                      // this.selected = !this.selected;
-                      break;
+                // onMouseDown={(e) => {
+                //   console.log(e);
+                //   this.clickTime = new Date().getTime();
+                //   switch (e.button) {
+                //     case 2:
+                //       this.opencontextmenu.emit({
+                //         x: e.x,
+                //         y: e.y,
+                //       });
+                //       // this.selected = !this.selected;
+                //       break;
 
-                    default:
-                      break;
-                  }
-                }}
+                //     default:
+                //       break;
+                //   }
+                // }}
                 onContextMenu={(e) => {
                   // console.log("onContextMenu", e);
                   this.opencontextmenu.emit({
@@ -499,7 +464,7 @@ export class ChatBubbleComponent {
                   return false;
                 }}
                 onClick={() => {
-                  this.tap.emit();
+                  this.tap.emit("message");
                 }}
                 class="bubble-c-msg"
               >

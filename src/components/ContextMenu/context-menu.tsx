@@ -23,10 +23,14 @@ export class ContextMenuComponent {
   contentEl: HTMLDivElement;
   @State() visible: boolean = false;
   @State() showContent: boolean = false;
+  @State() contentWidth = 0;
+  @State() contentHeight = 0;
   @State() updateTime = 0;
   @State() contextMenuObj = {
     left: 0,
     top: 0,
+    x: 0,
+    y: 0,
   };
   @Event() close: EventEmitter;
   @Event() fullclose: EventEmitter;
@@ -71,18 +75,15 @@ export class ContextMenuComponent {
       // console.log(x + this.contentEl.offsetWidth < window.innerWidth - 10);
 
       this.label = label;
-      this.contextMenuObj.left =
-        x + this.contentEl.offsetWidth < window.innerWidth - 10
-          ? x
-          : window.innerWidth - 10 - this.contentEl.offsetWidth;
-      this.contextMenuObj.top =
-        y + this.contentEl.offsetHeight < window.innerHeight - 10
-          ? y
-          : window.innerHeight - 10 - this.contentEl.offsetHeight;
-
+      this.getPosition(x, y);
+      this.contextMenuObj.x = x;
+      this.contextMenuObj.y = y;
       this.updateTime = new Date().getTime();
       const animate = this.contentEl.animate(
         [
+          {
+            opacity: "0",
+          },
           {
             opacity: "1",
           },
@@ -101,10 +102,30 @@ export class ContextMenuComponent {
   async hide() {
     this.addCloseAnimate();
   }
+  getPosition(x: number, y: number) {
+    this.contextMenuObj.left =
+      x + this.contentWidth < window.innerWidth - 10
+        ? x
+        : window.innerWidth - 10 - this.contentWidth;
+
+    // console.log(
+    //   this.contentEl,
+    //   y,
+    //   this.contentEl.clientHeight,
+    //   window.innerHeight
+    // );
+    this.contextMenuObj.top =
+      y + this.contentHeight < window.innerHeight - 10
+        ? y
+        : window.innerHeight - 10 - this.contentHeight;
+  }
   addCloseAnimate() {
     this.close.emit();
     const animate = this.contentEl.animate(
       [
+        {
+          opacity: "1",
+        },
         {
           opacity: "0",
         },
@@ -173,6 +194,20 @@ export class ContextMenuComponent {
         <div
           ref={(e) => {
             e && (this.contentEl = e);
+            if (
+              (e.offsetWidth && e.offsetWidth !== this.contentWidth) ||
+              (e.offsetHeight && e.offsetHeight !== this.contentHeight)
+            ) {
+              setTimeout(() => {
+                e.offsetWidth &&
+                  e.offsetWidth !== this.contentWidth &&
+                  (this.contentWidth = e.offsetWidth);
+                e.offsetHeight &&
+                  e.offsetHeight !== this.contentHeight &&
+                  (this.contentHeight = e.offsetHeight);
+                this.getPosition(this.contextMenuObj.x, this.contextMenuObj.y);
+              });
+            }
           }}
           style={{
             left: this.contextMenuObj.left + "px",

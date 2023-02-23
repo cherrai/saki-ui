@@ -23,6 +23,9 @@ export class CallContainerComponent {
         <div class={"call-info"}>
           <slot name="call-info"></slot>
         </div>
+        <div class={"call-hint"}>
+          <slot name="call-hint"></slot>
+        </div>
         <div class={"call-footer"}>
           <slot name="footer"></slot>
         </div>

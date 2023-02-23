@@ -66,6 +66,9 @@ export class DropdownComponent {
     } else {
       this.close.emit();
       this.isAddVisibleClass = false;
+      // this.left = -9999;
+      // this.top = -9999;
+
       this.closing = true;
     }
   }
@@ -135,13 +138,25 @@ export class DropdownComponent {
 
     // console.log(this.top);
     // 当内容在顶部、且高度超过浏览器高度、则会出现内容在顶部之上的情况
+    // console.log(
+    //   "this.top +",
+    //   this.top,
+    //   this.contentRect,
+    //   this.coreRect.height,
+    //   this.coreRect,
+    //   clientHeight
+    // );
     if (this.top + this.contentRect.height > clientHeight) {
       this.top =
-        clientHeight -
-        this.coreRect.height / 2 -
-        this.contentRect.height -
-        10 -
-        (clientHeight - this.coreRect.bottom);
+        // clientHeight -
+        this.coreRect.top +
+        // this.coreRect.height / 2 -
+        +10 -
+        // this.coreRect.height / 2 -
+        // 10 -
+        this.contentRect.height;
+      // -
+      //   (clientHeight - this.coreRect.bottom);
     }
     // console.log(this.coreRect.left, this.coreRect.top);
     // console.log(this.left, this.top);
@@ -174,7 +189,8 @@ export class DropdownComponent {
   }
   getRect() {
     this.contentRect = this.contentEl.getBoundingClientRect();
-    this.contentRect.width = this.contentEl.offsetWidth
+    this.contentRect.width = this.contentEl.offsetWidth;
+    this.contentRect.height = this.contentEl.offsetHeight;
     // console.log(this.coreEl.children[0])
     this.coreRect = this.coreEl.children[0].getBoundingClientRect();
   }

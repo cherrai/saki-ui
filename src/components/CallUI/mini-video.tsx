@@ -10,7 +10,7 @@ import {
 } from "@stencil/core";
 
 import { SFUStream } from "@nyanyajs/utils/dist/ionSfuSdk";
-
+// import { SFUStream } from "./ionSfuSdk";
 import { setStream } from "./methods";
 
 @Component({
@@ -20,6 +20,8 @@ import { setStream } from "./methods";
 })
 export class CallMiniVideoComponent {
   video: HTMLVideoElement;
+  timer: NodeJS.Timeout;
+  etimer: NodeJS.Timeout;
   @Prop({ mutable: true }) stream: SFUStream;
   @Prop({ mutable: true }) streamId: string = "";
   @Prop({ mutable: true }) mediaType: "audio" | "video" = "video";
@@ -29,11 +31,17 @@ export class CallMiniVideoComponent {
   @Prop({ mutable: true }) nickname: string = "";
   @Prop({ mutable: true }) width: string = "0px";
   @Prop({ mutable: true }) height: string = "0px";
+  @Prop({ mutable: true }) backgroundColor: string = "#000";
   // 自己的不需要音量
   @Prop({ mutable: true }) volume: number = 1;
   @Prop({ mutable: true }) jitter: number = 0;
   @Prop({ mutable: true }) speaker: boolean = false;
-  @Prop({ mutable: true }) status: "success" | "wait" = "success";
+  @Prop({ mutable: true }) status:
+    | "connected"
+    | "connecting"
+    | "disconnect"
+    | "fail"
+    | "" = "";
   @Prop({ mutable: true }) streamType: "Local" | "Remote" | "ScreenShare" =
     "Local";
 
@@ -41,6 +49,7 @@ export class CallMiniVideoComponent {
   @Element() el: HTMLElement;
   @Event() tap: EventEmitter;
   @Event() changestreamid: EventEmitter;
+  @Event() connectionStatus: EventEmitter;
   componentDidLoad() {
     if (this.streamId) {
       this.changestreamid.emit({
@@ -73,8 +82,16 @@ export class CallMiniVideoComponent {
   }
   @Method()
   async setStream(stream: SFUStream) {
+    this.status = "connecting";
     this.stream?.id === stream?.id && (this.stream = stream);
     setStream.call(this, stream);
+
+    // clearTimeout(this.etimer);
+    // this.etimer = setTimeout(() => {
+    //   this.status = "fail";
+    //   console.log("报错啦！");
+    //   this.connectionStatus.emit(this.status);
+    // }, 10000);
   }
   @Method()
   async setSrcObject(stream: MediaStream) {
@@ -103,6 +120,26 @@ export class CallMiniVideoComponent {
         break;
     }
   }
+  onConnect(v: "connected" | "connecting" | "disconnect" | "fail") {
+    if (v && v !== this.status && this.status !== "fail") {
+      this.status = v;
+      console.log("onConnect main", v);
+      this.stream?.setStatus?.(this.status);
+      this.connectionStatus.emit(this.status);
+      if (v === "disconnect") {
+        // repushStream
+        this.timer = setTimeout(() => {
+          this.status = "fail";
+          console.log("报错啦！");
+          this.stream?.setStatus?.(this.status);
+          this.connectionStatus.emit(this.status);
+          clearTimeout(this.timer);
+        }, 4000);
+      } else {
+        clearTimeout(this.timer);
+      }
+    }
+  }
   render() {
     return (
       <div
@@ -112,6 +149,7 @@ export class CallMiniVideoComponent {
         style={{
           width: this.width,
           height: this.height,
+          "--background-color": this.backgroundColor,
           // "--saki-call-mini-video-width": this.width,
           // height:
           //   "calc(var(--saki-call-mini-video-width) * " +
@@ -155,7 +193,24 @@ export class CallMiniVideoComponent {
             this.video.volume = this.volume;
           }}
           onError={(e) => {
-            console.log("sakiui-video", e);
+            console.log("sakiui-video error", e);
+          }}
+          onTimeUpdate={() => {
+            // if (this.video.currentTime > 5) {
+            if (this.status !== "connecting" && this.video.currentTime === 0) {
+              this.onConnect(this.stream ? "disconnect" : "connecting");
+            } else {
+              this.onConnect("connected");
+            }
+
+            // this.onConnect("disconnect");
+            // console.log(
+            //   "min onTimeUpdate",
+            //   this.video.currentTime,
+            //   this.stream,
+            //   this.stream.stream?.["pc"]?.["connectionState"],
+            //   this.stream.stream?.["pc"]?.["signalingState"]
+            // );
           }}
           data-volume={this.volume}
           data-stream-id={this.streamId}
@@ -163,7 +218,7 @@ export class CallMiniVideoComponent {
           autoplay
           playsinline
         ></video>
-        {this.status === "success" ? (
+        {this.status === "connected" ? (
           <div class={"call-signal"}>
             {/* <svg
               class="call-s-icon"

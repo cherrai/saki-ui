@@ -27,6 +27,13 @@
     transform: translateX(-50%);
     padding-top: 80px;
   }
+  .call-hint {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0px;
+    padding-bottom: 120px;
+  }
   .call-footer {
     width: 100%;
     position: absolute;

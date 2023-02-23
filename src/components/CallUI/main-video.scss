@@ -2,11 +2,11 @@
   width: 100%;
   height: 100%;
   position: relative;
-  background-color: #000;
+  background-color: var(--background-color);
   .call-main-video {
     width: 100%;
     height: 100%;
-    background-color: #000;
+    background-color: var(--background-color);
     object-fit: contain;
   }
   .video-signal {

@@ -335,7 +335,8 @@ export class TextareaComponent {
                 this.setTextareaValue();
               }
             }}
-            contenteditable="plaintext-only"
+            contenteditable="true"
+            // contenteditable="plaintext-only"
             // min={this.minLength}
             // max={this.maxLength}
             // value={this.value}

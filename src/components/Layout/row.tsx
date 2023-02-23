@@ -11,6 +11,7 @@ export class MenuItemComponent {
   @Prop() flexDirection = "row";
   @Prop() justifyContent = "";
   @Prop() alignItems = "";
+  @Prop() flexWrap = "";
   @Prop() margin = "";
   @Prop() padding = "";
   @Prop() width = "";
@@ -60,6 +61,7 @@ export class MenuItemComponent {
             "alignItems",
             "width",
             "height",
+            "flexWrap",
           ].reduce(
             (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
             {}

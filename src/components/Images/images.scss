@@ -1,6 +1,13 @@
 .saki-images-component {
   overflow: hidden;
   position: relative;
+  background-color: var(--saki-images-background-color);
+  &:hover {
+    background-color: var(--saki-images-background-hover-color);
+  }
+  &:active {
+    background-color: var(--saki-images-background-active-color);
+  }
   &.load {
     img {
       opacity: 1;
