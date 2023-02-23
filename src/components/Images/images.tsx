@@ -50,10 +50,10 @@ export class ImagesComponent {
     this.loaded = false;
   }
   componentDidLoad() {
-    console.log("this.lazyload", this.lazyload, this.src);
-    if (this.src.indexOf("https://apps.aiiko.club") >= 0) {
-      console.log("saaaaaaaaaaaa", this.getParentElement(this.el));
-    }
+    // console.log("this.lazyload", this.lazyload, this.src);
+    // if (this.src.indexOf("https://apps.aiiko.club") >= 0) {
+    //   console.log("saaaaaaaaaaaa", this.getParentElement(this.el));
+    // }
     if (this.lazyload) {
       let options = {
         root: this.getParentElement(this.el),
@@ -62,11 +62,11 @@ export class ImagesComponent {
       };
 
       let observer = new IntersectionObserver((e) => {
-        if (this.src.indexOf("https://apps.aiiko.club") >= 0) {
-          console.log("saaaaaaaaaaaa", e);
-        }
+        // if (this.src.indexOf("https://apps.aiiko.club") >= 0) {
+        //   console.log("saaaaaaaaaaaa", e);
+        // }
         if (e?.[0]?.intersectionRatio === 1 && !this.toDisplayArea) {
-          console.log("imagesssssss obs", e, e?.[0]?.intersectionRatio);
+          // console.log("imagesssssss obs", e, e?.[0]?.intersectionRatio);
           this.toDisplayArea = true;
           observer.disconnect();
         }
