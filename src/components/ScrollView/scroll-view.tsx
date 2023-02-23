@@ -52,7 +52,7 @@ export class ScrollViewComponent {
   // Inherit 继承上一级的宽高
   @Prop() mode: "Inherit" | "Custom" | "Normal" | "Auto" = "Normal";
 
-  @Prop() scrollBar: "Default" | "Auto" = "Default";
+  @Prop() scrollBar: "Default" | "Hover" | "Auto" = "Hover";
 
   // 距离底部的偏移量
   @Prop() offsetY: number = 0;
