@@ -72,7 +72,7 @@ export class RichTextComponent {
     ],
     handlers: {
       image: (val: boolean) => {
-        // console.log("image,val");
+        console.log("image,val");
         this.handlers.emit({
           handler: "Image",
         });
@@ -82,7 +82,7 @@ export class RichTextComponent {
         }
       },
       video: (val: boolean) => {
-        // console.log("video,val");
+        console.log("video,val");
         this.handlers.emit({
           handler: "Video",
         });
@@ -200,7 +200,7 @@ export class RichTextComponent {
   @Method()
   async setToolbar(value: any) {
     this.toolbarConfig = {
-      handlers: this.handlers,
+      handlers: this.toolbarConfig.handlers,
       ...value,
     };
     this.init();
@@ -274,7 +274,7 @@ export class RichTextComponent {
     // SpanBlock.blotName = "spanblock";
     // SpanBlock.tagName = "img";
     // Quill.register(SpanBlock);
-
+    console.log("rrrrrr", this.toolbarConfig);
     this.quill = new Quill(this.editorEl, {
       theme: this.theme,
       modules: {
