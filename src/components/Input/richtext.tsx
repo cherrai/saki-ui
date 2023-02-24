@@ -178,7 +178,7 @@ export class RichTextComponent {
       });
     });
   }
-  KeyEvent(t: KeyEvent, range: any, ctx: any) {
+  KeyEvent(t: KeyEvent, range: any, _: any) {
     switch (t) {
       case "Submit":
         this.submit.emit();

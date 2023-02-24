@@ -33,7 +33,11 @@ export class CheckboxItemComponent {
     [key: string]: any;
   } = {};
 
-  @Event() tap: EventEmitter;
+  @Event({
+    eventName: "tap",
+    bubbles: false,
+  })
+  tap: EventEmitter;
   @Element() el: HTMLElement;
   @Watch("disabled")
   watchDisabled() {}
@@ -43,13 +47,14 @@ export class CheckboxItemComponent {
     return (
       <div
         onClick={(e) => {
-          // console.log(21);
+          console.log(21);
           e.stopPropagation();
           if (!this.disabled) {
             this.tap.emit({
               value: this.value,
             });
           }
+          return true;
         }}
         style={{
           "--saki-hover-background-color": this.hoverBackgroundColor,

@@ -1,13 +1,4 @@
-import {
-  Component,
-  Element,
-  Event,
-  EventEmitter,
-  h,
-  Prop,
-  State,
-  Watch,
-} from "@stencil/core";
+import { Component, Element, h, Prop, State, Watch } from "@stencil/core";
 // import 'cropperjs/dist/cropper.css';
 // import Cropper from "cropperjs";
 
@@ -51,8 +42,12 @@ export class ImagesComponent {
   }
   componentDidLoad() {
     // console.log("this.lazyload", this.lazyload, this.src);
-    // if (this.src.indexOf("https://apps.aiiko.club") >= 0) {
-    //   console.log("saaaaaaaaaaaa", this.getParentElement(this.el));
+    // if (this.src.indexOf("c61baa0aa19cf71fae58b8f54afc4a60") >= 0) {
+    //   console.log("saaaaaaaaaaaa", this.el, this.getParentElement(this.el));
+    //   console.log(
+    //     "saaaaaaaaaaaa",
+    //     this.getParentElement(this.el).style.position
+    //   );
     // }
     if (this.lazyload) {
       let options = {
@@ -62,8 +57,8 @@ export class ImagesComponent {
       };
 
       let observer = new IntersectionObserver((e) => {
-        // if (this.src.indexOf("https://apps.aiiko.club") >= 0) {
-        //   console.log("saaaaaaaaaaaa", e);
+        // if (this.src.indexOf("c61baa0aa19cf71fae58b8f54afc4a60") >= 0) {
+        //   console.log("saaaaaaaaaaaa", e, e?.[0]?.target);
         // }
         if (e?.[0]?.intersectionRatio === 1 && !this.toDisplayArea) {
           // console.log("imagesssssss obs", e, e?.[0]?.intersectionRatio);
@@ -79,10 +74,14 @@ export class ImagesComponent {
     if (!el?.parentElement) {
       return el?.localName !== "saki-scroll-view" ? document.body : el;
     }
+    // if (this.src.indexOf("c61baa0aa19cf71fae58b8f54afc4a60") >= 0) {
+    //   // console.log("saaaaaaaaaaaa 1", el);
+    // }
     if (
       el?.parentElement.classList.contains("scrollBarDefault") ||
       el?.parentElement.classList.contains("scrollBarAuto") ||
       el?.parentElement.classList.contains("scrollBarHover") ||
+      // el?.parentElement.classList.contains("model-content") ||
       el?.parentElement.classList.contains("saki-images-lazyload")
     ) {
       return el.parentElement;

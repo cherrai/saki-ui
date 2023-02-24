@@ -280,7 +280,7 @@ export class DropdownComponent {
                 // document.body.removeChild(this.mainEl);
               }
             }}
-            class={"main-content scrollBarDefault"}
+            class={"main-content scrollBarDefault saki-images-lazyload"}
           >
             <slot name="main"></slot>
           </div>

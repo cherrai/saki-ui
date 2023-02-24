@@ -159,7 +159,7 @@ export class ModalComponent {
               // document.body.removeChild(this.modalEl);
             }
           }}
-          class={"model-content " + (this.isAddVisibleClass ? "visible" : "")}
+          class={"model-content saki-images-lazyload " + (this.isAddVisibleClass ? "visible" : "")}
         >
           <slot></slot>
         </div>

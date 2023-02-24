@@ -3,7 +3,7 @@ import { Component, h, Event, Prop, EventEmitter } from "@stencil/core";
 @Component({
   tag: "saki-chat-layout-contact-tag",
   styleUrl: "contact-tag.scss",
-  shadow: true,
+  shadow: false,
 })
 export class ChatLayoutContactTagComponent {
   @Prop() avatarText = "";
@@ -39,6 +39,7 @@ export class ChatLayoutContactTagComponent {
             <div
               onClick={() => {
                 this.delete.emit();
+                
               }}
               class={"delete-icon"}
             >

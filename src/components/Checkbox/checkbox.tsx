@@ -1,3 +1,4 @@
+import { Debounce } from "@nyanyajs/utils/dist/debounce";
 import {
   Component,
   Element,
@@ -15,6 +16,7 @@ import {
   shadow: true,
 })
 export class CheckboxComponent {
+  d = new Debounce();
   @Prop() type: "Radio" | "Checkbox" = "Radio";
   @Prop() flexDirection: "Row" | "Column" = "Row";
   @Prop() disabled: boolean = false;
@@ -58,12 +60,12 @@ export class CheckboxComponent {
       });
     });
   }
-  watchDom() {
-    let valueList: {
-      [value: string]: number;
-    } = {};
-
-    const tapFunc = (e: any) => {
+  @State() valueList: {
+    [value: string]: number;
+  } = {};
+  tapFunc(e: any) {
+    this.d.increase(() => {
+      console.log("tapFunc", e);
       switch (this.type) {
         case "Radio":
           this.values = [e.target.value];
@@ -90,11 +92,11 @@ export class CheckboxComponent {
               return v !== e.target.value;
             });
           }
-          Object.keys(valueList).forEach((k) => {
-            this.list[valueList[k]].active = false;
+          Object.keys(this.valueList).forEach((k) => {
+            this.list[this.valueList[k]].active = false;
             this.values.some((sv) => {
               if (k === sv) {
-                this.list[valueList[k]].active = true;
+                this.list[this.valueList[k]].active = true;
                 return true;
               }
             });
@@ -107,21 +109,22 @@ export class CheckboxComponent {
       // console.log(this.values, e.target.value);
       this.selectvalue.emit({
         value: e.target.value,
-        index: valueList[e.target.value],
+        index: this.valueList[e.target.value],
         values: this.values,
       });
-    };
-    // console.log(this.el);
+    }, 50);
+  }
+  watchDom() {
     const list: NodeListOf<HTMLSakiCheckboxItemElement> =
       this.el?.querySelectorAll("saki-checkbox-item");
     list?.forEach((item, index) => {
-      valueList[item.value] = index;
+      this.valueList[item.value] = index;
 
       item.flexDirection = this.flexDirection;
 
       item.type = this.type;
-      item.removeEventListener("tap", tapFunc);
-      item.addEventListener("tap", tapFunc);
+      item.removeEventListener("tap", this.tapFunc.bind(this));
+      item.addEventListener("tap", this.tapFunc.bind(this));
     });
     this.list = list;
     this?.initData?.();

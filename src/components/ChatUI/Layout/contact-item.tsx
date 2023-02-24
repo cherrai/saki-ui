@@ -3,7 +3,7 @@ import { Component, h, Prop, Event, EventEmitter } from "@stencil/core";
 @Component({
   tag: "saki-chat-layout-contact-item",
   styleUrl: "contact-item.scss",
-  shadow: true,
+  shadow: false,
 })
 export class ChatLayoutContactItemComponent {
   @Prop() avatarText = "";
