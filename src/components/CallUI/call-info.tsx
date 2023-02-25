@@ -13,7 +13,7 @@ export class CallInfoComponent {
   componentDidLoad() {}
   render() {
     return (
-      <div class={"saki-call-info-component"}>
+      <div class={"saki-call-info-component saki-images-lazyload"}>
         <div class={"ci-userinfo"}>
           <div class={"ci-u-item avatar"}>
             <saki-avatar
@@ -21,6 +21,7 @@ export class CallInfoComponent {
               height={"80px"}
               borderRadius={"50%"}
               nickname={this.nickname}
+              
               src={this.avatar}
             ></saki-avatar>
           </div>
