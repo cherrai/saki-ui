@@ -7,6 +7,7 @@ import {
   State,
   Prop,
   Watch,
+  Method,
 } from "@stencil/core";
 
 @Component({
@@ -17,17 +18,29 @@ import {
 export class CheckboxItemComponent {
   @Prop() type: "Radio" | "Checkbox" = "Radio";
   @Prop() flexDirection: "Row" | "Column" = "Row";
+  // SelectAll
   @Prop() value: string = "";
   @Prop() content: string = "";
   @Prop() height: string = "";
   @Prop() margin: string = "0 16px 0 0";
   @Prop() padding: string = "";
-  @Prop() hoverBackgroundColor: string = "rgba(0,0,0,0)";
+  @Prop() border: string = "";
+  @Prop() borderBottom: string = "";
+  @Prop() borderTop: string = "";
+  @Prop() borderRight: string = "";
+  @Prop() borderLeft: string = "";
+  @Prop() backgroundColor: string = "";
+  @Prop() backgroundHoverColor: string = "";
+  @Prop() backgroundActiveColor: string = "";
   @Prop() activeColor: string = "var(--saki-default-color)";
   @Prop() iconActiveColor: string = "var(--saki-default-color)";
   // @Prop() textAlign: string = "center";
   @Prop() disabled: boolean = false;
-  @Prop() active: boolean = false;
+  @Prop() onlyIconClickable: boolean = false;
+  @Prop({
+    mutable: true,
+  })
+  active: boolean = false;
   @Prop() loading: boolean = false;
   @State() values: {
     [key: string]: any;
@@ -42,22 +55,28 @@ export class CheckboxItemComponent {
   @Watch("disabled")
   watchDisabled() {}
   componentDidLoad() {}
-  watchDom() {}
+  @Method()
+  async setActive(b: boolean) {
+    this.active = b;
+    console.log("setActive", this.active, this);
+  }
   render() {
     return (
       <div
-        onClick={(e) => {
-          console.log(21);
-          e.stopPropagation();
-          if (!this.disabled) {
-            this.tap.emit({
-              value: this.value,
-            });
+        onClick={() => {
+          if (!this.onlyIconClickable) {
+            // e.stopPropagation();
+            if (!this.disabled) {
+              this.tap.emit({
+                value: this.value,
+              });
+            }
           }
-          return true;
         }}
         style={{
-          "--saki-hover-background-color": this.hoverBackgroundColor,
+          "--saki-background-color": this.backgroundColor,
+          "--saki-background-hover-color": this.backgroundHoverColor,
+          "--saki-background-active-color": this.backgroundActiveColor,
           ...[
             "border",
             "fontSize",
@@ -66,6 +85,11 @@ export class CheckboxItemComponent {
             "width",
             "height",
             "borderRadius",
+            "border",
+            "borderTop",
+            "borderBottom",
+            "borderRight",
+            "borderLeft",
           ].reduce(
             (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
             {}
@@ -83,7 +107,19 @@ export class CheckboxItemComponent {
       >
         {this.type === "Radio" ? <div class={"ci-radio"}></div> : ""}
         {this.type === "Checkbox" ? (
-          <div class={"ci-checkbox"}>
+          <div
+            onClick={(e) => {
+              if (this.onlyIconClickable) {
+                e.stopPropagation();
+                if (!this.disabled) {
+                  this.tap.emit({
+                    value: this.value,
+                  });
+                }
+              }
+            }}
+            class={"ci-checkbox"}
+          >
             <svg
               class="icon"
               viewBox="0 0 1024 1024"

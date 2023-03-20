@@ -1,0 +1,66 @@
+.saki-table-component {
+  width: 100%;
+  // max-height: 100%;
+}
+
+.saki-table-header-component {
+  width: 100%;
+  display: flex;
+  user-select: none;
+  position: relative;
+  .sth-wrap {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    height: 100%;
+    display: flex;
+  }
+}
+.saki-table-column-component {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background-color: var(--saki-background-color);
+  &:hover {
+    background-color: var(--saki-background-hover-color);
+  }
+  &.active {
+    background-color: var(--saki-background-active-color);
+  }
+  // &:hover {
+  //   background-color: #f7f7f7;
+  // }
+  // &:hover {
+  //   background-color: #eee;
+  // }
+}
+
+.saki-table-column-item-component {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.saki-table-header-item-component {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+  width: 100px;
+  font-weight: 600;
+  .sthi-drag {
+    cursor: ew-resize;
+    width: 2px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+
+    &:hover {
+      background-color: #c7c7c7;
+    }
+    &.active {
+      background-color: #9d9d9d;
+    }
+  }
+}

@@ -22,9 +22,15 @@ export class TabsComponent {
   @Prop() loadingAnimation: boolean = false;
   @State() loadingText: string = "Loading.";
   @Prop() margin: string = "";
+  @Prop() padding: string = "";
+
   @Event() tap: EventEmitter;
   @Watch("type")
   watchTypeFunc() {
+    this.formatLoadingText();
+  }
+  @Watch("language")
+  watchLanguageFunc() {
     this.formatLoadingText();
   }
   componentWillLoad() {
@@ -91,7 +97,7 @@ export class TabsComponent {
           this.tap.emit();
         }}
         style={{
-          ...["margin"].reduce(
+          ...["margin", "padding"].reduce(
             (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
             {}
           ),

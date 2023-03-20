@@ -15,6 +15,7 @@ import {
 })
 export class ChatLayoutSideNavigatorComponent {
   @Prop() expand = true;
+  @Prop() foreverExpand = false;
   @State() navWidth = "220px";
   @State() activeMenuItemId = "";
   @Element() el: HTMLDivElement;
@@ -59,39 +60,27 @@ export class ChatLayoutSideNavigatorComponent {
         }}
         class={
           "saki-chat-layout-side-navigator-component " +
-          (this.expand ? "expand" : "")
+          (this.foreverExpand ? "expand" : this.expand ? "expand" : "")
         }
       >
         <div class="sn-top">
           <div class="sn-t-menu">
             <saki-button
               onTap={() => {
-                this.expand = !this.expand;
-                this.navWidth = this.expand ? "220px" : "68px";
+                if (!this.foreverExpand) {
+                  this.expand = !this.expand;
+                  this.navWidth = this.expand ? "220px" : "68px";
+                  this.menuItems.forEach((v) => {
+                    v.expand = this.expand;
+                  });
+                }
                 this.expandStatus.emit(this.expand);
-                this.menuItems.forEach((v) => {
-                  v.expand = this.expand;
-                });
               }}
               width="40px"
               height="40px"
               type="CircleIconGrayHover"
             >
-              <svg
-                class="icon"
-                viewBox="0 0 1024 1024"
-                version="1.1"
-                xmlns="http://www.w3.org/2000/svg"
-                p-id="2528"
-                fill="#999"
-                width="18"
-                height="18"
-              >
-                <path
-                  d="M950.857143 768l0 73.142857q0 14.857143-10.857143 25.714286t-25.714286 10.857143l-804.571429 0q-14.857143 0-25.714286-10.857143t-10.857143-25.714286l0-73.142857q0-14.857143 10.857143-25.714286t25.714286-10.857143l804.571429 0q14.857143 0 25.714286 10.857143t10.857143 25.714286zm0-292.571429l0 73.142857q0 14.857143-10.857143 25.714286t-25.714286 10.857143l-804.571429 0q-14.857143 0-25.714286-10.857143t-10.857143-25.714286l0-73.142857q0-14.857143 10.857143-25.714286t25.714286-10.857143l804.571429 0q14.857143 0 25.714286 10.857143t10.857143 25.714286zm0-292.571429l0 73.142857q0 14.857143-10.857143 25.714286t-25.714286 10.857143l-804.571429 0q-14.857143 0-25.714286-10.857143t-10.857143-25.714286l0-73.142857q0-14.857143 10.857143-25.714286t25.714286-10.857143l804.571429 0q14.857143 0 25.714286 10.857143t10.857143 25.714286z"
-                  p-id="2529"
-                ></path>
-              </svg>
+              <saki-icon color="#999" type="Menu"></saki-icon>
             </saki-button>
           </div>
           <div class="sn-t-nav">

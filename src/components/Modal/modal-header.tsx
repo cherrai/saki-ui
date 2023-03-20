@@ -112,7 +112,8 @@ export class ModalHeaderComponent {
                 {}
               ),
             }}
-            class="modal-title"
+            title={this.title}
+            class="modal-title text-elipsis"
           >
             {this.title}
           </span>

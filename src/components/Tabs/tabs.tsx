@@ -36,6 +36,7 @@ export class TabsComponent {
   @Prop() type: "Flex" | "Default" = "Default";
   @Prop() headerBackgroundColor = "";
   @Prop() full = false;
+  @Prop() disableMoreButton = false;
 
   @Prop() headerMaxWidth = "";
   @Prop() activeTabLabel = "";
@@ -79,16 +80,30 @@ export class TabsComponent {
   // watchItemList() {}
   @Watch("activeIndex")
   watchActiveIndex() {
+    // console.log(this.activeIndex);
     setTimeout(() => {
       this.getLineStyle.call(this, this.activeIndex);
     }, 50);
+  }
+  @Watch("activeTabLabel")
+  watchActiveTabLabel() {
+    // console.log("activeTabLabel", this.activeTabLabel);
+    this.activeTabLabel &&
+      this.itemComponents.forEach((item, index) => {
+        if (this.activeTabLabel === item.label) {
+          this.activeIndex = index;
+          item.switchActiveFunc(true);
+        } else {
+          item.switchActiveFunc(false);
+        }
+      });
   }
   componentWillLoad() {
     this.init();
     new MutationObserver(this.init.bind(this)).observe(this.el, {
       attributes: false,
       childList: true,
-      subtree: true,
+      subtree: false,
     });
     window.addEventListener("resize", () => {
       this.getLineStyle(this.activeIndex);
@@ -98,13 +113,12 @@ export class TabsComponent {
     clearTimeout(this.timer);
     this.timer = setTimeout(() => {
       clearTimeout(this.timer);
-
       this.itemComponents = this.el.querySelectorAll("saki-tabs-item");
       this.itemList = [];
 
       this.itemComponents.forEach((item, index) => {
         item.full = this.full;
-        if (this.activeTabLabel === item.label) {
+        if (this.activeTabLabel && this.activeTabLabel === item.label) {
           this.activeIndex = index;
         }
         item.addEventListener("changename", () => {
@@ -172,14 +186,18 @@ export class TabsComponent {
         left: wObj[index],
       };
 
-      if (this.itemList[index].dropdown) {
-        // v.style.display = "none";
-        this.navMoreIcon = true;
+      // console.log(this.itemList[index].dropdown)
 
-        this.dropdownStartIndex === -1 && (this.dropdownStartIndex = index);
-      } else {
-        // v.style.display = "flex";
-        this.navMoreIcon = false;
+      if (!this.disableMoreButton) {
+        if (this.itemList[index].dropdown) {
+          // v.style.display = "none";
+          this.navMoreIcon = true;
+
+          this.dropdownStartIndex === -1 && (this.dropdownStartIndex = index);
+        } else {
+          // v.style.display = "flex";
+          this.navMoreIcon = false;
+        }
       }
     });
     // console.log(" this.itemList", this.itemList);
@@ -187,6 +205,10 @@ export class TabsComponent {
       this.dropdownStartIndex = -1;
     }
     this.getLineStyle.call(this, this.activeIndex);
+    this.navMoreIcon &&
+      setTimeout(() => {
+        this.getLineStyle.call(this, this.activeIndex);
+      }, 50);
 
     // this.tap.emit({
     //   name: this.itemList[this.activeIndex].name,
@@ -198,9 +220,7 @@ export class TabsComponent {
     switch (this.type) {
       case "Flex":
         return (
-          <div
-            class={"saki-tabs-component flex " + (this.full ? "full" : "")}
-          >
+          <div class={"saki-tabs-component flex " + (this.full ? "full" : "")}>
             {/* {this.activeIndex},{this.dropdownStartIndex} */}
             <div
               style={{
@@ -284,6 +304,9 @@ export class TabsComponent {
                           //   ? "flex"
                           //   : "none",
                         }}
+                        data-a={this.dropdownStartIndex}
+                        data-ai={this.activeIndex}
+                        data-aii={i}
                         class={"nav-item "}
                         key={i}
                       >

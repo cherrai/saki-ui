@@ -171,6 +171,7 @@
         height: 22px;
         color: var(--saki-chat-dialog-message-color);
         // color: var(--saki-subtitle-color);
+        word-break: break-all;
       }
       .chat-dialog-i-b-count {
         background-color: var(--saki-chat-dialog-count-bg-color);

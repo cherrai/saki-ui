@@ -15,10 +15,11 @@ import {
   shadow: true,
 })
 export class ButtonComponent {
+  tapTime = 0;
   @Prop() type: "Normal" | "Primary" | "CircleIconGrayHover" = "Normal";
   @Prop({ mutable: true }) bgHoverColor: string = "";
   @Prop({ mutable: true }) bgActiveColor: string = "";
-  @Prop({ mutable: true }) bgColor: string = "";
+  @Prop({ mutable: true }) bgColor: string = "#fff";
   @Prop({ mutable: true }) border: string = "";
   @Prop({ mutable: true }) margin: string = "";
   @Prop({ mutable: true }) padding: string = "";
@@ -44,6 +45,10 @@ export class ButtonComponent {
     bubbles: false,
   })
   tap: EventEmitter;
+  @Event({
+    bubbles: false,
+  })
+  doubletap: EventEmitter;
   @Element() el: HTMLElement;
   @Watch("disabled")
   watchDisabled() {
@@ -199,6 +204,13 @@ export class ButtonComponent {
           e.stopPropagation();
           if (!this.disabled) {
             this.tap.emit();
+            if (new Date().getTime() - this.tapTime <= 700) {
+              this.doubletap.emit();
+
+              this.tapTime = 0;
+              return;
+            }
+            this.tapTime = new Date().getTime();
           }
         }}
         style={{
