@@ -37,6 +37,7 @@ export class RichTextComponent {
   @Prop() toolbarButtonActiveColor: string = "var(--saki-default-hover-color)";
   @Prop() editorPadding: string = "";
   @Prop() placeholder: string = "";
+  @Prop() clearAllStylesWhenPasting: boolean = false;
 
   @Prop() enter: KeyEvent = "NewLine";
   @Prop() shortEnter: KeyEvent = "NewLine";
@@ -282,6 +283,27 @@ export class RichTextComponent {
           delay: 2000,
           maxStack: 500,
           userOnly: true,
+        },
+        clipboard: {
+          matchers: [
+            [
+              Node.ELEMENT_NODE,
+              (node: any, delta: any) => {
+                if (this.clearAllStylesWhenPasting) {
+                  const opsList = [];
+                  delta.ops.forEach((op) => {
+                    if (op.insert && typeof op.insert === "string") {
+                      opsList.push({
+                        insert: op.insert,
+                      });
+                    }
+                  });
+                  delta.ops = opsList;
+                }
+                return delta;
+              },
+            ],
+          ],
         },
         toolbar: {
           ...this.toolbarConfig,
