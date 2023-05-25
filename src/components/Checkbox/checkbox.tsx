@@ -9,7 +9,6 @@ import {
   Prop,
   Watch,
 } from "@stencil/core";
-import { CallButtonsComponent } from "../CallUI/buttons";
 
 @Component({
   tag: "saki-checkbox",

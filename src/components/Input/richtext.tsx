@@ -23,7 +23,7 @@ type KeyEvent = "NewLine" | "Submit" | "";
 export class RichTextComponent {
   editorEl: HTMLElement;
   quill: Quill;
-  focus: boolean = false;
+  @State() focus: boolean = false;
   cursorPosition: number = 0;
   selectionRangeStatic: RangeStatic;
   @State() isInit = false;
