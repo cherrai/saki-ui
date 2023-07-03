@@ -30,6 +30,11 @@ export class MenuItemComponent {
   @Prop() borderRadius: string = "";
   @Prop() color: string = "";
   @Prop() margin: string = "";
+  @Prop() border: string = "";
+  @Prop() borderLeft: string = "";
+  @Prop() borderRight: string = "";
+  @Prop() borderTop: string = "";
+  @Prop() borderBottom: string = "";
   @State() type: MenuComponent["type"] = "List";
   @Element() el: HTMLSakiMenuItemElement;
   @Event({
@@ -73,6 +78,11 @@ export class MenuItemComponent {
               "fontSize",
               "color",
               "padding",
+              "border",
+              "borderLeft",
+              "borderRight",
+              "borderTop",
+              "borderBottom",
             ].reduce(
               (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
               {}

@@ -10,6 +10,8 @@ export class TitleComponent {
   @Prop() level = 1;
   @Prop() margin = "";
   @Prop() padding = "";
+  @Prop() fontSize = "";
+  @Prop() fontWeight = "";
   @Prop() align = "left";
   @Prop() color = "";
   componentDidLoad() {}
@@ -20,7 +22,7 @@ export class TitleComponent {
           textAlign: this.align,
           color:
             this.color === "default" ? "var(--saki-default-color)" : this.color,
-          ...["margin", "padding"].reduce(
+          ...["margin", "padding", "fontWeight", "fontSize"].reduce(
             (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
             {}
           ),

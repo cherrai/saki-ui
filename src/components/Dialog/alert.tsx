@@ -25,7 +25,7 @@ export class DialogAlertComponent {
   @Prop() flexButton: boolean = false;
   @State() visible: boolean = false;
   @Event({
-    eventName:"close",
+    eventName: "close",
     bubbles: false,
   })
   closeFunc: EventEmitter;

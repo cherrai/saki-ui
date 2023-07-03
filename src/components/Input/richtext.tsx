@@ -288,7 +288,7 @@ export class RichTextComponent {
           matchers: [
             [
               Node.ELEMENT_NODE,
-              (node: any, delta: any) => {
+              (_: any, delta: any) => {
                 if (this.clearAllStylesWhenPasting) {
                   const opsList = [];
                   delta.ops.forEach((op) => {
@@ -508,7 +508,7 @@ export class RichTextComponent {
     return (
       <div
         style={{
-          ...["padding"].reduce(
+          ...["padding", "minHeight", "minWeight"].reduce(
             (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
             {}
           ),

@@ -53,6 +53,7 @@ export class TabsComponent {
     label: string;
     name: string;
     fontSize: string;
+    color: string;
     fontWeight: string;
     borderBottom: boolean;
 
@@ -131,6 +132,7 @@ export class TabsComponent {
           name: item.name,
           label: item.label,
           fontSize: item.fontSize,
+          color: item.color,
           fontWeight: item.fontWeight,
           borderBottom: item.borderBottom,
           dropdown: false,
@@ -277,6 +279,7 @@ export class TabsComponent {
                           minWidth: this.headerItemMinWidth,
                           fontSize: v.fontSize || "14px",
                           fontWeight: v.fontWeight || "500",
+                          color: v.color || "",
                           display:
                             this.dropdownStartIndex === -1
                               ? "flex"
@@ -482,6 +485,7 @@ export class TabsComponent {
                         // console.log(this.navEl.offsetWidth);
                       }}
                       style={{
+                        color: item.color || "",
                         fontSize: item.fontSize || "14px",
                         fontWeight: item.fontWeight || "500",
                       }}

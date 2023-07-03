@@ -22,6 +22,7 @@ export class TabsItemComponent {
   @Prop() name: string;
   @Prop() label: string;
   @Prop() fontSize: string = "14px";
+  @Prop() color: string = "";
   @Prop() fontWeight: string = "500";
   @Prop() borderBottom: boolean = false;
   @Prop() full = false;

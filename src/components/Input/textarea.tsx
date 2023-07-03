@@ -27,6 +27,7 @@ export class TextareaComponent {
   @Prop() disabled: boolean = false;
   @Prop() textAlign: string = "left";
   @Prop() subtitle: string = "";
+  @Prop() border: string = "";
   @Prop() borderRadius: string = "";
   @Prop() maxHeight: string = "";
   @Prop() minHeight: string = "";
@@ -36,6 +37,8 @@ export class TextareaComponent {
   @Prop() textareaHeight: string = "";
   @Prop() width: string = "";
   @Prop() padding: string = "";
+  @Prop() margin: string = "";
+  
   @Prop() fontSize: string = "";
   @Prop() placeholder: string = "";
 
@@ -317,6 +320,8 @@ export class TextareaComponent {
                 "minHeight",
                 "fontSize",
                 "padding",
+                "margin",
+                "border",
                 "borderRadius",
                 "backgroundColor",
               ].reduce(

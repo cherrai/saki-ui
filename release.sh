@@ -2,6 +2,7 @@
 name="saki-ui"
 port=32300
 branch="main"
+DIR=$(cd $(dirname $0) && pwd)
 allowMethods=("copyFile protos stop npmconfig install gitpull dockerremove start logs")
 
 gitpull() {
@@ -16,7 +17,7 @@ logs() {
 
 copyFile() {
   yarn buildScss
-  
+
   mkdir -p ./dist/saki-ui/css
   cp -r node_modules/quill/dist/quill.core.css ./dist/saki-ui/css
   cp -r node_modules/quill/dist/quill.snow.css ./dist/saki-ui/css
@@ -44,17 +45,21 @@ start() {
   # 获取npm配置
   DIR=$(cd $(dirname $0) && pwd)
   cp -r ~/.npmrc $DIR
+  cp -r ~/.yarnrc $DIR
 
   echo "-> 准备构建Docker"
   docker build \
     -t $name . \
     -f Dockerfile.multi
   rm $DIR/.npmrc
+  rm $DIR/.yarnrc
 
   echo "-> 准备运行Docker"
-  docker stop $name
-  docker rm $name
+
+  stop
+
   docker run \
+    -v $DIR/log11111111111:/app \
     --name=$name \
     -p $port:$port \
     --restart=always \
@@ -62,6 +67,7 @@ start() {
 }
 stop() {
   docker stop $name
+  docker rm $name
 }
 
 logs() {

@@ -1,9 +1,6 @@
 import {
   Component,
-  State,
   h,
-  Event,
-  EventEmitter,
   Prop,
   Watch,
   Element,

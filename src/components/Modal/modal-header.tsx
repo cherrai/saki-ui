@@ -119,7 +119,7 @@ export class ModalHeaderComponent {
           </span>
         </div>
         <div class="modal-right">
-          <div></div>
+          <slot name="right"></slot>
         </div>
       </div>
     );

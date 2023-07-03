@@ -3,6 +3,7 @@ WORKDIR /app
 
 COPY ./.npmrc /root/.npmrc
 COPY . .
+
 RUN \
   yarn && \
   yarn build 
