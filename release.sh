@@ -49,7 +49,7 @@ start() {
   # 获取npm配置
   DIR=$(cd $(dirname $0) && pwd)
   cp -r ~/.npmrc $DIR
-  cp -r ~/.yarnrc $DIR
+  # cp -r ~/.yarnrc $DIR
 
   echo "-> 准备构建Docker"
   docker build \
@@ -57,7 +57,7 @@ start() {
     -f Dockerfile.multi
 
   rm $DIR/.npmrc
-  rm $DIR/.yarnrc
+  # rm $DIR/.yarnrc
  
   echo "-> 准备运行Docker"
 

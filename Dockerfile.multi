@@ -1,7 +1,7 @@
 FROM node:16.15.1 as BUILD_IMAGE
 WORKDIR /app
 
-COPY .yarnrc .npmrc /root/
+COPY .npmrc /root/
 COPY package.json yarn.lock ./
 
 RUN \
