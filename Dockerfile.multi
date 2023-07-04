@@ -1,11 +1,15 @@
 FROM node:16.15.1 as BUILD_IMAGE
 WORKDIR /app
 
-COPY ./.npmrc /root/.npmrc
-COPY . .
+COPY .yarnrc .npmrc /root/
+COPY package.json yarn.lock ./
 
 RUN \
-  yarn && \
+  yarn install --frozen-lockfile --registry https://registry.npm.aiiko.club
+
+
+COPY . .
+RUN \
   yarn build 
 
 FROM node:16.13.1-alpine3.13
@@ -20,9 +24,9 @@ RUN \
   cp -r /dist/saki-ui/ / && \
   tar cpvzf /dist/saki-ui.tgz /saki-ui/ && \
   rm -rf /saki-ui && \
-  yarn global add spa-http-server  --registry https://registry.npmmirror.com/
+  yarn global add spa-http-server --registry https://registry.npmmirror.com/
 
-EXPOSE 32300
+# EXPOSE 32300
 
-CMD ["http-server","./dist","--cors","--silent","-p","32300","--push-state"]
+# CMD ["http-server","./dist","--cors","--silent","-p","32300","--push-state"]
 

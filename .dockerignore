@@ -19,6 +19,7 @@ pnpm-debug.log*
 *.sw?
 
 .git
+/build
 /dist
 /www
 /loader

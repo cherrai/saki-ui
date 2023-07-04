@@ -1,6 +1,7 @@
 #! /bin/bash
 name="saki-ui"
 port=32300
+version="v1.0.0"
 branch="main"
 DIR=$(cd $(dirname $0) && pwd)
 allowMethods=("copyFile protos stop npmconfig install gitpull dockerremove start logs")
@@ -34,6 +35,9 @@ copyFile() {
 }
 
 start() {
+  echo "-> $version"
+  sed -i "s/\"version\":.*$/\"version\":\"$version\",/" ./package.json
+
   echo "-> 正在启动「${name}」服务"
   # gitpull
 
@@ -51,19 +55,34 @@ start() {
   docker build \
     -t $name . \
     -f Dockerfile.multi
+
   rm $DIR/.npmrc
   rm $DIR/.yarnrc
-
+ 
   echo "-> 准备运行Docker"
 
   stop
 
   docker run \
-    -v $DIR/log11111111111:/app \
     --name=$name \
     -p $port:$port \
     --restart=always \
     -d $name
+
+  echo "-> 整理文件资源"
+  mkdir -p $DIR/build/packages
+  for folderName in $(ls $DIR/build); do
+    if [ "$folderName" != "packages" ]; then
+      rm -rf $DIR/build/$folderName
+    fi
+  done
+  docker cp $name:/dist/. $DIR/build
+  mv $DIR/build/saki-ui.tgz $DIR/build/packages/$name-$version.tgz
+  stop
+  # rm -rf $DIR/build/* | egrep -v "($DIR/build/*.tgz)"
+  # ls ./build/* | egrep -v '(./build/saki-ui-v1.0.1.tgz)'
+  # rm -rf `ls ./build/* | egrep -v '(./build/packages)'`
+
 }
 stop() {
   docker stop $name

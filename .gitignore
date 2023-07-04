@@ -34,3 +34,5 @@ package-lock.json
 src/globals/*.css
 src/globals/*.css.map
 src/config-temp.ts
+
+/build
