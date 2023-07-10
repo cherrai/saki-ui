@@ -15,8 +15,8 @@ import {
 })
 export class DialogProgressBarComponent {
   @Prop() maxWidth: string = "400px";
-  @Prop() minWidth: string = "300px";
-  @Prop() width: string = "100&";
+  @Prop() minWidth: string = "";
+  @Prop() width: string = "100%";
   @Prop() progress: number = 0;
   @Prop() tipText: string = "";
   @Prop() tipColor: string = "";
@@ -37,9 +37,9 @@ export class DialogProgressBarComponent {
     this.visible = false;
     this.closeFunc.emit();
   }
-  componentWillLoad() {}
-  componentDidLoad() {
+  componentWillLoad() {
   }
+  componentDidLoad() {}
   render() {
     return (
       <saki-modal

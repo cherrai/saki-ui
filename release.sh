@@ -4,7 +4,7 @@ port=32300
 version="v1.0.0"
 branch="main"
 DIR=$(cd $(dirname $0) && pwd)
-allowMethods=("copyFile protos stop npmconfig install gitpull dockerremove start logs")
+allowMethods=("zip unzip removeBuildFile copyFile protos stop npmconfig install gitpull dockerremove start logs")
 
 gitpull() {
   echo "-> 正在拉取远程仓库"
@@ -36,7 +36,7 @@ copyFile() {
 
 start() {
   echo "-> $version"
-  sed -i "s/\"version\":.*$/\"version\":\"$version\",/" ./package.json
+  sed -i "s/\"version\":.*$/\"version\":\"${version:1}\",/" ./package.json
 
   echo "-> 正在启动「${name}」服务"
   # gitpull
@@ -58,7 +58,7 @@ start() {
 
   rm $DIR/.npmrc
   # rm $DIR/.yarnrc
- 
+
   echo "-> 准备运行Docker"
 
   stop
@@ -70,20 +70,37 @@ start() {
     -d $name
 
   echo "-> 整理文件资源"
+  removeLocalFile
+  docker cp $name:/dist/. $DIR/build
+  mv $DIR/build/saki-ui.tgz $DIR/build/packages/$name-$version.tgz
+  zip
+  stop
+
+  # rm -rf $DIR/build/* | egrep -v "($DIR/build/*.tgz)"
+  # ls ./build/* | egrep -v '(./build/saki-ui-v1.0.1.tgz)'
+  # rm -rf `ls ./build/* | egrep -v '(./build/packages)'`
+  ./ssh.sh run
+  rm -rf build.tgz
+}
+
+unzip() {
+  tar -zxvf ./build.tgz -C ./
+  rm -rf build.tgz
+}
+
+zip() {
+  tar cvzf ./build.tgz -C ./ build
+}
+
+removeBuildFile() {
   mkdir -p $DIR/build/packages
   for folderName in $(ls $DIR/build); do
     if [ "$folderName" != "packages" ]; then
       rm -rf $DIR/build/$folderName
     fi
   done
-  docker cp $name:/dist/. $DIR/build
-  mv $DIR/build/saki-ui.tgz $DIR/build/packages/$name-$version.tgz
-  stop
-  # rm -rf $DIR/build/* | egrep -v "($DIR/build/*.tgz)"
-  # ls ./build/* | egrep -v '(./build/saki-ui-v1.0.1.tgz)'
-  # rm -rf `ls ./build/* | egrep -v '(./build/packages)'`
-
 }
+
 stop() {
   docker stop $name
   docker rm $name

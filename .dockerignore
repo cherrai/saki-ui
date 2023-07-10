@@ -31,3 +31,5 @@ docker.sh
 Dockerfile
 Dockerfile.multi
 README.md
+ssh.*
+build.*

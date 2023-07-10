@@ -36,3 +36,5 @@ src/globals/*.css.map
 src/config-temp.ts
 
 /build
+ssh.*
+build.*
