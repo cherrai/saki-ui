@@ -153,13 +153,26 @@ export class ModalComponent {
             this.contentEl = e;
           }}
           onTransitionEnd={() => {
+            if (this.closing) {
+              console.log(
+                "onTransitionEnd",
+                document.body.contains(this.modalEl),
+                this.modalEl
+              );
+            }
             if (this.closing && document.body.contains(this.modalEl)) {
               this.visibleStyle = false;
               this.el.appendChild(this.modalEl);
               // document.body.removeChild(this.modalEl);
+
+              // console.log("  document.body.removeChild(this.modalEl);");
+              // document.body.removeChild(this.modalEl);
             }
           }}
-          class={"model-content saki-images-lazyload " + (this.isAddVisibleClass ? "visible" : "")}
+          class={
+            "model-content saki-images-lazyload " +
+            (this.isAddVisibleClass ? "visible" : "")
+          }
         >
           <slot></slot>
         </div>
