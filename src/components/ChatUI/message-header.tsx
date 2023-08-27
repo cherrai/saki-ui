@@ -11,7 +11,7 @@ import {
 @Component({
   tag: "saki-chat-message-header",
   styleUrl: "message-header.scss",
-  shadow: true,
+  shadow: false,
 })
 export class ChatMessageHeaderComponent {
   @Prop() avatar: string = "";

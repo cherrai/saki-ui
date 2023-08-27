@@ -11,7 +11,7 @@ import {
 @Component({
   tag: "saki-chat-dialog",
   styleUrl: "dialog.scss",
-  shadow: true,
+  shadow: false,
 })
 export class ChatDialogComponent {
   @Prop() avatar: string = "";

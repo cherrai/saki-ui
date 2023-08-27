@@ -54,6 +54,7 @@ start() {
   echo "-> 准备构建Docker"
   docker build \
     -t $name . \
+    --network host \
     -f Dockerfile.multi
 
   rm $DIR/.npmrc

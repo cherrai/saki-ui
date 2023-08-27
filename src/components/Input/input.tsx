@@ -355,6 +355,7 @@ export class InputComponent {
           "--saki-input-range-height": this.height || "10px",
           "--saki-input-range-thumb":
             "calc(var(--saki-input-range-height) + 8px)",
+          "--saki-input-placeholder-font-size": this.fontSize,
         }}
         ref={(e) => {
           this.paddingLeftPixel = e.style.paddingLeft;

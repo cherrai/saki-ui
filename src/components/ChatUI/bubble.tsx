@@ -15,7 +15,7 @@ import moment from "moment";
 @Component({
   tag: "saki-chat-bubble",
   styleUrl: "bubble.scss",
-  shadow: true,
+  shadow: false,
 })
 export class ChatBubbleComponent {
   @Prop() type: "receiver" | "sender" = "sender";
@@ -71,7 +71,7 @@ export class ChatBubbleComponent {
   @Prop() watchStatusTimeout: number = 5;
   @Prop() watchStatusCount: number = 30;
   currentWatchStatusCount: number = 0;
-  @State() timer: NodeJS.Timer;
+  @State() timer: NodeJS.Timeout;
 
   bubbleEl: HTMLElement = null;
   @State() bubbleElWidth: number;

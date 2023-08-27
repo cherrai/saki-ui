@@ -12,6 +12,14 @@
       display: block;
     }
   }
+  input {
+    &::-webkit-input-placeholder,
+    &::-moz-placeholder,
+    &:-ms-input-placeholder,
+    &::placeholder {
+      font-size: var(--saki-input-placeholder-font-size) !important;
+    }
+  }
   .si-input {
     width: 100%;
     position: relative;

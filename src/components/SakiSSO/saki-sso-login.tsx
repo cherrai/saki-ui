@@ -18,6 +18,7 @@ export class SSOLoginComponent {
   // @Prop() appToken = "";
   @Prop() appName = "";
   @Prop() language = "zh-CN";
+  @Prop() appearance = "";
 
   @Prop() disableHeader = false;
   @Event() login: EventEmitter;
@@ -70,6 +71,8 @@ export class SSOLoginComponent {
             // this.appToken +
             "&language=" +
             this.language +
+            "&appearance=" +
+            this.appearance +
             "&appName=" +
             this.appName +
             "&iframe=true&disableHeader=" +

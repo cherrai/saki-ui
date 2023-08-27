@@ -4,44 +4,43 @@
 
 "@discoveryjs/json-ext@^0.5.0":
   version "0.5.7"
-  resolved "https://registry.npm.aiiko.club/@discoveryjs%2fjson-ext/-/json-ext-0.5.7.tgz#1d572bfbbe14b7704e0ba0f39b74815b84870d70"
+  resolved "https://registry.npm.aiiko.club/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz#1d572bfbbe14b7704e0ba0f39b74815b84870d70"
   integrity sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==
 
 "@grpc/grpc-js@^1.3.7":
-  version "1.8.17"
-  resolved "https://registry.npm.aiiko.club/@grpc%2fgrpc-js/-/grpc-js-1.8.17.tgz#a3a2f826fc033eae7d2f5ee41e0ab39cee948838"
-  integrity sha512-DGuSbtMFbaRsyffMf+VEkVu8HkSXEUfO3UyGJNtqxW9ABdtTIA+2UXAJpwbJS+xfQxuwqLUeELmL6FuZkOqPxw==
+  version "1.9.1"
+  resolved "https://registry.npm.aiiko.club/@grpc/grpc-js/-/grpc-js-1.9.1.tgz#d6df7943cd2875a4feaf725f85ff605c08ac245d"
+  integrity sha512-AvDEPQT4teS+J8++cTE5tku4rYCwpPwPguESJUummLs/Ug/O5Bouofnc1mxaDORmwA9QkrJ+PfRQ1Qs7adQgJg==
   dependencies:
-    "@grpc/proto-loader" "^0.7.0"
+    "@grpc/proto-loader" "^0.7.8"
     "@types/node" ">=12.12.47"
 
-"@grpc/proto-loader@^0.7.0":
-  version "0.7.7"
-  resolved "https://registry.npm.aiiko.club/@grpc%2fproto-loader/-/proto-loader-0.7.7.tgz#d33677a77eea8407f7c66e2abd97589b60eb4b21"
-  integrity sha512-1TIeXOi8TuSCQprPItwoMymZXxWT0CPxUhkrkeCUH+D8U7QDwQ6b7SUz2MaLuWM2llT+J/TVFLmQI5KtML3BhQ==
+"@grpc/proto-loader@^0.7.8":
+  version "0.7.9"
+  resolved "https://registry.npm.aiiko.club/@grpc/proto-loader/-/proto-loader-0.7.9.tgz#3ca68236f1a0d77566dafa53c715eb31d096279a"
+  integrity sha512-YJsOehVXzgurc+lLAxYnlSMc1p/Gu6VAvnfx0ATi2nzvr0YZcjhmZDeY8SeAKv1M7zE3aEJH0Xo9mK1iZ8GYoQ==
   dependencies:
-    "@types/long" "^4.0.1"
     lodash.camelcase "^4.3.0"
-    long "^4.0.0"
-    protobufjs "^7.0.0"
+    long "^5.0.0"
+    protobufjs "^7.2.4"
     yargs "^17.7.2"
 
 "@improbable-eng/grpc-web@^0.14.1":
   version "0.14.1"
-  resolved "https://registry.npm.aiiko.club/@improbable-eng%2fgrpc-web/-/grpc-web-0.14.1.tgz#f4662f64dc89c0f956a94bb8a3b576556c74589c"
+  resolved "https://registry.npm.aiiko.club/@improbable-eng/grpc-web/-/grpc-web-0.14.1.tgz#f4662f64dc89c0f956a94bb8a3b576556c74589c"
   integrity sha512-XaIYuunepPxoiGVLLHmlnVminUGzBTnXr8Wv7khzmLWbNw4TCwJKX09GSMJlKhu/TRk6gms0ySFxewaETSBqgw==
   dependencies:
     browser-headers "^0.4.1"
 
 "@nyanyajs/nyanyadb@^1.0.4":
   version "1.0.4"
-  resolved "https://registry.npm.aiiko.club/@nyanyajs%2fnyanyadb/-/nyanyadb-1.0.4.tgz#140f4b926dba115b238f83b86e099be5f95a5dd3"
-  integrity sha512-+h6MRdihDeVlElSWL4RwfVMpkCMIccTiWcK3xWTqVD/jCANtXOajYew+BKoAEdTyY1hddnqoMh22bCvY/ubUuQ==
+  resolved "https://registry.npm.aiiko.club/@nyanyajs/nyanyadb/-/nyanyadb-1.0.4.tgz#e8fb2c4281132928174859433c8ff6a68fc0ba61"
+  integrity sha512-CfXi7DyAjfKf0L1D0xBJxwcr0P4/Hzv5Ku7rD9eWx5QfCLQdsjPe/G0ugTSbxubeHo2E6Ft2UQKq/5KvQWcP0A==
 
-"@nyanyajs/utils@1.0.17":
-  version "1.0.17"
-  resolved "https://registry.npm.aiiko.club/@nyanyajs%2futils/-/utils-1.0.17.tgz#fbb7234320f22d13ede5a10033deaea9847ee84f"
-  integrity sha512-h0vrTuBjKyplKgzNHo/h2wo6tIe7/X/C9TYHCm5/sWTzLr2TA0AvsIfhslhqxL1y2T1Uif5pHeo/n7FXaNnqOg==
+"@nyanyajs/utils@^1.0.19":
+  version "1.0.19"
+  resolved "https://registry.npm.aiiko.club/@nyanyajs/utils/-/utils-1.0.19.tgz#2e3ef527924200fc6ca1ca80be3cd25d2913bcc0"
+  integrity sha512-lPFr28JjFyHed+xuOS/neJSRqMlIwHSO5f/gPW9P2W8QBO+1u47/25l6OFtQomQTKqCioNhsUu0WnjC2xzUukA==
   dependencies:
     "@nyanyajs/nyanyadb" "^1.0.4"
     axios "^0.27.2"
@@ -60,27 +59,27 @@
 
 "@protobufjs/aspromise@^1.1.1", "@protobufjs/aspromise@^1.1.2":
   version "1.1.2"
-  resolved "https://registry.npm.aiiko.club/@protobufjs%2faspromise/-/aspromise-1.1.2.tgz#9b8b0cc663d669a7d8f6f5d0893a14d348f30fbf"
+  resolved "https://registry.npm.aiiko.club/@protobufjs/aspromise/-/aspromise-1.1.2.tgz#9b8b0cc663d669a7d8f6f5d0893a14d348f30fbf"
   integrity sha1-m4sMxmPWaafY9vXQiToU00jzD78=
 
 "@protobufjs/base64@^1.1.2":
   version "1.1.2"
-  resolved "https://registry.npm.aiiko.club/@protobufjs%2fbase64/-/base64-1.1.2.tgz#4c85730e59b9a1f1f349047dbf24296034bb2735"
+  resolved "https://registry.npm.aiiko.club/@protobufjs/base64/-/base64-1.1.2.tgz#4c85730e59b9a1f1f349047dbf24296034bb2735"
   integrity sha512-AZkcAA5vnN/v4PDqKyMR5lx7hZttPDgClv83E//FMNhR2TMcLUhfRUBHCmSl0oi9zMgDDqRUJkSxO3wm85+XLg==
 
 "@protobufjs/codegen@^2.0.4":
   version "2.0.4"
-  resolved "https://registry.npm.aiiko.club/@protobufjs%2fcodegen/-/codegen-2.0.4.tgz#7ef37f0d010fb028ad1ad59722e506d9262815cb"
+  resolved "https://registry.npm.aiiko.club/@protobufjs/codegen/-/codegen-2.0.4.tgz#7ef37f0d010fb028ad1ad59722e506d9262815cb"
   integrity sha512-YyFaikqM5sH0ziFZCN3xDC7zeGaB/d0IUb9CATugHWbd1FRFwWwt4ld4OYMPWu5a3Xe01mGAULCdqhMlPl29Jg==
 
 "@protobufjs/eventemitter@^1.1.0":
   version "1.1.0"
-  resolved "https://registry.npm.aiiko.club/@protobufjs%2feventemitter/-/eventemitter-1.1.0.tgz#355cbc98bafad5978f9ed095f397621f1d066b70"
+  resolved "https://registry.npm.aiiko.club/@protobufjs/eventemitter/-/eventemitter-1.1.0.tgz#355cbc98bafad5978f9ed095f397621f1d066b70"
   integrity sha1-NVy8mLr61ZePntCV85diHx0Ga3A=
 
 "@protobufjs/fetch@^1.1.0":
   version "1.1.0"
-  resolved "https://registry.npm.aiiko.club/@protobufjs%2ffetch/-/fetch-1.1.0.tgz#ba99fb598614af65700c1619ff06d454b0d84c45"
+  resolved "https://registry.npm.aiiko.club/@protobufjs/fetch/-/fetch-1.1.0.tgz#ba99fb598614af65700c1619ff06d454b0d84c45"
   integrity sha1-upn7WYYUr2VwDBYZ/wbUVLDYTEU=
   dependencies:
     "@protobufjs/aspromise" "^1.1.1"
@@ -88,27 +87,27 @@
 
 "@protobufjs/float@^1.0.2":
   version "1.0.2"
-  resolved "https://registry.npm.aiiko.club/@protobufjs%2ffloat/-/float-1.0.2.tgz#5e9e1abdcb73fc0a7cb8b291df78c8cbd97b87d1"
+  resolved "https://registry.npm.aiiko.club/@protobufjs/float/-/float-1.0.2.tgz#5e9e1abdcb73fc0a7cb8b291df78c8cbd97b87d1"
   integrity sha1-Xp4avctz/Ap8uLKR33jIy9l7h9E=
 
 "@protobufjs/inquire@^1.1.0":
   version "1.1.0"
-  resolved "https://registry.npm.aiiko.club/@protobufjs%2finquire/-/inquire-1.1.0.tgz#ff200e3e7cf2429e2dcafc1140828e8cc638f089"
+  resolved "https://registry.npm.aiiko.club/@protobufjs/inquire/-/inquire-1.1.0.tgz#ff200e3e7cf2429e2dcafc1140828e8cc638f089"
   integrity sha1-/yAOPnzyQp4tyvwRQIKOjMY48Ik=
 
 "@protobufjs/path@^1.1.2":
   version "1.1.2"
-  resolved "https://registry.npm.aiiko.club/@protobufjs%2fpath/-/path-1.1.2.tgz#6cc2b20c5c9ad6ad0dccfd21ca7673d8d7fbf68d"
+  resolved "https://registry.npm.aiiko.club/@protobufjs/path/-/path-1.1.2.tgz#6cc2b20c5c9ad6ad0dccfd21ca7673d8d7fbf68d"
   integrity sha1-bMKyDFya1q0NzP0hynZz2Nf79o0=
 
 "@protobufjs/pool@^1.1.0":
   version "1.1.0"
-  resolved "https://registry.npm.aiiko.club/@protobufjs%2fpool/-/pool-1.1.0.tgz#09fd15f2d6d3abfa9b65bc366506d6ad7846ff54"
+  resolved "https://registry.npm.aiiko.club/@protobufjs/pool/-/pool-1.1.0.tgz#09fd15f2d6d3abfa9b65bc366506d6ad7846ff54"
   integrity sha1-Cf0V8tbTq/qbZbw2ZQbWrXhG/1Q=
 
 "@protobufjs/utf8@^1.1.0":
   version "1.1.0"
-  resolved "https://registry.npm.aiiko.club/@protobufjs%2futf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
+  resolved "https://registry.npm.aiiko.club/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha1-p3c2C1s5oaLlEG+OhY8v0tBgxXA=
 
 "@stencil/core@^2.11.0":
@@ -131,15 +130,10 @@
   resolved "https://registry.npmmirror.com/@types/crypto-js/-/crypto-js-4.1.1.tgz#602859584cecc91894eb23a4892f38cfa927890d"
   integrity sha512-BG7fQKZ689HIoc5h+6D2Dgq1fABRa0RbBWKBd9SP/MVRVXROflpm5fhwyATX5duFmbStzyzyycPB8qUYKDH3NA==
 
-"@types/long@^4.0.1":
-  version "4.0.2"
-  resolved "https://registry.npm.aiiko.club/@types%2flong/-/long-4.0.2.tgz#b74129719fc8d11c01868010082d483b7545591a"
-  integrity sha512-MqTGEo5bj5t157U6fA/BiDynNkn0YknVdh48CMPkTSpFTVmvao5UQmm7uEF6xBEo7qIMAlY/JSleYaE6VOdpaA==
-
 "@types/node@>=12.12.47", "@types/node@>=13.7.0":
-  version "20.3.3"
-  resolved "https://registry.npm.aiiko.club/@types%2fnode/-/node-20.3.3.tgz#329842940042d2b280897150e023e604d11657d6"
-  integrity sha512-wheIYdr4NYML61AjC8MKj/2jrR/kDQri/CIpVoZwldwhnIrD/j9jIU5bJ8yBKuB2VhpFV7Ab6G2XkBjv9r9Zzw==
+  version "20.5.6"
+  resolved "https://registry.npm.aiiko.club/@types/node/-/node-20.5.6.tgz#5e9aaa86be03a09decafd61b128d6cec64a5fe40"
+  integrity sha512-Gi5wRGPbbyOTX+4Y2iULQ27oUPrefaB0PxGQJnfyWN3kvEDGM3mIB5M/gQLmitZf7A9FmLeaqxD3L1CXpm3VKQ==
 
 "@types/quill@^2.0.9":
   version "2.0.10"
@@ -151,25 +145,25 @@
 
 "@webpack-cli/configtest@^1.2.0":
   version "1.2.0"
-  resolved "https://registry.npm.aiiko.club/@webpack-cli%2fconfigtest/-/configtest-1.2.0.tgz#7b20ce1c12533912c3b217ea68262365fa29a6f5"
+  resolved "https://registry.npm.aiiko.club/@webpack-cli/configtest/-/configtest-1.2.0.tgz#7b20ce1c12533912c3b217ea68262365fa29a6f5"
   integrity sha512-4FB8Tj6xyVkyqjj1OaTqCjXYULB9FMkqQ8yGrZjRDrYh0nOE+7Lhs45WioWQQMV+ceFlE368Ukhe6xdvJM9Egg==
 
 "@webpack-cli/info@^1.5.0":
   version "1.5.0"
-  resolved "https://registry.npm.aiiko.club/@webpack-cli%2finfo/-/info-1.5.0.tgz#6c78c13c5874852d6e2dd17f08a41f3fe4c261b1"
+  resolved "https://registry.npm.aiiko.club/@webpack-cli/info/-/info-1.5.0.tgz#6c78c13c5874852d6e2dd17f08a41f3fe4c261b1"
   integrity sha512-e8tSXZpw2hPl2uMJY6fsMswaok5FdlGNRTktvFk2sD8RjH0hE2+XistawJx1vmKteh4NmGmNUrp+Tb2w+udPcQ==
   dependencies:
     envinfo "^7.7.3"
 
 "@webpack-cli/serve@^1.7.0":
   version "1.7.0"
-  resolved "https://registry.npm.aiiko.club/@webpack-cli%2fserve/-/serve-1.7.0.tgz#e1993689ac42d2b16e9194376cfb6753f6254db1"
+  resolved "https://registry.npm.aiiko.club/@webpack-cli/serve/-/serve-1.7.0.tgz#e1993689ac42d2b16e9194376cfb6753f6254db1"
   integrity sha512-oxnCNGj88fL+xzV+dacXs44HcDwf1ovs3AuEzvP7mqXw7fQntqIhQ1BRmynh4qEKQSSSRSWVyXRjmTbZIX9V2Q==
 
 after@0.8.2:
   version "0.8.2"
   resolved "https://registry.npm.aiiko.club/after/-/after-0.8.2.tgz#fedb394f9f0e02aa9768e702bda23b505fae7e1f"
-  integrity sha512-QbJ0NTQ/I9DI3uSJA4cbexiwQeRAfjPScqIbSjUDd9TOrcg6pTkdgziesOqxBMBzit8vFCTwrP27t13vFOORRA==
+  integrity sha1-/ts5T58OAqqXaOcCvaI7UF+ufh8=
 
 ansi-regex@^5.0.1:
   version "5.0.1"
@@ -199,7 +193,7 @@ arraybuffer.slice@~0.0.7:
 asynckit@^0.4.0:
   version "0.4.0"
   resolved "https://registry.npm.aiiko.club/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
-  integrity sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==
+  integrity sha1-x57Zf380y48robyXkLzDZkdLS3k=
 
 axios@^0.27.2:
   version "0.27.2"
@@ -217,7 +211,7 @@ backo2@1.0.2:
 base64-arraybuffer@0.1.4:
   version "0.1.4"
   resolved "https://registry.npm.aiiko.club/base64-arraybuffer/-/base64-arraybuffer-0.1.4.tgz#9818c79e059b1355f97e0428a017c838e90ba812"
-  integrity sha512-a1eIFi4R9ySrbiMuyTGx5e92uRH5tQY6kArNcFaKBUleIoLjdjBg7Zxm3Mqm3Kmkf27HLR/1fnxX9q8GQ7Iavg==
+  integrity sha1-mBjHngWbE1X5fgQooBfIOOkLqBI=
 
 base64-js@^1.3.1:
   version "1.5.1"
@@ -403,7 +397,7 @@ define-properties@^1.1.3, define-properties@^1.2.0:
 delayed-stream@~1.0.0:
   version "1.0.0"
   resolved "https://registry.npm.aiiko.club/delayed-stream/-/delayed-stream-1.0.0.tgz#df3ae199acadfb7d440aaae0b29e2272b24ec619"
-  integrity sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==
+  integrity sha1-3zrhmayt+31ECqrgsp4icrJOxhk=
 
 dhkea-js@^1.0.0:
   version "1.0.0"
@@ -659,10 +653,10 @@ is-binary-path@~2.1.0:
   dependencies:
     binary-extensions "^2.0.0"
 
-is-core-module@^2.12.0:
-  version "2.12.1"
-  resolved "https://registry.npm.aiiko.club/is-core-module/-/is-core-module-2.12.1.tgz#0c0b6885b6f80011c71541ce15c8d66cf5a4f9fd"
-  integrity sha512-Q4ZuBAe2FUsKtyQJoQHlvP8OvBERxO3jEmy1I7hcRXcJBGGHFh/aJBswbXuS9sgrDH2QUO8ilkwNPHvHMd8clg==
+is-core-module@^2.13.0:
+  version "2.13.0"
+  resolved "https://registry.npm.aiiko.club/is-core-module/-/is-core-module-2.13.0.tgz#bb52aa6e2cbd49a30c2ba68c42bf3435ba6072db"
+  integrity sha512-Z7dk6Qo8pOCp3l4tsX2C5ZVas4V+UxwQodwZhLopL91TX8UyyHEXafPcyoeeWuLrwzHcr3igO78wNLwHJHsMCQ==
   dependencies:
     has "^1.0.3"
 
@@ -713,17 +707,17 @@ is-regex@^1.0.4:
 isarray@2.0.1:
   version "2.0.1"
   resolved "https://registry.npm.aiiko.club/isarray/-/isarray-2.0.1.tgz#a37d94ed9cda2d59865c9f76fe596ee1f338741e"
-  integrity sha512-c2cu3UxbI+b6kR3fy0nRnAhodsvR9dx7U5+znCOzdj6IfP3upFURTr0Xl5BlQZNKZjEtxrmVyfSdeE3O57smoQ==
+  integrity sha1-o32U7ZzaLVmGXJ92/llu4fM4dB4=
 
 isexe@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npm.aiiko.club/isexe/-/isexe-2.0.0.tgz#e8fbf374dc556ff8947a10dcb0572d633f2cfa10"
-  integrity sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==
+  integrity sha1-6PvzdNxVb/iUehDcsFctYz8s+hA=
 
 isobject@^3.0.1:
   version "3.0.1"
   resolved "https://registry.npm.aiiko.club/isobject/-/isobject-3.0.1.tgz#4e431e92b11a9731636aa1f9c8d1ccbcfdab78df"
-  integrity sha512-WhB9zCku7EGTj/HQQRz5aUQEUeoQZH2bWcltRErOpymJ4boYE6wL9Tbr23krRPSZ+C5zqNSrSw+Cc7sZZ4b7vg==
+  integrity sha1-TkMekrEalzFjaqH5yNHMvP2reN8=
 
 jsrsasign@^10.5.1:
   version "10.8.6"
@@ -757,11 +751,6 @@ lodash.isequal@^4.5.0:
   resolved "https://registry.npmmirror.com/lodash.isequal/-/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
   integrity sha512-pDo3lu8Jhfjqls6GkMgpahsF9kCyayhgykjyLMNFTKWrpVdAQtYyB4muAMWozBB4ig/dtWAmsMxLEI8wuz+DYQ==
 
-long@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.npm.aiiko.club/long/-/long-4.0.0.tgz#9a7b71cfb7d361a194ea555241c92f7468d5bf28"
-  integrity sha512-XsP+KhQif4bjX1kbuSiySJFNAehNxgLb6hPRGJ9QsUr8ajHkuXGdrHmFUTUUXhDwVX2R5bY4JNZEwbUiMhV+MA==
-
 long@^5.0.0:
   version "5.2.3"
   resolved "https://registry.npm.aiiko.club/long/-/long-5.2.3.tgz#a3ba97f3877cf1d778eccbcb048525ebb77499e1"
@@ -787,7 +776,7 @@ moment@^2.29.1:
 ms@2.0.0:
   version "2.0.0"
   resolved "https://registry.npm.aiiko.club/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
-  integrity sha512-Tpp60P6IUJDTuOq/5Z8cdskzJujfwqfOTkrwIwj7IRISpnkJnT6SyJ4PCPnGMoFjC9ddhal5KVIYtAt97ix05A==
+  integrity sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g=
 
 normalize-path@^3.0.0, normalize-path@~3.0.0:
   version "3.0.0"
@@ -796,8 +785,8 @@ normalize-path@^3.0.0, normalize-path@~3.0.0:
 
 nyanyajs-log@^1.0.11:
   version "1.0.11"
-  resolved "https://registry.npm.aiiko.club/nyanyajs-log/-/nyanyajs-log-1.0.11.tgz#db17b1d60ccee87953f8eb92c6f9301ffc05bbee"
-  integrity sha512-nXECtFBjUnMlmj3wHrMWqANH3FfCCaqYL7MUnm5r0J5b9td6ZUzIRsM2opQ5YAozuehMJgO+HR+WAchbtyLBEA==
+  resolved "https://registry.npm.aiiko.club/nyanyajs-log/-/nyanyajs-log-1.0.11.tgz#b8a17b47ac035c09821afb323d8cf6b7db7aa7fd"
+  integrity sha512-B4T2KMHHD+wR1Nu+8pFmvc8GYwGwXSRnzlPSmfkQVnj48HyhwfnD9v4vC2ERSwflL4RAds9jGadpyW0742tAsA==
   dependencies:
     moment "^2.29.1"
 
@@ -880,10 +869,10 @@ pkg-dir@^4.2.0:
   dependencies:
     find-up "^4.0.0"
 
-protobufjs@^7.0.0:
-  version "7.2.4"
-  resolved "https://registry.npm.aiiko.club/protobufjs/-/protobufjs-7.2.4.tgz#3fc1ec0cdc89dd91aef9ba6037ba07408485c3ae"
-  integrity sha512-AT+RJgD2sH8phPmCf7OUZR8xGdcJRga4+1cOaXJ64hvcSkVhNcRHOwIxUatPH15+nj59WAGTDv3LSGZPEQbJaQ==
+protobufjs@^7.2.4:
+  version "7.2.5"
+  resolved "https://registry.npm.aiiko.club/protobufjs/-/protobufjs-7.2.5.tgz#45d5c57387a6d29a17aab6846dcc283f9b8e7f2d"
+  integrity sha512-gGXRSXvxQ7UiPgfw8gevrfRWcTlSbOFg+p/N+JVJEK5VhueL2miT6qTymqAmjr1Q5WbOCyJbyrk6JfWKwlFn6A==
   dependencies:
     "@protobufjs/aspromise" "^1.1.2"
     "@protobufjs/base64" "^1.1.2"
@@ -961,7 +950,7 @@ regexp.prototype.flags@^1.2.0:
 require-directory@^2.1.1:
   version "2.1.1"
   resolved "https://registry.npm.aiiko.club/require-directory/-/require-directory-2.1.1.tgz#8c64ad5fd30dab1c976e2344ffe7f792a6a6df42"
-  integrity sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==
+  integrity sha1-jGStX9MNqxyXbiNE/+f3kqam30I=
 
 resolve-cwd@^3.0.0:
   version "3.0.0"
@@ -976,11 +965,11 @@ resolve-from@^5.0.0:
   integrity sha512-qYg9KP24dD5qka9J47d0aVky0N+b4fTU89LN9iDnjB5waksiC49rvMB0PrUJQGoTmH50XPiqOvAjDfaijGxYZw==
 
 resolve@^1.9.0:
-  version "1.22.3"
-  resolved "https://registry.npm.aiiko.club/resolve/-/resolve-1.22.3.tgz#4b4055349ffb962600972da1fdc33c46a4eb3283"
-  integrity sha512-P8ur/gp/AmbEzjr729bZnLjXK5Z+4P0zhIJgBgzqRih7hL7BOukHGtSTA3ACMY467GRFz3duQsi0bDZdR7DKdw==
+  version "1.22.4"
+  resolved "https://registry.npm.aiiko.club/resolve/-/resolve-1.22.4.tgz#1dc40df46554cdaf8948a486a10f6ba1e2026c34"
+  integrity sha512-PXNdCiPqDqeUou+w1C2eTQbNfxKSuMxqTCuvlmmMsk1NWHL5fRrhY6Pl0qEYYc6+QqGClco1Qj8XnjPego4wfg==
   dependencies:
-    is-core-module "^2.12.0"
+    is-core-module "^2.13.0"
     path-parse "^1.0.7"
     supports-preserve-symlinks-flag "^1.0.0"
 
