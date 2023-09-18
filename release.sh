@@ -80,8 +80,8 @@ start() {
   # rm -rf $DIR/build/* | egrep -v "($DIR/build/*.tgz)"
   # ls ./build/* | egrep -v '(./build/saki-ui-v1.0.1.tgz)'
   # rm -rf `ls ./build/* | egrep -v '(./build/packages)'`
-  ./ssh.sh run
-  rm -rf build.tgz
+  # ./ssh.sh run
+  # rm -rf build.tgz
 }
 
 unzip() {

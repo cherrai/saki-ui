@@ -52,7 +52,7 @@ export class ScrollViewComponent {
   // Inherit 继承上一级的宽高
   @Prop() mode: "Inherit" | "Custom" | "Normal" | "Auto" = "Normal";
 
-  @Prop() scrollBar: "Default" | "Hover" | "Auto" = "Hover";
+  @Prop() scrollBar: "Default" | "Hover" | "Auto" | "Hidden" = "Hover";
 
   // 距离底部的偏移量
   @Prop() offsetY: number = 0;
@@ -85,7 +85,7 @@ export class ScrollViewComponent {
     this.mounted.emit();
   }
   componentDidLoad() {
-    // //console.log("componentDidLoad");
+    //console.log("componentDidLoad");
     // setTimeout(() => {
     this.init();
     switch (this.position) {
@@ -415,6 +415,7 @@ export class ScrollViewComponent {
   }
   getScrollHeight() {
     this.getScrollHeightDebounce.increase(() => {
+      console.log("---getScrollHeight---");
       const clientHeight =
         window.innerHeight ||
         document.documentElement.clientHeight ||
@@ -431,6 +432,11 @@ export class ScrollViewComponent {
       // //console.log((clientHeight - this.el.getBoundingClientRect().top) / 1);
       // //console.log(this.compEl);
       // console.log("line 103", this.compEl.getBoundingClientRect());
+      // console.log(
+      //   "compEl",
+      //   this.compEl,
+      //   (clientHeight - this.compEl.getBoundingClientRect().top) / 1 + "px"
+      // );
       if (this.compEl.getBoundingClientRect().top) {
         this.maxHeight =
           (clientHeight - this.compEl.getBoundingClientRect().top) / 1 + "px";
@@ -449,7 +455,7 @@ export class ScrollViewComponent {
         // this.scrolltobottom.emit();
       }
       // if(this.bottom)
-    }, 50);
+    }, 100);
   }
   // 普通模式
   scrollEvent() {
@@ -466,6 +472,27 @@ export class ScrollViewComponent {
     if (this.scrollDirection === "top") {
       this.isScrollToBottom = false;
     }
+    this.distanceToBorder.top = this.compEl["scrollTop"];
+    this.distanceToBorder.bottom =
+      this.compEl.scrollHeight -
+      this.compEl.clientHeight -
+      this.compEl["scrollTop"];
+
+    this.distancetoborder.emit(this.distanceToBorder);
+    if (this.distanceToBorder.bottom === 0) {
+      this.scrolltobottom.emit();
+    }
+    if (this.distanceToBorder.top === 0) {
+      this.scrolltotop.emit();
+    }
+    // }
+    // console.log(
+    //   this.compEl.scrollTop,
+    //   this.scrollBottom.getBoundingClientRect(),
+    //   clientHeight,
+    //   this.scrollBottom.getBoundingClientRect().bottom + this.offsetY <=
+    //     clientHeight
+    // );
     if (
       this.scrollBottom.getBoundingClientRect().bottom + this.offsetY <=
       clientHeight

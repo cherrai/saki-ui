@@ -29,6 +29,7 @@ export class ButtonComponent {
   @Prop({ mutable: true }) fontSize: string = "";
   @Prop({ mutable: true }) fontWeight: string = "";
   @Prop({ mutable: true }) color: string = "";
+  @Prop({ mutable: true }) boxShadow: string = "";
   // @Prop({ mutable: true }) hoverColor: string = "";
   // @Prop({ mutable: true }) activeColor: string = "";
   @Prop({ mutable: true }) disabled: boolean = false;
@@ -222,6 +223,7 @@ export class ButtonComponent {
             "width",
             "height",
             "borderRadius",
+            "boxShadow",
           ].reduce(
             (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
             {}

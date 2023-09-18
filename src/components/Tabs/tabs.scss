@@ -43,6 +43,7 @@
             height: 100%;
             cursor: pointer;
             color: #555;
+            -webkit-tap-highlight-color: transparent;
 
             white-space: nowrap;
 
@@ -52,7 +53,8 @@
             }
             &:hover {
               background-color: #ddd;
-            }
+              
+            } 
 
             &.active {
               color: var(--saki-default-color);

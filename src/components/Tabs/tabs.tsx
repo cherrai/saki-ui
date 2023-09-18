@@ -328,6 +328,7 @@ export class TabsComponent {
                     onClose={() => {
                       this.navMoreShowDropDown = false;
                     }}
+                    z-index={1200}
                   >
                     <div
                       class={"more-button"}

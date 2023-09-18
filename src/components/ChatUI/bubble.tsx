@@ -30,7 +30,7 @@ export class ChatBubbleComponent {
   @Prop() sendTime: number = 0;
   @Prop() previousMessageUid: string = "";
   @Prop() previousMessageSendTime: number = 0;
-  @Prop() previousMessageType: typeof this["type"] | "" = "";
+  @Prop() previousMessageType: (typeof this)["type"] | "" = "";
 
   // 1 success
   // 0 sending

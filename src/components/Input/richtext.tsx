@@ -275,7 +275,7 @@ export class RichTextComponent {
     // SpanBlock.blotName = "spanblock";
     // SpanBlock.tagName = "img";
     // Quill.register(SpanBlock);
-    console.log("rrrrrr", this.toolbarConfig);
+    // console.log("rrrrrr", this.toolbarConfig);
     this.quill = new Quill(this.editorEl, {
       theme: this.theme,
       modules: {
@@ -385,7 +385,8 @@ export class RichTextComponent {
         ctrlKey: true,
       },
       () => {
-        this.historyUndo();
+        console.log("historyUndo");
+        // this.historyUndo();
       }
     );
 
@@ -395,7 +396,8 @@ export class RichTextComponent {
         ctrlKey: true,
       },
       () => {
-        this.historyRedo();
+        console.log("historyRedo");
+        // this.historyRedo();
       }
     );
 

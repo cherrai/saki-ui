@@ -22,8 +22,15 @@ export class ModalHeaderComponent {
   @Prop() closeIcon: boolean = true;
   @Prop() backIcon: boolean = false;
   @Event() tap: EventEmitter;
-  @Event() close: EventEmitter;
-  @Event() back: EventEmitter;
+  @Event({
+    bubbles: false,
+  })
+  close: EventEmitter;
+  @Event({
+    bubbles: false,
+    composed: false,
+  })
+  back: EventEmitter;
   @Element() el: HTMLElement;
   componentDidLoad() {}
   render() {
