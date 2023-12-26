@@ -1,4 +1,11 @@
-import { Component, Element, Event, EventEmitter, h } from "@stencil/core";
+import {
+  Component,
+  Element,
+  Event,
+  EventEmitter,
+  h,
+} from "@stencil/core";
+import { initSakiUIMethods } from "../../modules/methods";
 
 @Component({
   tag: "saki-init",
@@ -12,7 +19,8 @@ export class SakiInitComponent {
   inputValue() {}
   componentWillLoad() {}
   componentDidLoad() {
-    this.mounted.emit()
+    initSakiUIMethods()
+    this.mounted.emit();
   }
   render() {
     return <div class={"saki-init"}></div>;

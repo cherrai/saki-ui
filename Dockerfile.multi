@@ -22,11 +22,17 @@ COPY --from=BUILD_IMAGE \
 
 RUN \ 
   cp -r /dist/saki-ui/ / && \
+  cp -r /dist/react/ /saki-ui-react/ && \
+  cp -r /dist/types/ /saki-ui-react/ && \
   tar cpvzf /dist/saki-ui.tgz /saki-ui/ && \
+  tar cpvzf /dist/saki-ui-react.tgz /saki-ui-react && \
+  # yarn global add spa-http-server --registry https://registry.npmmirror.com/ && \
   rm -rf /saki-ui && \
-  yarn global add spa-http-server --registry https://registry.npmmirror.com/
+  rm -rf /saki-ui-react 
 
 EXPOSE 32300
 
-CMD ["http-server","./dist","--cors","--silent","-p","32300","--push-state"]
+
+CMD ["pwd"]
+# CMD ["http-server","./dist","--cors","--silent","-p","23300"]
 

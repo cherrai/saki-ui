@@ -2,6 +2,13 @@
 # yarn lockfile v1
 
 
+"@babel/runtime@^7.23.2":
+  version "7.23.6"
+  resolved "https://registry.npmmirror.com/@babel/runtime/-/runtime-7.23.6.tgz#c05e610dc228855dc92ef1b53d07389ed8ab521d"
+  integrity sha512-zHd0eUrf5GZoOWVCXp6koAKQTfZV07eit6bGPmJgnZdnSAvvZee6zniW2XMF7Cmc4ISOOnPy3QaSiIJGJkVEDQ==
+  dependencies:
+    regenerator-runtime "^0.14.0"
+
 "@discoveryjs/json-ext@^0.5.0":
   version "0.5.7"
   resolved "https://registry.npm.aiiko.club/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz#1d572bfbbe14b7704e0ba0f39b74815b84870d70"
@@ -115,15 +122,20 @@
   resolved "https://registry.npmmirror.com/@stencil/core/-/core-2.22.3.tgz#83987e20bba855c450f6d6780e3a20192603f13f"
   integrity sha512-kmVA0M/HojwsfkeHsifvHVIYe4l5tin7J5+DLgtl8h6WWfiMClND5K3ifCXXI2ETDNKiEk21p6jql3Fx9o2rng==
 
-"@stencil/react-output-target@0.0.9":
-  version "0.0.9"
-  resolved "https://registry.npmmirror.com/@stencil/react-output-target/-/react-output-target-0.0.9.tgz#b225611c5743f0285c37d92bb47d9369ba462c54"
-  integrity sha512-t2sSkm/VGftBqewK47eZonaHIXW7CYWlsDy6Ln4jqNVpr93CuPWkg7rsnPiZrJrU1NBuTgA0hC2xoRcAJVm7Sw==
+"@stencil/react-output-target@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.npmmirror.com/@stencil/react-output-target/-/react-output-target-0.5.3.tgz#2a7186b7ba6c8721f92f4200e414b70854030d79"
+  integrity sha512-68jwRp35CjAcwhTJ9yFD/3n+jrHOqvEH2jreVuPVvZK+4tkhPlYlwz0d1E1RlF3jyifUSfdkWUGgXIEy8Fo3yw==
 
 "@stencil/sass@^1.3.2":
   version "1.5.2"
   resolved "https://registry.npmmirror.com/@stencil/sass/-/sass-1.5.2.tgz#861dffe90a8d911b6b2af4a36d8928b5264a8646"
   integrity sha512-nJ93pUSylsGsMX0eLmhxh1oEljcUjj5mYjhB9ziCdoaydAdjukrUoqDCC7tdVbOcBo2hKptQyWqCtETnBGYsXQ==
+
+"@stencil/store@^2.0.12":
+  version "2.0.12"
+  resolved "https://registry.npmmirror.com/@stencil/store/-/store-2.0.12.tgz#be3857393f876dda09677b7ea22ed349180ebf48"
+  integrity sha512-KVO+fRDIchPQ/nZi+XEVTsmW6wtYgizMzv9eVyjlRGX0JpMAp0rpjBvh8LyLJCkrnOhGD7f3Xr6TngMIagBxtQ==
 
 "@types/crypto-js@^4.1.1":
   version "4.1.1"
@@ -142,6 +154,11 @@
   dependencies:
     parchment "^1.1.2"
     quill-delta "^4.0.1"
+
+"@types/sortablejs@^1.15.5":
+  version "1.15.5"
+  resolved "https://registry.npmmirror.com/@types/sortablejs/-/sortablejs-1.15.5.tgz#c59e51765bc53c920192de0d0202f75b7ce4cb3f"
+  integrity sha512-qqqbEFbB1EZt08I1Ok2BA3Sx0zlI8oizdIguMsajk4Yo/iHgXhCb3GM6N09JOJqT9xIMYM9LTFy8vit3RNY71Q==
 
 "@webpack-cli/configtest@^1.2.0":
   version "1.2.0"
@@ -596,6 +613,13 @@ has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
+i18next@^23.7.11:
+  version "23.7.11"
+  resolved "https://registry.npmmirror.com/i18next/-/i18next-23.7.11.tgz#ee4dfa58f9b27807ebf57d7c33a6c4a0bb4bf7c8"
+  integrity sha512-A/vOkw8vY99YHU9A1Td3I1dcTiYaPnwBWzrpVzfXUXSYgogK3cmBcmop/0cnXPc6QpUWIyqaugKNxRUEZVk9Nw==
+  dependencies:
+    "@babel/runtime" "^7.23.2"
+
 ieee754@^1.2.1:
   version "1.2.1"
   resolved "https://registry.npmmirror.com/ieee754/-/ieee754-1.2.1.tgz#8eb7a10a63fff25d15a57b001586d177d1b0d352"
@@ -937,6 +961,11 @@ rechoir@^0.7.0:
   integrity sha512-/njmZ8s1wVeR6pjTZ+0nCnv8SpZNRMT2D1RLOJQESlYFDBvwpTA4KWJpZ+sBJ4+vhjILRcK7JIFdGCdxEAAitg==
   dependencies:
     resolve "^1.9.0"
+
+regenerator-runtime@^0.14.0:
+  version "0.14.1"
+  resolved "https://registry.npmmirror.com/regenerator-runtime/-/regenerator-runtime-0.14.1.tgz#356ade10263f685dda125100cd862c1db895327f"
+  integrity sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==
 
 regexp.prototype.flags@^1.2.0:
   version "1.5.0"

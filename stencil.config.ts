@@ -1,5 +1,6 @@
 import { Config } from "@stencil/core";
 import { sass } from "@stencil/sass";
+import { reactOutputTarget } from "@stencil/react-output-target";
 // import { reactOutputTarget } from "@stencil/react-output-target";
 
 // export const prefix = "meow";
@@ -55,5 +56,11 @@ export const config: Config = {
       type: "www",
       serviceWorker: null, // disable service workers
     },
+    reactOutputTarget({
+      componentCorePackage: "../types/components",
+      proxiesFile: "./dist/react/index.ts",
+      // includePolyfills: true,
+      // loaderDir:"./loader"
+    }),
   ],
 };

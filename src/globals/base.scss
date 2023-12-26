@@ -47,7 +47,7 @@ html {
   --saki-button-loading-color: #5ec9f0;
   --saki-button-loading-border-color: #f3f3f3;
 
-  --saki-button-normal-bg-color: #f29cb2;
+  --saki-button-normal-bg-color: var(-saki-default-color);
   --saki-button-normal-bg-hover-color: #f1f3f4;
   --saki-button-normal-bg-active-color: #ddd;
 
@@ -58,7 +58,7 @@ html {
 	--saki-button-normal-active-color: #ccc; */
 
   // Chat Dialog
-  --saki-chat-dialog-right-border-color: #f29cb2;
+  --saki-chat-dialog-right-border-color: var(-saki-default-color);
   --saki-chat-dialog-bg-color: #fff;
   --saki-chat-dialog-bg-hover-color: #f1f3f4;
   --saki-chat-dialog-bg-active-color: #ddd;
@@ -249,3 +249,7 @@ a {
 
   // }
 }
+
+// @media (hover:none) {
+//   background-color:transparent;
+// }

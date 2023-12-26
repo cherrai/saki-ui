@@ -93,7 +93,7 @@ export class DialogAlertComponent {
               {this.cancelText ? (
                 <saki-button
                   margin="0 4px"
-                  width={this.flexButton ? "auto" : "80px"}
+                  width={this.flexButton ? "auto" : "auto"}
                   height="30px"
                   font-size="13px"
                   border="1px solid #eee"
@@ -112,7 +112,7 @@ export class DialogAlertComponent {
               {this.confirmText ? (
                 <saki-button
                   margin="0 4px"
-                  width={this.flexButton ? "auto" : "80px"}
+                  width={this.flexButton ? "auto" : "auto"}
                   height="30px"
                   font-size="13px"
                   onTap={() => {

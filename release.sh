@@ -4,7 +4,7 @@ port=32300
 version="v1.0.0"
 branch="main"
 DIR=$(cd $(dirname $0) && pwd)
-allowMethods=("zip unzip removeBuildFile copyFile protos stop npmconfig install gitpull dockerremove start logs")
+allowMethods=("copyReactTypes buildReactTargetDir zip unzip removeBuildFile copyFile protos stop npmconfig install gitpull dockerremove start logs")
 
 gitpull() {
   echo "-> 正在拉取远程仓库"
@@ -25,6 +25,8 @@ copyFile() {
   cp -r node_modules/quill/dist/quill.bubble.css ./dist/saki-ui/css
   cp -r src/globals/cropper.css ./dist/saki-ui/css
   cp -r src/globals/base.css ./dist/saki-ui/css
+  cp -r src/globals/interaction.css ./www/build/css
+  cp -r src/globals/common.css ./www/build/css
 
   mkdir -p ./www/build/css
   cp -r node_modules/quill/dist/quill.core.css ./www/build/css
@@ -32,6 +34,21 @@ copyFile() {
   cp -r node_modules/quill/dist/quill.bubble.css ./www/build/css
   cp -r src/globals/cropper.css ./www/build/css
   cp -r src/globals/base.css ./www/build/css
+  cp -r src/globals/interaction.css ./www/build/css
+  cp -r src/globals/common.css ./www/build/css
+}
+
+copyReactTypes() {
+  cp -r ./dist/types ./dist/saki-ui-react
+}
+
+buildReactTargetDir() {
+  targetDir="../../game/killer-sudoku-nya/components"
+  yarn build
+  # echo $targetDir"/saki-ui-react"
+
+  rm -r $targetDir"/saki-ui-react"
+  cp -r ./dist/saki-ui-react $targetDir
 }
 
 start() {
@@ -73,7 +90,10 @@ start() {
   echo "-> 整理文件资源"
   removeLocalFile
   docker cp $name:/dist/. $DIR/build
+  rm -rf $DIR/build/saki-ui-react/types/
+  mkdir -p $DIR/build/packages
   mv $DIR/build/saki-ui.tgz $DIR/build/packages/$name-$version.tgz
+  mv $DIR/build/saki-ui-react.tgz $DIR/build/packages/$name-react-$version.tgz
   zip
   stop
 

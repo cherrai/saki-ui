@@ -7,6 +7,7 @@ import {
   Method,
   Prop,
   State,
+  Watch,
 } from "@stencil/core";
 import { MD5 } from "crypto-js";
 import Sortable from "sortablejs";
@@ -58,7 +59,7 @@ export class DragSortComponent {
     // id: string;
   }[] = [];
 
-  @Prop() dragged: boolean = false;
+  @Prop() sort: boolean = true;
 
   @Prop() direction: "Top" | "Bottom" = "Bottom";
   @Prop() padding: string = "6px 0";
@@ -66,6 +67,22 @@ export class DragSortComponent {
   @Event() selectvalue: EventEmitter;
   @Event() dragdone: EventEmitter;
   @Element() el: HTMLElement;
+
+  @Watch("sort")
+  watchSort() {
+    // console.log("sortttt watch", this.sortable, this.sort);
+    if (this.sort) {
+      if (!this.sortable) {
+        this.initSortable();
+        return;
+      }
+      return;
+    }
+    if (this.sortable) {
+      this.sortable.destroy();
+      this.sortable = null;
+    }
+  }
 
   // @Method()
   // async dragTo(el: HTMLSakiMenuItemElement) {
@@ -76,7 +93,7 @@ export class DragSortComponent {
   }
   componentDidLoad() {
     // const observer = new MutationObserver(this.watchDom.bind(this));
-    this.watchDom();
+    this.initSortable();
     // 以上述配置开始观察目标节点
     // observer.observe(this.el, {
     //   attributes: false,
@@ -104,76 +121,82 @@ export class DragSortComponent {
   async setDraggingELement(v: HTMLSakiDragSortItemElement) {
     DragSortComponent.draggingELement = v;
   }
-  watchDom() {
+
+  initSortable() {
     // console.log("this.el", this.el);
     // .querySelector(".sortttt")
     // this.sortable && this.sortable.destroy();
 
-    this.sortable = new Sortable(this.el, {
-      animation: 150,
-      sort: true,
-      ghostClass: "saki-drag-sort-active-class",
-      // 元素被选中
-      // onChoose: function (/**Event*/ evt) {
-      //   // evt.oldIndex; // 父元素索引
-      //   console.log("onChoose", evt);
-      // },
+    if (this.sort) {
+      this.sortable = new Sortable(this.el, {
+        animation: 150,
+        sort: true,
+        ghostClass: "saki-drag-sort-active-class",
+        // 元素被选中
+        // onChoose: function (/**Event*/ evt) {
+        //   // evt.oldIndex; // 父元素索引
+        //   console.log("onChoose", evt);
+        // },
 
-      // // 元素未被选中的时候（从选中到未选中）
-      // onUnchoose: function (/**Event*/ evt) {
-      //   // 与onEnd相同的属性
-      //   // evt.oldIndex; // 父元素索引
-      //   console.log("onUnchoose", evt);
-      // },
+        // // 元素未被选中的时候（从选中到未选中）
+        // onUnchoose: function (/**Event*/ evt) {
+        //   // 与onEnd相同的属性
+        //   // evt.oldIndex; // 父元素索引
+        //   console.log("onUnchoose", evt);
+        // },
 
-      // // 开始拖拽的时候
-      // onStart: function (/**Event*/ evt) {
-      //   evt.oldIndex; // 父元素索引onStart
-      //   console.log("onStart", evt);
-      // },
+        // // 开始拖拽的时候
+        // onStart: function (/**Event*/ evt) {
+        //   evt.oldIndex; // 父元素索引onStart
+        //   console.log("onStart", evt);
+        // },
 
-      // 结束拖拽
-      onEnd: (e) => {
-        // var itemEl = evt.item; // dragged HTMLElement
-        // evt.to; // target list
-        // evt.from; // previous list
-        // evt.oldIndex; // 元素在旧父元素中的旧索引
-        // evt.newIndex; // 元素在新父元素中的新索引
-        // evt.clone; // the clone element
-        // evt.pullMode; // 当项目在另一个可排序:“克隆”如果克隆，“真”如果移动
-        // console.log("onEnd", e);
-        // console.log("onEnd", e.to);
-        // console.log("onEnd", e.from);
-        // console.log("onEnd", e.item);
-        // console.log("onEnd", evt.oldIndex);
-        // console.log("onEnd", evt.newIndex);
-        this.dragdone.emit({
-          originalIndex: e.oldIndex,
-          targetIndex: e.newIndex,
-        });
-      },
+        // 结束拖拽
+        onEnd: (e) => {
+          // var itemEl = evt.item; // dragged HTMLElement
+          // evt.to; // target list
+          // evt.from; // previous list
+          // evt.oldIndex; // 元素在旧父元素中的旧索引
+          // evt.newIndex; // 元素在新父元素中的新索引
+          // evt.clone; // the clone element
+          // evt.pullMode; // 当项目在另一个可排序:“克隆”如果克隆，“真”如果移动
+          // console.log("onEnd", e);
+          // console.log("onEnd", e.to);
+          // console.log("onEnd", e.from);
+          // console.log("onEnd", e.item);
+          // console.log("onEnd", evt.oldIndex);
+          // console.log("onEnd", evt.newIndex);
+          this.dragdone.emit({
+            originalIndex: e.oldIndex,
+            targetIndex: e.newIndex,
+          });
+        },
 
-      // // 元素从一个列表拖拽到另一个列表
-      // onAdd: function (/**Event*/ evt) {
-      //   // 与onEnd相同的属性
-      // },
+        // // 元素从一个列表拖拽到另一个列表
+        // onAdd: function (/**Event*/ evt) {
+        //   // 与onEnd相同的属性
+        // },
 
-      // // 列表内元素顺序更新的时候触发
-      // onUpdate: function (/**Event*/ evt) {
-      //   // 与onEnd相同的属性
-      // },
+        // // 列表内元素顺序更新的时候触发
+        // onUpdate: function (/**Event*/ evt) {
+        //   // 与onEnd相同的属性
+        // },
 
-      // // 列表的任何更改都会触发
-      // onSort: function (/**Event*/ evt) {
-      //   // 与onEnd相同的属性
-      //   console.log("onSort", evt);
-      // },
+        // // 列表的任何更改都会触发
+        // onSort: function (/**Event*/ evt) {
+        //   // 与onEnd相同的属性
+        //   console.log("onSort", evt);
+        // },
 
-      // // 元素从列表中移除进入另一个列表
-      // onRemove: function (/**Event*/ evt) {
-      //   // 与onEnd相同的属性
-      // },
-    });
+        // // 元素从列表中移除进入另一个列表
+        // onRemove: function (/**Event*/ evt) {
+        //   // 与onEnd相同的属性
+        // },
+      });
+      // console.log("sortttt", this.sortable, this.sort);
+    }
+    // this.sortable.destroy()
+
     // console.log(this.sortable);
     // console.log(sortable.destroy());
     // const list: NodeListOf<HTMLSakiDragSortItemElement> =
@@ -203,6 +226,7 @@ export class DragSortComponent {
     //   };
     // });
   }
+
   getY(activeIndex: number) {
     // console.log(tempSorts, activeIndex);
     let top = this.rectList[0].rect.top;

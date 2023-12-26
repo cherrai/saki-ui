@@ -14,7 +14,7 @@ export class LinearProgressBarComponent {
   @Prop() progress: number = 0;
   @Prop() trackColor: string = "#eee";
   @Prop() color: string = "var(--saki-default-color)";
-  @Prop() transition: string = "width 0.5s";
+  @Prop() transition: string = "width 0.5s linear 0s";
   @Event() loaded: EventEmitter;
   @Event() transitionEnd: EventEmitter;
   componentDidLoad() {

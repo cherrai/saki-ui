@@ -29,6 +29,8 @@ export class MenuItemComponent {
   @Prop() fontSize: string = "";
   @Prop() borderRadius: string = "";
   @Prop() color: string = "";
+  @Prop() minWidth: string = "";
+  @Prop() maxWidth: string = "";
   @Prop() margin: string = "";
   @Prop() border: string = "";
   @Prop() borderLeft: string = "";
@@ -83,6 +85,8 @@ export class MenuItemComponent {
               "borderRight",
               "borderTop",
               "borderBottom",
+              "minWidth",
+              "maxWidth",
             ].reduce(
               (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
               {}

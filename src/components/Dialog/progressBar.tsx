@@ -18,6 +18,8 @@ export class DialogProgressBarComponent {
   @Prop() minWidth: string = "";
   @Prop() width: string = "100%";
   @Prop() progress: number = 0;
+  // ms
+  @Prop() delay: number = 500;
   @Prop() tipText: string = "";
   @Prop() tipColor: string = "";
   @State() visible: boolean = false;
@@ -37,8 +39,7 @@ export class DialogProgressBarComponent {
     this.visible = false;
     this.closeFunc.emit();
   }
-  componentWillLoad() {
-  }
+  componentWillLoad() {}
   componentDidLoad() {}
   render() {
     return (
@@ -61,6 +62,10 @@ export class DialogProgressBarComponent {
             width="100%"
             height="14px"
             borderRadius="7px"
+            transition={"width " + this.delay / 1000 + "s linear 0s"}
+            // onTransitionEnd={() => {
+            //   console.log("end");
+            // }}
           ></saki-linear-progress-bar>
           <div
             style={{

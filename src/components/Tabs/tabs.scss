@@ -1,8 +1,10 @@
+@import "../../globals/interaction.scss";
 .saki-tabs-component {
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+
   &.full {
     width: 100%;
     height: 100%;
@@ -43,18 +45,11 @@
             height: 100%;
             cursor: pointer;
             color: #555;
-            -webkit-tap-highlight-color: transparent;
 
             white-space: nowrap;
-
             transition: background-color 0.3s;
-            &:hover {
-              background-color: #eee;
-            }
-            &:hover {
-              background-color: #ddd;
-              
-            } 
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
 
             &.active {
               color: var(--saki-default-color);
@@ -75,12 +70,8 @@
               fill: #666;
             }
             transition: background-color 0.3s;
-            &:hover {
-              background-color: #eee;
-            }
-            &:hover {
-              background-color: #ddd;
-            }
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
           }
         }
         .nav-line {
@@ -173,9 +164,8 @@
           border-radius: 4px;
           position: relative;
           margin-right: 4px;
-          &:hover {
-            background-color: #eee;
-          }
+          -webkit-tap-highlight-color: transparent;
+          user-select: none;
           &.borderBottom {
             border-bottom: 1px solid var(--saki-default-color);
           }

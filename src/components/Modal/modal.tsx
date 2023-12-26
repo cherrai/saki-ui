@@ -122,7 +122,7 @@ export class ModalComponent {
             }}
             style={{
               backgroundColor: this.maskBackgroundColor,
-              zIndex: String(this.zIndex - 1),
+              zIndex: String(this.zIndex),
             }}
             class={"model-bg " + (this.isAddVisibleClass ? "visible" : "")}
           ></div>
@@ -147,18 +147,18 @@ export class ModalComponent {
               (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
               {}
             ),
-            zIndex: String(this.zIndex),
+            zIndex: String(this.zIndex + 1),
           }}
           ref={(e) => {
             this.contentEl = e;
           }}
           onTransitionEnd={() => {
             if (this.closing) {
-              console.log(
-                "onTransitionEnd",
-                document.body.contains(this.modalEl),
-                this.modalEl
-              );
+              // console.log(
+              //   "onTransitionEnd",
+              //   document.body.contains(this.modalEl),
+              //   this.modalEl
+              // );
             }
             if (this.closing && document.body.contains(this.modalEl)) {
               this.visibleStyle = false;

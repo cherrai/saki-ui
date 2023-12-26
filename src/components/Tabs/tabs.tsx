@@ -184,9 +184,17 @@ export class TabsComponent {
       this.itemList[index] = {
         ...this.itemList[index],
         width: v.offsetWidth,
-        dropdown: wObj[index] - this.navEl.offsetWidth >= -100,
+        dropdown: wObj[index] - this.navEl.offsetWidth >= -80,
         left: wObj[index],
       };
+
+      // console.log(
+      //   "initNavRef",
+      //   wObj[index],
+      //   v.offsetWidth,
+      //   this.navEl.offsetWidth,
+      //   this.itemList[index]
+      // );
 
       // console.log(this.itemList[index].dropdown)
 
@@ -310,7 +318,7 @@ export class TabsComponent {
                         data-a={this.dropdownStartIndex}
                         data-ai={this.activeIndex}
                         data-aii={i}
-                        class={"nav-item "}
+                        class={"nav-item hover-background-color-eee"}
                         key={i}
                       >
                         <span>{v.name}</span>
@@ -331,7 +339,7 @@ export class TabsComponent {
                     z-index={1200}
                   >
                     <div
-                      class={"more-button"}
+                      class={"more-button hover-background-color-eee"}
                       onClick={() => {
                         this.navMoreShowDropDown = !this.navMoreShowDropDown;
                       }}
@@ -491,7 +499,7 @@ export class TabsComponent {
                         fontWeight: item.fontWeight || "500",
                       }}
                       class={
-                        "nav-item " +
+                        "nav-item hover-background-color-eee " +
                         (item.borderBottom ? "borderBottom " : "") +
                         (this.activeIndex === index ? "active " : "")
                       }
