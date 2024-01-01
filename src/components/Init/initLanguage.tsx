@@ -33,7 +33,7 @@ export class SakiInitLanguageComponent {
   }
   componentWillLoad() {}
   componentDidLoad() {
-    console.log("componentDidLoad");
+    // console.log("componentDidLoad");
     state.language = this.language;
     state.lang = this.lang;
   }
@@ -46,7 +46,7 @@ export class SakiInitLanguageComponent {
       };
     }
   ) {
-    console.log("initLanguage", languages, resources);
+    // console.log("initLanguage", languages, resources);
     state.languages = languages;
     state.resources = resources;
     state.updateTime = new Date().getTime();

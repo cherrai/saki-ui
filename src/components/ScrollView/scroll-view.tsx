@@ -98,7 +98,7 @@ export class ScrollViewComponent {
         //   this.scrollBottom.getBoundingClientRect(),
         //   this.compEl.scrollHeight
         // );
-        this.scrollTo("bottom");
+        this.scrollto("bottom");
         break;
 
       default:
@@ -127,7 +127,7 @@ export class ScrollViewComponent {
 
   // watchTimeout -> 监听dom多久
   @Method()
-  async scrollTo(v: string, options?: { watchTimeout: number }) {
+  async scrollto(v: string, options?: { watchTimeout: number }) {
     console.log("滚动到 =>", v, this.mode);
     switch (v) {
       case "top":

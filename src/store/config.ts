@@ -1,10 +1,9 @@
 import { onChange, state } from "./";
-import i18n, { initI18n} from "../modules/i18n";
+import i18n, { initI18n } from "../modules/i18n";
 // import { storage } from "./storage";
 
 export const initConfig = () => {
   onChange("language", (v) => {
-    console.log("onchange,lang", v);
     state.language = v;
     if (v === "system") {
       if (state.languages.indexOf(navigator.language) >= 0) {
@@ -17,6 +16,9 @@ export const initConfig = () => {
           case "en":
             state.lang = "en-US";
             break;
+          case "ja":
+            state.lang = "ja-JP";
+            break;
 
           default:
             state.lang = "en-US";
@@ -26,7 +28,8 @@ export const initConfig = () => {
     } else {
       state.lang = v;
     }
-    i18n.changeLanguage(state.lang);
+    initI18n();
+    state.initI18n && i18n.changeLanguage(state.lang);
   });
   onChange("resources", (v) => {
     v && initI18n();

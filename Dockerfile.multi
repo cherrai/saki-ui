@@ -22,8 +22,9 @@ COPY --from=BUILD_IMAGE \
 
 RUN \ 
   cp -r /dist/saki-ui/ / && \
-  cp -r /dist/react/ /saki-ui-react/ && \
-  cp -r /dist/types/ /saki-ui-react/ && \
+  mkdir -p /saki-ui-react && \
+  cp -r /dist/react/ /saki-ui-react/components/ && \
+  cp -r /dist/types/ /saki-ui-react/types/ && \
   tar cpvzf /dist/saki-ui.tgz /saki-ui/ && \
   tar cpvzf /dist/saki-ui-react.tgz /saki-ui-react && \
   # yarn global add spa-http-server --registry https://registry.npmmirror.com/ && \

@@ -2,7 +2,8 @@ import i18n from "i18next";
 import state from "../store";
 
 export const initI18n = () => {
-  console.log(state.resources, state.lang);
+
+  if (state.initI18n || !Object.keys(state.resources).length) return;
   i18n.init({
     resources: state.resources,
     ns: ["common"],
@@ -18,10 +19,10 @@ export const initI18n = () => {
       escapeValue: false, // react already safes from xss
     },
   });
-  console.log("i18n", i18n);
   if (state.lang) {
     i18n.changeLanguage(state.lang);
   }
+  state.initI18n = true;
 };
 export const t = i18n.t;
 

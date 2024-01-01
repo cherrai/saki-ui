@@ -13,7 +13,7 @@ import {
 import Quill, { RangeStatic } from "quill";
 // import Keyboard from "quill/modules/keyboard";
 
-type KeyEvent = "NewLine" | "Submit" | "";
+export type KeyEvent = "NewLine" | "Submit" | "";
 
 @Component({
   tag: "saki-richtext",

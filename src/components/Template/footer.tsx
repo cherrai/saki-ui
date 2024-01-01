@@ -11,7 +11,7 @@ import { t } from "../../modules/i18n";
 import state from "../../store";
 
 @Component({
-  tag: "saki-footer",
+  tag: "saki-template-footer",
   styleUrl: "template.scss",
   shadow: false,
 })
@@ -21,7 +21,7 @@ export class TemplateFooterComponent {
   @Prop() width = "";
   @Prop() height = "";
 
-  @Prop() appTitle = false;
+  @Prop() appTitle = "";
   @Prop() appLink = "/";
 
   @Prop() github = false;
@@ -210,46 +210,50 @@ export class TemplateFooterComponent {
           </div>
         </div>
         <div class="f-right">
-          <div class="f-r-copyright">
-            <span>{"© " + new Date().getFullYear() + " "}</span>
-          </div>
+          <span class="f-r-copyright">
+            {"© " + new Date().getFullYear() + " "}
+          </span>
 
-          <div class={"f-r-link"}>
-            {this.appTitle ? (
-              <div class={"f-r-item"}>
-                <a target="_blank" href={this.appLink}>
-                  {t("appTitle", {
+          {this.appTitle ||
+          t("appTitle", {
+            ns: "common",
+          }) ? (
+            <div class={"f-r-link"}>
+              <a target="_blank" class={"f-r-link"} href={this.appLink}>
+                {this.appTitle ||
+                  t("appTitle", {
                     ns: "common",
                   })}
-                </a>
-              </div>
-            ) : (
-              ""
-            )}
+              </a>
+            </div>
+          ) : (
+            ""
+          )}
 
-            {this.github ? (
-              <div class={"f-r-item"}>
-                <a target="_blank" href={this.githubLink}>
-                  {/* {t('aiikoBlog', {
+          {this.github ? (
+            <div class={"f-r-link"}>
+              <span>-</span>
+              <a target="_blank" class={"f-r-link"} href={this.githubLink}>
+                {/* {t('aiikoBlog', {
                        ns: 'common',
                      })} */}
-                  {this.githubText}
-                </a>
-              </div>
-            ) : (
-              ""
-            )}
+                {this.githubText}
+              </a>
+            </div>
+          ) : (
+            ""
+          )}
 
-            {this.blog ? (
-              <div class={"f-r-item"}>
-                <a target="_blank" href={this.blogLink}>
-                  {this.blogText}
-                </a>
-              </div>
-            ) : (
-              ""
-            )}
-          </div>
+          {this.blog ? (
+            <div class={"f-r-link"}>
+              <span>-</span>
+              <a target="_blank" href={this.blogLink}>
+                {this.blogText}
+              </a>
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     );

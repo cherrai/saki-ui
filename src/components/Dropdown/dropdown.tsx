@@ -44,7 +44,9 @@ export class DropdownComponent {
 
   @Event() tap: EventEmitter;
   @Event() open: EventEmitter;
-  @Event() close: EventEmitter;
+  @Event()
+  close: EventEmitter;
+  // @Event() close1: EventEmitter;
   @Element() el: HTMLElement;
   @Watch("visible")
   watchVisibleFunc() {
@@ -64,7 +66,9 @@ export class DropdownComponent {
         this.open.emit();
       }
     } else {
+      // console.log("this.close");
       this.close.emit();
+      // this.close1.emit();
       this.isAddVisibleClass = false;
       // this.left = -9999;
       // this.top = -9999;

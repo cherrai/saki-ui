@@ -1,7 +1,77 @@
 .saki-header-component {
-  width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  border: 1px solid #eee;
+
+  &.fixed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 500;
+    background-color: rgba(255, 255, 255, 0.6);
+    transition: top 0.3s;
+    &.hide {
+      top: -50px;
+    }
+  }
+  &.show {
+  }
+  &.hide {
+    display: none;
+  }
+
+  .tb-h-left {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 0 0 10px;
+  }
+  .tb-h-center {
+  }
+  .tb-h-right {
+    padding: 0 10px 0 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    .tb-h-r-generating {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+  }
+}
+
+.saki-menu-dropdown-component {
+  .md-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 7px 0;
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 18px;
+      color: #555;
+      @media (max-width: 600px) {
+        font-size: 14px;
+      }
+    }
+    .icon {
+      width: 12px;
+      height: 12px;
+      margin-left: 10px;
+      fill: #999;
+      transition: all 0.3s;
+      &.active {
+        transform: rotate(180deg);
+      }
+    }
+  }
 }
 
 .saki-footer-component {
@@ -34,26 +104,27 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    flex-wrap: wrap;
     .f-r-copyright {
       font-size: 12px;
     }
     .f-r-link {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      .f-r-item {
-        &:nth-child(1) {
-          margin-left: 6px;
-        }
-        &:nth-child(n + 2) {
-          &::before {
-            content: "-";
-            margin: 0 6px;
-          }
-        }
-        font-size: 12px;
+      display: inline-block;
+      // justify-content: flex-end;
+      // align-items: center;
+      font-size: 12px;
+      &:nth-child(1) {
+        margin-left: 4px;
       }
-
+      // &:nth-child(n + 2) {
+      //   &::before {
+      //     content: "-";
+      //     margin: 0 4px;
+      //   }
+      // }
+      span {
+        margin: 0 4px;
+      }
       a {
         color: #000;
         &:hover {

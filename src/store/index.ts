@@ -10,6 +10,7 @@ export const { state, onChange } = createStore({
     color: string;
   }[],
 
+  initI18n: false,
   language: "",
   lang: "",
   languages: ["system"],

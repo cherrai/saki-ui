@@ -1,6 +1,6 @@
 {
   "name": "saki-ui",
-  "version":"1.0.0",
+  "version":"1.0.1",
   "description": "Stencil Component Starter",
   "main": "dist/index.cjs.js",
   "module": "dist/custom-elements/index.js",
@@ -18,7 +18,7 @@
     "buildScss": "sass src/globals:src/globals && sass src/components/Avatar/cropper.scss:src/globals/cropper.css",
     "copyFile": "chmod u+x ./release.sh && ./release.sh copyFile",
     "copyConfig": "cp -r ./config.ts ./src/config-temp.ts",
-    "build": "cp -r ./config.ts ./src/config-temp.ts && stencil build --docs && yarn copyFile && ./release.sh copyReactTypes",
+    "build": "cp -r ./config.ts ./src/config-temp.ts && stencil build --docs && yarn copyFile",
     "dev": "cp -r ./config.ts ./src/config-temp.ts && stencil build --dev --watch --serve",
     "test": "stencil test --spec --e2e",
     "start": "node ./app.js --port 32300",

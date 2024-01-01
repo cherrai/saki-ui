@@ -1,7 +1,7 @@
 #! /bin/bash
 name="saki-ui"
 port=32300
-version="v1.0.0"
+version="v1.0.1"
 branch="main"
 DIR=$(cd $(dirname $0) && pwd)
 allowMethods=("copyReactTypes buildReactTargetDir zip unzip removeBuildFile copyFile protos stop npmconfig install gitpull dockerremove start logs")
@@ -36,15 +36,20 @@ copyFile() {
   cp -r src/globals/base.css ./www/build/css
   cp -r src/globals/interaction.css ./www/build/css
   cp -r src/globals/common.css ./www/build/css
+
+  sed -i '1i\// @ts-nocheck' ./dist/react/react-component-lib/createOverlayComponent.tsx
 }
 
 copyReactTypes() {
+  mkdir -p $DIR/dist/saki-ui-react/components
+  cp -r ./dist/react/* ./dist/saki-ui-react/components
   cp -r ./dist/types ./dist/saki-ui-react
 }
 
 buildReactTargetDir() {
   targetDir="../../game/killer-sudoku-nya/components"
   yarn build
+  copyReactTypes
   # echo $targetDir"/saki-ui-react"
 
   rm -r $targetDir"/saki-ui-react"
@@ -100,8 +105,8 @@ start() {
   # rm -rf $DIR/build/* | egrep -v "($DIR/build/*.tgz)"
   # ls ./build/* | egrep -v '(./build/saki-ui-v1.0.1.tgz)'
   # rm -rf `ls ./build/* | egrep -v '(./build/packages)'`
-  # ./ssh.sh run
-  # rm -rf build.tgz
+  ./ssh.sh run
+  rm -rf build.tgz
 }
 
 unzip() {
