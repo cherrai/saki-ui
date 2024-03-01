@@ -138,6 +138,8 @@ export class DropdownComponent {
       default:
         break;
     }
+    // console.log("this.formartLeft(this.left)",this.left, this.formartLeft(this.left));
+    this.left = this.formartLeft(this.left);
     this.top = this.formartTop(this.coreRect.top + this.coreRect.height / 2);
 
     // console.log(this.top);

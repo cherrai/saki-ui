@@ -367,20 +367,12 @@ export class ChatBubbleComponent {
                       color="var(--saki-chat-bubble-read-progress-color)"
                     >
                       {this.readProgress >= 1 ? (
-                        <svg
-                          class="bubble-c-s-progress-bar-icon"
-                          viewBox="0 0 1024 1024"
-                          version="1.1"
-                          xmlns="http://www.w3.org/2000/svg"
-                          p-id="1698"
-                          width="200"
-                          height="200"
-                        >
-                          <path
-                            d="M836.1 170.8L367.7 692.1 182.8 486.5c-27.9-30.7-72.5-30.7-100.4 0-27.9 30.7-27.9 80.9 0 111.6L304 844.9c14.9 16.4 41.8 23.8 64.1 22.7 22.3 1.1 48.8-6.3 63.2-22.7l505.1-562.6c27.9-30.7 27.9-80.9 0-111.6-27.8-30.6-72.4-30.6-100.3 0.1z m0 0"
-                            p-id="1699"
-                          ></path>
-                        </svg>
+                        <saki-icon
+                          width="8px"
+                          height="8px"
+                          color={"var(--saki-chat-bubble-read-progress-color)"}
+                          type="Hook"
+                        />
                       ) : (
                         ""
                       )}

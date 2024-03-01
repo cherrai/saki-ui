@@ -102,7 +102,8 @@
     }
     &.MoveUp {
       input {
-        padding-top: 14px !important;
+        padding-top: 14px;
+        // padding-top: 14px !important;
       }
       .line {
         display: block;

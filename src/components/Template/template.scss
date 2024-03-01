@@ -28,15 +28,25 @@
     justify-content: flex-start;
     align-items: center;
     padding: 0 0 0 10px;
+    & > div {
+      display: flex;
+      justify-content: start;
+      align-items: center;
+    }
   }
   .tb-h-center {
+    & > div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
   .tb-h-right {
     padding: 0 10px 0 0;
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    .tb-h-r-generating {
+    & > div {
       display: flex;
       justify-content: flex-end;
       align-items: center;

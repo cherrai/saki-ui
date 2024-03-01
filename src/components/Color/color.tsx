@@ -1,4 +1,12 @@
-import { Component, Element, Prop, State, Watch, h } from "@stencil/core";
+import {
+  Component,
+  Element,
+  Method,
+  Prop,
+  State,
+  Watch,
+  h,
+} from "@stencil/core";
 
 @Component({
   tag: "saki-color",
@@ -46,12 +54,14 @@ export class SakiColorComponent {
   }
   componentWillLoad() {}
   componentDidLoad() {
+    // this.changeAppearance();
     // (window as any).changeStyle = (v: any) => {
     //   console.log(v, this.style);
     //   this.style = v;
     // };
   }
-  changeAppearance() {
+  @Method()
+  async changeAppearance() {
     clearTimeout(this.timer);
     this.timer = setTimeout(() => {
       // console.log("changeAppearance");

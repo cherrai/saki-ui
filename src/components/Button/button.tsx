@@ -49,6 +49,10 @@ export class ButtonComponent {
   @Event({
     bubbles: false,
   })
+  longtap: EventEmitter;
+  @Event({
+    bubbles: false,
+  })
   doubletap: EventEmitter;
   @Element() el: HTMLElement;
   @Watch("disabled")
@@ -197,6 +201,15 @@ export class ButtonComponent {
     }
     return color;
   }
+  longTap() {
+    this.tapTime = new Date().getTime();
+
+    setTimeout(() => {
+      if (this.tapTime !== 0) {
+        this.longtap.emit();
+      }
+    }, 700);
+  }
   render() {
     return (
       <div
@@ -213,6 +226,12 @@ export class ButtonComponent {
             }
             this.tapTime = new Date().getTime();
           }
+        }}
+        onMouseDown={() => {
+          this.longTap();
+        }}
+        onTouchStart={() => {
+          this.longTap();
         }}
         style={{
           ...[

@@ -11,6 +11,7 @@ export class CardItemComponent {
   @Prop() border: boolean = false;
   @Prop() backIcon: boolean = false;
   @Prop() disabledTap: boolean = false;
+  @Prop() centerContent: boolean = true;
   @Prop() backgroundColor: string = "";
   @Prop() backgroundHoverColor: string = "#eee";
   @Prop() backgroundActiveColor: string = "#ddd";
@@ -51,9 +52,13 @@ export class CardItemComponent {
             <div class={"ci-m-left"}>
               <slot name="left"></slot>
             </div>
-            <div class={"ci-m-center"}>
-              <slot name="center"></slot>
-            </div>
+            {this.centerContent ? (
+              <div class={"ci-m-center"}>
+                <slot name="center"></slot>
+              </div>
+            ) : (
+              ""
+            )}
           </div>
           <div
             style={{

@@ -141,73 +141,77 @@ export class TemplateFooterComponent {
               </div>
             </saki-dropdown>
           </div>
-          <div class="f-appearance">
-            <saki-dropdown
-              visible={this.showAppearanceDropdown}
-              floating-direction="Center"
-              onClose={() => {
-                this.showAppearanceDropdown = false;
-              }}
-            >
-              <saki-button
-                onTap={() => {
-                  this.showAppearanceDropdown = true;
+          {this.appearance ? (
+            <div class="f-appearance">
+              <saki-dropdown
+                visible={this.showAppearanceDropdown}
+                floating-direction="Center"
+                onClose={() => {
+                  this.showAppearanceDropdown = false;
                 }}
-                bg-color="transparent"
-                padding="10px 6px 10px 12px"
-                title="Language"
-                border="none"
-                type="Normal"
               >
-                <div class="f-l-button">
-                  <span>
-                    {t(state.appearance.toLowerCase(), {
-                      ns: "appearance",
-                    })}
-                  </span>
-                  <saki-icon type="BottomTriangle"></saki-icon>
-                </div>
-              </saki-button>
-              <div slot="main">
-                <saki-menu
-                  onSelectvalue={(e) => {
-                    this.changeAppearance.emit({
-                      appearance: e.detail.value,
-                      color: this.appearanceColors[e.detail.value],
-                    });
-
-                    // state.appearance = e.detail.value;
-                    this.showAppearanceDropdown = false;
+                <saki-button
+                  onTap={() => {
+                    this.showAppearanceDropdown = true;
                   }}
+                  bg-color="transparent"
+                  padding="10px 6px 10px 12px"
+                  title="Language"
+                  border="none"
+                  type="Normal"
                 >
-                  {state.appearances.map((v) => {
-                    return (
-                      <saki-menu-item
-                        key={v.value}
-                        padding="10px 18px"
-                        font-size="14px"
-                        value={v.value}
-                        active={state.appearance === v.value}
-                      >
-                        <div
-                          style={{
-                            cursor: "pointer",
-                            color: v.color,
-                          }}
+                  <div class="f-l-button">
+                    <span>
+                      {t(state.appearance.toLowerCase(), {
+                        ns: "appearance",
+                      })}
+                    </span>
+                    <saki-icon type="BottomTriangle"></saki-icon>
+                  </div>
+                </saki-button>
+                <div slot="main">
+                  <saki-menu
+                    onSelectvalue={(e) => {
+                      this.changeAppearance.emit({
+                        appearance: e.detail.value,
+                        color: this.appearanceColors[e.detail.value],
+                      });
+
+                      // state.appearance = e.detail.value;
+                      this.showAppearanceDropdown = false;
+                    }}
+                  >
+                    {state.appearances.map((v) => {
+                      return (
+                        <saki-menu-item
+                          key={v.value}
+                          padding="10px 18px"
+                          font-size="14px"
+                          value={v.value}
+                          active={state.appearance === v.value}
                         >
-                          <span>
-                            {t(v.value.toLowerCase(), {
-                              ns: "appearance",
-                            })}
-                          </span>
-                        </div>
-                      </saki-menu-item>
-                    );
-                  })}
-                </saki-menu>
-              </div>
-            </saki-dropdown>
-          </div>
+                          <div
+                            style={{
+                              cursor: "pointer",
+                              color: v.color,
+                            }}
+                          >
+                            <span>
+                              {t(v.value.toLowerCase(), {
+                                ns: "appearance",
+                              })}
+                            </span>
+                          </div>
+                        </saki-menu-item>
+                      );
+                    })}
+                  </saki-menu>
+                </div>
+              </saki-dropdown>
+            </div>
+          ) : (
+            ""
+          )}
         </div>
         <div class="f-right">
           <span class="f-r-copyright">

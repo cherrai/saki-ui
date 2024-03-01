@@ -33,3 +33,4 @@ Dockerfile.multi
 README.md
 ssh.*
 build.*
+pkg

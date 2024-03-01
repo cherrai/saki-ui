@@ -25,10 +25,10 @@ copyFile() {
   cp -r node_modules/quill/dist/quill.bubble.css ./dist/saki-ui/css
   cp -r src/globals/cropper.css ./dist/saki-ui/css
   cp -r src/globals/base.css ./dist/saki-ui/css
-  cp -r src/globals/interaction.css ./www/build/css
-  cp -r src/globals/common.css ./www/build/css
 
   mkdir -p ./www/build/css
+  cp -r src/globals/interaction.css ./www/build/css
+  cp -r src/globals/common.css ./www/build/css
   cp -r node_modules/quill/dist/quill.core.css ./www/build/css
   cp -r node_modules/quill/dist/quill.snow.css ./www/build/css
   cp -r node_modules/quill/dist/quill.bubble.css ./www/build/css
@@ -47,7 +47,8 @@ copyReactTypes() {
 }
 
 buildReactTargetDir() {
-  targetDir="../../game/killer-sudoku-nya/components"
+  # targetDir="../../game/killer-sudoku-nya/components"
+  targetDir="../../nyanya/nyanya-toolbox/components"
   yarn build
   copyReactTypes
   # echo $targetDir"/saki-ui-react"

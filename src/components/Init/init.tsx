@@ -19,6 +19,7 @@ export class SakiInitComponent {
   inputValue() {}
   componentWillLoad() {}
   componentDidLoad() {
+    console.log("[Saki UI] initialization")
     initSakiUIMethods()
     this.mounted.emit();
   }

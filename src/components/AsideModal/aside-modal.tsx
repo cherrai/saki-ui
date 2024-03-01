@@ -37,6 +37,8 @@ export class AsideModalComponent {
   @Prop() borderRadius: string = "";
   @Prop() boxShadow: string = "";
   @Prop() border: string = "";
+  @Prop() padding: string = "";
+  @Prop() margin: string = "";
   @Prop() mask: boolean = false;
   @Prop() maskBackgroundColor: string = "";
   @Prop() maskClosable: boolean = false;
@@ -149,6 +151,8 @@ export class AsideModalComponent {
               "borderRadius",
               "boxShadow",
               "border",
+              "padding",
+              "margin",
             ].reduce(
               (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
               {}

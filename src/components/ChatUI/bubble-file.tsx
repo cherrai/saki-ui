@@ -25,9 +25,11 @@ export class ChatBubbleFileComponent {
   //  unit byte
   @Prop() size: number = 0;
   @Prop() expirationTime: number = -1;
+  @Prop() progressIcon: boolean = false;
   @Prop() progress: number = 0;
   @Prop() suffix: number = 0;
   @Prop() time: number = 0;
+  @Prop() isLoad: boolean = false;
   @Event() tap: EventEmitter;
   @Event() download: EventEmitter;
   @Event() load: EventEmitter;
@@ -36,7 +38,7 @@ export class ChatBubbleFileComponent {
   watchProgress() {
     if (this.progress >= 1) {
       setTimeout(() => {
-        this.el.querySelector("video")?.load();
+        !this.isLoad && this.el.querySelector("video")?.load();
       }, 300);
     }
   }
@@ -45,11 +47,12 @@ export class ChatBubbleFileComponent {
     // console.log("componentDidLoad", this);
   }
   formartSize() {
+    // console.log("formartSize", this.size);
     if (this.size > 1024 * 1024 * 1024) {
-      return ((this.size / 1024) * 1024 * 1024).toFixed(2) + "Gb";
+      return (this.size / 1024 / 1024 / 1024).toFixed(2) + "Gb";
     }
     if (this.size > 1024 * 1024) {
-      return ((this.size / 1024) * 1024).toFixed(2) + "Mb";
+      return (this.size / 1024 / 1024).toFixed(2) + "Mb";
     }
     if (this.size > 1024) {
       return (this.size / 1024).toFixed(2) + "Kb";
@@ -188,10 +191,52 @@ export class ChatBubbleFileComponent {
           </div>
         ) : this.type === "Video" ? (
           <div class={"cbf-video"}>
-            <video src={this.src} controls></video>
+            <video
+              onLoadStart={() => {
+                this.isLoad = true;
+              }}
+              src={this.src}
+              controls
+            ></video>
           </div>
         ) : this.type === "Audio" ? (
           <div>Audio</div>
+        ) : (
+          ""
+        )}
+        {this.progressIcon &&
+        (this.type === "Video" || this.type === "Image") &&
+        this.progress < 1 ? (
+          <div class={"cbf-p-bg"}></div>
+        ) : (
+          ""
+        )}
+        {this.progressIcon &&
+        (this.type === "Video" || this.type === "Image") &&
+        this.progress < 1 ? (
+          <div data-read-progress={this.progress} class={"cbf-progress"}>
+            <saki-circle-progress-bar
+              class={"bubble-c-s-progress-bar"}
+              // progress={0.7}
+              progress={this.progress === 1 ? 0 : this.progress}
+              width="48px"
+              barWidth="8px"
+              padding="2px"
+              border-width="2px"
+              color="var(--saki-chat-bubble-read-progress-color)"
+            >
+              {this.progress >= 1 ? (
+                <saki-icon
+                  width="18px"
+                  height="18px"
+                  color={"var(--saki-chat-bubble-read-progress-color)"}
+                  type="Hook"
+                />
+              ) : (
+                ""
+              )}
+            </saki-circle-progress-bar>
+          </div>
         ) : (
           ""
         )}

@@ -21,6 +21,7 @@ export class AvatarComponent {
 
   @Prop() defaultSrc: string = "";
   @Prop() defaultBackgroundColor: string = "";
+  @Prop() defaultIcon: string = "";
   @Prop() width: string = "40px";
   @Prop() height: string = "40px";
   @Prop() cropContainerWidth: string = "";
@@ -99,7 +100,7 @@ export class AvatarComponent {
             borderRadius={this.borderRadius}
             src={this.src}
           ></saki-images>
-        ) : (
+        ) : this.nickname ? (
           <div
             style={{
               width: this.width,
@@ -115,6 +116,17 @@ export class AvatarComponent {
           >
             {this.nickname}
           </div>
+        ) : this.defaultIcon ? (
+          <div class={"avatar-icon"}>
+            <saki-icon
+              width="18px"
+              height="18px"
+              color="#fff"
+              type={this.defaultIcon as any}
+            ></saki-icon>
+          </div>
+        ) : (
+          ""
         )}
         {this.anonymousIcon ? (
           <div class="anonymous-icon">

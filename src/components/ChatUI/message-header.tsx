@@ -33,7 +33,9 @@ export class ChatMessageHeaderComponent {
   //   this.updateTime = new Date().getTime();
   // }
 
-  componentDidLoad() {}
+  componentDidLoad() {
+    console.log("componentDidLoad",this.avatar);
+  }
   render() {
     return (
       <div class="saki-chat-message-header-component">

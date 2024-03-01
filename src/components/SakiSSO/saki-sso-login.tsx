@@ -34,7 +34,7 @@ export class SSOLoginComponent {
     window.addEventListener("message", this.onMessage);
   }
   onMessage = (e: MessageEvent) => {
-    console.log("onMessage", e);
+    // console.log("onMessage", e);
     if (this.url.indexOf(e.origin) >= 0) {
       switch (e.data.type) {
         case "login":

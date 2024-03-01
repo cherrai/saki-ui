@@ -221,12 +221,16 @@ export class RichTextComponent {
     // const Image = Quill.import("formats/image");
     // Image.className = "mwc-emoji";
     // Quill.register(Image, true);
-    let Inline = Quill.import("blots/embed");
+    let FormatsImage = Quill.import("formats/image");
+    let FormatsVideo = Quill.import("formats/video");
+    // let Inline = Quill.import("formats/image");
     // let BlockEmbed = Quill.import("blots/block/embed");
-    class ImageBlot extends Inline {
+    class ImageBlot extends FormatsImage {
+      static blotName = "image"; // blot的名称，需要唯一
+      static tagName = "img"; // 渲染的标签名
       static create(value) {
         let node = super.create();
-        // console.log("LinkBlot", value, node);
+        console.log("LinkBlot", value, node);
         node.setAttribute("class", value.class);
         node.setAttribute("alt", value.alt || "");
         node.setAttribute("title", value.title || "");
@@ -252,9 +256,40 @@ export class RichTextComponent {
         };
       }
     }
-    ImageBlot.blotName = "image";
-    ImageBlot.tagName = "img";
     Quill.register(ImageBlot);
+
+    class VideoBlot extends FormatsVideo {
+      static blotName = "video"; // blot的名称，需要唯一
+      static tagName = "iframe"; // 渲染的标签名
+      static create(value) {
+        let node = super.create();
+        console.log("LinkBlot", value, node);
+        node.setAttribute("class", value.class);
+        node.setAttribute("alt", value.alt || "");
+        node.setAttribute("title", value.title || "");
+        node.setAttribute("src", value.src);
+        node.setAttribute("data-name", value.name);
+        // node.onclick = () => {
+        //   console.log("点击");
+        // };
+        const d = document.createElement("p");
+        d.appendChild(node);
+        d.appendChild(document.createElement("span"));
+        return node;
+      }
+
+      static value(node) {
+        // console.log("valuenode", node);
+        return {
+          class: node.getAttribute("class"),
+          title: node.getAttribute("title"),
+          alt: node.getAttribute("alt"),
+          src: node.getAttribute("src"),
+          name: node.getAttribute("name"),
+        };
+      }
+    }
+    Quill.register(VideoBlot);
 
     let Break = Quill.import("blots/break");
     Quill.register(Break);
@@ -347,12 +382,12 @@ export class RichTextComponent {
     });
 
     this.quill.root.oninput = () => {
-      // console.log("oninpuit");
+      console.log("oninpuit");
       this.editorChange("text-change");
     };
 
     this.quill.root.onfocus = () => {
-      // console.log("oninpuit");
+      console.log("onfocus");
       this.focus = true;
     };
 
@@ -364,7 +399,7 @@ export class RichTextComponent {
       if (eventName === "selection-change") {
         this.selectionRangeStatic = params;
       }
-      // console.log(eventName, params);
+      console.log(eventName, params);
       this.editorChange(eventName);
     });
     this.quill.on(
@@ -461,14 +496,38 @@ export class RichTextComponent {
     let node = "";
     switch (type) {
       case "Image":
-        node = `<div><img class="${
-          className || "saki-richtext-image"
-        }" title="${title}" name="${name}" alt="${alt}" src="${src}" /></div>`;
+        // node = `<div><img class="${
+        //   className || "saki-richtext-image"
+        // }" title="${title}" name="${name}" alt="${alt}" src="${src}" >
+        // ${""}
+        //   </img></div>`;
+
+        this.quill.insertEmbed(this.cursorPosition, "image", {
+          class: className,
+          title,
+          alt,
+          src,
+          name,
+        });
         break;
       case "Video":
-        node = `<iframe class="${
-          className || "saki-richtext-image"
-        }" title="${title}" alt="${alt}" src="${src}"></iframe>`;
+        // node = `<iframe class="${
+        //   className || "saki-richtext-image"
+        // }" title="${title}" alt="${alt}" src="${src}"></iframe>`;
+
+        // this.quill.clipboard.dangerouslyPasteHTML(
+        //   this.cursorPosition,
+        //   // iFrame
+        //   node
+        // );
+
+        this.quill.insertEmbed(this.cursorPosition, "video", {
+          class: className,
+          title,
+          alt,
+          src,
+          name,
+        });
         break;
 
       default:
@@ -480,11 +539,11 @@ export class RichTextComponent {
     // console.log(this.cursorPosition);
     // 插入图片  res.info为服务器返回的图片地址
     // console.log(node);
-    this.quill.clipboard.dangerouslyPasteHTML(
-      this.cursorPosition,
-      // iFrame
-      node
-    );
+    console.log(this.quill.clipboard);
+
+    console.log(node);
+    // this.quill.clipboard.dangerouslyPasteHTML(this.cursorPosition, node);
+    // this.quill.setContents()
     // 调整光标到最后
     setTimeout(() => {
       // this.cursorPosition = this.quill?.getSelection()?.index || 0;
@@ -497,6 +556,10 @@ export class RichTextComponent {
   editorChange = (eventName: string) => {
     // console.log("editorChange");
     if (eventName === "text-change" && this.isInit) {
+      console.log({
+        content: this.quill.getText(),
+        richText: this.quill.root.innerHTML,
+      });
       this.changevalue.emit({
         content: this.quill.getText(),
         richText: this.quill.root.innerHTML,

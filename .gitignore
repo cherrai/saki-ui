@@ -38,3 +38,4 @@ src/config-temp.ts
 /build
 ssh.*
 build.*
+pkg
