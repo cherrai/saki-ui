@@ -18,7 +18,9 @@ export class ModalHeaderComponent {
   @Prop() title: string = "";
   @Prop() border: boolean = false;
   @Prop() height: string = "56px";
+  @Prop() rightWidth: string = "112px";
   @Prop() fontSize: string = "";
+  @Prop() backgroundColor: string = "#fff";
   @Prop() closeIcon: boolean = true;
   @Prop() backIcon: boolean = false;
   @Event() tap: EventEmitter;
@@ -37,10 +39,11 @@ export class ModalHeaderComponent {
     return (
       <div
         style={{
-          ...["height"].reduce(
+          ...["height", "backgroundColor"].reduce(
             (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
             {}
           ),
+          "--saki-right-width": this.rightWidth,
         }}
         class={"saki-modal-header-component " + (this.border ? "border" : "")}
       >

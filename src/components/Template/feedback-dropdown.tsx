@@ -2,11 +2,11 @@ import { Component, h, Method, Prop, State } from "@stencil/core";
 import state from "../../store";
 
 @Component({
-  tag: "saki-template-menu-dropdown",
-  styleUrl: "template.scss",
+  tag: "saki-template-feedback-dropdown",
+  styleUrl: "feedback-dropdown.scss",
   shadow: false,
 })
-export class TemplateMenuDropdownComponent {
+export class TemplateFeedbackDropdownComponent {
   @Prop() appText = "";
   @Prop() fixed = false;
   @Prop() openNewPage = true;
@@ -27,7 +27,7 @@ export class TemplateMenuDropdownComponent {
   }
   render() {
     return (
-      <div class={"saki-menu-dropdown-component "}>
+      <div class={"saki-feedback-dropdown-component "}>
         <saki-dropdown
           visible={this.openMenuDropDownMenu}
           floating-direction="Left"

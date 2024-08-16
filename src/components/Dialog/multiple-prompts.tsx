@@ -17,6 +17,7 @@ export class DialogMultiplePromptsComponent {
   @Prop() content: string = "";
   @Prop() autoHideDuration: number = 0;
   @Prop() closeIcon: boolean = false;
+  @Prop() zIndex = 1010;
   @Prop({
     mutable: true,
   })
@@ -130,14 +131,15 @@ export class DialogMultiplePromptsComponent {
         onClose={() => {
           this.close();
         }}
-        zIndex={999999}
+        zIndex={this.zIndex}
         visible={this.visible}
       >
         <div class={"saki-dialog-multiple-prompts-component "}>
           {this.title ? (
             <saki-modal-header
               closeIcon={this.closeIcon || false}
-              height="40px"
+              height="56px"
+              rightWidth="56px"
               fontSize="16px"
               title={this.title}
               onClose={() => {
@@ -185,7 +187,8 @@ export class DialogMultiplePromptsComponent {
                 return (
                   <saki-button
                     margin="0 4px"
-                    width={this.flexButton ? "auto" : "80px"}
+                    width={this.flexButton ? "auto" : "auto"}
+                    minWidth="80px"
                     height={v.height || "30px"}
                     font-size={v.fontSize || "13px"}
                     border={v.border || "1px solid #eee"}

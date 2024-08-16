@@ -8,13 +8,15 @@ import { Component, Event, EventEmitter, Prop, h } from "@stencil/core";
 export class CardItemComponent {
   // 改版了。其他项目发现异常记得改一下，尤其是sso和喵笔记
   @Prop() type: "Defalut" | "Flex" = "Defalut";
-  @Prop() border: boolean = false;
   @Prop() backIcon: boolean = false;
   @Prop() disabledTap: boolean = false;
   @Prop() centerContent: boolean = true;
   @Prop() backgroundColor: string = "";
   @Prop() backgroundHoverColor: string = "#eee";
   @Prop() backgroundActiveColor: string = "#ddd";
+  @Prop() border: string = "";
+  @Prop() borderHover: string = "";
+  @Prop() borderActive: string = "";
   @Prop() margin = "";
   @Prop() padding = "";
   // Flex
@@ -31,20 +33,22 @@ export class CardItemComponent {
       return (
         <div
           style={{
-            ...["border", "margin", "padding"].reduce(
+            ...["margin", "padding"].reduce(
               (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
               {}
             ),
             "--saki-card-item-bg-color": this.backgroundColor,
             "--saki-card-item-bg-hover-color": this.backgroundHoverColor,
             "--saki-card-item-bg-active-color": this.backgroundActiveColor,
+            "--saki-card-item-border": this.border,
+            "--saki-card-item-border-hover": this.borderHover,
+            "--saki-card-item-border-active": this.borderActive,
           }}
           onClick={() => {
             !this.disabledTap && this.tap.emit();
           }}
           class={
             "saki-card-item-component Flex " +
-            (this.border ? "border " : "") +
             (this.disabledTap ? "  " : " tap ")
           }
         >

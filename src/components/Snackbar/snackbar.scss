@@ -1,6 +1,5 @@
 .saki-snackbar-component {
   width: 100%;
-  --snackbar-distance: 10px;
   &.click {
     .snackbar-wrap {
       .snackbar-content {
@@ -57,17 +56,17 @@
     z-index: 100000;
 
     &.topcenter {
-      top: var(--snackbar-distance);
+      top: var(--saki-snackbar-distance);
       left: 50%;
       transform: translateX(-50%);
     }
     &.topleft {
-      top: var(--snackbar-distance);
-      left: var(--snackbar-distance);
+      top: var(--saki-snackbar-distance);
+      left: var(--saki-snackbar-distance);
     }
     &.topright {
-      top: var(--snackbar-distance);
-      right: var(--snackbar-distance);
+      top: var(--saki-snackbar-distance);
+      right: var(--saki-snackbar-distance);
     }
     &.centercenter {
       top: 50%;
@@ -77,25 +76,28 @@
     &.centerleft {
       top: 50%;
       transform: translate(0, -50%);
-      left: var(--snackbar-distance);
+      left: var(--saki-snackbar-distance);
     }
     &.centerright {
       top: 50%;
       transform: translate(0, -50%);
-      right: var(--snackbar-distance);
+      right: var(--saki-snackbar-distance);
     }
     &.bottomcenter {
-      bottom: var(--snackbar-distance);
+      top: auto;
+      bottom: var(--saki-snackbar-distance);
       left: 50%;
       transform: translateX(-50%);
     }
     &.bottomleft {
-      bottom: var(--snackbar-distance);
-      left: var(--snackbar-distance);
+      top: auto;
+      bottom: var(--saki-snackbar-distance);
+      left: var(--saki-snackbar-distance);
     }
     &.bottomright {
-      bottom: var(--snackbar-distance);
-      right: var(--snackbar-distance);
+      top: auto;
+      bottom: var(--saki-snackbar-distance);
+      right: var(--saki-snackbar-distance);
     }
     .snackbar-content {
       display: flex;

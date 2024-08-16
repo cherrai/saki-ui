@@ -37,6 +37,7 @@ export class TabsComponent {
   @Prop() headerBackgroundColor = "";
   @Prop() full = false;
   @Prop() disableMoreButton = false;
+  @Prop() moreContentWidthDifference = -80;
 
   @Prop() headerMaxWidth = "";
   @Prop() activeTabLabel = "";
@@ -44,6 +45,8 @@ export class TabsComponent {
 
   // Flex
   @Prop() headerItemMinWidth = "auto";
+  @Prop() headerItemPadding = "0px 2px";
+
   // Default
   @Prop() headerPadding = "";
 
@@ -163,9 +166,20 @@ export class TabsComponent {
     }
     let wObj = {};
     this.navItemList.forEach((v: HTMLDivElement, index) => {
-      wObj[index] = index === 0 ? 0 : wObj[index - 1] + v.offsetWidth;
+      wObj[index] =
+        index === 0
+          ? 0
+          : wObj[index - 1] + this.navItemList[index - 1].offsetWidth;
+
+      // console.log(
+      //   "wObj",
+      //   index,
+      //   wObj[index],
+      //   wObj[index - 1],
+      //   this.navItemList[index - 1].offsetWidth
+      // );
     });
-    // console.log(wObj, el.querySelector("span").offsetWidth);
+    // console.log("wObj", wObj, el.querySelector("span").offsetWidth);
 
     this.navSubLineWidth = el.querySelector("span").offsetWidth + "px";
     this.navLineWidth = el.offsetWidth + "px";
@@ -184,7 +198,9 @@ export class TabsComponent {
       this.itemList[index] = {
         ...this.itemList[index],
         width: v.offsetWidth,
-        dropdown: wObj[index] - this.navEl.offsetWidth >= -80,
+        dropdown:
+          wObj[index] - this.navEl.offsetWidth >=
+          this.moreContentWidthDifference,
         left: wObj[index],
       };
 
@@ -218,7 +234,7 @@ export class TabsComponent {
     this.navMoreIcon &&
       setTimeout(() => {
         this.getLineStyle.call(this, this.activeIndex);
-      }, 50);
+      }, 500);
 
     // this.tap.emit({
     //   name: this.itemList[this.activeIndex].name,
@@ -285,6 +301,7 @@ export class TabsComponent {
                         }}
                         style={{
                           minWidth: this.headerItemMinWidth,
+                          padding: this.headerItemPadding,
                           fontSize: v.fontSize || "14px",
                           fontWeight: v.fontWeight || "500",
                           color: v.color || "",

@@ -7,6 +7,7 @@ export const { state, onChange } = createStore({
   appearance: "",
   appearances: [] as {
     value: string;
+    name: string;
     color: string;
   }[],
 
@@ -18,11 +19,25 @@ export const { state, onChange } = createStore({
   currentRoute: "",
 
   networkStatus: false,
-  resources: {} as {
-    [lang: string]: {
-      k: string;
-    };
-  },
+  resources: {
+    // "zh-CN": {
+    //   template: {
+    //     feedback: "反馈",
+    //   },
+    // },
+    // "en-US": {
+    //   template: {
+    //     feedback: "Feedback",
+    //   },
+    // },
+  } as any,
+  // {
+  //   [lang: string]: {
+  //     [ns: string]: {
+  //       [k: string]: string;
+  //     };
+  //   };
+  // },
   updateTime: 0,
 });
 

@@ -2,7 +2,6 @@ import i18n from "i18next";
 import state from "../store";
 
 export const initI18n = () => {
-
   if (state.initI18n || !Object.keys(state.resources).length) return;
   i18n.init({
     resources: state.resources,

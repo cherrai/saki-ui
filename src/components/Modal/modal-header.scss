@@ -1,6 +1,5 @@
 .saki-modal-header-component {
   width: 100%;
-  background-color: #fff;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -18,7 +17,9 @@
     }
   }
   .modal-left {
-    flex: 1;
+    width: var(--saki-right-width);
+    display: flex;
+    justify-content: flex-start;
     .modal-l-close {
       width: 36px;
       height: 36px;
@@ -42,12 +43,14 @@
     }
   }
   .modal-center {
+    width: calc(100% - var(--saki-right-width) * 2);
+    // flex: 1;
     // flex: auto;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-width: calc(100% - (56px * 2));
-    max-width: calc(100% - 0px);
+    // min-width: calc(100% - (56px * 2));
+    // max-width: calc(100% - 0px);
 
     .modal-title {
       font-size: 18px;
@@ -64,6 +67,7 @@
     }
   }
   .modal-right {
+    width: var(--saki-right-width);
     // flex-basis: 200px;
     // flex: 0;
     flex: 1;

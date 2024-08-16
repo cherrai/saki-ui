@@ -49,11 +49,13 @@ export class InputComponent {
   @Prop() height: string = "";
   @Prop() textareaHeight: string = "";
   @Prop() width: string = "";
+  @Prop() maxWidth: string = "";
   @Prop() border: string = "";
   @Prop() padding: string = "";
   @Prop() margin: string = "";
   @Prop() fontSize: string = "";
   @Prop() placeholder: string = "";
+  @Prop() color: string = "";
   @Prop() error: string = "";
   @Prop() errorColor: string = "";
   @Prop() errorFontSize: string = "";
@@ -76,6 +78,8 @@ export class InputComponent {
 
   @Event() focusfunc: EventEmitter;
   @Event() blurfunc: EventEmitter;
+
+  @Event() inputElement: EventEmitter;
 
   textareaEl: any | HTMLTextAreaElement;
   inputEl: any | HTMLInputElement;
@@ -345,7 +349,7 @@ export class InputComponent {
     return (
       <div
         style={{
-          ...["width", "margin", "textAlign"].reduce(
+          ...["maxWidth", "width", "margin", "textAlign"].reduce(
             (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
             {}
           ),
@@ -385,15 +389,20 @@ export class InputComponent {
             <input
               ref={(e) => {
                 this.inputEl = e;
+                this.inputElement.emit(this.inputEl);
               }}
               style={{
                 ...[
+                  "maxWidth",
+                  "width",
                   "borderRadius",
                   "fontSize",
                   "height",
                   "padding",
                   "backgroundColor",
                   "border",
+                  "textAlign",
+                  "color",
                 ].reduce(
                   (fin, cur) =>
                     this[cur] ? { ...fin, [cur]: this[cur] } : fin,
@@ -420,6 +429,20 @@ export class InputComponent {
                   this.pressenter.emit();
                 }
               }}
+              // onKeyUp={(e) => {
+              //   console.log(
+              //     "CapsLock onKeyUp",
+              //     e,
+              //     e.getModifierState("CapsLock")
+              //   );
+              // }}
+              // onMouseUp={(e) => {
+              //   console.log(
+              //     "CapsLock onMouseUp",
+              //     e,
+              //     e.getModifierState("CapsLock")
+              //   );
+              // }}
               onInput={(e) => {
                 // console.log("value:", this.type, e.target["value"]);
                 this.value = e.target["value"];
@@ -432,10 +455,12 @@ export class InputComponent {
               onFocus={() => {
                 this.focus = true;
                 this.focusfunc.emit();
+                // console.log("CapsLock onFocus", e);
               }}
               onBlur={() => {
                 this.focus = false;
                 this.blurfunc.emit();
+                // console.log("CapsLock", e);
               }}
               placeholder={
                 this.placeholderAnimation === "" ? this.placeholder : ""
@@ -573,6 +598,8 @@ export class InputComponent {
                   "backgroundColor",
                   "border",
                   "borderRadius",
+                  "textAlign",
+                  "color",
                 ].reduce(
                   (fin, cur) =>
                     this[cur] ? { ...fin, [cur]: this[cur] } : fin,
@@ -614,7 +641,12 @@ export class InputComponent {
             this.searchContent ? (
               <slot name="searchContent"></slot>
             ) : (
-              <div class="search-icon">
+              <div
+                onClick={() => {
+                  this.pressenter.emit();
+                }}
+                class="search-icon"
+              >
                 <svg
                   class="icon"
                   viewBox="0 0 1024 1024"
@@ -699,7 +731,7 @@ export class InputComponent {
           {this.placeholderAnimation === "MoveUp" ? (
             <div
               style={{
-                ...["fontSize"].reduce(
+                ...["fontSize", "color"].reduce(
                   (fin, cur) =>
                     this[cur] ? { ...fin, [cur]: this[cur] } : fin,
                   {}

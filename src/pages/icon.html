@@ -1,33 +1,32 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
-    />
-    <title>Stencil Component Starter</title>
 
-    <script type="module" src="/build/saki-ui.esm.js"></script>
-    <script nomodule src="/build/saki-ui.js"></script>
-    <style>
-      html {
-        --saki-chat-bubble-read-progress-color: #f185a0;
-      }
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+  <title>Stencil Component Starter</title>
 
-      * {
-        box-sizing: border-box;
-      }
-    </style>
-  </head>
+  <script type="module" src="/build/saki-ui.esm.js"></script>
+  <script nomodule src="/build/saki-ui.js"></script>
+  <style>
+    html {
+      --saki-chat-bubble-read-progress-color: #f185a0;
+    }
 
-  <body>
-    <!-- progress="0.7"
+    * {
+      box-sizing: border-box;
+    }
+
+  </style>
+</head>
+
+<body>
+  <!-- progress="0.7"
     width="14px"
     bar-width="5px"
     border-spacing-width="6px"
     border-width="2px" -->
-    <!-- <saki-progress-bar
+  <!-- <saki-progress-bar
     type="Circle"
     progress="0.3"
     width="94px"
@@ -39,7 +38,7 @@
   >
     70
   </saki-circle-progress-bar> -->
-    <!-- <saki-progress-bar
+  <!-- <saki-progress-bar
     type="Circle"
     progress="0.7"
     width="94px"
@@ -52,7 +51,7 @@
     70
   </saki-circle-progress-bar> -->
 
-    <!-- <saki-linear-progress-bar
+  <!-- <saki-linear-progress-bar
     progress="0.7"
     width="374px"
     height="16px"
@@ -64,7 +63,7 @@
   >
   </saki-circle-progress-bar> -->
 
-    <!-- <saki-tabs type='Flex' header-padding='0 10px' header-item-min-width="80px">
+  <!-- <saki-tabs type='Flex' header-padding='0 10px' header-item-min-width="80px">
     <saki-tabs-item font-size='14px' name='个人信息'>
       csasa
     </saki-tabs-item>
@@ -129,18 +128,17 @@
       </saki-scroll-view>
     </saki-tabs-item>
   </saki-tabs> -->
-    <style>
-      .item {
-        padding: 20px 10px;
-        border: 1px solid #eee;
-        background-color: #eee;
-        width: 300px;
-        cursor: pointer;
-      }
-    </style>
+  <style>
+    .item {
+      padding: 20px 10px;
+      border: 1px solid #eee;
+      background-color: #eee;
+      width: 300px;
+      cursor: pointer;
+    }
 
-    <saki-pages-icon></saki-pages-icon>
-    <!-- <saki-menu>
+  </style>
+  <saki-menu>
     <saki-drag-sort>
       <div>
         <saki-drag-sort-item>
@@ -211,6 +209,7 @@
         </saki-menu-item>
       </saki-drag-sort-item>
     </saki-drag-sort>
-  </saki-menu> -->
-  </body>
+  </saki-menu>
+</body>
+
 </html>

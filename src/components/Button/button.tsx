@@ -25,7 +25,11 @@ export class ButtonComponent {
   @Prop({ mutable: true }) padding: string = "";
   @Prop({ mutable: true }) borderRadius: string = "";
   @Prop({ mutable: true }) width: string = "";
+  @Prop({ mutable: true }) minWidth: string = "";
+  @Prop({ mutable: true }) maxWidth: string = "";
   @Prop({ mutable: true }) height: string = "";
+  @Prop({ mutable: true }) minHeight: string = "";
+  @Prop({ mutable: true }) maxHeight: string = "";
   @Prop({ mutable: true }) fontSize: string = "";
   @Prop({ mutable: true }) fontWeight: string = "";
   @Prop({ mutable: true }) color: string = "";
@@ -240,7 +244,11 @@ export class ButtonComponent {
             "margin",
             "padding",
             "width",
+            "minWidth",
+            "maxWidth",
             "height",
+            "minHeight",
+            "maxHeight",
             "borderRadius",
             "boxShadow",
           ].reduce(

@@ -231,7 +231,7 @@ export class RichTextComponent {
       static create(value) {
         let node = super.create();
         console.log("LinkBlot", value, node);
-        node.setAttribute("class", value.class);
+        node.setAttribute("class", value?.class || "");
         node.setAttribute("alt", value.alt || "");
         node.setAttribute("title", value.title || "");
         node.setAttribute("src", value.src);

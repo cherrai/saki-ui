@@ -4,7 +4,9 @@
 // @import "../../globals/common.scss";
 
 .saki-dropdown-main {
+  // 为了防止双层滚动条
   visibility: hidden;
+  // display: none;
   // &.Bottom {
   //   .main-content {
   //     transform: scale(0.9) translate(0px, 10px);
@@ -14,8 +16,13 @@
   //   .main-content {;
   //   }
   // }
+  &.displayNone {
+    visibility: visible;
+    display: none;
+  }
   &.visibleStyle {
     visibility: visible;
+    display: block;
   }
   &.visible {
     .main-content {

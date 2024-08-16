@@ -19,6 +19,7 @@ import {
 export class TabsComponent {
   @Prop() type: "loading" | "loaded" | "noMore" = "loading";
   @Prop() language = "en-US";
+  @Prop() content = "";
   @Prop() loadingAnimation: boolean = false;
   @State() loadingText: string = "Loading.";
   @Prop() margin: string = "";
@@ -114,7 +115,7 @@ export class TabsComponent {
             ></saki-animation-loading>
           </div>
         ) : (
-          this.loadingText
+          this.content || this.loadingText
         )}
       </div>
     );

@@ -39,3 +39,6 @@ src/config-temp.ts
 ssh.*
 build.*
 pkg
+
+.npmrc
+.yarnrc

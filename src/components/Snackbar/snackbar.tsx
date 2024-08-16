@@ -32,6 +32,7 @@ export class SnackbarComponent {
   @Prop() allowContentClick: boolean = false;
   @Prop() autoHideDuration: number = 0;
   @Prop() message: string = "";
+  @Prop() borderDistance: string = "10px";
   @Prop() borderRadius: string = "6px";
   @Prop() backgroundColor: string = "#fff";
   @Prop() backgroundHoverColor: string = "";
@@ -110,6 +111,9 @@ export class SnackbarComponent {
           (this.hide ? " hide" : "") +
           (this.allowContentClick ? " click" : "")
         }
+        style={{
+          "--saki-snackbar-distance": this.borderDistance,
+        }}
       >
         <div class={"snackbar-wrap " + (this.vertical + this.horizontal)}>
           <div

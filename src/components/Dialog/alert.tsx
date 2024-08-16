@@ -71,6 +71,7 @@ export class DialogAlertComponent {
               closeIcon={false}
               height="40px"
               fontSize="16px"
+              right-width="56px"
               titleAvatar={this.titleAvatar}
               titleAvatarText={this.titleAvatarText}
               title={this.title}

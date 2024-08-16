@@ -43,6 +43,10 @@ export class AsideModalComponent {
   @Prop() maskBackgroundColor: string = "";
   @Prop() maskClosable: boolean = false;
   @Prop({ mutable: true }) zIndex: number = 999;
+
+  @Prop({ mutable: true }) offsetX = 0;
+  @Prop({ mutable: true }) offsetY = 0;
+
   @State() closing: boolean = false;
 
   @Event({
@@ -158,6 +162,8 @@ export class AsideModalComponent {
               {}
             ),
             zIndex: String(this.zIndex),
+            "--saki-aside-modal-offset-x": this.offsetX + "px",
+            "--saki-aside-modal-offset-y": this.offsetY + "px",
           }}
           ref={(e) => {
             this.contentEl = e;

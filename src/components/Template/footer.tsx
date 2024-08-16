@@ -32,13 +32,18 @@ export class TemplateFooterComponent {
   @Prop() blogLink = "https://aiiko.club/1";
   @Prop() blogText = "Shiina Aiiko";
 
+  @Prop() feedback = true;
+  @Prop() feedbackLink = "mailto:shiina@aiiko.club";
+  @Prop() feedbackText = "Feedback";
+
   @Prop() appearance = "";
+  @Prop() appearanceName = "";
   @State() showLanguageDropdown = false;
   @State() showAppearanceDropdown = false;
-  @State() appearanceColors = {
-    Pink: "#f29cb2",
-    Blue: "#3393ce",
-  };
+  // @State() appearanceColors = {
+  //   Pink: "#f29cb2",
+  //   Blue: "#3393ce",
+  // };
   @Event() changeLanguage: EventEmitter;
   @Event() changeAppearance: EventEmitter;
   @Watch("appearance")
@@ -71,6 +76,13 @@ export class TemplateFooterComponent {
       >
         <div class="f-left">
           <div class="f-language">
+            <div
+              style={{
+                display: "none",
+              }}
+            >
+              {state.languages.map((v) => v)}
+            </div>
             <saki-dropdown
               visible={this.showLanguageDropdown}
               floating-direction="Center"
@@ -162,9 +174,10 @@ export class TemplateFooterComponent {
                 >
                   <div class="f-l-button">
                     <span>
-                      {t(state.appearance.toLowerCase(), {
-                        ns: "appearance",
-                      })}
+                      {this.appearanceName ||
+                        t(state.appearance.toLowerCase(), {
+                          ns: "appearance",
+                        })}
                     </span>
                     <saki-icon type="BottomTriangle"></saki-icon>
                   </div>
@@ -172,12 +185,14 @@ export class TemplateFooterComponent {
                 <div slot="main">
                   <saki-menu
                     onSelectvalue={(e) => {
+                      const val = state.appearances?.filter(
+                        (v) => v.value === e.detail.value
+                      )?.[0];
                       this.changeAppearance.emit({
-                        appearance: e.detail.value,
-                        color: this.appearanceColors[e.detail.value],
+                        ...val,
                       });
 
-                      // state.appearance = e.detail.value;
+                      state.appearance = e.detail.value;
                       this.showAppearanceDropdown = false;
                     }}
                   >
@@ -197,9 +212,10 @@ export class TemplateFooterComponent {
                             }}
                           >
                             <span>
-                              {t(v.value.toLowerCase(), {
-                                ns: "appearance",
-                              })}
+                              {v.name ||
+                                t(v.value.toLowerCase(), {
+                                  ns: "appearance",
+                                })}
                             </span>
                           </div>
                         </saki-menu-item>
@@ -253,6 +269,17 @@ export class TemplateFooterComponent {
               <span>-</span>
               <a target="_blank" href={this.blogLink}>
                 {this.blogText}
+              </a>
+            </div>
+          ) : (
+            ""
+          )}
+
+          {this.feedback ? (
+            <div class={"f-r-link"}>
+              <span>-</span>
+              <a target="_blank" href={this.feedbackLink}>
+                {this.feedbackText}
               </a>
             </div>
           ) : (

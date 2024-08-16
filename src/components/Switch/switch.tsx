@@ -24,6 +24,7 @@ export class SwitchComponent {
   @State() hide: boolean = true;
   @Element() el: HTMLElement;
   @Event() change: EventEmitter;
+  @Event() changevalue: EventEmitter;
   @Watch("value")
   watchVisible() {}
   componentDidLoad() {}

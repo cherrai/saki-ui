@@ -9,11 +9,12 @@ import {
   h,
 } from "@stencil/core";
 import state from "../../store";
+import { momentLocale } from "../../store/config";
 
 @Component({
   tag: "saki-init-language",
   styleUrl: "init.scss",
-  // shadow: true,
+  shadow: true,
 })
 export class SakiInitLanguageComponent {
   @Prop() language: string = "";
@@ -30,19 +31,25 @@ export class SakiInitLanguageComponent {
   @Watch("lang")
   watchLang() {
     state.lang = this.lang;
+    momentLocale(state.lang);
   }
   componentWillLoad() {}
   componentDidLoad() {
     // console.log("componentDidLoad");
     state.language = this.language;
     state.lang = this.lang;
+    setTimeout(() => {
+      momentLocale(state.lang);
+    }, 300);
   }
   @Method()
   async initLanguage(
     languages: string[],
     resources: {
       [lang: string]: {
-        k: string;
+        [ns: string]: {
+          [k: string]: string;
+        };
       };
     }
   ) {
@@ -50,6 +57,7 @@ export class SakiInitLanguageComponent {
     state.languages = languages;
     state.resources = resources;
     state.updateTime = new Date().getTime();
+    // console.log("moment", moment.locale("zh-cn"));
   }
   render() {
     return (

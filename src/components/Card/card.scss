@@ -28,14 +28,17 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border: var(--saki-card-item-border);
   &.Flex {
     background-color: var(--saki-card-item-bg-color);
     &.tap {
       &:hover {
         background-color: var(--saki-card-item-bg-hover-color);
+        border: var(--saki-card-item-border-hover);
       }
       &:active {
         background-color: var(--saki-card-item-bg-active-color);
+        border: var(--saki-card-item-border-active);
       }
     }
     .ci-main {

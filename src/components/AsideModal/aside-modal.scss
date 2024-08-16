@@ -19,46 +19,87 @@
     }
     .model-content {
       opacity: 1;
+      // &.LeftTop {
+      //   left: 0;
+      //   top: 0;
+      // }
+      // &.LeftCenter {
+      //   left: 0;
+      //   top: 50%;
+      //   transform: translateY(-50%);
+      // }
+      // &.LeftBottom {
+      //   left: 0;
+      //   bottom: 0;
+      // }
+      // &.CenterTop {
+      //   left: 50%;
+      //   top: 0;
+      //   transform: translate(-50%, 0);
+      // }
+      // &.CenterCenter {
+      //   left: 50%;
+      //   top: 50%;
+      //   transform: translate(-50%, -50%);
+      // }
+      // &.CenterBottom {
+      //   left: 50%;
+      //   bottom: 0;
+      //   transform: translate(-50%, 0);
+      // }
+      // &.RightTop {
+      //   right: 0;
+      //   top: 0;
+      // }
+      // &.RightCenter {
+      //   right: 0;
+      //   top: 50%;
+      //   transform: translateY(-50%);
+      // }
+      // &.RightBottom {
+      //   right: 0;
+      //   bottom: 0;
+      // }
       &.LeftTop {
-        left: 0;
-        top: 0;
+        left: calc(0% + var(--saki-aside-modal-offset-x));
+        top: calc(0% + var(--saki-aside-modal-offset-y));
       }
       &.LeftCenter {
-        left: 0;
-        top: 50%;
+        left: calc(0% + var(--saki-aside-modal-offset-x));
+        top: calc(50% + var(--saki-aside-modal-offset-y));
         transform: translateY(-50%);
       }
       &.LeftBottom {
-        left: 0;
-        bottom: 0;
+        left: calc(0% + var(--saki-aside-modal-offset-x));
+        bottom: calc(0 + var(--saki-aside-modal-offset-y));
       }
       &.CenterTop {
-        left: 50%;
-        top: 0;
+        left: calc(50% + var(--saki-aside-modal-offset-x));
+        top: calc(0% + var(--saki-aside-modal-offset-y));
         transform: translate(-50%, 0);
       }
       &.CenterCenter {
-        left: 50%;
-        top: 50%;
+        left: calc(50% + var(--saki-aside-modal-offset-x));
+        top: calc(50% + var(--saki-aside-modal-offset-y));
         transform: translate(-50%, -50%);
       }
       &.CenterBottom {
-        left: 50%;
-        bottom: 0;
+        left: calc(50% + var(--saki-aside-modal-offset-x));
+        bottom: calc(0% + var(--saki-aside-modal-offset-y));
         transform: translate(-50%, 0);
       }
       &.RightTop {
-        right: 0;
-        top: 0;
+        right: calc(0% + var(--saki-aside-modal-offset-x));
+        top: calc(0% + var(--saki-aside-modal-offset-y));
       }
       &.RightCenter {
-        right: 0;
-        top: 50%;
+        right: calc(0% + var(--saki-aside-modal-offset-x));
+        top: calc(50% + var(--saki-aside-modal-offset-y));
         transform: translateY(-50%);
       }
       &.RightBottom {
-        right: 0;
-        bottom: 0;
+        right: calc(0% + var(--saki-aside-modal-offset-x));
+        bottom: calc(0% + var(--saki-aside-modal-offset-y));
       }
     }
   }

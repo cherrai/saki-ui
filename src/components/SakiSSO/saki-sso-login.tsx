@@ -6,6 +6,7 @@ import {
   h,
   Prop,
 } from "@stencil/core";
+import { Query } from "../../modules/methods";
 
 @Component({
   tag: "saki-sso",
@@ -23,6 +24,7 @@ export class SSOLoginComponent {
   @Prop() disableHeader = false;
   @Event() login: EventEmitter;
   @Event() updateUser: EventEmitter;
+  @Event() verifyAccount: EventEmitter;
   @Element() el: HTMLElement;
 
   // @Method()
@@ -48,6 +50,11 @@ export class SSOLoginComponent {
         case "updateUser":
           this.updateUser.emit();
           break;
+        case "verifyAccount":
+          this.verifyAccount.emit({
+            token: e.data.data.token,
+          });
+          break;
 
         default:
           break;
@@ -63,21 +70,14 @@ export class SSOLoginComponent {
         class={"saki-sso-login-component "}
       >
         <iframe
-          src={
-            this.url +
-            "?appId=" +
-            this.appId +
-            // "&appToken=" +
-            // this.appToken +
-            "&language=" +
-            this.language +
-            "&appearance=" +
-            this.appearance +
-            "&appName=" +
-            this.appName +
-            "&iframe=true&disableHeader=" +
-            (!this.disableHeader ? "false" : "true")
-          }
+          src={Query(this.url, {
+            appId: this.appId,
+            language: this.language,
+            appearance: this.appearance,
+            appName: this.appName,
+            iframe: "true",
+            disableHeader: !this.disableHeader ? "false" : "true",
+          })}
           frameborder="0"
         ></iframe>
       </div>

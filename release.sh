@@ -4,7 +4,7 @@ port=32300
 version="v1.0.1"
 branch="main"
 DIR=$(cd $(dirname $0) && pwd)
-allowMethods=("copyReactTypes buildReactTargetDir zip unzip removeBuildFile copyFile protos stop npmconfig install gitpull dockerremove start logs")
+allowMethods=("sh copyReactTypes buildReactTargetDir zip unzip removeBuildFile copyFile protos stop npmconfig install gitpull dockerremove start logs")
 
 gitpull() {
   echo "-> 正在拉取远程仓库"
@@ -72,7 +72,7 @@ start() {
   # 获取npm配置
   DIR=$(cd $(dirname $0) && pwd)
   cp -r ~/.npmrc $DIR
-  # cp -r ~/.yarnrc $DIR
+  cp -r ~/.yarnrc $DIR
 
   echo "-> 准备构建Docker"
   docker build \
@@ -81,7 +81,7 @@ start() {
     -f Dockerfile.multi
 
   rm $DIR/.npmrc
-  # rm $DIR/.yarnrc
+  rm $DIR/.yarnrc
 
   echo "-> 准备运行Docker"
 
@@ -94,20 +94,28 @@ start() {
     -d $name
 
   echo "-> 整理文件资源"
-  removeLocalFile
+
+  rm $DIR/build/build_time_*
+
   docker cp $name:/dist/. $DIR/build
   rm -rf $DIR/build/saki-ui-react/types/
   mkdir -p $DIR/build/packages
   mv $DIR/build/saki-ui.tgz $DIR/build/packages/$name-$version.tgz
   mv $DIR/build/saki-ui-react.tgz $DIR/build/packages/$name-react-$version.tgz
+
   zip
   stop
 
   # rm -rf $DIR/build/* | egrep -v "($DIR/build/*.tgz)"
   # ls ./build/* | egrep -v '(./build/saki-ui-v1.0.1.tgz)'
   # rm -rf `ls ./build/* | egrep -v '(./build/packages)'`
+  sh
+}
+
+sh() {
   ./ssh.sh run
-  rm -rf build.tgz
+  # rm -rf build.tgz
+
 }
 
 unzip() {
