@@ -23,6 +23,7 @@ export const config: Config = {
     sass({
       injectGlobalPaths: [
         "src/globals/base.scss",
+        "src/globals/common.scss",
         // "node_modules/quill/dist/quill.core.css",
         // "node_modules/quill/dist/quill.snow.css",
         // "node_modules/quill/dist/quill.bubble.css",
@@ -63,4 +64,7 @@ export const config: Config = {
       // loaderDir:"./loader"
     }),
   ],
+  // extras: {
+  //   experimentalImportInjection: true
+  // }
 };

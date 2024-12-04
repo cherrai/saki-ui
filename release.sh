@@ -1,10 +1,10 @@
 #! /bin/bash
 name="saki-ui"
 port=32300
-version="v1.0.1"
+version="v1.0.4"
 branch="main"
 DIR=$(cd $(dirname $0) && pwd)
-allowMethods=("sh copyReactTypes buildReactTargetDir zip unzip removeBuildFile copyFile protos stop npmconfig install gitpull dockerremove start logs")
+allowMethods=("devBuild sh copyReactTypes buildReactTargetDir zip unzip removeBuildFile copyFile protos stop npmconfig install gitpull dockerremove start logs")
 
 gitpull() {
   echo "-> 正在拉取远程仓库"
@@ -38,12 +38,19 @@ copyFile() {
   cp -r src/globals/common.css ./www/build/css
 
   sed -i '1i\// @ts-nocheck' ./dist/react/react-component-lib/createOverlayComponent.tsx
+  sed -i '1i\// @ts-nocheck' ./dist/react/react-component-lib/utils/index.tsx
 }
 
 copyReactTypes() {
   mkdir -p $DIR/dist/saki-ui-react/components
   cp -r ./dist/react/* ./dist/saki-ui-react/components
   cp -r ./dist/types ./dist/saki-ui-react
+}
+
+devBuild() {
+  yarn build
+  rm -rf /home/shiina_aiiko/Workspace/Development/@Aiiko/ShiinaAiikoDevWorkspace/@OpenSourceProject/meow-sticky-note/meow-sticky-note-client/public/saki-ui
+  cp -r ./dist /home/shiina_aiiko/Workspace/Development/@Aiiko/ShiinaAiikoDevWorkspace/@OpenSourceProject/meow-sticky-note/meow-sticky-note-client/public/saki-ui
 }
 
 buildReactTargetDir() {
@@ -103,6 +110,13 @@ start() {
   mv $DIR/build/saki-ui.tgz $DIR/build/packages/$name-$version.tgz
   mv $DIR/build/saki-ui-react.tgz $DIR/build/packages/$name-react-$version.tgz
 
+  rm -rf $DIR/build/packages/$version
+  mkdir -p $DIR/build/packages/$version
+
+  tar -zxvf $DIR/build/packages/$name-$version.tgz \
+    -C $DIR/build/packages/$version
+  # tar -zxvf $DIR/build/packages/$name-react-$version.tgz -C ./build/packages/$version
+
   zip
   stop
 
@@ -128,12 +142,14 @@ zip() {
 }
 
 removeBuildFile() {
+  # 暂时不删除文件，因为后续都采用版本化了
   mkdir -p $DIR/build/packages
-  for folderName in $(ls $DIR/build); do
-    if [ "$folderName" != "packages" ]; then
-      rm -rf $DIR/build/$folderName
-    fi
-  done
+  rm $DIR/build/build_time_*
+  # for folderName in $(ls $DIR/build); do
+  #   if [ "$folderName" != "packages" ]; then
+  #     rm -rf $DIR/build/$folderName
+  #   fi
+  # done
 }
 
 stop() {

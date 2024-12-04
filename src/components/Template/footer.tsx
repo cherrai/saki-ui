@@ -7,7 +7,7 @@ import {
   State,
   Watch,
 } from "@stencil/core";
-import { t } from "../../modules/i18n";
+import { t } from "../../modules/i18n/i18n";
 import state from "../../store";
 
 @Component({

@@ -2,15 +2,17 @@
   position: relative;
 
   user-select: none;
-  overflow: hidden;
+  // overflow: hidden;
   background-color: var(--button-bg-color);
   border: 1px solid var(--button-bg-color);
   --button-loading-bg-color: var(--button-bg-color);
+
   &:hover {
     background-color: var(--button-bg-hover-color);
     border: 1px solid var(--button-bg-hover-color);
     --button-loading-bg-color: var(--button-bg-hover-color);
   }
+
   &:active {
     background-color: var(--button-bg-active-color);
     border: 1px solid var(--button-bg-active-color);
@@ -26,12 +28,14 @@
       // border: 1px solid transparent;
       // --button-loading-bg-color: transparent;
     }
+
     &:active {
       background-color: var(--button-bg-active-color);
       border: 1px solid var(--button-bg-active-color);
       --button-loading-bg-color: var(--button-bg-active-color);
     }
   }
+
   .button-content {
     opacity: 1;
     transition: all 0.3s;
@@ -40,6 +44,7 @@
     align-items: center;
     flex: 1;
   }
+
   .button-loading {
     position: absolute;
     width: var(--button-loading-width);
@@ -48,6 +53,7 @@
     margin: auto;
     transform: rotate(360deg);
     opacity: 0;
+
     &::before,
     &::after {
       position: absolute;
@@ -56,6 +62,7 @@
       border-radius: 50%;
       transform: rotate(720deg);
     }
+
     &::before {
       top: 0px;
       left: 0px;
@@ -79,18 +86,22 @@
       transition: border-color 0.3s;
     }
   }
+
   @keyframes rotate {
     100% {
       transform: rotate(0deg);
     }
   }
+
   &.loading {
     display: flex;
     justify-content: center;
     align-items: center;
+
     .button-content {
       opacity: 0;
     }
+
     .button-loading {
       opacity: 1;
       animation: rotate 45s infinite linear;
@@ -103,6 +114,7 @@
         animation: rotate 2s infinite ease-in-out;
       }
     }
+
     // .button-loading {
     //   width: 30px;
     //   height: 30px;
@@ -164,20 +176,24 @@
       }
     }
   }
+
   &.Normal,
   &.CircleIconGrayHover {
     font-size: 14px;
     color: #222;
     border-radius: 6px;
+
     &.disabled {
       color: #aaa;
     }
   }
+
   &.Primary {
     font-size: 14px;
     color: #fff;
     border-radius: 6px;
   }
+
   display: flex;
   justify-content: center;
   align-items: center;

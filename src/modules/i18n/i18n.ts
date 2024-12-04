@@ -1,8 +1,15 @@
 import i18n from "i18next";
-import state from "../store";
+import state from "../../store";
+import { sakiuiEventListener } from "../../store/config";
 
 export const initI18n = () => {
-  if (state.initI18n || !Object.keys(state.resources).length) return;
+  // state.initI18n || 
+  if (!Object.keys(state.resources).length) return;
+
+
+  console.log("[Saki UI] Initialize i18n", state);
+  if (state.initI18n) {
+  }
   i18n.init({
     resources: state.resources,
     ns: ["common"],
@@ -22,7 +29,17 @@ export const initI18n = () => {
     i18n.changeLanguage(state.lang);
   }
   state.initI18n = true;
+  (window as any).sakiui = {
+    ... (window as any).sakiui,
+    i18n
+  };
+
+  sakiuiEventListener.dispatch("loadI18n", i18n)
+  sakiuiEventListener.on('mounted', () => {
+    sakiuiEventListener.dispatch("loadI18n", i18n)
+  })
 };
 export const t = i18n.t;
+
 
 export default i18n;

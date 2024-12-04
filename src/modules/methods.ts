@@ -1,6 +1,7 @@
 import state from "../store";
 import qs from "qs";
 import { snackbar } from "./saki-ui-core/snackbar/snackbar";
+import { sakiuiEventListener } from "../store/config";
 // import { snackbar } from "./saki-ui-core";
 
 export const initSakiUIMethods = () => {
@@ -30,6 +31,7 @@ export const initSakiUIMethods = () => {
       console.log("appearances", appearances);
       state.appearances = appearances;
     },
+    sakiuiEventListener
   };
 };
 

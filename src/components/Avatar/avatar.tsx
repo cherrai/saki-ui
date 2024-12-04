@@ -22,6 +22,7 @@ export class AvatarComponent {
   @Prop() defaultSrc: string = "";
   @Prop() defaultBackgroundColor: string = "";
   @Prop() defaultIcon: string = "";
+  @Prop() defaultIconSize: string = "18px";
   @Prop() width: string = "40px";
   @Prop() height: string = "40px";
   @Prop() cropContainerWidth: string = "";
@@ -31,12 +32,26 @@ export class AvatarComponent {
   @Prop() outputQuality: number = 0.9;
 
   @Prop() border: string = "";
+  @Prop() boxShadow: string = "";
   @Prop() borderHover: string = "";
   @Prop() borderActive: string = "";
   @Prop() borderRadius: string = "";
   @Prop() padding: string = "";
   @Prop() margin: string = "";
+
+  // 角标
+  @Prop() mark: boolean = false;
+  @Prop() markStatus: "Offline" | "Online" = "Offline";
+  @Prop() markBackgroundColor: string = "";
+  @Prop() markTop: string = "";
+  @Prop() markRight: string = "";
+  @Prop() markBottom: string = "";
+  @Prop() markLeft: string = "";
+  @Prop() markWidth: string = "";
+  @Prop() markHeight: string = "";
+
   @Prop() editIcon: boolean = false;
+  @Prop() editIconSize: string = "18px";
   @Prop() editIconShowMode: "Hover" | "Always" = "Hover";
   @Prop() editIconBackgroundColor: string = "rgba(0, 0, 0, 0.3)";
   @Prop() crop: boolean = false;
@@ -58,10 +73,12 @@ export class AvatarComponent {
   cropEl: HTMLSakiAvatarEditElement;
 
   @Event() tap: EventEmitter;
+  @Event() markClick: EventEmitter;
   @Event() output: EventEmitter;
   @Event() cancel: EventEmitter;
   @Event() edit: EventEmitter;
   @Element() el: HTMLElement;
+
   componentDidLoad() {
     // setTimeout(() => {
     //   this.onEdit();
@@ -76,7 +93,13 @@ export class AvatarComponent {
     return (
       <div
         style={{
-          ...["fontSize", "margin", "padding", "borderRadius"].reduce(
+          ...[
+            "fontSize",
+            "margin",
+            "padding",
+            "borderRadius",
+            "boxShadow",
+          ].reduce(
             (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
             {}
           ),
@@ -86,7 +109,7 @@ export class AvatarComponent {
           "--saki-avatar-border-hover": this.borderHover,
           "--saki-avatar-border-active": this.borderActive,
         }}
-        class={"saki-avatar-component "}
+        class={"saki-avatar-component " + this.markStatus}
       >
         {this.src ? (
           <saki-images
@@ -119,8 +142,8 @@ export class AvatarComponent {
         ) : this.defaultIcon ? (
           <div class={"avatar-icon"}>
             <saki-icon
-              width="18px"
-              height="18px"
+              width={this.defaultIconSize}
+              height={this.defaultIconSize}
               color="#fff"
               type={this.defaultIcon as any}
             ></saki-icon>
@@ -157,24 +180,14 @@ export class AvatarComponent {
             style={{
               backgroundColor: this.editIconBackgroundColor,
             }}
-            class={"edit " + this.editIconShowMode}
+            class={"avatar-edit " + this.editIconShowMode}
           >
-            <svg
-              class="icon"
-              viewBox="0 0 1024 1024"
-              version="1.1"
-              xmlns="http://www.w3.org/2000/svg"
-              p-id="1151"
-            >
-              <path
-                d="M891.787816 243.009639 730.550575 243.009639l-21.103644-41.932018c-2.450818-5.426593-24.76094-53.007261-56.271608-53.007261L366.81127 148.07036c-31.510668 0-53.819766 47.580668-56.087413 52.640917l-21.273513 42.298362L128.198777 243.009639c-31.485085 0-57.110719 25.494651-57.110719 56.83545L71.088058 821.820278c0 31.354102 25.625634 56.861032 57.110719 56.861032L891.774513 878.68131c31.485085 0 57.110719-25.507954 57.110719-56.861032l0.026606-66.443271L948.911838 603.052762 948.911838 299.845089C948.910814 268.50429 923.286204 243.009639 891.787816 243.009639zM510.976694 739.325425c-103.498212 0-187.701986-83.758636-187.701986-186.719612 0-102.947673 84.203774-186.706309 187.701986-186.706309s187.701986 83.758636 187.701986 186.706309C698.67868 655.567813 614.474906 739.325425 510.976694 739.325425zM789.573853 408.743288c-25.481348 0-46.217624-20.736277-46.217624-46.217624 0-25.481348 20.736277-46.204321 46.217624-46.204321 25.481348 0 46.204321 20.722974 46.204321 46.204321C835.779198 388.007011 815.055201 408.743288 789.573853 408.743288z"
-                p-id="1152"
-              ></path>
-              <path
-                d="M510.976694 429.027264c-68.579935 0-124.365472 55.432497-124.365472 123.579573 0 68.160379 55.786561 123.605156 124.365472 123.605156s124.365472-55.4458 124.365472-123.605156C635.342166 484.45976 579.555605 429.027264 510.976694 429.027264z"
-                p-id="1153"
-              ></path>
-            </svg>
+            <saki-icon
+              width={this.defaultIconSize}
+              height={this.defaultIconSize}
+              color="#fff"
+              type="Camera"
+            ></saki-icon>
           </div>
         ) : (
           ""
@@ -210,6 +223,25 @@ export class AvatarComponent {
               onLoadfile={() => [(this.showEditModal = true)]}
             ></saki-avatar-edit>
           </saki-modal>
+        ) : (
+          ""
+        )}
+        {this.mark ? (
+          <div
+            onClick={() => {
+              this.markClick.emit();
+            }}
+            style={{
+              backgroundColor: this.markBackgroundColor,
+              top: this.markTop,
+              right: this.markRight,
+              bottom: this.markBottom,
+              left: this.markLeft,
+              width: this.markWidth,
+              height: this.markHeight,
+            }}
+            class={"avatar-mark " + this.markStatus}
+          ></div>
         ) : (
           ""
         )}

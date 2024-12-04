@@ -1,6 +1,6 @@
 {
   "name": "saki-ui",
-  "version":"1.0.1",
+  "version":"1.0.4",
   "description": "Stencil Component Starter",
   "main": "dist/index.cjs.js",
   "module": "dist/custom-elements/index.js",
@@ -18,8 +18,8 @@
     "buildScss": "sass src/globals:src/globals && sass src/components/Avatar/cropper.scss:src/globals/cropper.css",
     "copyFile": "chmod u+x ./release.sh && ./release.sh copyFile",
     "copyConfig": "cp -r ./config.ts ./src/config-temp.ts",
-    "build": "cp -r ./config.ts ./src/config-temp.ts && stencil build --docs && yarn copyFile",
-    "dev": "cp -r ./config.ts ./src/config-temp.ts && stencil build --dev --watch --serve",
+    "build": "cp -r ./config.ts ./src/config-temp.ts && stencil build --docs --debug && yarn copyFile",
+    "dev": "cp -r ./config.ts ./src/config-temp.ts && stencil build --dev --watch --serve --debug",
     "test": "stencil test --spec --e2e",
     "start": "node ./app.js --port 32300",
     "test.watch": "stencil test --spec --e2e --watchAll",
@@ -28,7 +28,7 @@
     "coreTsc": "tsc --config ./src/modules/saki-ui-core/tsconfig.json"
   },
   "dependencies": {
-    "@nyanyajs/utils": "^1.0.22",
+    "@nyanyajs/utils": "1.0.25",
     "@stencil/core": "^2.11.0",
     "@stencil/sass": "^1.3.2",
     "@stencil/store": "^2.0.12",

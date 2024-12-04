@@ -3,25 +3,32 @@
   // flex-direction: row;
   justify-content: flex-start;
   width: 100%;
+
   // max-height: 100%;
   &.Row {
     flex-direction: row;
   }
+
   &.Column {
     flex-direction: column;
   }
 }
+
 .saki-checkbox-item-component {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   background-color: var(--saki-background-color);
+  cursor: pointer;
+
   &.Row {
     // flex-direction: row;
     margin-right: 10px;
   }
+
   &.Column {
     margin-right: 0;
+
     // flex-direction: column;
     .ci-content {
       flex: 1;
@@ -31,29 +38,37 @@
   &:hover {
     background-color: var(--saki-background-hover-color);
   }
+
   &.active {
     background-color: var(--saki-background-active-color);
+
     .ci-radio {
       border: 5px solid var(--saki-checkbox-item-icon-color);
     }
+
     .ci-checkbox {
       background-color: var(--saki-checkbox-item-icon-color);
-      .icon {
+
+      saki-icon {
         opacity: 1;
       }
     }
   }
+
   &.disabled {
     .ci-radio {
       opacity: 0.5;
     }
+
     .ci-checkbox {
       opacity: 0.5;
     }
+
     .ci-content {
       color: #999;
     }
   }
+
   .ci-checkbox {
     width: 16px;
     height: 16px;
@@ -63,18 +78,18 @@
     margin-right: 6px;
     transition: background-color 0.1s;
     position: relative;
-    .icon {
+
+    saki-icon {
       position: absolute;
-      left: 0;
-      top: 0;
-      width: 14px;
-      height: 14px;
-      fill: #fff;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
       opacity: 0;
       transition: opacity 0.1s;
       cursor: pointer;
     }
   }
+
   .ci-radio {
     width: 16px;
     height: 16px;
@@ -84,6 +99,7 @@
     margin-right: 6px;
     transition: border 0.1s;
   }
+
   .ci-content {
     font-size: 14px;
   }

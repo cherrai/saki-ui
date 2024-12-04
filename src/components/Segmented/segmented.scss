@@ -1,0 +1,54 @@
+.saki-segmented-component {
+  display: flex;
+  align-items: center;
+  flex-direction: var(--saki-flex-direction);
+
+  width: var(--saki-width);
+  max-width: var(--saki-maxWidth);
+  height: var(--saki-height);
+  border-radius: var(--saki-borderRadius);
+  background-color: var(--saki-bgColor);
+
+  position: relative;
+
+  .s-active {
+    background-color: var(--saki-bgActiveColor);
+    height: var(--saki-height);
+    border-radius: var(--saki-borderRadius);
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: left .2s;
+  }
+
+  .s-list {
+    display: flex;
+    align-items: center;
+    flex-direction: var(--saki-flex-direction);
+    width: 100%;
+    height: 100%;
+
+    saki-segmented-item {
+      flex: 1;
+    }
+
+    .saki-segmented-item-component {
+      flex: 1;
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: color .2s;
+
+      color: var(--color);
+
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+      &.active {
+        color: var(--activeColor);
+      }
+    }
+  }
+}

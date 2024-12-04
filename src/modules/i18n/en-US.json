@@ -1,0 +1,63 @@
+{
+  "common": {
+    "aiikoBlog": "Aiiko Blog"
+  },
+  "languages": {
+    "en-US": "English",
+    "zh-CN": "Chinese(Simplified)",
+    "zh-TW": "Chinese(Traditional)",
+    "system": "Use device language"
+  },
+  "prompt": {
+    "copy": "Copy",
+    "login": "Login",
+    "loginSuccessfully": "Login successful!",
+    "logout": "Logout",
+    "logoutContent": "Are you sure you want to log out?",
+    "logoutSuccessfully": "Successfully logged out of the account",
+    "userOffline": "User is offline, please check network status.",
+
+    "edit": "Edit",
+    "save": "Save",
+
+    "next": "Next",
+    "back": "Back",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "copySuccessfully": "Copy successfully!",
+    "deletedSuccessfully": "Deleted successfully!",
+    "loadingData": "Data is loading",
+    "loadedData": "{{percentage}} of data loaded",
+    "share": "Share",
+    "unshare": "Unshare",
+    "generatingSharingContent": "Generating sharing content...",
+    "enableShare": "Enable sharing",
+    "disableShare": "Disable sharing",
+    "enableShareContent": "Are you sure you want to enable sharing?",
+    "disableShareContent": "Are you sure you want to disable sharing?",
+    "saveImage": "Save image",
+    "copyLink": "Copy link",
+
+    "cannotBeEmpty": "Cannot be empty",
+    "filter": "Filter",
+    "clear": "Clear",
+
+    "select": "Select",
+
+    "createdSuccessfully": "Created successfully!",
+
+    "updatedSuccessfully": "Updated successfully",
+    "editedSuccessfully": "Edited successfully",
+
+    "enable": "Enable",
+    "disable": "Disable",
+
+    "unableLoadMap": "Unable to load map, switch to new basemap",
+
+    "moveTo": "Move To",
+    "sortTo": "Sort To",
+    "moveToTop": "Move to top",
+    "moveToBottom": "Move to bottom"
+  }
+}

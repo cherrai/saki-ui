@@ -20,6 +20,7 @@ export class SwitchComponent {
   @Prop() width: string = "44px";
   @Prop() height: string = "22px";
   @Prop() coreWidth: string = "18px";
+  @Prop() disabled: boolean = false;
   @State() timer?: NodeJS.Timeout;
   @State() hide: boolean = true;
   @Element() el: HTMLElement;
@@ -32,9 +33,13 @@ export class SwitchComponent {
     return (
       <div
         onClick={() => {
-          this.change.emit(!this.value);
+          !this.disabled && this.change.emit(!this.value);
         }}
-        class={"saki-switch-component " + (this.value ? "active" : "")}
+        class={
+          "saki-switch-component " +
+          (this.value ? "active " : "") +
+          (this.disabled ? "disabled" : "")
+        }
         style={{
           "--saki-switch-width": this.width,
           "--saki-switch-height": this.height,

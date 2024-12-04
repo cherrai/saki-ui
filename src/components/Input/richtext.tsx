@@ -232,10 +232,10 @@ export class RichTextComponent {
         let node = super.create();
         console.log("LinkBlot", value, node);
         node.setAttribute("class", value?.class || "");
-        node.setAttribute("alt", value.alt || "");
-        node.setAttribute("title", value.title || "");
-        node.setAttribute("src", value.src);
-        node.setAttribute("data-name", value.name);
+        node.setAttribute("alt", value?.alt || "");
+        node.setAttribute("title", value?.title || "");
+        node.setAttribute("src", value?.src || "");
+        node.setAttribute("data-name", value?.name || "");
         // node.onclick = () => {
         //   console.log("点击");
         // };
@@ -264,11 +264,11 @@ export class RichTextComponent {
       static create(value) {
         let node = super.create();
         console.log("LinkBlot", value, node);
-        node.setAttribute("class", value.class);
-        node.setAttribute("alt", value.alt || "");
-        node.setAttribute("title", value.title || "");
-        node.setAttribute("src", value.src);
-        node.setAttribute("data-name", value.name);
+        node.setAttribute("class", value?.class || "");
+        node.setAttribute("alt", value?.alt || "");
+        node.setAttribute("title", value?.title || "");
+        node.setAttribute("src", value?.src || "");
+        node.setAttribute("data-name", value?.name || "");
         // node.onclick = () => {
         //   console.log("点击");
         // };
@@ -355,6 +355,7 @@ export class RichTextComponent {
             enter: {
               key: 13,
               handler: (range: any, ctx: any) => {
+                console.log("KeyEvent");
                 this.KeyEvent(this.enter, range, ctx);
                 // submit form }
               },
@@ -394,6 +395,7 @@ export class RichTextComponent {
     this.quill.root.onblur = () => {
       this.focus = false;
     };
+
 
     this.quill.on("editor-change", (eventName: string, params: any) => {
       if (eventName === "selection-change") {
@@ -437,7 +439,7 @@ export class RichTextComponent {
     );
 
     const el: HTMLElement = this.editorEl.querySelector(".ql-editor");
-    el.classList.add("scrollBarDefault");
+    el.classList.add("scrollBarHover");
     this.isInit = true;
   }
   @Method()
@@ -476,6 +478,18 @@ export class RichTextComponent {
   @Method()
   async getFocus() {
     return this.focus;
+  }
+  @Method()
+  async getQuill() {
+    return this.quill;
+  }
+  @Method()
+  async setSelection(
+    index: number,
+    length: number,
+    source?: "api" | "user" | "silent"
+  ) {
+    return this.quill.setSelection(index, length, source);
   }
   @Method()
   insetNode({
@@ -575,6 +589,11 @@ export class RichTextComponent {
         style={{
           ...["padding", "minHeight", "minWeight"].reduce(
             (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
+            {}
+          ),
+          ...["maxHeight", "maxWeight", "minHeight", "minWeight"].reduce(
+            (fin, cur) =>
+              this[cur] ? { ...fin, ["--editor-" + cur]: this[cur] } : fin,
             {}
           ),
           "--editor-padding": this.editorPadding,

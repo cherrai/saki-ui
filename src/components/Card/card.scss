@@ -1,27 +1,32 @@
 .saki-card-component {
   padding: 6px 0 0;
   text-align: left;
+
   &.border {
     margin-bottom: 16px;
     // border: 1px solid var(--default-color);
     border: 1px solid #eee;
     border-radius: 10px;
   }
+
   .c-title {
     padding: 0 18px;
     font-size: 20px;
     font-weight: 500;
     margin: 12px 0;
   }
+
   .c-subtitle {
     padding: 0 18px 18px;
     font-size: 15px;
     color: #666;
   }
+
   .c-main {
     // width: fit-content;
   }
 }
+
 .saki-card-item-component {
   padding: 18px 18px;
   transition: background-color 0.1s;
@@ -29,37 +34,46 @@
   justify-content: space-between;
   align-items: center;
   border: var(--saki-card-item-border);
+  border-radius: var(--saki-card-item-border-radius);
+
   &.Flex {
-    background-color: var(--saki-card-item-bg-color);
+    background-color:    var(--saki-card-item-bg-color);
+
     &.tap {
       &:hover {
         background-color: var(--saki-card-item-bg-hover-color);
         border: var(--saki-card-item-border-hover);
       }
+
       &:active {
         background-color: var(--saki-card-item-bg-active-color);
         border: var(--saki-card-item-border-active);
       }
     }
+
     .ci-main {
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex: 1;
+
       .ci-m-left {
         flex: 1;
         font-size: 16px;
       }
+
       .ci-m-center {
         flex: 1;
         font-size: 14px;
         color: #666;
       }
     }
+
     .ci-right {
       display: flex;
       justify-content: flex-end;
       align-items: center;
+
       .back-icon {
         fill: #666;
         width: 16px;
@@ -67,16 +81,20 @@
       }
     }
   }
+
   &.Default {
     text-align: left;
+
     &.tap {
       &:hover {
         background-color: #eee;
       }
+
       &:active {
         background-color: #ddd;
       }
     }
+
     .ci-left {
       .ci-title {
         font-size: 16px;
@@ -85,15 +103,18 @@
         font-size: 12px;
         margin-bottom: 8px;
       }
+
       .ci-main {
         width: fit-content;
         font-size: 15px;
       }
     }
+
     .ci-right {
       display: flex;
       justify-content: flex-end;
       align-items: center;
+
       .back-icon {
         fill: #666;
         width: 16px;

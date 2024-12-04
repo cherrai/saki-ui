@@ -17,6 +17,7 @@ export class CardItemComponent {
   @Prop() border: string = "";
   @Prop() borderHover: string = "";
   @Prop() borderActive: string = "";
+  @Prop() borderRadius: string = "";
   @Prop() margin = "";
   @Prop() padding = "";
   // Flex
@@ -43,6 +44,7 @@ export class CardItemComponent {
             "--saki-card-item-border": this.border,
             "--saki-card-item-border-hover": this.borderHover,
             "--saki-card-item-border-active": this.borderActive,
+            "--saki-card-item-border-radius": this.borderRadius,
           }}
           onClick={() => {
             !this.disabledTap && this.tap.emit();

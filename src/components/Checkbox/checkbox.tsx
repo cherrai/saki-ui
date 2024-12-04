@@ -77,7 +77,7 @@ export class CheckboxComponent {
   } = {};
   tapFunc(e: any) {
     this.d.increase(() => {
-      console.log("tapFunc", e);
+      // console.log("tapFunc", e);
       switch (this.type) {
         case "Radio":
           this.values = [e.target.value];

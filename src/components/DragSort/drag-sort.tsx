@@ -14,6 +14,15 @@ import Sortable from "sortablejs";
 
 // 用http://www.sortablejs.com/
 // 以后有空了再改
+
+type SortValue = {
+  oldIndex?: number;
+  oldId?: string;
+  newIndex?: number;
+  newId?: string;
+};
+// type SortValue = any;
+
 @Component({
   tag: "saki-drag-sort",
   styleUrl: "drag-sort.scss",
@@ -64,8 +73,12 @@ export class DragSortComponent {
   @Prop() direction: "Top" | "Bottom" = "Bottom";
   @Prop() padding: string = "6px 0";
 
-  @Event() selectvalue: EventEmitter;
-  @Event() dragdone: EventEmitter;
+  @Event() chooseValue: EventEmitter<SortValue>;
+  @Event() updateValue: EventEmitter<SortValue>;
+  @Event() changeValue: EventEmitter<SortValue>;
+  @Event() moveValue: EventEmitter<SortValue>;
+  @Event() unchooseValue: EventEmitter<SortValue>;
+  @Event() dragdone: EventEmitter<SortValue>;
   @Element() el: HTMLElement;
 
   @Watch("sort")
@@ -105,8 +118,8 @@ export class DragSortComponent {
     if (!DragSortComponent.dragTargetELement?.dragId) return;
     if (this.dragId === DragSortComponent.dragTargetELement.dragId) {
       this.dragdone.emit({
-        originalIndex: e.target["dragIndex"],
-        targetIndex:
+        oldIndex: e.target["dragIndex"],
+        newIndex:
           DragSortComponent.dragTargetELement.dragIndex >= 0
             ? DragSortComponent.dragTargetELement.dragIndex
             : e.target["dragIndex"],
@@ -132,27 +145,51 @@ export class DragSortComponent {
         animation: 150,
         sort: true,
         ghostClass: "saki-drag-sort-active-class",
+        chosenClass: "sortable-chosen", // 被选中项的css 类名
+        dragClass: "sortable-drag", // 正在被拖拽中的css类名
+
         // 元素被选中
-        // onChoose: function (/**Event*/ evt) {
-        //   // evt.oldIndex; // 父元素索引
-        //   console.log("onChoose", evt);
-        // },
+        onChoose: (/**Event*/ e) => {
+          // evt.oldIndex; // 父元素索引
+          console.log("onChoose", e);
+          // data-saki-drag-sort-id
+          // el?.getAttribute('data-id') || '',
+          this.chooseValue.emit({
+            oldIndex: e.oldIndex,
+            oldId: e?.item?.getAttribute("data-saki-drag-sort-id") || "",
+          });
+        },
 
         // // 元素未被选中的时候（从选中到未选中）
-        // onUnchoose: function (/**Event*/ evt) {
-        //   // 与onEnd相同的属性
-        //   // evt.oldIndex; // 父元素索引
-        //   console.log("onUnchoose", evt);
-        // },
+        onUnchoose: (/**Event*/ e) => {
+          // 与onEnd相同的属性
+          // evt.oldIndex; // 父元素索引
+          console.log("onUnchoose", e);
+          this.unchooseValue.emit({
+            // originalIndex: e.oldIndex,
+            // el: e.item,
+          });
+        },
 
         // // 开始拖拽的时候
-        // onStart: function (/**Event*/ evt) {
-        //   evt.oldIndex; // 父元素索引onStart
-        //   console.log("onStart", evt);
-        // },
+        onStart: function (/**Event*/ e) {
+          console.log("onStart", e);
+        },
+
+        // // 开始拖拽的时候
+        onMove: (/**Event*/ e) => {
+          console.log("drag1 onMove", e);
+
+          // related
+          this.moveValue.emit({
+            newId: e?.related?.getAttribute("data-saki-drag-sort-id") || "",
+            oldId: e?.dragged?.getAttribute("data-saki-drag-sort-id") || "",
+          });
+        },
 
         // 结束拖拽
         onEnd: (e) => {
+          console.log(e);
           // var itemEl = evt.item; // dragged HTMLElement
           // evt.to; // target list
           // evt.from; // previous list
@@ -167,8 +204,8 @@ export class DragSortComponent {
           // console.log("onEnd", evt.oldIndex);
           // console.log("onEnd", evt.newIndex);
           this.dragdone.emit({
-            originalIndex: e.oldIndex,
-            targetIndex: e.newIndex,
+            oldIndex: e.oldIndex,
+            newIndex: e.newIndex,
           });
         },
 
@@ -178,15 +215,26 @@ export class DragSortComponent {
         // },
 
         // // 列表内元素顺序更新的时候触发
-        // onUpdate: function (/**Event*/ evt) {
-        //   // 与onEnd相同的属性
-        // },
+        onUpdate: (e) => {
+          console.log("onUpdate", e);
+          this.updateValue.emit({
+            oldIndex: e.oldIndex,
+            newIndex: e.newIndex,
+          });
+        },
+        onChange: (e) => {
+          console.log("onSort", e);
+          this.changeValue.emit({
+            oldIndex: e.oldIndex,
+            newIndex: e.newIndex,
+          });
+        },
 
         // // 列表的任何更改都会触发
-        // onSort: function (/**Event*/ evt) {
-        //   // 与onEnd相同的属性
-        //   console.log("onSort", evt);
-        // },
+        onSort: () => {
+          // 与onEnd相同的属性
+          // console.log("onSort", e);
+        },
 
         // // 元素从列表中移除进入另一个列表
         // onRemove: function (/**Event*/ evt) {
@@ -248,8 +296,8 @@ export class DragSortComponent {
 
     console.log(this.activeIndex, this.dragIndex);
     this.dragdone.emit({
-      originalIndex: this.activeIndex,
-      targetIndex: this.dragIndex,
+      oldIndex: this.activeIndex,
+      newIndex: this.dragIndex,
     });
 
     // console.log(this.dragElement, this.referenceElement);

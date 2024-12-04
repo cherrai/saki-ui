@@ -51,6 +51,10 @@ export class InputComponent {
   @Prop() width: string = "";
   @Prop() maxWidth: string = "";
   @Prop() border: string = "";
+  @Prop() borderTop: string = "";
+  @Prop() borderRight: string = "";
+  @Prop() borderBottom: string = "";
+  @Prop() borderLeft: string = "";
   @Prop() padding: string = "";
   @Prop() margin: string = "";
   @Prop() fontSize: string = "";
@@ -401,6 +405,10 @@ export class InputComponent {
                   "padding",
                   "backgroundColor",
                   "border",
+                  "borderTop",
+                  "borderRight",
+                  "borderBottom",
+                  "borderLeft",
                   "textAlign",
                   "color",
                 ].reduce(
@@ -597,6 +605,10 @@ export class InputComponent {
                   "fontSize",
                   "backgroundColor",
                   "border",
+                  "borderTop",
+                  "borderRight",
+                  "borderBottom",
+                  "borderLeft",
                   "borderRadius",
                   "textAlign",
                   "color",

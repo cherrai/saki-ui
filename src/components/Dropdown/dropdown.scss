@@ -6,6 +6,7 @@
 .saki-dropdown-main {
   // 为了防止双层滚动条
   visibility: hidden;
+
   // display: none;
   // &.Bottom {
   //   .main-content {
@@ -20,34 +21,42 @@
     visibility: visible;
     display: none;
   }
+
   &.visibleStyle {
     visibility: visible;
     display: block;
   }
+
   &.visible {
     .main-content {
       opacity: 1;
       transform: scale(1) translate(0px, 0px);
     }
+
     .main-bg {
       // opacity: 1;
       visibility: visible;
     }
   }
+
   .main-content {
     position: fixed;
     opacity: 0;
     z-index: 1000;
     transition: opacity 0.1s, transform 0.1s;
-    transform: scale(0.9)
-      translate(var(--saki-dropdown-x), var(--saki-dropdown-y));
+    transform: scale(0.9) translate(var(--saki-dropdown-x), var(--saki-dropdown-y));
     // transform: translate(0px, 10px);
     // transform: translateX(16px);
     border-radius: 10px;
     overflow: hidden;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
+    &.positionAnimation {
+      transition: left, top .3s;
+    }
   }
+
   .main-bg {
     position: fixed;
     top: 0;

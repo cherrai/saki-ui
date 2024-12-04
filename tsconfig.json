@@ -4,16 +4,26 @@
     "allowUnreachableCode": false,
     "declaration": false,
     "experimentalDecorators": true,
-    "lib": ["dom", "es2017"],
+    "lib": [
+      "dom",
+      "es2017"
+    ],
     "moduleResolution": "node",
     "module": "esnext",
     "target": "es2017",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-		"skipLibCheck": true,
+    "skipLibCheck": true,
     "jsx": "react",
-    "jsxFactory": "h"
+    "jsxFactory": "h",
+    "resolveJsonModule": true,
   },
-  "include": ["src", "config.ts"],
-  "exclude": ["node_modules", "modules"]
+  "include": [
+    "src",
+    "config.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "modules"
+  ]
 }

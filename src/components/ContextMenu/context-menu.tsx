@@ -1,3 +1,4 @@
+import { getShortId } from "@nyanyajs/utils/dist/shortId";
 import {
   Component,
   Event,
@@ -15,16 +16,18 @@ import {
   styleUrl: "context-menu.scss",
 })
 export class ContextMenuComponent {
+  @Prop() id = getShortId(7);
   list: NodeListOf<HTMLSakiContextMenuItemElement>;
   @Prop({ mutable: true }) zIndex: number = 1100;
   @Element() el: Element;
-  label: string = "";
+  @Prop({ mutable: true }) label: string = "";
   compEl: HTMLDivElement;
   contentEl: HTMLDivElement;
   @State() visible: boolean = false;
   @State() showContent: boolean = false;
   @State() contentWidth = 0;
   @State() contentHeight = 0;
+  // @State() maxHeight = "";
   @State() updateTime = 0;
   @State() contextMenuObj = {
     left: 0,
@@ -33,11 +36,17 @@ export class ContextMenuComponent {
     y: 0,
   };
   @Event() close: EventEmitter;
+  @Event() closeParentMenu: EventEmitter;
   @Event() fullclose: EventEmitter;
   @Event() selectvalue: EventEmitter<{
     index: number;
     value: string;
     label: string;
+    values: {
+      index: number;
+      value: string;
+      label: string;
+    }[];
   }>;
   @Watch("visible")
   watchVisible() {
@@ -55,58 +64,88 @@ export class ContextMenuComponent {
     }
   }
   @Method()
-  async show({ x, y, label }: { x: number; y: number; label: string }) {
+  async show({
+    x,
+    y,
+    label,
+    showContent = true,
+  }: {
+    x: number;
+    y: number;
+    label: string;
+    showContent?: boolean;
+  }) {
+    if (window) {
+      if (!window["contextMenuStatusMap"]) {
+        window["contextMenuStatusMap"] = {};
+      }
+      window["contextMenuStatusMap"][this.id] = true;
+    }
+    this.watchDom();
     this.visible = true;
-    setTimeout(() => {
-      // console.log(
-      //   x,
-      //   y,
-      //   x + this.contentEl.offsetWidth,
-      //   y + this.contentEl.offsetHeight,
-      //   window.innerWidth,
-      //   window.innerHeight,
-      //   this.contentEl,
-      //   document.body.querySelector(".context-menu-content"),
-      //   document.body.querySelector(".context-menu-content").clientWidth,
-      //   this.contentEl.clientWidth,
-      //   this.contentEl.offsetWidth,
-      //   this.contentEl.offsetHeight
-      // );
-      // console.log(x + this.contentEl.offsetWidth < window.innerWidth - 10);
 
-      this.label = label;
-      this.getPosition(x, y);
-      this.contextMenuObj.x = x;
-      this.contextMenuObj.y = y;
-      this.updateTime = new Date().getTime();
-      const animate = this.contentEl.animate(
-        [
-          {
-            opacity: "0",
-          },
-          {
-            opacity: "1",
-          },
-        ],
-        {
-          duration: 150,
-          iterations: 1,
+    // console.log("initSubMenu show", this.list);
+
+    // const contentEl = this.el.querySelector(".context-menu-content");
+
+    // this.list = this.el.querySelectorAll("saki-context-menu-item");
+    // console.log("initSubMenu watchj list", this.list);
+
+    showContent &&
+      setTimeout(() => {
+        this.list.forEach((el) => {
+          el.show(label);
+        });
+
+        if (label) {
+          this.label = label;
         }
-      );
-      animate.onfinish = () => {
-        this.showContent = true;
-      };
-    });
+        this.getPosition(x, y);
+        this.contextMenuObj.x = x;
+        this.contextMenuObj.y = y;
+        this.updateTime = new Date().getTime();
+        const animate = this.contentEl.animate(
+          [
+            {
+              opacity: "0",
+              transform: "translate(-10px,0)",
+            },
+            {
+              opacity: "1",
+              transform: "translate(0,0)",
+            },
+          ],
+          {
+            duration: 150,
+            iterations: 1,
+          }
+        );
+        animate.onfinish = () => {
+          this.showContent = true;
+          // console.log(this.el.getBoundingClientRect());
+        };
+      });
   }
   @Method()
   async hide() {
     this.addCloseAnimate();
+    this.list.forEach((el) => {
+      el.closeSubMenu();
+    });
+  }
+  @Method()
+  async hideOnlyMenu() {
+    console.log("hideOnlyMenu");
+    this.addCloseAnimate();
+    this.closeParentMenu.emit();
   }
   getPosition(x: number, y: number) {
+    const contentWidth = this.contentWidth;
+    const contentHeight = this.contentHeight;
     this.contextMenuObj.left =
-      x + this.contentWidth < window.innerWidth - 10
+      x + contentWidth <= window.innerWidth - 30
         ? x
-        : window.innerWidth - 10 - this.contentWidth;
+        : window.innerWidth - 30 - contentWidth;
 
     // console.log(
     //   this.contentEl,
@@ -115,19 +154,52 @@ export class ContextMenuComponent {
     //   window.innerHeight
     // );
     this.contextMenuObj.top =
-      y + this.contentHeight < window.innerHeight - 10
+      y + contentHeight < window.innerHeight - 20
         ? y
-        : window.innerHeight - 10 - this.contentHeight;
+        : window.innerHeight - 20 - contentHeight;
+
+    this.contextMenuObj.left =
+      this.contextMenuObj.left < 10
+        ? window.innerWidth - contentWidth - 20
+        : this.contextMenuObj.left;
+    this.contextMenuObj.top =
+      this.contextMenuObj.top < 10
+        ? window.innerHeight - contentHeight - 20
+        : this.contextMenuObj.top;
+
+    this.contextMenuObj.left =
+      this.contextMenuObj.left < 10 ? 10 : this.contextMenuObj.left;
+    this.contextMenuObj.top =
+      this.contextMenuObj.top < 10 ? 10 : this.contextMenuObj.top;
+
+    // 内容超出屏幕
+    // console.log("ctm", y, contentHeight, window.innerHeight);
+    // console.log(
+    //   "ctm",
+    //   this.contextMenuObj.top,
+    //   this.contextMenuObj.top < 10,
+    //   y + contentHeight,
+    //   this.contentEl.offsetHeight >= window.innerHeight,
+    //   y + contentHeight < window.innerHeight - 20
+    // );
+    // this.maxHeight = "";
+    // if (this.contentEl.offsetHeight >= window.innerHeight) {
+    //   this.maxHeight = window.innerHeight - 20 + "px";
+    // }
+    // console.log("ctm", this.maxHeight);
   }
   addCloseAnimate() {
+    window["contextMenuStatusMap"][this.id] = false;
     this.close.emit();
     const animate = this.contentEl.animate(
       [
         {
           opacity: "1",
+          transform: "translate(0,0)",
         },
         {
           opacity: "0",
+          transform: "translate(-10px,0)",
         },
       ],
       {
@@ -143,30 +215,32 @@ export class ContextMenuComponent {
   }
   componentWillLoad() {}
   componentDidLoad() {
-    const observer = new MutationObserver(this.watchDom.bind(this));
+    // const observer = new MutationObserver(this.watchDom.bind(this));
     this.watchDom();
     // 以上述配置开始观察目标节点
-    observer.observe(this.el, {
-      attributes: false,
-      childList: true,
-      subtree: false,
-    });
+    // observer.observe(this.el, {
+    //   attributes: false,
+    //   childList: true,
+    //   subtree: false,
+    // });
   }
-  tapFunc = (e: any) => {
-    this.addCloseAnimate();
-    this.selectvalue.emit({
-      index: e.detail.index,
-      value: e.detail.value,
-      label: this.label,
-    });
-  };
   watchDom() {
-    this.list = this.el.querySelectorAll("saki-context-menu-item");
+    this.list = document.body.querySelectorAll(
+      `.context-menu-content.${this.id}>saki-context-menu-item`
+    );
+    // console.log("initSubMenu watchj list", this.list);
     if (this.list?.length) {
       this.list.forEach((v, i) => {
         v.setIndex(i);
+        v.setParentId(this.id);
         v.removeEventListener("tap", this.tapFunc);
         v.addEventListener("tap", this.tapFunc);
+        v.removeEventListener("closeMenu", this.closeMenuFunc);
+        v.addEventListener("closeMenu", this.closeMenuFunc);
+        v.removeEventListener("closeMenu", this.closeMenuFunc);
+        v.addEventListener("closeMenu", this.closeMenuFunc);
+        v.removeEventListener("onlyCloseMenu", this.onlyCloseMenuFunc);
+        v.addEventListener("onlyCloseMenu", this.onlyCloseMenuFunc);
       });
 
       // for (const key in this.el.children) {
@@ -177,6 +251,59 @@ export class ContextMenuComponent {
       // }
     }
   }
+  onlyCloseMenuFunc = () => {
+    this.hideOnlyMenu();
+  };
+  tapFunc = (e: any) => {
+    if (e.detail.close) {
+      this.addCloseAnimate();
+      // this.list.forEach((el) => {
+      //   el.closeSubMenu();
+      // });
+      this.selectvalue.emit({
+        index: e.detail.index,
+        value: e.detail.value,
+        label: this.label,
+        values: [
+          {
+            index: e.detail.index,
+            value: e.detail.value,
+            label: this.label,
+          },
+        ],
+      });
+    }
+    // console.log("关闭其他modal", this.list);
+    this.list.forEach((el, i) => {
+      if (i !== e.detail.index) {
+        el.closeSubMenu();
+      }
+    });
+  };
+  closeMenuFunc = (e: any) => {
+    // console.log("closeMenuFunc", e.detail);
+    this.addCloseAnimate();
+
+    const value = e.detail.values.length
+      ? e.detail.values[0]
+      : {
+          index: e.detail.index,
+          value: e.detail.value,
+          label: this.label,
+        };
+    this.selectvalue.emit({
+      index: value.index,
+      value: value.value,
+      label: value.label,
+      values: e.detail.values.concat([
+        {
+          index: e.detail.index,
+          value: e.detail.value,
+          label: this.label,
+        },
+      ]),
+    });
+  };
   render() {
     return (
       <div
@@ -188,7 +315,10 @@ export class ContextMenuComponent {
           e && (this.compEl = e);
         }}
         class={
-          "saki-context-menu-component " + (this.visible ? "show" : "hide")
+          "saki-context-menu-component " +
+          this.id +
+          " " +
+          (this.visible ? "show" : "hide")
         }
       >
         <div
@@ -213,8 +343,14 @@ export class ContextMenuComponent {
             left: this.contextMenuObj.left + "px",
             top: this.contextMenuObj.top + "px",
             zIndex: String(this.zIndex),
+            // maxHeight: this.maxHeight,
           }}
-          class={"context-menu-content " + (this.showContent ? "show" : "hide")}
+          class={
+            "context-menu-content scrollBarHover " +
+            this.id +
+            " " +
+            (this.showContent ? "show" : "hide")
+          }
         >
           <slot></slot>
         </div>
@@ -227,7 +363,8 @@ export class ContextMenuComponent {
             return false;
           }}
           onMouseDown={() => {
-            this.addCloseAnimate();
+            this.hide();
+            this.closeParentMenu.emit();
           }}
           onClick={() => {
             // this.visible = false;

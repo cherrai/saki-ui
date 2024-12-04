@@ -1,9 +1,11 @@
 .saki-aside-modal-component {
   visibility: hidden;
+
   // visibility: hidden;
   &.visibleStyle {
     visibility: visible;
   }
+
   &.hide {
     display: none;
     // &.hide-modal-transition-enter-done{
@@ -13,12 +15,15 @@
 
     //   }
   }
+
   &.visible {
     .model-bg {
       opacity: 1;
     }
+
     .model-content {
       opacity: 1;
+
       // &.LeftTop {
       //   left: 0;
       //   top: 0;
@@ -64,45 +69,54 @@
         left: calc(0% + var(--saki-aside-modal-offset-x));
         top: calc(0% + var(--saki-aside-modal-offset-y));
       }
+
       &.LeftCenter {
         left: calc(0% + var(--saki-aside-modal-offset-x));
         top: calc(50% + var(--saki-aside-modal-offset-y));
         transform: translateY(-50%);
       }
+
       &.LeftBottom {
         left: calc(0% + var(--saki-aside-modal-offset-x));
-        bottom: calc(0 + var(--saki-aside-modal-offset-y));
+        bottom: calc(0% + var(--saki-aside-modal-offset-y));
       }
+
       &.CenterTop {
         left: calc(50% + var(--saki-aside-modal-offset-x));
         top: calc(0% + var(--saki-aside-modal-offset-y));
         transform: translate(-50%, 0);
       }
+
       &.CenterCenter {
         left: calc(50% + var(--saki-aside-modal-offset-x));
         top: calc(50% + var(--saki-aside-modal-offset-y));
         transform: translate(-50%, -50%);
       }
+
       &.CenterBottom {
         left: calc(50% + var(--saki-aside-modal-offset-x));
         bottom: calc(0% + var(--saki-aside-modal-offset-y));
         transform: translate(-50%, 0);
       }
+
       &.RightTop {
         right: calc(0% + var(--saki-aside-modal-offset-x));
         top: calc(0% + var(--saki-aside-modal-offset-y));
       }
+
       &.RightCenter {
         right: calc(0% + var(--saki-aside-modal-offset-x));
         top: calc(50% + var(--saki-aside-modal-offset-y));
         transform: translateY(-50%);
       }
+
       &.RightBottom {
         right: calc(0% + var(--saki-aside-modal-offset-x));
         bottom: calc(0% + var(--saki-aside-modal-offset-y));
       }
     }
   }
+
   .model-bg {
     position: fixed;
     top: 0;
@@ -114,6 +128,7 @@
     transition: opacity 0.3s;
     opacity: -1;
   }
+
   .model-content {
     position: fixed;
     z-index: 1000;
@@ -122,46 +137,55 @@
     border-radius: 4px;
     overflow: hidden;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
     &.LeftTop {
       left: -100%;
-      top: 0;
+      top: calc(0% + var(--saki-aside-modal-offset-y));
     }
+
     &.LeftCenter {
       left: -100%;
-      top: 50%;
+      top: calc(50% + var(--saki-aside-modal-offset-y));
       transform: translateY(-50%);
     }
+
     &.LeftBottom {
       left: -100%;
-      bottom: 0;
+      bottom: calc(0% + var(--saki-aside-modal-offset-y));
     }
+
     &.CenterTop {
-      left: 50%;
+      left: calc(50% + var(--saki-aside-modal-offset-x));
       top: -100%;
       transform: translate(-50%, 0);
     }
+
     &.CenterCenter {
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
     }
+
     &.CenterBottom {
-      left: 50%;
+      left: calc(50% + var(--saki-aside-modal-offset-x));
       bottom: -100%;
       transform: translate(-50%, 0);
     }
+
     &.RightTop {
       right: -100%;
-      top: 0;
+      top: calc(0% + var(--saki-aside-modal-offset-y));
     }
+
     &.RightCenter {
       right: -100%;
-      top: 50%;
+      top: calc(50% + var(--saki-aside-modal-offset-y));
       transform: translateY(-50%);
     }
+
     &.RightBottom {
       right: -100%;
-      bottom: 0;
+      bottom: calc(0% + var(--saki-aside-modal-offset-y));
     }
   }
 }

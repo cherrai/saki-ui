@@ -91,8 +91,9 @@ export class TabsComponent {
   }
   @Watch("activeTabLabel")
   watchActiveTabLabel() {
-    // console.log("activeTabLabel", this.activeTabLabel);
+    // console.log("activeTabLabel", this.activeTabLabel, this.itemComponents);
     this.activeTabLabel &&
+      this.itemComponents?.length &&
       this.itemComponents.forEach((item, index) => {
         if (this.activeTabLabel === item.label) {
           this.activeIndex = index;
@@ -165,7 +166,7 @@ export class TabsComponent {
       return;
     }
     let wObj = {};
-    this.navItemList.forEach((v: HTMLDivElement, index) => {
+    this.navItemList.forEach((_: HTMLDivElement, index) => {
       wObj[index] =
         index === 0
           ? 0

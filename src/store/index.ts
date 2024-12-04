@@ -2,6 +2,22 @@ import { createStore } from "@stencil/store";
 import { initConfig } from "./config";
 // import { t } from "../modules/i18n";
 
+import enUS from "../modules/i18n/en-US.json";
+import zhCN from "../modules/i18n/zh-CN.json";
+import zhTW from "../modules/i18n/zh-TW.json";
+
+const localResources = {
+  "zh-CN": {
+    ...zhCN,
+  },
+  "zh-TW": {
+    ...zhTW,
+  },
+  "en-US": {
+    ...enUS,
+  },
+};
+
 // onChange
 export const { state, onChange } = createStore({
   appearance: "",
@@ -19,6 +35,7 @@ export const { state, onChange } = createStore({
   currentRoute: "",
 
   networkStatus: false,
+  localResources,
   resources: {
     // "zh-CN": {
     //   template: {
@@ -39,8 +56,12 @@ export const { state, onChange } = createStore({
   //   };
   // },
   updateTime: 0,
+  // sakiuiEventListener
 });
 
-initConfig();
+// initConfig();
+setTimeout(() => {
+  initConfig()
+});
 
 export default state;

@@ -41,6 +41,7 @@ export class AsideModalComponent {
   @Prop() margin: string = "";
   @Prop() mask: boolean = false;
   @Prop() maskBackgroundColor: string = "";
+  @Prop() overflow: string = "hidden";
   @Prop() maskClosable: boolean = false;
   @Prop({ mutable: true }) zIndex: number = 999;
 
@@ -157,6 +158,7 @@ export class AsideModalComponent {
               "border",
               "padding",
               "margin",
+              "overflow",
             ].reduce(
               (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
               {}

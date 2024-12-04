@@ -1,0 +1,301 @@
+{
+  "common": {
+    "appTitle": "行程路线轨迹",
+    "logoTitle": "帐号",
+    "copy": "复制",
+    "aiikoBlog": "爱喵博客",
+    "login": "登录",
+    "logout": "登出",
+
+    "edit": "编辑",
+    "save": "保存"
+  },
+  "languages": {
+    "en-US": "英文",
+    "zh-CN": "中文(简体)",
+    "zh-TW": "中文(繁体)",
+    "system": "使用设备语言"
+  },
+  "tripPage": {
+    "pageTitle": "行程路线轨迹",
+    "subtitle": "便捷方便的记录GPS路线轨迹、速度、里程、海拔等行程数据~，支持步行、骑行、驾车等多种出行方式。",
+    "all": "全部",
+    "running": "跑步",
+    "bike": "骑行",
+    "drive": "驾车",
+    "walking": "步行",
+    "powerwalking": "健走",
+    "motorcycle": "摩托车",
+    "plane": "飞机",
+    "train": "火车",
+    "publictransport": "公共交通",
+    "totalDistance": "总距离",
+    "maxSpeed": "最高速度",
+    "minSpeed": "最低速度",
+    "maxAltitude": "最高海拔",
+    "climbAltitude": "爬升海拔",
+    "descendAltitude": "下降海拔",
+    "distance": "距离",
+    "speed": "速度",
+    "altitude": "海拔",
+    "duration": "时长",
+    "trips": "次数",
+    "day": "日",
+    "week": "周",
+    "month": "月",
+    "year": "年",
+    "fastest": "最快",
+    "slowest": "最慢",
+    "start": "开始",
+    "stop": "停止",
+
+    "unfinished": "未完成",
+
+    "averageSpeed": "平均速度",
+    "averageAltitude": "平均海拔",
+    "minAltitude": "最低海拔",
+
+    "editTrip": "编辑行程",
+    "type": "出行类型",
+    "currentType": "当前出行类型",
+
+    "local": "本地",
+
+    "addTripToOnline": "将行程保存到线上",
+
+    "finishTrip": "结束行程",
+
+    "correctedData": "修复行程数据",
+    "tripDataCanBeCorrected": "行程数据可修正",
+
+    "tripsCount": "{{num}}次行程",
+    "durationText": "{{num}}小时",
+
+    "tripMark": "行程标记",
+
+    "fastestAverageSpeed": "最快均速",
+    "maxClimbAltitude": "最大爬升海拔",
+    "maxDescendAltitude": "最大下降海拔",
+    "maxDistance": "最远距离",
+    "statistics": "统计",
+
+    "averagePace": "配速",
+
+    "parkingLongTimeSkip": "停车{{parkingTime}}，跳过",
+    "goThroughTunnelSkip": "{{parkingTime}}后穿越隧道，跳过",
+
+    "speedColorLimit": "速度颜色限制"
+  },
+  "trackRoutePage": {
+    "pageTitle": "历史行程轨迹",
+    "subtitle": "已记录过的行程所有轨迹路线均会被绘制",
+    "startDate": "开始日期",
+    "endDate": "现在",
+    "selectAll": "全选",
+    "uncheck": "取消选中"
+  },
+  "tripHistoryPage": {
+    "pageTitle": "行程历史"
+  },
+  "vehicleModal": {
+    "pageTitle": "我的载具",
+    "addVehicle": "新增载具",
+    "editVehicle": "编辑载具",
+    "vehicle": "载具",
+    "currentVehicle": "当前载具",
+    "selectVehicle": "选择载具",
+    "defaultVehicle": "默认",
+
+    "setDefault": "设为默认",
+    "neverTraveled": "从未旅行过",
+    "lastTravelTime": "上次旅行时间",
+
+    "vehicleNamePlaceholder": "载具名称",
+    "licensePlatePlaceholder": "牌照 (选填)",
+    "vehicleType": "载具类型",
+    "id": "Id",
+
+    "bike": "自行车",
+    "motorcycle": "摩托车",
+    "car": "汽车",
+    "truck": "卡车",
+    "publictransport": "公共交通",
+    "airplane": "飞机",
+
+    "cancelVehicle": "取消载具",
+
+    "positionShare": "位置共享",
+
+    "carModelPlaceholder": "车型 (选填)",
+
+    "all": "所有人",
+    "onlyMyself": "仅自己",
+    "notShared": "禁止分享",
+
+    "cancelDefault": "取消默认",
+
+    "deselectVehicle": "取消选择载具",
+    "noVehicleSelected": "未选择载具",
+
+    "traveledTimes": "已旅行{{times}}次",
+    "addTripHere": "添加行程至",
+    "setTripsInBatchesTo": "批量设置行程至",
+    "findLocation": "查看位置"
+  },
+  "settings": {
+    "title": "设置",
+
+    "tripHistory": "行程历史",
+
+    "account": "帐号",
+    "general": "常规",
+    "language": "多语言",
+    "appearance": "外表",
+    "sync": "同步",
+    "backup": "备份",
+    "syncAndBackup": "同步与备份",
+    "syncTo": "同步至",
+    "syncingTo": "正在同步至",
+    "syncPromptForNotLoggedIn": "启用同步功能前需要先登陆帐号",
+    "modes": "模式",
+
+    "addAccount": "添加账号",
+    "editProfile": "编辑资料",
+    "profile": "资料",
+    "nickname": "昵称",
+    "username": "用户名",
+    "bio": "介绍",
+
+    "light": "浅色模式",
+    "dark": "暗黑模式",
+    "black": "黑色模式",
+    "system": "随系统变化",
+
+    "switchSuccessfully": "已切换为 ",
+
+    "about": "关于",
+
+    "basemap": "基础地图",
+    "maps": "地图",
+    "AutoSelect": "自动选择",
+    "OpenStreetMap": "开放街道地图",
+    "Google": "谷歌",
+    "GoogleSatellite": "谷歌卫星图",
+    "Amap": "高德",
+    "AmapSatellite": "高德卫星图",
+    "GeoQBase": "GeoQ 标准",
+    "GeoQNight": "GeoQ 夜晚",
+    "GeoQGrey": "GeoQ 灰色",
+    "GeoQWarm": "GeoQ 暖色",
+    "GeoQStreet": "GeoQ 街道",
+    "TianDiTuSatellite": "天地图卫星图",
+
+    "trackSpeed​Color": "轨迹速度颜色",
+    "RedGreen": "红绿",
+    "PinkBlue": "蓝粉",
+    "tripTrackWidth": "行程轨迹宽度",
+    "width": "宽度",
+
+    "ongoingTrip": "实时行程轨迹",
+    "historyTripTrack": "历史行程轨迹",
+    "historyTripTrackSelectedTrip": "历史行程轨迹已选中的行程",
+    "reviewTrip": "回顾行程",
+
+    "cache": "缓存",
+    "clearCache": "清除缓存 ({{size}})",
+
+    "trackRouteBaseMap": "历史轨迹路线底图",
+
+    "trackRouteColor": "历史轨迹路线颜色",
+    "blue": "蓝色",
+    "pink": "粉色",
+    "red": "红色",
+
+    "trackRouteDetailedData": "历史行程轨迹详细数据",
+    "trackRouteDetailedDataContent": "仅筛选多个行程时可显示速度颜色、海拔等数据",
+
+    "currentPosition": "当前位置",
+    "showAvatarAtCurrentPosition": "在当前位置显示头像",
+
+    "selectedTripIdsTip": "列表中被选择的行程将会依据行程明细的速度展示对应的轨迹颜色",
+    "normalMode": "默认",
+    "grayMode": "灰色",
+    "darkMode": "暗黑",
+    "blackMode": "黑色",
+    "AmapFull": "高德地图",
+    "AmapArea": "高德区域地图",
+    "AmapAreaMark": "高德区域标记地图",
+    "AmapAreaRoad": "高德区域道路地图",
+    "speedAnimation": "速度动画",
+    "speedAnimationTip": "在旅行和预览时开启速度动画",
+
+    "syncLocationWhileTraveling": "旅行时可同步位置",
+
+    "roadColorFade": "道路颜色淡化",
+    "roadColorFadeTip": "仅 {{maps}} 等将进行道路淡化"
+  },
+  "prompt": {
+    "next": "下一步",
+    "back": "返回",
+    "delete": "删除",
+    "cancel": "取消",
+    "confirm": "确认",
+    "copySuccessfully": "复制成功！",
+
+    "deleteThisTrip": "删除此行程？",
+    "deletedSuccessfully": "删除成功!",
+    "deleteThisTrip50m": "距离需要大于50米才能保存。是否删除此行程？",
+    "noLoginSaveTrip": "如果您未登录您的帐户，您的行程记录将存储在本地。",
+    "tripSavedLocally": "已将此行程保存到了本地",
+    "deleteLocalTrip": "同时删除本地数据？",
+
+    "logout": "退出账号",
+    "logoutContent": "确定想退出账号吗",
+    "logoutSuccessfully": "成功退出账号",
+
+    "deleteInvalidTrip": "删除无效行程",
+    "deleteAllTrip50m": "有{{uselessDataCount}}个行程是无效数据，您确定要删除这些行程吗？",
+
+    "loadingData": "正在加载数据",
+    "loadedData": "已加载 {{percentage}} 的行程数据",
+
+    "noLoginTrip": "您需要登录您的帐户才能继续访问",
+
+    "share": "分享",
+    "unshare": "取消分享",
+    "generatingSharingContent": "正在生成分享内容...",
+    "enableShare": "启用分享",
+    "disableShare": "禁用分享",
+    "enableShareContent": "您确定要启用分享吗？",
+    "disableShareContent": "您确定要禁用分享吗？",
+
+    "saveImage": "保存图片",
+    "copyLink": "复制链接",
+
+    "cannotBeEmpty": "不能为空",
+    "filter": "过滤",
+    "clear": "清除",
+
+    "select": "选择",
+
+    "createdSuccessfully": "创建成功!",
+
+    "defaultVehicleHasBeenSet": "已设置默认载具",
+
+    "defaultVehicleHasBeenCanceled": "已取消默认载具",
+
+    "updatedSuccessfully": "更新成功!",
+    "editedSuccessfully": "编辑成功!",
+    "loadBaseData": "正在加载基础数据",
+
+    "enable": "启用",
+    "disable": "禁用",
+
+    "unableLoadMap": "无法加载地图，切换新的底图",
+
+    "moveTo": "移动到",
+    "sortTo": "排序到",
+    "moveToTop": "移至顶部",
+    "moveToBottom": "移至底部"
+  }
+}

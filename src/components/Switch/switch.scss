@@ -5,16 +5,23 @@
   position: relative;
   background-color: #eee;
   transition: background-color 0.2s;
+
   &.active {
     background-color: var(--saki-default-color);
+
     .switch-core {
       background-color: #fff;
-      left: calc(
-        var(--saki-switch-width) - var(--saki-switch-core-width) -
-          (var(--saki-switch-height) - var(--saki-switch-core-width)) / 2
-      );
+      left: calc(var(--saki-switch-width) - var(--saki-switch-core-width) - (var(--saki-switch-height) - var(--saki-switch-core-width)) / 2);
     }
   }
+
+  &.disabled {
+    background-color: #eee;
+    .switch-core {
+      background-color: #ccc;
+    }
+  }
+
   .switch-core {
     width: var(--saki-switch-core-width);
     height: var(--saki-switch-core-width);

@@ -6,10 +6,10 @@
   height: var(--saki-circle-progress-bar-height);
   position: relative;
   padding: var(--saki-circle-progress-bar-padding);
-  border: var(--saki-circle-progress-bar-border-width) solid
-    var(--saki-circle-progress-bar-color);
+  border: var(--saki-circle-progress-bar-border-width) solid var(--saki-circle-progress-bar-color);
   border-radius: 50%;
   box-sizing: border-box;
+
   // &::after {
   //   content: "";
   //   position: absolute;
@@ -36,6 +36,7 @@
     width: var(--saki-circle-progress-bar-wrap-width);
     height: var(--saki-circle-progress-bar-wrap-height);
     display: flex;
+
     // transform: rotate(45deg);
     .circle-content {
       position: absolute;
@@ -46,12 +47,14 @@
       justify-content: center;
       align-items: center;
     }
+
     .circle-right-bg,
     .circle-left-bg {
       position: relative;
       width: calc(var(--saki-circle-progress-bar-wrap-width) / 2);
       height: var(--saki-circle-progress-bar-wrap-height);
       overflow: hidden;
+
       .circle-r-circle,
       .circle-l-circle {
         width: var(--saki-circle-progress-bar-wrap-width);
@@ -62,61 +65,61 @@
         position: absolute;
         top: 0;
         box-sizing: border-box;
-        animation-iteration-count: var(
-          --saki-circle-progress-bar-animetion-iteration-count
-        );
+        animation-iteration-count: var(--saki-circle-progress-bar-animetion-iteration-count);
       }
     }
+
     .circle-right-bg {
       .circle-r-circle {
-        border-top: var(--saki-circle-progress-bar-bar-width) solid
-          var(--saki-circle-progress-bar-color);
-        border-right: var(--saki-circle-progress-bar-bar-width) solid
-          var(--saki-circle-progress-bar-color);
+        border-top: var(--saki-circle-progress-bar-bar-width) solid var(--saki-circle-progress-bar-color);
+        border-right: var(--saki-circle-progress-bar-bar-width) solid var(--saki-circle-progress-bar-color);
         right: 0;
         animation: var(--saki-circle-progress-bar-animetion-right);
       }
     }
+
     .circle-left-bg {
       .circle-l-circle {
-        border-bottom: var(--saki-circle-progress-bar-bar-width) solid
-          var(--saki-circle-progress-bar-color);
-        border-left: var(--saki-circle-progress-bar-bar-width) solid
-          var(--saki-circle-progress-bar-color);
+        border-bottom: var(--saki-circle-progress-bar-bar-width) solid var(--saki-circle-progress-bar-color);
+        border-left: var(--saki-circle-progress-bar-bar-width) solid var(--saki-circle-progress-bar-color);
         left: 0;
         animation: var(--saki-circle-progress-bar-animetion-left);
       }
     }
+
     @keyframes circleRightAnime {
       0% {
-        transform: rotate(
-          var(--saki-circle-progress-bar-animetion-right-start)
-        );
+        transform: rotate(var(--saki-circle-progress-bar-animetion-right-start));
       }
+
       100% {
         transform: rotate(var(--saki-circle-progress-bar-animetion-right-end));
       }
     }
+
     @keyframes circleRightFullAnime {
       0% {
-        transform: rotate(
-          var(--saki-circle-progress-bar-animetion-right-start)
-        );
+        transform: rotate(var(--saki-circle-progress-bar-animetion-right-start));
       }
+
       50% {
         transform: rotate(var(--saki-circle-progress-bar-animetion-right-end));
       }
+
       100% {
         transform: rotate(var(--saki-circle-progress-bar-animetion-right-end));
       }
     }
+
     @keyframes circleLeftFullAnime {
       0% {
         transform: rotate(var(--saki-circle-progress-bar-animetion-left-start));
       }
+
       50% {
         transform: rotate(var(--saki-circle-progress-bar-animetion-left-start));
       }
+
       100% {
         transform: rotate(var(--saki-circle-progress-bar-animetion-left-end));
       }
@@ -128,6 +131,8 @@
   width: 300px;
   height: 20px;
   position: relative;
+  overflow: hidden;
+
   .lpb-inner {
     position: absolute;
     left: 0;

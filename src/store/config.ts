@@ -1,5 +1,5 @@
 import { onChange, state } from "./";
-import i18n, { initI18n } from "../modules/i18n";
+import i18n, { initI18n } from "../modules/i18n/i18n";
 import moment from "moment";
 // import "moment/dist/locale/en";
 import "moment/dist/locale/zh-cn";
@@ -7,7 +7,9 @@ import "moment/dist/locale/zh-tw";
 import { NEventListener } from "@nyanyajs/utils/dist/common/neventListener";
 // // import { storage } from "./storage";
 
-export const nevent = new NEventListener();
+export const sakiuiEventListener = new NEventListener();
+
+export type SakiuiEventListener = typeof sakiuiEventListener
 
 export const initConfig = () => {
   console.log("initConfig");
@@ -19,10 +21,10 @@ export const initConfig = () => {
 
     //   nevent.getEventNames()
     // );
-    nevent.getEventNames().forEach((v) => {
+    sakiuiEventListener.getEventNames().forEach((v) => {
       // console.log("eeeeeeee", v);
       if (v.indexOf("body-click:dropdown-event") >= 0) {
-        nevent.dispatch(v, e);
+        sakiuiEventListener.dispatch(v, e);
       }
     });
   });
@@ -67,4 +69,12 @@ export const initConfig = () => {
 export const momentLocale = (lang: string) => {
   console.log("momentLocale", lang);
   moment.locale(lang);
+};
+
+
+
+export let contextMenuTimer: NodeJS.Timeout;
+
+export const setContextMenuTimer = (t: NodeJS.Timeout) => {
+  contextMenuTimer = t;
 };

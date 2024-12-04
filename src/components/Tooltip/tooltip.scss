@@ -1,0 +1,34 @@
+.saki-tooltip-component {
+  position: relative;
+
+  // width: var(--saki-c-w);
+  // height: var(--saki-c-h);
+
+  &.Top {
+    .st-title {}
+  }
+
+  &.show {
+    .st-title {
+      opacity: 1;
+    }
+  }
+
+  &.hide {
+    .st-title {
+      opacity: 1;
+    }
+  }
+
+  .st-title {
+    position: absolute;
+    // left: 50%;
+    // transform: translate(-50%, 0);
+    left: var(--saki-t-x);
+    top: var(--saki-t-y);
+
+    width: 100px;
+
+    transition: opacity .2s;
+  }
+}

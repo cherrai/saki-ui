@@ -10,7 +10,7 @@ import {
   State,
   Watch,
 } from "@stencil/core";
-import { nevent } from "../../store/config";
+import { sakiuiEventListener } from "../../store/config";
 
 @Component({
   tag: "saki-dropdown",
@@ -51,6 +51,8 @@ export class DropdownComponent {
   @State() isAddVisibleClass: boolean = false;
   @State() visibleStyle: boolean = false;
 
+  @State() positionAnimation: boolean = false;
+
   @State() coreRect: DOMRect;
   @State() contentRect: DOMRect;
 
@@ -79,9 +81,9 @@ export class DropdownComponent {
   // }
   @Watch("visible")
   watchVisibleFunc() {
-    console.log("dropdown watch bodyClosable", this, this.mainEl, this.visible);
+    // console.log("dropdown watch bodyClosable", this, this.mainEl, this.visible);
     if (this.visible) {
-      console.log(this.mask);
+      // console.log(this.mask);
       if (!this.mask) {
         this.bodyPosition = document.body.style.position;
         if (!this.bodyPosition) {
@@ -90,7 +92,7 @@ export class DropdownComponent {
       }
 
       document.body.style.display = "rep";
-      console.log(this.coreRect.width);
+      // console.log(this.coreRect.width);
       this.getRect();
       if (this.coreRect.width) {
         this.visibleStyle = true;
@@ -105,7 +107,7 @@ export class DropdownComponent {
           setTimeout(() => {
             // console.log("this.bodyClosable",this.bodyClosable,this.id)
             this.bodyClosable &&
-              nevent.on(
+              sakiuiEventListener.on(
                 "body-click:dropdown-event-" + this.id,
                 this.bodyClientEvent.bind(this)
               );
@@ -126,13 +128,13 @@ export class DropdownComponent {
       // this.left = -9999;
       // this.top = -9999;
       this.bodyClosable &&
-        nevent.removeEvent("body-click:dropdown-event-" + this.id);
+        sakiuiEventListener.removeEvent("body-click:dropdown-event-" + this.id);
 
       this.closing = true;
     }
   }
   getDropDownElePosition() {
-    console.log("getDropDownElePosition", this.contentRect);
+    // console.log("getDropDownElePosition", this.contentRect);
     if (!this.contentRect?.width) return;
     // this.getRect();
     const clientWidth =
@@ -217,10 +219,10 @@ export class DropdownComponent {
       // -
       //   (clientHeight - this.coreRect.bottom);
     }
-    console.log(this.top);
+    // console.log(this.top);
 
     this.top = this.formartTop(this.top) + this.offsetY;
-    console.log(this.top);
+    // console.log(this.top);
 
     if (this.coreRect.top > this.top) {
       this.vertical = "Bottom";
@@ -271,6 +273,48 @@ export class DropdownComponent {
   componentWillLoad() {
     // console.log("body-click:dropdown-event");
   }
+  componentDidLoad() {
+    setTimeout(() => {
+      // console.log("ddddddddddd", this.d);
+      this.getRect();
+      window.addEventListener("resize", () => {
+        this.d.increase(() => {
+          this.getRect();
+          this.getDropDownElePosition();
+        }, 300);
+      });
+      // console.log("componentDidLoad");
+      // setTimeout(() => {
+      // }, 1000);
+
+      const observer = new MutationObserver(() => {
+        // console.log("Dom发生了变化", this.contentEl.offsetHeight, this.contentEl.offsetWidth, this.contentEl,);
+
+        this.positionAnimation = true;
+        this.d.increase(() => {
+          this.getRect();
+          this.getDropDownElePosition();
+
+          // this.positionAnimation = false
+        }, 30);
+      });
+
+      setTimeout(() => {
+        observer.observe(this.contentEl, {
+          attributes: true,
+          childList: true,
+          subtree: true,
+          characterData: true,
+          attributeFilter: [
+            "clientWidth",
+            "clientHeight",
+            "offsetWidth",
+            "offsetHeight",
+          ],
+        });
+      }, 1000);
+    });
+  }
   bodyClientEvent(e: MouseEvent) {
     // console.log("body-click:dropdown-event bodyClosable", e.target);
     this.getParentEl.call(this, e.target);
@@ -282,23 +326,10 @@ export class DropdownComponent {
       this.bodyClosable && (this.visible = false);
       return;
     }
-    if (this.id === el.getAttribute("data-id")) {
+    if (this.id === el?.getAttribute("data-id")) {
       return;
     }
     return this.getParentEl.call(this, el.parentElement);
-  }
-  componentDidLoad() {
-    // console.log("ddddddddddd", this.d);
-    this.getRect();
-    window.addEventListener("resize", () => {
-      this.d.increase(() => {
-        this.getRect();
-        this.getDropDownElePosition();
-      }, 300);
-    });
-    // console.log("componentDidLoad");
-    // setTimeout(() => {
-    // }, 1000);
   }
   render() {
     return (
@@ -379,7 +410,10 @@ export class DropdownComponent {
                 // document.body.removeChild(this.mainEl);
               }
             }}
-            class={"main-content scrollBarDefault saki-images-lazyload"}
+            class={
+              "main-content scrollBarDefault saki-images-lazyload " +
+              (this.positionAnimation ? "positionAnimation" : "")
+            }
           >
             <slot name="main"></slot>
           </div>

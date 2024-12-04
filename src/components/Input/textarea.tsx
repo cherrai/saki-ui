@@ -38,7 +38,7 @@ export class TextareaComponent {
   @Prop() width: string = "";
   @Prop() padding: string = "";
   @Prop() margin: string = "";
-  
+
   @Prop() fontSize: string = "";
   @Prop() placeholder: string = "";
 
@@ -154,7 +154,14 @@ export class TextareaComponent {
     });
   }
   setTextareaValue() {
-    console.log(this.value, this.dValue, this.dContent);
+    console.log(
+      "setTextareaValue",
+      this.value,
+      1,
+      this.dValue,
+      2,
+      this.dContent
+    );
     if (!this.textareaEl) return;
     // || !this.dContent.trim()
     if (!this.value) {
@@ -184,17 +191,26 @@ export class TextareaComponent {
     // // console.log(this.textareaEl["innerHTML"]);
   }
   setCursorToLastPostion() {
-    // console.log("setCursorToLastPostion", this.editRange);
-    if (!this.editRange.el) return;
-    // setTimeout(() => {
-    // // console.log("setCursorToLastPostion", this.editRange);
-    const selection = getSelection();
-    const r = document.createRange();
-    selection.removeAllRanges();
-    // // console.log(this.editRange.el);
-    selection.addRange(r);
-    selection.collapse(this.editRange.el, this.editRange.endOffset);
-    selection?.collapseToEnd();
+    try {
+      // console.log("setCursorToLastPostion", this.editRange);
+      if (!this.editRange.el) return;
+      // setTimeout(() => {
+      // // console.log("setCursorToLastPostion", this.editRange);
+      const selection = getSelection();
+      const r = document.createRange();
+      selection.removeAllRanges();
+      // // console.log(this.editRange.el);
+      selection.addRange(r);
+      console.log(
+        "setCursorToLastPostion",
+        this.editRange.el,
+        this.editRange.endOffset
+      );
+      selection.collapse(this.editRange.el, this.editRange.endOffset);
+      selection?.collapseToEnd();
+    } catch (error) {
+      console.error(error);
+    }
   }
   replaceBlank(str: string) {
     // // console.log(str);
@@ -308,7 +324,7 @@ export class TextareaComponent {
           class={
             "si-textarea " +
             (this.focus ? " focus " : "") +
-            (this.dContent ? " havaValue " : "noValue")
+            (this.dContent.trim() ? " havaValue " : "noValue")
           }
         >
           <div
@@ -438,7 +454,7 @@ export class TextareaComponent {
                 e.target["innerHTML"] = this.dValue;
               }
               // console.log(this.dValue, e.target["innerHTML"]);
-              // console.log(this.dContent);
+              // console.log("dContent", this.dContent, this.dContent.length);
             }}
             // placeholder={this.placeholder}
           ></div>
