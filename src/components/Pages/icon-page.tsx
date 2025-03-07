@@ -1,5 +1,6 @@
 import { Component, h, Prop, State } from "@stencil/core";
 import { copyText } from "../../modules/methods";
+import { SakiIconComponent } from "../Icon/icon";
 
 @Component({
   tag: "saki-pages-icon",
@@ -15,148 +16,245 @@ export class SakiPagesIconComponent {
   @Prop() margin = "";
   @Prop() padding = "";
   @Prop() title = "";
-  @State() types = [
-    "MoveTo",
-    "Sort",
-    "MoveTop",
-    "MoveBottom",
-    "Sound",
-    "SoundFill",
-    "SoundDisable",
-    "SoundDisableFill",
-    "StarFill",
-    "Star",
-    "BlankPageFill",
-    "BlankPage",
-    "TodoListFill",
-    "TodoList",
-    "Rocket",
-    "Position",
-    "PositionFill",
-    "PositionShare",
-    "Truck",
-    "Camera",
-    "Shutdown",
-    "Shutdown",
-    "Backup",
-    "BackupFill",
-    "Add",
-    "ZoomIn",
-    "ZoomOut",
-    "Train",
-    "PublicTransport",
-    "Plane",
-    "Motorcycle",
-    "PowerWalking",
-    "Walking",
-    "Running",
-    "Drive",
-    "Bike",
-    "Filter",
-    "FilterFill",
-    "Flag",
-    "FlagFill",
-    "Index",
-    "Route",
-    "Layer",
-    "Sun",
-    "SunFill",
-    "Moon",
-    "MoonFill",
-    "Question",
-    "IsLock",
-    "Unlock",
-    "Lock",
-    "Grid",
-    "List",
-    "Statistics",
-    "Email",
-    "WeChatFill",
-    "UserLine",
-    "QRCode",
-    "Hook",
-    "DeviceList",
-    "ChatFill",
-    "Chat",
-    "Copy",
-    "ClearFill",
-    "Keyboard",
-    "Touch",
-    "Erase",
-    "Undo",
-    "Pause",
-    "Play",
-    "CurrentPosition",
-    "Link",
-    "Download",
-    "TripRoute",
-    "Logout",
-    "GPS",
-    "GPSFill",
-    "ListSort",
-    "Countdown",
-    "Quit",
-    "Terminal",
-    "Github",
-    "CloudStorage",
-    "Share",
-    "ShareFill",
-    "PasswordFill",
-    "TrashFill",
-    "Trash",
-    "Refresh",
-    "Refresh2",
-    "Refresh3",
-    "Upload",
-    "TimeFill",
-    "Menu",
-    "MicroPhoneDisable",
-    "MicroPhoneDisableFill",
-    "MicroPhone",
-    "MicroPhoneFill",
-    "Confirm",
-    "BottomTriangle",
-    "Bottom",
-    "Right",
-    "Left",
-    "Top",
-    "ArrowTop",
-    "ArrowBottom",
-    "ArrowRight",
-    "ArrowLeft",
-    "Emoji",
-    "Reply",
-    "ScreeShareFill",
-    "ScreeShare",
-    "Eye",
-    "EyeSlash",
-    "Detail",
-    "File",
-    "FileFill",
-    "Folder",
-    "FolderFill",
-    "Video",
-    "Image",
-    "Paperclip",
-    "Send",
-    "Pen",
-    "Magnifier",
-    "Close",
-    "Message",
-    "Call",
-    "More",
-    "JoinGroup",
-    "Group",
-    "AddUser",
-    "Messages",
-    "Settings",
-    "SettingsFill",
-    "User",
-    "NotificationsFill",
-    "Notifications",
-  ];
+  @State() types = Object.keys(SakiIconComponent.typeData);
+  // @State() types = [];
 
   render() {
+    const cascaderOptions = [
+      {
+        value: "CQ",
+        text: "重庆市",
+        list: [
+          {
+            value: "CQ",
+            text: "重庆市",
+
+            list: [
+              {
+                value: "CQ",
+                text: "重庆市",
+              },
+              {
+                value: "CQ",
+                text: "重庆市",
+              },
+              {
+                value: "CQ",
+                text: "重庆市",
+              },
+              {
+                value: "CQ",
+                text: "重庆市",
+              },
+              {
+                value: "CQ",
+                text: "重庆市",
+              },
+              {
+                value: "CQ",
+                text: "重庆市",
+              },
+              {
+                value: "CQ",
+                text: "重庆市",
+              },
+              {
+                value: "CQ",
+                text: "重庆市",
+              },
+              {
+                value: "CQ",
+                text: "重庆市",
+              },
+              {
+                value: "CQ",
+                text: "重庆市",
+              },
+              {
+                value: "CQ",
+                text: "重庆市",
+              },
+              {
+                value: "CQ",
+                text: "重庆市",
+              },
+            ],
+          },
+          {
+            value: "CQ",
+            text: "重庆市",
+
+            list: [],
+          },
+          {
+            value: "CQ",
+            text: "重庆市",
+
+            list: [
+              {
+                value: "CQ",
+                text: "重庆市",
+              },
+              {
+                value: "CQ",
+                text: "重庆市",
+              },
+              {
+                value: "CQ",
+                text: "重庆市",
+              },
+              {
+                value: "CQ",
+                text: "重庆市",
+              },
+            ],
+          },
+          {
+            value: "CQ",
+            text: "重庆市",
+
+            list: [
+              {
+                value: "CQ",
+                text: "重庆市",
+              },
+              {
+                value: "CQ",
+                text: "重庆市",
+              },
+              {
+                value: "CQ",
+                text: "重庆市",
+              },
+              {
+                value: "CQ",
+                text: "重庆市",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        value: "CQ",
+        text: "重庆市",
+      },
+      {
+        value: "CQ",
+        text: "重庆市",
+
+        list: [
+          {
+            value: "CQ",
+            text: "重庆市",
+
+            list: [
+              {
+                value: "CQ",
+                text: "重庆市",
+              },
+              {
+                value: "CQ",
+                text: "重庆市",
+              },
+              {
+                value: "CQ",
+                text: "重庆市",
+              },
+              {
+                value: "CQ",
+                text: "重庆市",
+              },
+            ],
+          },
+          {
+            value: "CQ",
+            text: "重庆市",
+
+            list: [
+              {
+                value: "CQ",
+                text: "重庆市",
+              },
+              {
+                value: "CQ",
+                text: "重庆市",
+              },
+              {
+                value: "CQ",
+                text: "重庆市",
+              },
+              {
+                value: "CQ",
+                text: "重庆市",
+              },
+            ],
+          },
+          {
+            value: "CQ",
+            text: "重庆市",
+
+            list: [
+              {
+                value: "CQ",
+                text: "重庆市",
+              },
+              {
+                value: "CQ",
+                text: "重庆市",
+              },
+              {
+                value: "CQ",
+                text: "重庆市",
+              },
+              {
+                value: "CQ",
+                text: "重庆市",
+              },
+            ],
+          },
+          {
+            value: "CQ",
+            text: "重庆市",
+
+            list: [
+              {
+                value: "CQ",
+                text: "重庆市",
+              },
+              {
+                value: "CQ",
+                text: "重庆市",
+              },
+              {
+                value: "CQ",
+                text: "重庆市",
+              },
+              {
+                value: "CQ",
+                text: "重庆市",
+              },
+            ],
+          },
+        ],
+      },
+    ].map((v, i) => {
+      v.value = v.value + i;
+      v.text = v.text + i;
+      if (v.list) {
+        v.list = v.list.map((sv, si) => {
+          sv.value = sv.value + i + "" + si;
+          sv.text = sv.text + i + "" + si;
+          sv.list = sv.list.map((ssv, ssi) => {
+            ssv.value = ssv.value + i + "" + si + "" + ssi;
+            ssv.text = ssv.text + i + "" + si + "" + ssi;
+            return ssv;
+          });
+          return sv;
+        });
+      }
+      return v;
+    });
+
     return (
       <div
         style={{
@@ -170,9 +268,62 @@ export class SakiPagesIconComponent {
       >
         <div
           style={{
-            padding: "20px",
+            padding: "400px 20px 0",
           }}
         >
+          <saki-breadcrumb
+            onClickvalue={(e) => {
+              console.log("saki-breadcrumb", e);
+            }}
+            options={[
+              {
+                value: "1",
+                text: "开发日记",
+                click: true,
+                style: {
+                  fontSize: "12px",
+                  maxWidth: "100px",
+                  color: "#666",
+                },
+              },
+              {
+                value: "2",
+                text: "开发随喵笔记",
+                click: true,
+                style: {
+                  fontSize: "12px",
+                  maxWidth: "100px",
+                  color: "#666",
+                },
+              },
+              {
+                value: "3",
+                text: "catalog",
+                style: {
+                  fontSize: "12px",
+                  maxWidth: "100px",
+                  color: "#666",
+                },
+              },
+            ]}
+          ></saki-breadcrumb>
+          <saki-cascader-dropdown
+            onChangevalue={(e) => {
+              console.log("saki-cascader-dropdown", e);
+              e.target.buttonTextRender(
+                e.detail.values.map((v) => v.text).join(" > ")
+              );
+            }}
+            values={["CQ0", "CQ02"]}
+            options={cascaderOptions}
+          ></saki-cascader-dropdown>
+
+          {/* <saki-cascader
+            onChangevalue={(e) => {
+              console.log("saki-cascader", e);
+            }}
+            options={cascaderOptions}
+          ></saki-cascader> */}
           <div
             style={{
               margin: "0px 0 0 500px",

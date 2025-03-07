@@ -544,7 +544,7 @@ export class DatePickerComponent {
                       >
                         <div class={"dp-st-i-top"}></div>
                         {v.map((_, si) => {
-                          if (!si) return "";
+                          // if (!si) return "";
                           return (
                             <div
                               onClick={() => {

@@ -100,6 +100,7 @@ export class ContextMenuComponent {
         if (label) {
           this.label = label;
         }
+        // console.log("this.label", this.label, label);
         this.getPosition(x, y);
         this.contextMenuObj.x = x;
         this.contextMenuObj.y = y;

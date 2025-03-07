@@ -21,8 +21,9 @@ export class CheckboxItemComponent {
   // SelectAll
   @Prop() value: string = "";
   @Prop() content: string = "";
-  @Prop() width: string = "";
-  @Prop() height: string = "";
+  @Prop() contentWidth: string = "";
+  @Prop() width: string = "16px";
+  @Prop() height: string = "16px";
   @Prop() margin: string = "0 16px 0 0";
   @Prop() padding: string = "";
   @Prop() iconSize: string = "14px";
@@ -162,7 +163,12 @@ export class CheckboxItemComponent {
         ) : (
           ""
         )}
-        <div class={"ci-content"}>
+        <div
+          style={{
+            width: this.contentWidth,
+          }}
+          class={"ci-content"}
+        >
           {this.content}
           <slot></slot>
         </div>

@@ -1,0 +1,20 @@
+.saki-breadcrumb-component {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  .sb-item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    &.click {
+      cursor: pointer;
+      &:hover {
+        span {
+          color: var(--saki-default-color)
+        }
+      }
+    }
+  }
+}

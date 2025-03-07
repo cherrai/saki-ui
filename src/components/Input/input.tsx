@@ -646,7 +646,8 @@ export class InputComponent {
               onBlur={() => {
                 this.focus = false;
               }}
-              placeholder={this.placeholder}
+                placeholder={this.placeholder}
+                class={"scrollBarHover"}
             />
           )}
           {this.type === "Search" ? (

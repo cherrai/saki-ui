@@ -214,3 +214,10 @@
   </saki-menu> -->
   </body>
 </html>
+
+<script>
+  console.log("sakiui-debug-refresh iframemessage", window.parent);
+  // setInterval(() => {
+  window.parent.postMessage("sakiui-debug-refresh");
+  // }, 100);
+</script>

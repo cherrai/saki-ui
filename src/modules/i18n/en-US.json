@@ -58,6 +58,9 @@
     "moveTo": "Move To",
     "sortTo": "Sort To",
     "moveToTop": "Move to top",
-    "moveToBottom": "Move to bottom"
+    "moveToBottom": "Move to bottom",
+
+    "replace": "Replace",
+    "import": "Import"
   }
 }

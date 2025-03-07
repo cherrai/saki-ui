@@ -5,10 +5,12 @@ import {
   EventEmitter,
   h,
   Method,
+  Prop,
 } from "@stencil/core";
 import { initSakiUIMethods } from "../../modules/methods";
 import { state } from "../../store";
 import { sakiuiEventListener } from "../../store/config";
+import { Debounce } from "@nyanyajs/utils/dist/debounce";
 
 @Component({
   tag: "saki-init",
@@ -16,17 +18,40 @@ import { sakiuiEventListener } from "../../store/config";
   shadow: false,
 })
 export class SakiInitComponent {
+  @Prop() debug = false;
+  @Prop() debugWSUrl = "ws://192.168.204.132:32300";
   @Event() mounted: EventEmitter;
   @Element() el: HTMLElement;
   watchFocusFunc() {}
   inputValue() {}
-  componentWillLoad() {}
+  componentWillLoad() {} 
   componentDidLoad() {
-    console.log("[Saki UI] initialization");
+    console.log("[Saki UI] initialization"); 
     state;
     initSakiUIMethods();
     this.mounted.emit();
     sakiuiEventListener.dispatch("mounted", "");
+
+    if (this.debug) {
+      const socket = new WebSocket(this.debugWSUrl);
+ 
+      // Listen for messages
+      const d = new Debounce();
+      socket.addEventListener("message", function (event) {
+        const data = JSON.parse(event.data || "{}");
+        console.log("[Saki UI] rebuild... ", data);
+
+        d.increase(() => {
+          if (data?.buildResults?.isRebuild) {
+            window.location.reload();
+          }
+        }, 100);
+      });
+    }
+
+    // window.addEventListener("message", (e) => {
+    //   console.log("iframemessage", e.data);
+    // });
   }
   @Method()
   async getSakiuiEventListener() {

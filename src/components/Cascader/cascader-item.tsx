@@ -1,141 +1,132 @@
 import {
   Component,
+  Element,
   Event,
   EventEmitter,
   h,
+  Method,
   Prop,
-  Element,
   State,
+  Watch,
 } from "@stencil/core";
-import { CascaderComponent } from "./cascader";
+import { CascaderOptionListItem } from "./cascader";
 
+// 开发中
 @Component({
   tag: "saki-cascader-item",
   styleUrl: "cascader.scss",
   shadow: true,
 })
 export class CascaderItemComponent {
-  @Prop() value: string = "";
-  @Prop() content: string = "";
-  @Prop() label: string = "";
-  @Prop() showIcon: boolean = false;
-  @Prop() rightArrowIcon: boolean = false;
-  @Prop() active: boolean = false;
-  @Prop() activeStyleType: "LeftLine" | "RightLine" = "RightLine";
-  @Prop() subtitle: string = "";
-  @Prop() tapHighlightColor: string = "rgba(0, 0, 0, 0)";
-  @Prop() width: string = "";
+  @State() scrollTop = 0;
+  @Prop() options: CascaderOptionListItem[] = [];
+  @Prop() width: string = "160px";
   @Prop() padding: string = "";
-  @Prop() fontSize: string = "";
-  @Prop() borderRadius: string = "";
-  @Prop() color: string = "";
-  @Prop() backgroundColor: string = "";
-  @Prop() minWidth: string = "";
-  @Prop() maxWidth: string = "";
   @Prop() margin: string = "";
-  @Prop() border: string = "";
-  @Prop() borderLeft: string = "";
-  @Prop() borderRight: string = "";
-  @Prop() borderTop: string = "";
-  @Prop() borderBottom: string = "";
-  @State() type: CascaderComponent["type"] = "List";
-  @Element() el: HTMLSakiCascaderItemElement;
+  @Prop() fontSize: string = "13px";
+
   @Event({
-    cancelable: false,
+    bubbles: false,
   })
-  tap: EventEmitter;
-  @Event() opencontextmenu: EventEmitter;
+  changevalue: EventEmitter;
+  @Event() scrollto: EventEmitter;
+  @Element() el: HTMLElement;
+  @State() mainEl: HTMLElement;
+  @Watch("options")
+  watchOptions() {
+    // this.scrollTop = 0;
+  }
+  componentWillLoad() {}
   componentDidLoad() {
-    setTimeout(() => {
-      this.type = this.el?.parentNode?.["type"] || "List";
-    });
+    console.log("cascader-item componentDidLoad");
+  }
+  // componentDidRender() {
+  //   console.log("cascader-item componentDidRender");
+  // }
+  // componentDidUpdate() {
+  //   console.log("cascader-item componentDidUpdate");
+  // }
+  @Method()
+  async initScrollBar() {
+    console.log("initScrollBar", this.scrollTop);
+    this.mainEl.scrollTop = this.scrollTop;
+  }
+  @Method()
+  async setScrollTop(y: number) {
+    console.log("setScrollTop", y);
+    this.scrollTop = y;
+    this.mainEl.scrollTop = y;
   }
   render() {
     return (
       <div
-        onClick={() => {
-          this.tap.emit();
+        ref={(e) => {
+          if (!this.mainEl) {
+            this.mainEl = e;
+          }
         }}
-        onContextMenu={(e) => {
-          this.opencontextmenu.emit({
-            pageX: e.pageX,
-            pageY: e.pageY,
-          });
-          e.preventDefault();
-        }}
-        class={
-          "saki-menu-item-component " +
-          this.type +
-          " " +
-          (this.active ? " active " : " ") +
-          this.activeStyleType
+        style={
+          {
+            // ...["padding", "padding"].reduce(
+            //   (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
+            //   {}
+            // ),
+          }
         }
+        onScroll={() => {
+          this.scrollTop = this.mainEl.scrollTop;
+          this.scrollto.emit(this.mainEl.scrollTop);
+        }}
+        class={"saki-cascader-item-component scrollBarHover"}
       >
-        <div class={"saki-m-i-subtitle"}>{this.subtitle}</div>
-        <div
-          style={{
-            ...[
-              "borderRadius",
-              "width",
-              "margin",
-              "fontSize",
-              "color",
-              "padding",
-              "border",
-              "borderLeft",
-              "borderRight",
-              "borderTop",
-              "borderBottom",
-              "minWidth",
-              "maxWidth",
-              "backgroundColor",
-            ].reduce(
-              (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
-              {}
-            ),
-            "-webkit-tap-highlight-color": this.tapHighlightColor,
+        <saki-menu
+          onSelectvalue={(e) => {
+            this.changevalue.emit(e.detail);
+            e.stopPropagation();
           }}
-          class={"saki-m-i-title"}
+          width={this.width}
         >
-          <div class={"item-content "}>
-            {this.showIcon ? (
-              <div class={"item-c-icon"}>
-                <slot name="icon"></slot>
-              </div>
-            ) : (
-              ""
-            )}
-
-            <div class={"item-c-main"}>
-              <div class={"item-c-content"}>
-                {this.content}
-                <slot></slot>
-              </div>
-              <div class={"item-c-label"}>
-                {this.label}
-
-                {this.rightArrowIcon ? (
-                  <svg
-                    class="right-arrow-icon icon"
-                    viewBox="0 0 1024 1024"
-                    version="1.1"
-                    xmlns="http://www.w3.org/2000/svg"
-                    p-id="3138"
-                    width="14"
-                    height="14"
-                  >
-                    <path
-                      d="M761.056 532.128c0.512-0.992 1.344-1.824 1.792-2.848 8.8-18.304 5.92-40.704-9.664-55.424L399.936 139.744c-19.264-18.208-49.632-17.344-67.872 1.888-18.208 19.264-17.376 49.632 1.888 67.872l316.96 299.84-315.712 304.288c-19.072 18.4-19.648 48.768-1.248 67.872 9.408 9.792 21.984 14.688 34.56 14.688 12 0 24-4.48 33.312-13.44l350.048-337.376c0.672-0.672 0.928-1.6 1.6-2.304 0.512-0.48 1.056-0.832 1.568-1.344C757.76 538.88 759.2 535.392 761.056 532.128z"
-                      p-id="3139"
-                    ></path>
-                  </svg>
+          {this.options.map((v) => {
+            return (
+              <saki-menu-item
+                value={v.value}
+                showIcon={!!v.icon}
+                active={v.active}
+                padding={this.padding}
+                margin={this.margin}
+                fontSize={this.fontSize}
+              >
+                {v.icon ? (
+                  <div class={"ci-icon"} slot="icon">
+                    <saki-icon
+                      color={v.iconStyle?.color || "#666"}
+                      width={v.iconStyle?.width || "14px"}
+                      height={v.iconStyle?.height || "14px"}
+                      margin={v.iconStyle?.margin}
+                      padding={v.iconStyle?.padding}
+                      type={v.icon}
+                    ></saki-icon>
+                  </div>
                 ) : (
                   ""
                 )}
-              </div>
-            </div>
-          </div>
-        </div>
+                <div class={"ci-item"}>
+                  <div class={"ci-i-content text-two-elipsis"}>{v.text}</div>
+                  {v.list?.length ? (
+                    <saki-icon
+                      type="Right"
+                      color="#999"
+                      width="12px"
+                      height="12px"
+                    ></saki-icon>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </saki-menu-item>
+            );
+          })}
+        </saki-menu>
       </div>
     );
   }

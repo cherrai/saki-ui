@@ -2,10 +2,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
   .add-user {
     transform: scale(1.1);
   }
+
   .emoji {
     transform: scale(1.3);
+  }
+
+  &>svg {
+    fill: var(--saki-icon-color);
+    width: var(--saki-icon-width);
+    height: var(--saki-icon-height);
   }
 }

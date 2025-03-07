@@ -38,6 +38,9 @@ export class MenuItemComponent {
   @Prop() borderRight: string = "";
   @Prop() borderTop: string = "";
   @Prop() borderBottom: string = "";
+
+  @Prop() disabled: boolean = false;
+
   @State() type: MenuComponent["type"] = "List";
   @Element() el: HTMLSakiMenuItemElement;
   @Event({
@@ -68,6 +71,8 @@ export class MenuItemComponent {
           this.type +
           " " +
           (this.active ? " active " : " ") +
+          " " +
+          (this.disabled ? " disabled " : " ") +
           this.activeStyleType
         }
       >

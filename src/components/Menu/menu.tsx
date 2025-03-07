@@ -24,7 +24,10 @@ export class MenuComponent {
   @Prop() direction: "Top" | "Bottom" = "Bottom";
   @Prop() padding: string = "6px 0";
 
-  @Event() selectvalue: EventEmitter;
+  @Event({
+    bubbles: false,
+  })
+  selectvalue: EventEmitter;
   @Event() dragdone: EventEmitter;
   @Element() el: HTMLElement;
 

@@ -43,7 +43,7 @@
     position: fixed;
     opacity: 0;
     z-index: 1000;
-    transition: opacity 0.1s, transform 0.1s;
+    // transition: opacity 0.1s, transform 0.1s;
     transform: scale(0.9) translate(var(--saki-dropdown-x), var(--saki-dropdown-y));
     // transform: translate(0px, 10px);
     // transform: translateX(16px);

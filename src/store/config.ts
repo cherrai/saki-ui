@@ -69,6 +69,7 @@ export const initConfig = () => {
 export const momentLocale = (lang: string) => {
   console.log("momentLocale", lang);
   moment.locale(lang);
+  console.log("monment", moment.locales(), lang)
 };
 
 

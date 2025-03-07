@@ -94,6 +94,7 @@ export class DropdownComponent {
       document.body.style.display = "rep";
       // console.log(this.coreRect.width);
       this.getRect();
+      this.getDropDownElePosition();
       if (this.coreRect.width) {
         this.visibleStyle = true;
         this.closing = false;
@@ -101,19 +102,47 @@ export class DropdownComponent {
         // console.log("this.mainEl", this.mainEl);
 
         setTimeout(() => {
-          this.isAddVisibleClass = true;
           this.getRect();
           this.getDropDownElePosition();
-          setTimeout(() => {
-            // console.log("this.bodyClosable",this.bodyClosable,this.id)
+          this.open.emit();
+
+          const animate = this.contentEl.animate(
+            [
+              {
+                opacity: "0",
+                transform: ` translate(${
+                  this.horizontal === "Left" ? "10px" : "-10px"
+                },${this.vertical === "Top" ? "-10px" : "10px"})`,
+              },
+              {
+                opacity: "1",
+                transform: "translate(0,0)",
+              },
+            ],
+            {
+              duration: 100,
+              iterations: 1,
+            }
+          );
+          animate.onfinish = () => {
+            this.isAddVisibleClass = true;
+
             this.bodyClosable &&
               sakiuiEventListener.on(
                 "body-click:dropdown-event-" + this.id,
                 this.bodyClientEvent.bind(this)
               );
-          }, 300);
+            // console.log(this.el.getBoundingClientRect());
+          };
+          // setTimeout(() => {
+          //   this.bodyClosable &&
+          //     sakiuiEventListener.on(
+          //       "body-click:dropdown-event-" + this.id,
+          //       this.bodyClientEvent.bind(this)
+          //     );
+          //   // console.log("this.bodyClosable",this.bodyClosable,this.id)
+          // }, 300);
         }, 10);
-        this.open.emit();
       }
     } else {
       if (!this.mask) {
@@ -122,7 +151,6 @@ export class DropdownComponent {
         }
       }
       // console.log("this.close");
-      this.close.emit();
       // this.close1.emit();
       this.isAddVisibleClass = false;
       // this.left = -9999;
@@ -131,6 +159,38 @@ export class DropdownComponent {
         sakiuiEventListener.removeEvent("body-click:dropdown-event-" + this.id);
 
       this.closing = true;
+
+      const animate = this.contentEl.animate(
+        [
+          {
+            opacity: "1",
+            transform: "translate(0,0)",
+          },
+          {
+            opacity: "0",
+            transform: ` translate(${
+              this.horizontal === "Left" ? "10px" : "-10px"
+            },${this.vertical === "Top" ? "-10px" : "10px"})`,
+          },
+        ],
+        {
+          duration: 100,
+          iterations: 1,
+        }
+      );
+      animate.onfinish = () => {
+        this.removeMainEl();
+        this.close.emit();
+      };
+    }
+  }
+  removeMainEl() {
+    if (document.body.contains(this.mainEl)) {
+      this.visibleStyle = false;
+      this.el
+        .querySelector(".saki-dropdown-component")
+        .appendChild(this.mainEl);
+      // document.body.removeChild(this.mainEl);
     }
   }
   getDropDownElePosition() {
@@ -277,8 +337,9 @@ export class DropdownComponent {
     setTimeout(() => {
       // console.log("ddddddddddd", this.d);
       this.getRect();
+      const d = new Debounce();
       window.addEventListener("resize", () => {
-        this.d.increase(() => {
+        d.increase(() => {
           this.getRect();
           this.getDropDownElePosition();
         }, 300);
@@ -286,9 +347,18 @@ export class DropdownComponent {
       // console.log("componentDidLoad");
       // setTimeout(() => {
       // }, 1000);
-
-      const observer = new MutationObserver(() => {
-        // console.log("Dom发生了变化", this.contentEl.offsetHeight, this.contentEl.offsetWidth, this.contentEl,);
+    });
+  }
+  watchDom() {
+    this.d.increase(() => {
+      // this.observer?.disconnect();
+      const observer = new ResizeObserver(() => {
+        console.log(
+          "Dom发生了变化",
+          this.contentEl.offsetHeight,
+          this.contentEl.offsetWidth,
+          this.contentEl
+        );
 
         this.positionAnimation = true;
         this.d.increase(() => {
@@ -298,22 +368,10 @@ export class DropdownComponent {
           // this.positionAnimation = false
         }, 30);
       });
-
-      setTimeout(() => {
-        observer.observe(this.contentEl, {
-          attributes: true,
-          childList: true,
-          subtree: true,
-          characterData: true,
-          attributeFilter: [
-            "clientWidth",
-            "clientHeight",
-            "offsetWidth",
-            "offsetHeight",
-          ],
-        });
-      }, 1000);
-    });
+      // console.log("this.contentEl", this.contentEl);
+      observer.observe(this.contentEl);
+      // this.observer?.disconnect();
+    }, 300);
   }
   bodyClientEvent(e: MouseEvent) {
     // console.log("body-click:dropdown-event bodyClosable", e.target);
@@ -383,7 +441,10 @@ export class DropdownComponent {
           <div
             ref={(e) => {
               // console.log("contentEl", e);
-              this.contentEl = e;
+              if (!this.contentEl) {
+                this.contentEl = e;
+                this.watchDom();
+              }
             }}
             style={{
               left: this.left + "px",
@@ -402,12 +463,8 @@ export class DropdownComponent {
               zIndex: String(this.zIndex),
             }}
             onTransitionEnd={() => {
-              if (this.closing && document.body.contains(this.mainEl)) {
-                this.visibleStyle = false;
-                this.el
-                  .querySelector(".saki-dropdown-component")
-                  .appendChild(this.mainEl);
-                // document.body.removeChild(this.mainEl);
+              if (this.closing) {
+                this.removeMainEl();
               }
             }}
             class={

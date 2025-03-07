@@ -55,7 +55,7 @@ export class TransitionComponent {
       el.classList.add(this.className + "-enter");
       setTimeout(() => {
         el.classList.add(this.className + "-enter-active");
-      });
+      }, 5);
       // this.el.classList.add("enter");
       this.timer = setTimeout(() => {
         el.classList.remove(this.className + "-enter");
@@ -71,7 +71,7 @@ export class TransitionComponent {
       el.classList.add(this.className + "-leave");
       setTimeout(() => {
         el.classList.add(this.className + "-leave-active");
-      });
+      }, 5);
       // this.el.classList.add("enter");
       this.timer = setTimeout(() => {
         el.classList.remove(this.className + "-leave");
