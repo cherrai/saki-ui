@@ -107,6 +107,12 @@ export class SliderComponent {
     //   childList: true,
     //   subtree: true,
     // });
+    new ResizeObserver(() => {
+      // console.log("carousel ", entries);
+      this.initTrack();
+
+      this.bindBodyEvent();
+    }).observe(this.el);
   }
 
   bindBodyEvent() {

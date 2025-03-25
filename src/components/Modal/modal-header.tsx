@@ -18,6 +18,8 @@ export class ModalHeaderComponent {
   @Prop() title: string = "";
   @Prop() border: boolean = false;
   @Prop() height: string = "56px";
+  @Prop() leftWidth: string = "";
+  @Prop() centerWidth: string = "";
   @Prop() rightWidth: string = "112px";
   @Prop() fontSize: string = "";
   @Prop() backgroundColor: string = "#fff";
@@ -43,6 +45,9 @@ export class ModalHeaderComponent {
             (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
             {}
           ),
+          "--saki-left-width": this.leftWidth || this.rightWidth,
+          "--saki-center-width":
+            this.centerWidth || `calc(100% - ${this.rightWidth} * 2)`,
           "--saki-right-width": this.rightWidth,
         }}
         class={"saki-modal-header-component " + (this.border ? "border" : "")}
@@ -100,6 +105,7 @@ export class ModalHeaderComponent {
           ) : (
             ""
           )}
+          <slot name="left"></slot>
         </div>
         <div class="modal-center">
           {this.titleAvatar || this.titleAvatarText ? (

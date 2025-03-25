@@ -415,7 +415,7 @@ export class ScrollViewComponent {
   }
   getScrollHeight() {
     this.getScrollHeightDebounce.increase(() => {
-      console.log("---getScrollHeight---");
+      // console.log("---getScrollHeight---");
       const clientHeight =
         window.innerHeight ||
         document.documentElement.clientHeight ||
@@ -446,6 +446,8 @@ export class ScrollViewComponent {
       //   this.compEl,
       //   this.compEl.parentElement,
       //   this.compEl.getBoundingClientRect(),
+      //   clientHeight,
+      //   this.scrollBottom.getBoundingClientRect(),
       //   this.maxHeight
       // );
       if (

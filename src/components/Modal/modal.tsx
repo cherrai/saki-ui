@@ -1,4 +1,4 @@
- import {
+import {
   Component,
   Element,
   Event,
@@ -48,6 +48,11 @@ export class ModalComponent {
   @Event({
     bubbles: false,
   })
+  loaded: EventEmitter;
+
+  @Event({
+    bubbles: false,
+  })
   open: EventEmitter;
 
   @Event({
@@ -85,7 +90,11 @@ export class ModalComponent {
       }, 10);
     }
   }
-  componentDidLoad() {}
+  componentDidLoad() {
+    console.log("loadModal1:TripHistory loaded1");
+    this.loaded.emit();
+    console.log("loadModal1:TripHistory loaded2");
+  }
   render() {
     return (
       // <saki-transition

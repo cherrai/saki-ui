@@ -268,9 +268,102 @@ export class SakiPagesIconComponent {
       >
         <div
           style={{
-            padding: "400px 20px 0",
+            padding: "20px 20px 0",
           }}
         >
+          <saki-carousel
+            margin="0 0 20px 0"
+            width="100%"
+            height="300px"
+            borderRadius="10px"
+            // autoplay
+            arrows
+            dots
+          >
+            {[
+              "https://api.aiiko.club/public/images/upload/1/20250114/img_19fd1f07838688d21ab66d2f8cf98d9d.jpg",
+              "https://api.aiiko.club/public/images/upload/1/20250113/img_baf692e4ba62e3aeab2b0e0d05c00873.jpg",
+              "https://api.aiiko.club/public/images/upload/1/20250113/img_2ac7d7a9e6fd77b519e01dc73d004f1b.jpg",
+              "https://api.aiiko.club/public/images/upload/1/20250114/img_19fd1f07838688d21ab66d2f8cf98d9d.jpg",
+              "https://api.aiiko.club/public/images/upload/1/20250113/img_baf692e4ba62e3aeab2b0e0d05c00873.jpg",
+              "https://api.aiiko.club/public/images/upload/1/20250113/img_2ac7d7a9e6fd77b519e01dc73d004f1b.jpg",
+              "https://api.aiiko.club/public/images/upload/1/20250114/img_19fd1f07838688d21ab66d2f8cf98d9d.jpg",
+              "https://api.aiiko.club/public/images/upload/1/20250113/img_baf692e4ba62e3aeab2b0e0d05c00873.jpg",
+              "https://api.aiiko.club/public/images/upload/1/20250113/img_2ac7d7a9e6fd77b519e01dc73d004f1b.jpg",
+            ].map((v, i) => {
+              return (
+                <saki-carousel-item key={i}>
+                  <saki-images
+                    width="100%"
+                    height="100%"
+                    objectFit="cover"
+                    lazyload={false}
+                    src={v}
+                  ></saki-images>
+                  ;
+                </saki-carousel-item>
+              );
+            })}
+            <saki-carousel-item>
+              <saki-button>测试按钮</saki-button>;
+            </saki-carousel-item>
+          </saki-carousel>
+          <saki-carousel-nav margin="0 0 50px 0" width="100%" height="60px">
+            {[
+              "https://api.aiiko.club/public/images/upload/1/20250114/img_19fd1f07838688d21ab66d2f8cf98d9d.jpg",
+              "https://api.aiiko.club/public/images/upload/1/20250113/img_baf692e4ba62e3aeab2b0e0d05c00873.jpg",
+              "https://api.aiiko.club/public/images/upload/1/20250113/img_2ac7d7a9e6fd77b519e01dc73d004f1b.jpg",
+              "https://api.aiiko.club/public/images/upload/1/20250114/img_19fd1f07838688d21ab66d2f8cf98d9d.jpg",
+              "https://api.aiiko.club/public/images/upload/1/20250113/img_baf692e4ba62e3aeab2b0e0d05c00873.jpg",
+              "https://api.aiiko.club/public/images/upload/1/20250113/img_2ac7d7a9e6fd77b519e01dc73d004f1b.jpg",
+              "https://api.aiiko.club/public/images/upload/1/20250114/img_19fd1f07838688d21ab66d2f8cf98d9d.jpg",
+              "https://api.aiiko.club/public/images/upload/1/20250113/img_baf692e4ba62e3aeab2b0e0d05c00873.jpg",
+              "https://api.aiiko.club/public/images/upload/1/20250113/img_2ac7d7a9e6fd77b519e01dc73d004f1b.jpg",
+            ].map((v, i) => {
+              return (
+                <saki-carousel-nav-item
+                  borderRadius="6px"
+                  width="50px"
+                  height="50px"
+                  key={i}
+                >
+                  <saki-images
+                    width="100%"
+                    height="100%"
+                    objectFit="cover"
+                    lazyload={false}
+                    src={v}
+                  ></saki-images>
+                </saki-carousel-nav-item>
+              );
+            })}
+            <saki-carousel-nav-item
+              borderRadius="6px"
+              width="50px"
+              height="50px"
+            >
+              <saki-button>网页</saki-button>;
+            </saki-carousel-nav-item>
+          </saki-carousel-nav>
+          {/* <saki-carousel width="500px" height="300px" autoplay>
+            {[
+              "https://api.aiiko.club/public/images/upload/1/20250114/img_19fd1f07838688d21ab66d2f8cf98d9d.jpg",
+              "https://api.aiiko.club/public/images/upload/1/20250113/img_baf692e4ba62e3aeab2b0e0d05c00873.jpg",
+              "https://api.aiiko.club/public/images/upload/1/20250113/img_2ac7d7a9e6fd77b519e01dc73d004f1b.jpg",
+            ].map((v, i) => {
+              return (
+                <saki-carousel-item key={i}>
+                  <saki-images
+                    width="500px"
+                    height="300px"
+                    objectFit="cover"
+                    src={v}
+                  ></saki-images>
+                  ;
+                </saki-carousel-item>
+              );
+            })}
+          </saki-carousel> */}
           <saki-breadcrumb
             onClickvalue={(e) => {
               console.log("saki-breadcrumb", e);

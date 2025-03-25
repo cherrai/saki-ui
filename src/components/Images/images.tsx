@@ -67,6 +67,8 @@ export class ImagesComponent {
         }
       }, options);
       observer.observe(this.el);
+    } else {
+      this.toDisplayArea = true;
     }
   }
 

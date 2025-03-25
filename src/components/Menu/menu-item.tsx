@@ -30,6 +30,8 @@ export class MenuItemComponent {
   @Prop() borderRadius: string = "";
   @Prop() color: string = "";
   @Prop() backgroundColor: string = "";
+  @Prop() backgroundHoverColor: string = "#eee";
+  @Prop() backgroundActiveColor: string = "#ddd";
   @Prop() minWidth: string = "";
   @Prop() maxWidth: string = "";
   @Prop() margin: string = "";
@@ -57,7 +59,7 @@ export class MenuItemComponent {
     return (
       <div
         onClick={() => {
-          this.tap.emit();
+          !this.disabled && this.tap.emit();
         }}
         onContextMenu={(e) => {
           this.opencontextmenu.emit({
@@ -79,6 +81,9 @@ export class MenuItemComponent {
         <div class={"saki-m-i-subtitle"}>{this.subtitle}</div>
         <div
           style={{
+            "--bg-color": this.backgroundColor,
+            "--bg-hover-color": this.backgroundHoverColor,
+            "--bg-active-color": this.backgroundActiveColor,
             ...[
               "borderRadius",
               "width",
@@ -93,7 +98,6 @@ export class MenuItemComponent {
               "borderBottom",
               "minWidth",
               "maxWidth",
-              "backgroundColor",
             ].reduce(
               (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
               {}

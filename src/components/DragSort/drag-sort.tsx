@@ -134,6 +134,23 @@ export class DragSortComponent {
   async setDraggingELement(v: HTMLSakiDragSortItemElement) {
     DragSortComponent.draggingELement = v;
   }
+  @Method()
+  async swapSort<T = any>(arr: T[], oldIndex: number, newIndex: number) {
+    const tempArr = [...arr];
+    const [movedItem] = tempArr.splice(oldIndex, 1);
+    tempArr.splice(newIndex, 0, movedItem);
+    // if (oldIndex < newIndex) {
+    //   for (let i = oldIndex; i < newIndex; i++) {
+    //     [tempArr[i], tempArr[i + 1]] = [tempArr[i + 1], tempArr[i]];
+    //   }
+    // } else {
+    //   for (let i = oldIndex; i > newIndex; i--) {
+    //     [tempArr[i], tempArr[i - 1]] = [tempArr[i - 1], tempArr[i]];
+    //   }
+    // }
+
+    return tempArr;
+  }
 
   initSortable() {
     // console.log("this.el", this.el);
@@ -141,9 +158,10 @@ export class DragSortComponent {
     // this.sortable && this.sortable.destroy();
 
     if (this.sort) {
-      this.sortable = new Sortable(this.el, {
+      this.sortable = new Sortable(this.el.querySelector(".drag-sort"), {
         animation: 150,
         sort: true,
+        filter: ".disabled-sort",
         ghostClass: "saki-drag-sort-active-class",
         chosenClass: "sortable-chosen", // 被选中项的css 类名
         dragClass: "sortable-drag", // 正在被拖拽中的css类名
@@ -185,6 +203,8 @@ export class DragSortComponent {
             newId: e?.related?.getAttribute("data-saki-drag-sort-id") || "",
             oldId: e?.dragged?.getAttribute("data-saki-drag-sort-id") || "",
           });
+          // 如果拖拽的目标位置是 .fixed 元素，则阻止移动
+          return !e.related.classList.contains("disabled-sort");
         },
 
         // 结束拖拽
@@ -241,7 +261,7 @@ export class DragSortComponent {
         //   // 与onEnd相同的属性
         // },
       });
-      // console.log("sortttt", this.sortable, this.sort);
+      console.log("sortttt", this.sortable, this.sort);
     }
     // this.sortable.destroy()
 

@@ -102,10 +102,13 @@
   .ql-container {
     border: none !important;
 
+
     .ql-editor {
       padding: var(--editor-padding);
       max-height: var(--editor-maxHeight);
       min-height: var(--editor-minHeight);
+      background-color: var(--editor-background-color);
+      border-radius: var(--editor-border-radius);
 
       &::before {
         color: #666;

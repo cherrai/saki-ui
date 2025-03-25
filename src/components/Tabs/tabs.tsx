@@ -45,6 +45,7 @@ export class TabsComponent {
 
   // Flex
   @Prop() headerItemMinWidth = "auto";
+  @Prop() headerItemHeight = "50px";
   @Prop() headerItemPadding = "0px 2px";
 
   // Default
@@ -277,6 +278,7 @@ export class TabsComponent {
               <div
                 style={{
                   maxWidth: this.headerMaxWidth,
+                  height: this.headerItemHeight,
                 }}
                 class={"nav-wrap"}
               >

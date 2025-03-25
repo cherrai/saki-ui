@@ -23,7 +23,7 @@ export class SegmentedItemComponent {
   @Prop() height: string = "";
   @Prop() borderRadius: string = "";
   @Prop() margin: string = "";
-  @Prop() padding: string = "";
+  @Prop() padding: string = "0 10px";
 
   @Element() el: HTMLElement;
   @Event() tap: EventEmitter;

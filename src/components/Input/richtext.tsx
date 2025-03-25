@@ -31,6 +31,7 @@ export class RichTextComponent {
 
   @Prop({ mutable: true }) width: string = "";
   @Prop() padding: string = "";
+  @Prop() margin: string = "";
   @Prop() toolbar: boolean = true;
   @Prop() toolbarPadding: string = "";
   @Prop() toolbarButtonHoverColor: string = "var(--saki-default-hover-color)";
@@ -96,7 +97,8 @@ export class RichTextComponent {
   };
   @Prop({ mutable: true }) theme: "snow" | "bubble" | "" = "snow";
 
-  @Prop() backgroundColor: string = "";
+  @Prop() editorBackgroundColor: string = "";
+  @Prop() editorBorderRadius: string = "";
   @State() dValue = "<p><br></p>";
   @State() dContent = "";
 
@@ -147,6 +149,10 @@ export class RichTextComponent {
     // if (value !== oldvalue) {
     // }
     // this.updateTime = new Date().getTime();
+  }
+  @Watch("placeholder")
+  watchplaceholder() {
+    this.init();
   }
   @Watch("value")
   watchValueFunc() {
@@ -396,7 +402,6 @@ export class RichTextComponent {
       this.focus = false;
     };
 
-
     this.quill.on("editor-change", (eventName: string, params: any) => {
       if (eventName === "selection-change") {
         this.selectionRangeStatic = params;
@@ -587,7 +592,7 @@ export class RichTextComponent {
     return (
       <div
         style={{
-          ...["padding", "minHeight", "minWeight"].reduce(
+          ...["padding", "margin", "minHeight", "minWeight"].reduce(
             (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
             {}
           ),
@@ -599,6 +604,8 @@ export class RichTextComponent {
           "--editor-padding": this.editorPadding,
           "--toolbar-padding": this.toolbarPadding,
           "--toolbar-display": this.toolbar ? "block" : "none",
+          "--editor-background-color": this.editorBackgroundColor,
+          "--editor-border-radius": this.editorBorderRadius,
 
           "--toolbar-button-hover-color": this.toolbarButtonHoverColor,
           "--toolbar-button-active-color": this.toolbarButtonActiveColor,

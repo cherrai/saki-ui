@@ -7,6 +7,7 @@ import {
   Prop,
   Watch,
   Element,
+  Method,
 } from "@stencil/core";
 import { Debounce } from "@nyanyajs/utils/dist/debounce";
 
@@ -14,7 +15,7 @@ import { Debounce } from "@nyanyajs/utils/dist/debounce";
 @Component({
   tag: "saki-segmented",
   styleUrl: "segmented.scss",
-  shadow: false,
+  shadow: true,
 })
 export class SegmentedComponent {
   d = new Debounce();
@@ -44,28 +45,33 @@ export class SegmentedComponent {
   @Event() changevalue: EventEmitter;
   @Watch("value")
   watchValue() {
+    console.log(this.value);
     this.getItems();
   }
   componentDidLoad() {
     this.getItems();
 
-    // const observer = new MutationObserver(() => {
-    //   console.log("MutationObserver");
-    //   // this.d.increase(() => {
-    //   //   this.getItems();
-    //   // }, 20);
-    // });
-    // // 以上述配置开始观察目标节点
-    // observer.observe(this.el, {
-    //   attributes: true,
-    //   childList: true,
-    //   subtree: true,
-    // });
+    const observer = new MutationObserver(() => {
+      console.log("MutationObserver");
+      this.getItems();
+    });
+    // 以上述配置开始观察目标节点
+    observer.observe(this.el, {
+      attributes: false,
+      childList: true,
+      subtree: false,
+    });
+  }
+  @Method()
+  async setValue(value: string) {
+    this.value = value;
+    console.log(this.value, value);
+    this.getItems();
   }
   getItems() {
     this.d.increase(() => {
-      this.observer?.unobserve(this.el);
-      this.observer?.disconnect();
+      // this.observer?.unobserve(this.el);
+      // this.observer?.disconnect();
 
       this.itemList = [];
 

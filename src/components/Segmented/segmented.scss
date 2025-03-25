@@ -33,22 +33,24 @@
       flex: 1;
     }
 
-    .saki-segmented-item-component {
-      flex: 1;
-      position: relative;
-      cursor: pointer;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: color .2s;
+  }
+}
 
-      color: var(--color);
+.saki-segmented-item-component {
+  flex: 1;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: color .2s;
+  text-align: center;
 
-      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  color: var(--color);
 
-      &.active {
-        color: var(--activeColor);
-      }
-    }
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+  &.active {
+    color: var(--activeColor);
   }
 }

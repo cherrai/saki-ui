@@ -120,13 +120,14 @@
   padding: 12px 12px;
   position: relative;
   transition: all 0.3s;
+  background-color: var(--bg-color);
 
   &:hover {
-    background-color: #eee;
+    background-color: var(--bg-hover-color);
   }
 
   &:active {
-    background-color: #ddd;
+    background-color: var(--bg-active-color);
   }
 }
 
