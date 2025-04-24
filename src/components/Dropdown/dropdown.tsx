@@ -63,7 +63,9 @@ export class DropdownComponent {
 
   @Event() tap: EventEmitter;
   @Event() open: EventEmitter;
-  @Event()
+  @Event({
+    bubbles: false,
+  })
   close: EventEmitter;
   // @Event() close1: EventEmitter;
   @Element() el: HTMLElement;

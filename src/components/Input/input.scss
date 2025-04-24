@@ -139,7 +139,8 @@
       }
     }
     &.closeIcon {
-      input {
+      input,
+      textarea {
         padding-right: 30px;
       }
       .delete-icon {

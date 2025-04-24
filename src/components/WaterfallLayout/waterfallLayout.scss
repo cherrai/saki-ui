@@ -1,0 +1,67 @@
+.saki-waterfall-layout-component {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  // padding: 0 5px;
+
+  .wl-item {
+    flex: 1;
+    padding: 0 5px;
+  }
+  // .waterfall {
+  //   column-gap: 12px;
+  //   width: 100%;
+  //   max-width: 1200px;
+  //   margin: 0 auto;
+  //   column-width: 250px; /* 固定列宽，类似 Pinterest */
+  // }
+
+  // .item {
+  //   break-inside: avoid;
+  //   margin-bottom: 12px;
+  //   background: #fff;
+  //   border-radius: 8px;
+  //   overflow: hidden;
+  //   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  //   transition: transform 0.2s;
+  //   img {
+  //     width: 100%;
+  //     height: auto;
+  //     display: block;
+  //     object-fit: cover; /* 确保图片按比例填充 */
+  //   }
+  //   &:hover {
+  //     transform: translateY(-4px); /* 悬停效果 */
+  //   }
+  // }
+
+  // /* 响应式：调整列宽和间距 */
+  // @media (max-width: 768px) {
+  //   .waterfall {
+  //     column-width: 200px;
+  //     column-gap: 10px;
+  //   }
+  //   .item {
+  //     margin-bottom: 10px;
+  //   }
+  // }
+
+  // @media (max-width: 480px) {
+  //   .waterfall {
+  //     column-width: 160px;
+  //     column-gap: 8px;
+  //   }
+  //   .item {
+  //     margin-bottom: 8px;
+  //   }
+  // }
+}
+
+.saki-waterfall-layout-item-component {
+  width: 100%;
+  background-color: #eee;
+  overflow: hidden;
+  saki-images {
+    // width: 100%;
+  }
+}

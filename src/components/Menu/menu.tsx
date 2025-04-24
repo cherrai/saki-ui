@@ -16,7 +16,8 @@ import {
 export class MenuComponent {
   @State() left: number = 0;
   @State() top: number = 0;
-  @Prop() type: "Icons" | "List" = "List";
+  @Prop() type: "Icons" | "Grid" | "List" = "List";
+  @Prop() columnsCount = 4;
   @State() valueList: {
     [value: string]: number;
   } = {};
@@ -67,6 +68,7 @@ export class MenuComponent {
     return (
       <div
         style={{
+          ...({ "--menu-columnsCount": this.columnsCount } as any),
           ...["width", "padding"].reduce(
             (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
             {}

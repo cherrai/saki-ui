@@ -69,6 +69,9 @@ export class ViewerComponent {
         (window as any).lgVideo,
         // (window as any).lgThumbnail,
       ], // 启用缩放、全屏、视频支持
+      selector: "a",
+      // selectWithin: ".row", // 限定在 .row 内搜索
+      // selector: ".item a", // 选择 .row 内的 .item a 元素
       mode: "lg-fade", // 动画效果
       speed: 500, // 过渡时间
       download: true, // 禁用下载按钮
@@ -82,8 +85,19 @@ export class ViewerComponent {
       thumbnail: true,
       animateThumb: true,
       thumbWidth: 100,
-      thumbHeight: "auto",
+      thumbHeight: 100,
+      // thumbHeight: "auto",
       thumbMargin: 5,
+      mobileSettings: {
+        showCloseIcon: true, // 启用移动端的关闭按钮
+        controls: false, // 可选：启用上一页/下一页控件
+        download: true, // 可选：禁用下载按钮
+      },
+
+      // animateThumb: false,
+      // zoomFromOrigin: false,
+      // allowMediaOverlap: true,
+      // toggleThumb: true,
     });
     console.log("loadLightGallery", this.lg);
   }

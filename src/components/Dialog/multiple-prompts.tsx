@@ -25,6 +25,16 @@ export class DialogMultiplePromptsComponent {
     label: string;
     value?: string;
     type?: "Text" | "Password" | "Number" | "Textarea" | "Search";
+    placeholderAnimation?: "" | "MoveUp";
+    padding?: string;
+    margin?: string;
+    closeIcon?: boolean;
+    border?: string;
+    borderTop?: string;
+    borderRight?: string;
+    borderBottom?: string;
+    borderLeft?: string;
+    borderRadius?: string;
     subtitle?: string;
     placeholder?: string;
     width?: string;
@@ -68,6 +78,13 @@ export class DialogMultiplePromptsComponent {
   changevalue: EventEmitter<{
     label: string;
     value: string;
+  }>;
+  @Event({
+    eventName: "clearvalue",
+    bubbles: false,
+  })
+  clearvalue: EventEmitter<{
+    label: string;
   }>;
 
   @Event({
@@ -154,13 +171,28 @@ export class DialogMultiplePromptsComponent {
             {this.multipleInputs.map((v) => {
               return (
                 <saki-input
+                  key={v.label}
                   value={v.value}
                   placeholder={v.placeholder || ""}
                   width={v.width}
                   height={v.height || "56px"}
                   subtitle={v.subtitle}
                   type={v.type || "Text"}
-                  placeholderAnimation="MoveUp"
+                  placeholderAnimation={v.placeholderAnimation}
+                  padding={v.padding}
+                  margin={v.margin}
+                  closeIcon={v.closeIcon}
+                  border={v.border || ""}
+                  borderTop={v.borderTop || ""}
+                  borderRight={v.borderRight || ""}
+                  borderBottom={v.borderBottom || ""}
+                  borderLeft={v.borderLeft || ""}
+                  borderRadius={v.borderRadius || ""}
+                  onClearvalue={() => {
+                    this.clearvalue.emit({
+                      label: v.label,
+                    });
+                  }}
                   maxLength={v.maxLength}
                   error={v.error || ""}
                   errorColor={v.errorColor}

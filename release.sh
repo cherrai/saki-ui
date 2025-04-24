@@ -1,7 +1,7 @@
 #! /bin/bash
 name="saki-ui"
 port=32300
-version="v1.0.8"
+version="v1.0.9"
 branch="main"
 DIR=$(cd $(dirname $0) && pwd)
 allowMethods=("devBuild sh copyReactTypes buildReactTargetDir zip unzip removeBuildFile copyFile protos stop npmconfig install gitpull dockerremove start logs")
@@ -71,7 +71,7 @@ buildReactTargetDir() {
 
 start() {
   setVersion
-  
+
   echo "-> $version"
   sed -i "s/\"version\":.*$/\"version\":\"${version:1}\",/" ./package.json
 

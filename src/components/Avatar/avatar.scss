@@ -77,7 +77,7 @@
     }
   }
 
-  .edit {
+  .avatar-edit {
     position: absolute;
     bottom: 0;
     right: 0;
@@ -95,11 +95,12 @@
       opacity: 1;
     }
 
-    .icon {
-      fill: #fff;
-      width: calc(var(--saki-avatar-width) * 0.3);
-      height: calc(var(--saki-avatar-height) * 0.3);
+    &.Hover {
+      &:hover {
+        opacity: 1;
+      }
     }
+
   }
 
   .avatar-mark {

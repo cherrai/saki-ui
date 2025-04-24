@@ -8,6 +8,13 @@
     flex-direction: row;
     flex-wrap: wrap;
   }
+  &.Grid {
+    // display: flex;
+    // flex-direction: row;
+    // flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(var(--menu-columnsCount), 1fr);
+  }
 }
 
 .saki-menu-item-component {
@@ -16,8 +23,8 @@
   flex-direction: column;
   position: relative;
 
-
-  &.Icons {
+  &.Icons,
+  &.Grid {
     align-items: center;
 
     .item-content {
@@ -81,11 +88,9 @@
     }
 
     .saki-m-i-title {
-
       .item-content {
         .item-c-icon {
           color: #ccc;
-
         }
 
         .item-c-main {
@@ -103,7 +108,6 @@
         }
       }
     }
-
   }
 }
 

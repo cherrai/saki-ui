@@ -64,6 +64,11 @@ export class AsideModalComponent {
     bubbles: false,
   })
   close: EventEmitter;
+
+  @Event({
+    bubbles: false,
+  })
+  loaded: EventEmitter;
   @Element() el: HTMLElement;
   @Watch("visible")
   watchVisibleFunc() {
@@ -95,7 +100,9 @@ export class AsideModalComponent {
       }, 10);
     }
   }
-  componentDidLoad() {}
+  componentDidLoad() {
+    this.loaded.emit();
+  }
   render() {
     return (
       // <saki-transition

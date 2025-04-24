@@ -9,7 +9,7 @@
     border: var(--border);
     cursor: pointer;
     position: relative;
-    transition: background-color .2s;
+    transition: background-color 0.2s;
 
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
@@ -34,7 +34,6 @@
           opacity: 1;
           transform: translate(-50%) scale(1);
         }
-
       }
 
       .s-h-toolTip {
@@ -50,8 +49,7 @@
         height: 30px;
         opacity: 0;
         transform: translate(-50%) scale(0.7);
-        transition: all .2s;
-
+        transition: all 0.2s;
 
         &::after {
           content: "";
@@ -67,7 +65,6 @@
           border-radius: 2px;
         }
       }
-
     }
 
     .s-mark {
@@ -80,8 +77,8 @@
         position: absolute;
         left: 50%;
         transform: translate(-50%);
+        white-space: nowrap;
       }
-
     }
   }
 }

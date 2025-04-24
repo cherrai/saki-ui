@@ -46,6 +46,7 @@ export class SliderComponent {
   @Prop() margin: string = "";
   @Prop() border: string = "";
   @Prop() borderRadius: string = "10px";
+  @Prop() fontSize: string = "14px";
 
   @State() values: number[] = [];
   @State() trackColors: string[] = [];
@@ -393,6 +394,7 @@ export class SliderComponent {
                     class={"s-m-text"}
                     style={{
                       top: rH + 10 + "px",
+                      fontSize: this.fontSize,
                       ...style,
                     }}
                   >
@@ -446,6 +448,7 @@ export class SliderComponent {
                   <div
                     style={{
                       top: -(rH + 32) + "px",
+                      fontSize: this.fontSize,
                     }}
                     class={"s-h-toolTip "}
                   >
