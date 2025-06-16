@@ -79,8 +79,9 @@ export class WaterfallLayoutComponent {
   @Method()
   watchDom() {
     this.d.increase(() => {
-      const list: NodeListOf<HTMLSakiWaterfallLayoutItemElement> =
-        this.el?.querySelectorAll("saki-waterfall-layout-item");
+      const list = this.el?.querySelectorAll(
+        "saki-waterfall-layout-item"
+      ) as NodeListOf<HTMLSakiWaterfallLayoutItemElement>;
 
       // console.log("wlist111", list);
 
@@ -119,8 +120,9 @@ export class WaterfallLayoutComponent {
 
     const w = layoutEl.offsetWidth;
 
-    const list: NodeListOf<HTMLSakiWaterfallLayoutItemElement> =
-      this.el?.querySelectorAll("saki-waterfall-layout-item");
+    const list = this.el?.querySelectorAll(
+      "saki-waterfall-layout-item"
+    ) as NodeListOf<HTMLSakiWaterfallLayoutItemElement>;
 
     list.forEach((el) => {
       el.itemWidth = w / this.renderList.length;
@@ -148,7 +150,7 @@ export class WaterfallLayoutComponent {
     console.log("wlist", el);
 
     let index = 0;
-    let h = 100000;
+    // let h = 100000;
 
     let hObj: Record<number, number> = {};
 
@@ -191,7 +193,7 @@ export class WaterfallLayoutComponent {
 
     el.itemWidth = w;
 
-    itemEl.appendChild(el);
+    itemEl.appendChild(el as any);
   }
 
   render() {

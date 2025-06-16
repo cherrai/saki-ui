@@ -9,7 +9,7 @@ import { NEventListener } from "@nyanyajs/utils/dist/common/neventListener";
 
 export const sakiuiEventListener = new NEventListener();
 
-export type SakiuiEventListener = typeof sakiuiEventListener
+export type SakiuiEventListener = typeof sakiuiEventListener;
 
 export const initConfig = () => {
   console.log("initConfig");
@@ -30,6 +30,7 @@ export const initConfig = () => {
   });
 
   onChange("language", (v) => {
+    console.log("i18n onChange", v);
     state.language = v;
     if (v === "system") {
       if (state.languages.indexOf(navigator.language) >= 0) {
@@ -69,10 +70,8 @@ export const initConfig = () => {
 export const momentLocale = (lang: string) => {
   console.log("momentLocale", lang);
   moment.locale(lang);
-  console.log("monment", moment.locales(), lang)
+  console.log("monment", moment.locales(), lang);
 };
-
-
 
 export let contextMenuTimer: NodeJS.Timeout;
 

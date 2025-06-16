@@ -102,10 +102,7 @@ export class CascaderComponent {
     console.log("componentDidLoad");
     this.options = deepCopy(this.options);
 
-    const dpEl = this.getElParent(
-      this.el.parentElement,
-      1
-    ) as HTMLSakiDropdownElement;
+    const dpEl = this.getElParent(this.el.parentElement, 1);
     if (dpEl) {
       dpEl.addEventListener("open", () => {
         this.initScrollBar();

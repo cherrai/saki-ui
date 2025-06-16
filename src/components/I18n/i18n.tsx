@@ -52,20 +52,19 @@ export class SakiI18nComponent {
   }
   componentWillLoad() {}
   componentDidLoad() {
-    // console.log("componentDidLoad");
-    state.language = this.language;
-    state.lang = this.lang;
-    state.languages = this.languages;
-    console.log("i18n", state.lang, state.language, state.languages);
-    state.lang = this.lang;
-
-    const res = this.DeepMergeObject(this.resources, state.localResources);
-
-    // console.log("i18n", res);
-    state.resources = res;
-    this.mounted.emit();
-
     setTimeout(() => {
+      // console.log("componentDidLoad");
+      state.language = this.language;
+      state.lang = this.lang;
+      state.languages = this.languages;
+      state.resources = this.DeepMergeObject(
+        this.resources,
+        state.localResources
+      );
+      console.log("i18n", state.lang, state.language, state.languages);
+
+      this.mounted.emit();
+
       momentLocale(state.lang);
     }, 300);
   }

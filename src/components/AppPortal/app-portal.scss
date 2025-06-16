@@ -1,0 +1,281 @@
+.saki-app-portal-component {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  position: relative;
+  .ap-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 12px;
+    width: 100%;
+    height: 50px;
+    border-bottom: 1px solid #eee;
+
+    &.show {
+    }
+    &.hide {
+      display: none;
+      .ap-h-left {
+      }
+      .ap-h-right {
+      }
+    }
+    .ap-h-left {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      .ap-title {
+        font-size: 16px;
+        color: #444;
+      }
+    }
+    .ap-h-right {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      .ap-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #eee;
+        border-radius: 16px;
+        height: 32px;
+        position: relative;
+        overflow: hidden;
+        &::after {
+          content: "";
+
+          width: 1px;
+          height: 20px;
+          position: absolute;
+          left: 50%;
+          top: 6px;
+          transform: translate(-50%, 0);
+          background-color: #eee;
+        }
+        .ap-b-item {
+          width: 40px;
+          height: 40px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: #fff;
+          transition: background-color 0.2s;
+          cursor: default;
+          user-select: none;
+          &:hover {
+            background-color: #eee;
+          }
+          &:active {
+            background-color: #ddd;
+          }
+        }
+      }
+    }
+  }
+
+  /* 弹跳的彩色圆点 - 修改版 */
+
+  .loading-page {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    position: absolute;
+    left: 0;
+
+    &.load-page-enter {
+      opacity: 0;
+      // transition: opacity 0.5s;
+    }
+    &.load-page-enter-active {
+      opacity: 1;
+    }
+    &.load-page-enter-done {
+      opacity: 1;
+      // transition: opacity 0.5s;
+    }
+    &.load-page-leave {
+      opacity: 1;
+      transition: opacity 0.3;
+    }
+    &.load-page-leave-active {
+      opacity: 0;
+    }
+    &.load-page-leave-done {
+      display: none;
+    }
+
+    &.load-pageShow {
+      height: calc(100% - 50px);
+      top: 50px;
+    }
+    &.load-pageHide {
+      height: 100%;
+      top: 0;
+    }
+    .loading-dots {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      height: 60px;
+      position: absolute;
+      top: calc(50% - 60px);
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        margin: 0 8px;
+        animation: bounce 0.4s infinite alternate;
+        &:nth-child(1) {
+          background-color: #feadbc;
+          animation-delay: 0s;
+        }
+
+        &:nth-child(2) {
+          background-color: #09d1fe;
+          animation-delay: 0.1s;
+        }
+
+        &:nth-child(3) {
+          background-color: #8552e4;
+          animation-delay: 0.2s;
+        }
+      }
+
+      @keyframes bounce {
+        0% {
+          transform: translateY(0);
+        }
+        100% {
+          transform: translateY(-25px);
+        }
+      }
+    }
+  }
+
+  .ap-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #eee;
+    border-radius: 16px;
+    height: 32px;
+    position: absolute;
+    top: 9px;
+    right: 12px;
+    overflow: hidden;
+    &::after {
+      content: "";
+
+      width: 1px;
+      height: 20px;
+      position: absolute;
+      left: 50%;
+      top: 6px;
+      transform: translate(-50%, 0);
+      background-color: #eee;
+    }
+    .ap-b-item {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #fff;
+      transition: background-color 0.2s;
+      cursor: default;
+      user-select: none;
+      &:hover {
+        background-color: #eee;
+      }
+      &:active {
+        background-color: #ddd;
+      }
+    }
+  }
+  iframe {
+    flex: 1;
+    width: 100%;
+  }
+}
+
+.saki-app-portal-dp {
+  padding: 10px;
+  .ap-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 10px 20px 10px;
+    border-bottom: 1px solid #eee;
+
+    .ap-h-left {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      span {
+        font-size: 16px;
+      }
+    }
+  }
+  .ap-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 10px 0 0;
+
+    // display: grid;
+    // grid-template-columns: repeat(var(--saki-ap-more-menu-row-count), 1fr);
+    // grid-template-rows: repeat(4, 1fr);
+    .ap-l-item {
+      width: var(--saki-ap-more-menu-item-width);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border-radius: 6px;
+      transition: background-color 0.3s;
+      padding: 10px 2px;
+      cursor: pointer;
+      &:hover {
+        background-color: #eee;
+        .ap-l-i-icon {
+          background-color: #ddd;
+        }
+      }
+      &:active {
+        background-color: #ddd;
+        .ap-l-i-icon {
+          background-color: #ccc;
+        }
+      }
+      .ap-l-i-icon {
+        width: calc(var(--saki-ap-more-menu-item-width) - 20px);
+        height: calc(var(--saki-ap-more-menu-item-width) - 20px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: #eee;
+        border-radius: 6px;
+        transition: background-color 0.3s;
+        margin: 0 8px 6px;
+        // saki-icon {
+        //   width: calc(var(--saki-ap-more-menu-item-width) / 4);
+        //   height: calc(var(--saki-ap-more-menu-item-width) / 4);
+        // }
+      }
+      .ap-l-i-name {
+        text-align: center;
+        font-size: 12px;
+        color: #666;
+      }
+    }
+  }
+}

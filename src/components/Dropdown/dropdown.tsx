@@ -65,6 +65,7 @@ export class DropdownComponent {
   @Event() open: EventEmitter;
   @Event({
     bubbles: false,
+    composed: false,
   })
   close: EventEmitter;
   // @Event() close1: EventEmitter;
@@ -355,12 +356,12 @@ export class DropdownComponent {
     this.d.increase(() => {
       // this.observer?.disconnect();
       const observer = new ResizeObserver(() => {
-        console.log(
-          "Dom发生了变化",
-          this.contentEl.offsetHeight,
-          this.contentEl.offsetWidth,
-          this.contentEl
-        );
+        // console.log(
+        //   "Dom发生了变化",
+        //   this.contentEl.offsetHeight,
+        //   this.contentEl.offsetWidth,
+        //   this.contentEl
+        // );
 
         this.positionAnimation = true;
         this.d.increase(() => {

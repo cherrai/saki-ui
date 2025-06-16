@@ -1131,8 +1131,19 @@ export class SakiPagesIconComponent {
         <div
           style={{
             padding: "20px 20px 0",
+            backgroundColor: "#eee",
           }}
         >
+          <div
+            style={{
+              width: "400px",
+              height: "600px",
+              margin: "0 0 20px 20px",
+            }}
+          >
+            <saki-app-portal entryUrl="http://192.168.204.132:23200/zh-CN/weather?lat=29.4171225&lng=105.5951063&alt=0&language=zh-CN&iframe=true&header=false"></saki-app-portal>
+          </div>
+
           <saki-waterfall-layout>
             {imagesUrls2
               .filter((_, i) => i < 6 * this.loadPage)

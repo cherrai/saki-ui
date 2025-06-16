@@ -10,6 +10,9 @@ export class TemplateHeaderComponent {
   @Prop() meowApps = false;
   @Prop() fixed = false;
   @Prop() visible = false;
+  @Prop() bgColor = "";
+  @Prop() borderBottom = "";
+  @Prop() textColor = "";
   @State() showLanguageDropdown = false;
 
   componentWillLoad() {}
@@ -31,10 +34,13 @@ export class TemplateHeaderComponent {
             "alignItems",
             "width",
             "height",
+            "borderBottom",
           ].reduce(
             (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
             {}
           ),
+          "background-color": this.bgColor,
+          "--text-color": this.textColor,
         }}
       >
         <div class="tb-h-left">

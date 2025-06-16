@@ -34,3 +34,6 @@ README.md
 ssh.*
 build.*
 pkg
+/build
+!/build/packages
+tmp

@@ -40,19 +40,16 @@ export class TableColumnComponent {
   @Event() change: EventEmitter;
   @Watch("value")
   watchVisible() {}
-  componentDidLoad() {
-  }
+  componentDidLoad() {}
 
   watchList() {
     this.list = [];
     this.el.querySelectorAll("saki-table-header-item").forEach((v) => {
       this.list.push(v);
     });
-
   }
 
-  watchEl() {
-  }
+  watchEl() {}
   render() {
     return (
       <div

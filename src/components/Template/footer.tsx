@@ -20,6 +20,8 @@ export class TemplateFooterComponent {
   @Prop() padding = "";
   @Prop() width = "";
   @Prop() height = "";
+  @Prop() bgColor = "";
+  @Prop() textColor = "#000";
 
   @Prop() appTitle = "";
   @Prop() appLink = "/";
@@ -71,6 +73,8 @@ export class TemplateFooterComponent {
             (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
             {}
           ),
+          "background-color": this.bgColor,
+          "--text-color": this.textColor,
         }}
         class={"saki-footer-component "}
       >
@@ -81,6 +85,7 @@ export class TemplateFooterComponent {
                 display: "none",
               }}
             >
+              <span>{state.language}</span>
               {state.languages.map((v) => v)}
             </div>
             <saki-dropdown
@@ -106,7 +111,10 @@ export class TemplateFooterComponent {
                       ns: "languages",
                     })}
                   </span>
-                  <saki-icon type="BottomTriangle"></saki-icon>
+                  <saki-icon
+                    color={this.textColor}
+                    type="BottomTriangle"
+                  ></saki-icon>
                 </div>
               </saki-button>
               <div slot="main">
@@ -179,7 +187,10 @@ export class TemplateFooterComponent {
                           ns: "appearance",
                         })}
                     </span>
-                    <saki-icon type="BottomTriangle"></saki-icon>
+                    <saki-icon
+                      color={this.textColor}
+                      type="BottomTriangle"
+                    ></saki-icon>
                   </div>
                 </saki-button>
                 <div slot="main">

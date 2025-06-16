@@ -2,9 +2,11 @@ import state from "../store";
 import qs from "qs";
 import { snackbar } from "./saki-ui-core/snackbar/snackbar";
 import { sakiuiEventListener } from "../store/config";
+import { initI18n } from "./i18n/i18n";
 // import { snackbar } from "./saki-ui-core";
 
 export const initSakiUIMethods = () => {
+  (window as any)?.loadSakiUI?.();
   (window as any).sakiui = {
     initLanguage: (
       language: string,
@@ -31,7 +33,63 @@ export const initSakiUIMethods = () => {
       console.log("appearances", appearances);
       state.appearances = appearances;
     },
-    sakiuiEventListener
+    sakiuiEventListener,
+    appPortal: {
+      setAppInfo: ({
+        title,
+        logo,
+        logoText,
+        url,
+      }: {
+        title: string;
+        logo: string;
+
+        logoText: string;
+        url: string;
+      }) => {
+        window?.parent?.postMessage(
+          {
+            type: "setAppInfo",
+            data: {
+              title: title || "",
+              logo: logo || "",
+              logoText: logoText || "",
+              url: url || "",
+            },
+          },
+          "*"
+        );
+      },
+      loaded: () => {
+        window?.parent?.postMessage(
+          {
+            type: "loaded",
+          },
+          "*"
+        );
+      },
+      dispatch: (method: string, val: any) => {
+        window?.parent?.postMessage(
+          {
+            type: "dispatchMethod",
+            data: {
+              method: method,
+              value: val,
+            },
+          },
+          "*"
+        );
+      },
+    },
+    initI18n() {
+      initI18n();
+    },
+    // i18n: {
+    //   getResources() {
+    //     console.log("initSakiUI", state.resources);
+    //     // return state.resources;
+    //   },
+    // },
   };
 };
 

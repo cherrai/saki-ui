@@ -3,11 +3,10 @@ import state from "../../store";
 import { sakiuiEventListener } from "../../store/config";
 
 export const initI18n = () => {
-  // state.initI18n || 
+  // state.initI18n ||
+  console.log("[Saki UI] Initialize i18n", state);
   if (!Object.keys(state.resources).length) return;
 
-
-  console.log("[Saki UI] Initialize i18n", state);
   if (state.initI18n) {
   }
   i18n.init({
@@ -30,16 +29,15 @@ export const initI18n = () => {
   }
   state.initI18n = true;
   (window as any).sakiui = {
-    ... (window as any).sakiui,
-    i18n
+    ...(window as any).sakiui,
+    i18n,
   };
 
-  sakiuiEventListener.dispatch("loadI18n", i18n)
-  sakiuiEventListener.on('mounted', () => {
-    sakiuiEventListener.dispatch("loadI18n", i18n)
-  })
+  sakiuiEventListener.dispatch("loadI18n", i18n);
+  sakiuiEventListener.on("mounted", () => {
+    sakiuiEventListener.dispatch("loadI18n", i18n);
+  });
 };
 export const t = i18n.t;
-
 
 export default i18n;

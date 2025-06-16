@@ -46,6 +46,7 @@ export class MenuItemComponent {
   @State() type: MenuComponent["type"] = "List";
   @Element() el: HTMLSakiMenuItemElement;
   @Event({
+    bubbles: false,
     cancelable: false,
   })
   tap: EventEmitter;

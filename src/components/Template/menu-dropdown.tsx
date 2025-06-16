@@ -8,6 +8,9 @@ import state from "../../store";
 })
 export class TemplateMenuDropdownComponent {
   @Prop() appText = "";
+  @Prop() appLogo = "";
+  @Prop() textColor = "#555";
+  @Prop() iconColor: string = "#999";
   @Prop() fixed = false;
   @Prop() openNewPage = true;
   @Prop() visible = false;
@@ -17,6 +20,8 @@ export class TemplateMenuDropdownComponent {
       [lang: string]: string;
     };
     url: string;
+    logo: string;
+    logoText: string;
   }[] = [];
 
   componentWillLoad() {}
@@ -27,7 +32,13 @@ export class TemplateMenuDropdownComponent {
   }
   render() {
     return (
-      <div class={"saki-menu-dropdown-component "}>
+      <div
+        style={{
+          "--text-color": this.textColor,
+          "--icon-color": this.iconColor,
+        }}
+        class={"saki-menu-dropdown-component "}
+      >
         <saki-dropdown
           visible={this.openMenuDropDownMenu}
           floating-direction="Left"
@@ -43,16 +54,29 @@ export class TemplateMenuDropdownComponent {
                 this.openMenuDropDownMenu = !this.openMenuDropDownMenu;
               }}
             >
+              {this.appLogo ? (
+                <saki-avatar
+                  nickname={""}
+                  border-radius={"6px"}
+                  width="28px"
+                  height="28px"
+                  margin="0 4px 0 0"
+                  lazyload={false}
+                  src={this.appLogo || ""}
+                ></saki-avatar>
+              ) : (
+                ""
+              )}
               <span class="logo-text">{this.appText}</span>
 
               <div
                 class={"icon " + (this.openMenuDropDownMenu ? "active" : "")}
               >
-                <saki-icon color="#999" type="Bottom"></saki-icon>
+                <saki-icon color={this.iconColor} type="Bottom"></saki-icon>
               </div>
             </saki-button>
           </div>
-          <div class="tool-box-layout-menu-list" slot="main">
+          <div class="tool-box-layout-menu-list scrollBarHover" slot="main">
             <saki-menu
               onSelectvalue={() => {
                 this.openMenuDropDownMenu = false;
@@ -67,7 +91,22 @@ export class TemplateMenuDropdownComponent {
                         href={v.url}
                         rel="noopener noreferrer"
                       >
-                        {v.title["en-US"] ? v.title[state.lang] : v.title}
+                        <div class={"tblm-i-left"}>
+                          <saki-avatar
+                            nickname={v.logoText}
+                            border-radius={"6px"}
+                            width="32px"
+                            height="32px"
+                            lazyload={false}
+                            src={v.logo || ""}
+                          ></saki-avatar>
+                        </div>
+
+                        <div class={"tblm-i-right"}>
+                          <span>
+                            {v.title["en-US"] ? v.title[state.lang] : v.title}
+                          </span>
+                        </div>
                       </a>
                     </div>
                   </saki-menu-item>

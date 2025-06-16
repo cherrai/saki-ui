@@ -57,6 +57,8 @@ export class AvatarComponent {
   @Prop() crop: boolean = false;
   @Prop() anonymousIcon: boolean = false;
 
+  @Prop() lazyload: boolean = true;
+
   @State() showEditModal: boolean = false;
   colors = [
     "#f09cb2",
@@ -122,6 +124,7 @@ export class AvatarComponent {
             height={this.height}
             borderRadius={this.borderRadius}
             src={this.src}
+            lazyload={this.lazyload}
           ></saki-images>
         ) : this.nickname ? (
           <div

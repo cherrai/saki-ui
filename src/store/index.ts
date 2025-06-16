@@ -6,7 +6,7 @@ import enUS from "../modules/i18n/en-US.json";
 import zhCN from "../modules/i18n/zh-CN.json";
 import zhTW from "../modules/i18n/zh-TW.json";
 
-const localResources = {
+export const localResources = {
   "zh-CN": {
     ...zhCN,
   },
@@ -61,7 +61,7 @@ export const { state, onChange } = createStore({
 
 // initConfig();
 setTimeout(() => {
-  initConfig()
+  initConfig();
 });
 
 export default state;

@@ -27,6 +27,7 @@ export class MenuComponent {
 
   @Event({
     bubbles: false,
+    cancelable: false,
   })
   selectvalue: EventEmitter;
   @Event() dragdone: EventEmitter;

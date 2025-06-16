@@ -1,7 +1,7 @@
 #! /bin/bash
 name="saki-ui"
 port=32300
-version="v1.0.9"
+version="v1.0.10"
 branch="main"
 DIR=$(cd $(dirname $0) && pwd)
 allowMethods=("devBuild sh copyReactTypes buildReactTargetDir zip unzip removeBuildFile copyFile protos stop npmconfig install gitpull dockerremove start logs")
@@ -110,6 +110,8 @@ start() {
   echo "-> 整理文件资源"
 
   rm $DIR/build/build_time_*
+  rm -rf $DIR/build/saki-ui
+  rm -rf $DIR/build/types
 
   docker cp $name:/dist/. $DIR/build
   rm -rf $DIR/build/saki-ui-react/types/
@@ -145,7 +147,13 @@ unzip() {
 }
 
 zip() {
-  tar cvzf ./build.tgz -C ./ build
+  # tar cvzf ./build.tgz -C ./ build
+  tar cvzf ./build.tgz \
+    -C ./ build/packages/$version \
+    -C ./ build/packages/saki-ui-$version.tgz \
+    -C ./ build/packages/saki-ui-react-$version.tgz \
+    -C ./ build/saki-ui \
+    -C ./ build/types
 }
 
 removeBuildFile() {
