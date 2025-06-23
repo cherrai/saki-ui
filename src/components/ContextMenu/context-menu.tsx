@@ -10,6 +10,7 @@ import {
   Watch,
   Prop,
 } from "@stencil/core";
+import { sakiuiEventListener } from "../../store/config";
 
 @Component({
   tag: "saki-context-menu",
@@ -58,9 +59,12 @@ export class ContextMenuComponent {
       //   // console.log("this.contextEl", this.el, this.contentEl);
       // }
       document.body.appendChild(this.compEl);
+
+      sakiuiEventListener.on("body-click:dropdown-event-" + this.id, () => {});
     } else {
       document.body.removeChild(this.compEl);
       this.el.appendChild(this.compEl);
+      sakiuiEventListener.removeEvent("body-click:dropdown-event-" + this.id);
     }
   }
   @Method()
@@ -371,6 +375,7 @@ export class ContextMenuComponent {
             // this.visible = false;
             // this.close.emit();
           }}
+          data-id={this.id}
           class={"context-menu-content-bg " + (this.visible ? "show" : "hide")}
         ></div>
       </div>

@@ -377,7 +377,7 @@ export class DropdownComponent {
     }, 300);
   }
   bodyClientEvent(e: MouseEvent) {
-    // console.log("body-click:dropdown-event bodyClosable", e.target);
+    console.log("bodyClosable ", this, e.target);
     this.getParentEl.call(this, e.target);
   }
   getParentEl(el: HTMLElement) {
@@ -435,6 +435,7 @@ export class DropdownComponent {
               style={{
                 zIndex: String(this.zIndex - 1),
               }}
+              data-id={this.id}
               class={"main-bg "}
             ></div>
           ) : (

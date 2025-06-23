@@ -21,11 +21,15 @@ export const initConfig = () => {
 
     //   nevent.getEventNames()
     // );
-    sakiuiEventListener.getEventNames().forEach((v) => {
+    const names = sakiuiEventListener
+      .getEventNames()
+      .filter((v) => v.includes("body-click:dropdown-event"));
+    // console.log("sakiuiEventListener.getEventNames()", names);
+    names.slice(names.length - 1, names.length).forEach((v) => {
       // console.log("eeeeeeee", v);
-      if (v.indexOf("body-click:dropdown-event") >= 0) {
-        sakiuiEventListener.dispatch(v, e);
-      }
+      // if (v.includes("body-click:dropdown-event")) {
+      sakiuiEventListener.dispatch(v, e);
+      // }
     });
   });
 
