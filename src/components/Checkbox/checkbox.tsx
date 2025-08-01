@@ -21,6 +21,8 @@ export class CheckboxComponent {
   @Prop() flexDirection: "Row" | "Column" = "Row";
   @Prop() disabled: boolean = false;
   @Prop() value: string = "";
+  @Prop() margin: string = "";
+  @Prop() padding: string = "";
   @State() values: string[] = [];
   @State() isSelectAll: boolean = false;
   @State() list: NodeListOf<HTMLSakiCheckboxItemElement>;

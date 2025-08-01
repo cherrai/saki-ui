@@ -107,7 +107,7 @@ export class MenuItemComponent {
           }}
           class={"saki-m-i-title"}
         >
-          <div class={"item-content "}>
+          <div class={"saki-m-i-content "}>
             {this.showIcon ? (
               <div class={"item-c-icon"}>
                 <slot name="icon"></slot>

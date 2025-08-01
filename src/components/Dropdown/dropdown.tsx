@@ -381,8 +381,19 @@ export class DropdownComponent {
     this.getParentEl.call(this, e.target);
   }
   getParentEl(el: HTMLElement) {
-    // console.log(el.localName, el.dataset, el, el.getAttribute("data-id"));
-    if (el?.localName === "body") {
+    // console.log(
+    //   "getParentEl",
+    //   el.localName,
+    //   1,
+    //   el.dataset,
+    //   2,
+    //   el,
+    //   1,
+    //   el.parentElement,
+    //   1,
+    //   el.getAttribute("data-id")
+    // );
+    if (el?.localName === "body" || !el?.parentElement) {
       // console.log("this.bodyClosable ", this, el, this.bodyClosable);
       this.bodyClosable && (this.visible = false);
       return;
@@ -390,7 +401,7 @@ export class DropdownComponent {
     if (this.id === el?.getAttribute("data-id")) {
       return;
     }
-    return this.getParentEl.call(this, el.parentElement);
+    return this.getParentEl.call(this, el?.parentElement);
   }
   render() {
     return (

@@ -11,6 +11,7 @@ export class TemplateHeaderComponent {
   @Prop() fixed = false;
   @Prop() visible = false;
   @Prop() bgColor = "";
+  @Prop() height = "";
   @Prop() borderBottom = "";
   @Prop() textColor = "";
   @State() showLanguageDropdown = false;

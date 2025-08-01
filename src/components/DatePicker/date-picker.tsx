@@ -60,7 +60,6 @@ export class DatePickerComponent {
   @State() selectedDate: Date = undefined;
   @State() selectYear: number = 0;
 
-
   @State() timer: NodeJS.Timeout;
 
   @State() timeContent: {
@@ -68,10 +67,10 @@ export class DatePickerComponent {
     m: number;
     s: number;
   } = {
-      h: 0,
-      m: 0,
-      s: 0,
-    };
+    h: 0,
+    m: 0,
+    s: 0,
+  };
 
   @Event() close: EventEmitter;
   @Event() selectdate: EventEmitter<{
@@ -117,8 +116,8 @@ export class DatePickerComponent {
   @Watch("selectDate")
   watchSelectDate() {
     if (!this.selectDate) {
-      this.days = []
-      return
+      this.days = [];
+      return;
     }
     this.days = this.getDaysOfThisMonth(
       `${this.selectDate.getFullYear()}-${this.selectDate.getMonth() + 1}`
@@ -130,7 +129,7 @@ export class DatePickerComponent {
       this.initTimeItem();
     }
   }
-  componentWillLoad() { }
+  componentWillLoad() {}
   componentDidLoad() {
     this.id = MD5(String(Math.floor(Math.random() * 1000000000))).toString();
     this.init(new Date());
@@ -231,11 +230,12 @@ export class DatePickerComponent {
         minute: -1,
         second: -1,
       });
-      return
+      return;
     }
     this.selectdate.emit({
       date:
-        `${this.selectedDate.getFullYear()}-${this.selectedDate.getMonth() + 1
+        `${this.selectedDate.getFullYear()}-${
+          this.selectedDate.getMonth() + 1
         }-${this.selectedDate.getDate()}` +
         (this.timePicker
           ? ` ${this.timeContent.h}:${this.timeContent.m}:${this.timeContent.s}`
@@ -307,13 +307,13 @@ export class DatePickerComponent {
       return first
         ? []
         : [
-          {
-            date: s,
-            y: nowYear,
-            m: nowMonth,
-            d: nowDay,
-          },
-        ];
+            {
+              date: s,
+              y: nowYear,
+              m: nowMonth,
+              d: nowDay,
+            },
+          ];
     }
     const nextDay = new Date(date.setSeconds(3600 * 24));
     const nextDays = this.getNextDay(
@@ -326,19 +326,18 @@ export class DatePickerComponent {
       first
         ? []
         : [
-          {
-            date: s,
-            y: nowYear,
-            m: nowMonth,
-            d: nowDay,
-          },
-        ]
+            {
+              date: s,
+              y: nowYear,
+              m: nowMonth,
+              d: nowDay,
+            },
+          ]
     ).concat(nextDays);
   }
   render() {
-
-    const showTodayButton = moment(this.selectDate).format("YYYY-M") !==
-      moment().format("YYYY-M")
+    const showTodayButton =
+      moment(this.selectDate).format("YYYY-M") !== moment().format("YYYY-M");
     return (
       <saki-dropdown
         onClose={() => {
@@ -382,8 +381,8 @@ export class DatePickerComponent {
                     {this.showDatePage === 3
                       ? `${this.yearContent + 1} - ${this.yearContent + 11}`
                       : this.showDatePage === 2
-                        ? this.selectYear
-                        : moment(this.selectDate).format("MMMM, YYYY")}
+                      ? this.selectYear
+                      : moment(this.selectDate).format("MMMM, YYYY")}
                   </div>
                 </saki-button>
                 {this.timePicker && this.showDatePage === 1 ? (
@@ -576,8 +575,8 @@ export class DatePickerComponent {
                               class={
                                 "dp-st-i-item " +
                                 ((i === 0 && this.timeContent.h === si) ||
-                                  (i === 1 && this.timeContent.m === si) ||
-                                  (i === 2 && this.timeContent.s === si)
+                                (i === 1 && this.timeContent.m === si) ||
+                                (i === 2 && this.timeContent.s === si)
                                   ? "active"
                                   : "")
                               }
@@ -639,7 +638,7 @@ export class DatePickerComponent {
                           ? "active "
                           : "") +
                         (moment(this.selectDate).format("YYYY-M") ===
-                          v.y + "-" + v.m
+                        v.y + "-" + v.m
                           ? "thisMonth "
                           : "")
                       }
@@ -649,17 +648,10 @@ export class DatePickerComponent {
                   );
                 })}
               </div>
-              {
-                this.cancelButton || showTodayButton ? <div class={"dp-buttons"}>
+              {this.cancelButton || showTodayButton ? (
+                <div class={"dp-buttons"}>
                   <div class={"dp-b-left"}>
-                    <div
-                      class={
-                        "dp-today " +
-                        (showTodayButton
-                          ? "show "
-                          : "")
-                      }
-                    >
+                    <div class={"dp-today " + (showTodayButton ? "show " : "")}>
                       <saki-button
                         onTap={() => {
                           this.selectDate = new Date();
@@ -674,19 +666,14 @@ export class DatePickerComponent {
                         今日
                       </saki-button>
                     </div>
-
                   </div>
                   <div class={"dp-b-right"}>
-                    {this.cancelButton ?
-                      <div
-                        class={
-                          "dp-cancelButton show"
-                        }
-                      >
+                    {this.cancelButton ? (
+                      <div class={"dp-cancelButton show"}>
                         <saki-button
                           onTap={() => {
-                            this.selectDate = null;
-                            this.selectedDate = null;
+                            this.selectDate = new Date(this.date);
+                            this.selectedDate = this.selectDate;
                             this.emitSelectDate();
                           }}
                           width="100%"
@@ -696,11 +683,15 @@ export class DatePickerComponent {
                         >
                           取消选择
                         </saki-button>
-                      </div> : ""}
-
+                      </div>
+                    ) : (
+                      ""
+                    )}
                   </div>
-                </div> : ""
-              }
+                </div>
+              ) : (
+                ""
+              )}
             </div>
           </div>
         </div>

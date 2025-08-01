@@ -110,6 +110,7 @@ export class InputComponent {
         value: this.value,
       });
     }
+    // console.log("this.value", this.value, this.content);
 
     // if (value !== oldvalue) {
     // }
@@ -646,8 +647,8 @@ export class InputComponent {
               onBlur={() => {
                 this.focus = false;
               }}
-                placeholder={this.placeholder}
-                class={"scrollBarHover"}
+              placeholder={this.placeholder}
+              class={"scrollBarHover"}
             />
           )}
           {this.type === "Search" ? (

@@ -33,6 +33,7 @@ export class SSOLoginComponent {
   // }
   componentWillLoad() {}
   componentDidLoad() {
+    window.removeEventListener("message", this.onMessage);
     window.addEventListener("message", this.onMessage);
   }
   onMessage = (e: MessageEvent) => {
@@ -54,6 +55,11 @@ export class SSOLoginComponent {
           this.verifyAccount.emit({
             token: e.data.data.token,
           });
+          break;
+        case "replaceUrl":
+          if (e.data?.data?.url) {
+            location.href = e.data.data?.url;
+          }
           break;
 
         default:
@@ -77,6 +83,7 @@ export class SSOLoginComponent {
             appName: this.appName,
             iframe: "true",
             disableHeader: !this.disableHeader ? "false" : "true",
+            redirectUri: encodeURIComponent(location.href),
           })}
           frameborder="0"
         ></iframe>
