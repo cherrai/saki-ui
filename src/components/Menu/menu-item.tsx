@@ -26,6 +26,7 @@ export class MenuItemComponent {
   @Prop() tapHighlightColor: string = "rgba(0, 0, 0, 0)";
   @Prop() width: string = "";
   @Prop() padding: string = "";
+  @Prop() subtitlePadding: string = "";
   @Prop() fontSize: string = "";
   @Prop() borderRadius: string = "";
   @Prop() color: string = "";
@@ -79,7 +80,18 @@ export class MenuItemComponent {
           this.activeStyleType
         }
       >
-        <div class={"saki-m-i-subtitle"}>{this.subtitle}</div>
+        {this.subtitle ? (
+          <div
+            style={{
+              padding: this.subtitlePadding,
+            }}
+            class={"saki-m-i-subtitle"}
+          >
+            {this.subtitle}
+          </div>
+        ) : (
+          ""
+        )}
         <div
           style={{
             "--bg-color": this.backgroundColor,

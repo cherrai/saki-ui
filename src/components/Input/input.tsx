@@ -202,6 +202,8 @@ export class InputComponent {
       // this.value = this.defaultValue.value;
       // this.content = this.defaultValue.content;
       // this.setTextareaValue();
+    } else {
+      this.value = "";
     }
   }
   // 暂时仅Textare

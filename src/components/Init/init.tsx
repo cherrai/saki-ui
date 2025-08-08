@@ -24,9 +24,9 @@ export class SakiInitComponent {
   @Element() el: HTMLElement;
   watchFocusFunc() {}
   inputValue() {}
-  componentWillLoad() {} 
+  componentWillLoad() {}
   componentDidLoad() {
-    console.log("[Saki UI] initialization"); 
+    console.log("[Saki UI] initialization");
     state;
     initSakiUIMethods();
     this.mounted.emit();
@@ -34,7 +34,7 @@ export class SakiInitComponent {
 
     if (this.debug) {
       const socket = new WebSocket(this.debugWSUrl);
- 
+
       // Listen for messages
       const d = new Debounce();
       socket.addEventListener("message", function (event) {
@@ -42,6 +42,7 @@ export class SakiInitComponent {
         console.log("[Saki UI] rebuild... ", data);
 
         d.increase(() => {
+          console.log("[Saki UI] reload... ", data?.buildResults?.isRebuild);
           if (data?.buildResults?.isRebuild) {
             window.location.reload();
           }

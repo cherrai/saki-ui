@@ -89,6 +89,8 @@ export class AvatarComponent {
   onEdit() {
     if (this.crop) {
       this.cropEl.select();
+    } else {
+      this.tap.emit();
     }
   }
   render() {

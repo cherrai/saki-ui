@@ -152,6 +152,7 @@ export class RichTextComponent {
   }
   @Watch("placeholder")
   watchplaceholder() {
+    this.quill = null;
     this.init();
   }
   @Watch("value")
@@ -171,13 +172,16 @@ export class RichTextComponent {
 
       const toolbarEl: HTMLElement = this.el.querySelector(".ql-toolbar");
 
-      this.toolBarHeight = toolbarEl.clientHeight + "px";
+      if (!toolbarEl) {
+        return;
+      }
+      this.toolBarHeight = (toolbarEl?.clientHeight || 0) + "px";
 
       new ResizeObserver(() => {
-        this.toolBarHeight = toolbarEl.clientHeight + "px";
+        this.toolBarHeight = (toolbarEl?.clientHeight || 0) + "px";
       }).observe(toolbarEl);
       new MutationObserver(() => {
-        this.toolBarHeight = toolbarEl.clientHeight + "px";
+        this.toolBarHeight = (toolbarEl?.clientHeight || 0) + "px";
       }).observe(toolbarEl, {
         attributes: true,
         childList: true,
@@ -192,7 +196,7 @@ export class RichTextComponent {
 
         break;
       case "NewLine":
-        this.quill.insertText(range.index, "\n");
+        this.quill.insertText(range?.index, "\n");
 
         break;
 
@@ -214,238 +218,244 @@ export class RichTextComponent {
   }
   @Method()
   async init() {
-    this.isInit = false;
-    if (this.quill) {
-      return;
-    }
-    this.width =
-      this.el.querySelector(".saki-richtext-component").clientWidth + "px";
-
-    this.editorEl = this.el.querySelector(".sr-editor");
-    this.editorEl.innerHTML = this.value;
-
-    // const Image = Quill.import("formats/image");
-    // Image.className = "mwc-emoji";
-    // Quill.register(Image, true);
-    let FormatsImage = Quill.import("formats/image");
-    let FormatsVideo = Quill.import("formats/video");
-    // let Inline = Quill.import("formats/image");
-    // let BlockEmbed = Quill.import("blots/block/embed");
-    class ImageBlot extends FormatsImage {
-      static blotName = "image"; // blot的名称，需要唯一
-      static tagName = "img"; // 渲染的标签名
-      static create(value) {
-        let node = super.create();
-        console.log("LinkBlot", value, node);
-        node.setAttribute("class", value?.class || "");
-        node.setAttribute("alt", value?.alt || "");
-        node.setAttribute("title", value?.title || "");
-        node.setAttribute("src", value?.src || "");
-        node.setAttribute("data-name", value?.name || "");
-        // node.onclick = () => {
-        //   console.log("点击");
-        // };
-        const d = document.createElement("p");
-        d.appendChild(node);
-        d.appendChild(document.createElement("span"));
-        return node;
+    try {
+      this.isInit = false;
+      if (this.quill) {
+        return;
       }
+      this.width =
+        this.el.querySelector(".saki-richtext-component").clientWidth + "px";
 
-      static value(node) {
-        // console.log("valuenode", node);
-        return {
-          class: node.getAttribute("class"),
-          title: node.getAttribute("title"),
-          alt: node.getAttribute("alt"),
-          src: node.getAttribute("src"),
-          name: node.getAttribute("name"),
-        };
+      this.editorEl = this.el.querySelector(".sr-editor");
+      this.editorEl.innerHTML = this.value;
+
+      // const Image = Quill.import("formats/image");
+      // Image.className = "mwc-emoji";
+      // Quill.register(Image, true);
+      let FormatsImage = Quill.import("formats/image");
+      let FormatsVideo = Quill.import("formats/video");
+      // let Inline = Quill.import("formats/image");
+      // let BlockEmbed = Quill.import("blots/block/embed");
+      class ImageBlot extends FormatsImage {
+        static blotName = "image"; // blot的名称，需要唯一
+        static tagName = "img"; // 渲染的标签名
+        static create(value) {
+          let node = super.create();
+          console.log("LinkBlot", value, node);
+          node.setAttribute("class", value?.class || "");
+          node.setAttribute("alt", value?.alt || "");
+          node.setAttribute("title", value?.title || "");
+          node.setAttribute("src", value?.src || "");
+          node.setAttribute("data-name", value?.name || "");
+          // node.onclick = () => {
+          //   console.log("点击");
+          // };
+          const d = document.createElement("p");
+          d.appendChild(node);
+          d.appendChild(document.createElement("span"));
+          return node;
+        }
+
+        static value(node) {
+          // console.log("valuenode", node);
+          return {
+            class: node.getAttribute("class"),
+            title: node.getAttribute("title"),
+            alt: node.getAttribute("alt"),
+            src: node.getAttribute("src"),
+            name: node.getAttribute("name"),
+          };
+        }
       }
-    }
-    Quill.register(ImageBlot);
+      Quill.register(ImageBlot);
 
-    class VideoBlot extends FormatsVideo {
-      static blotName = "video"; // blot的名称，需要唯一
-      static tagName = "iframe"; // 渲染的标签名
-      static create(value) {
-        let node = super.create();
-        console.log("LinkBlot", value, node);
-        node.setAttribute("class", value?.class || "");
-        node.setAttribute("alt", value?.alt || "");
-        node.setAttribute("title", value?.title || "");
-        node.setAttribute("src", value?.src || "");
-        node.setAttribute("data-name", value?.name || "");
-        // node.onclick = () => {
-        //   console.log("点击");
-        // };
-        const d = document.createElement("p");
-        d.appendChild(node);
-        d.appendChild(document.createElement("span"));
-        return node;
+      class VideoBlot extends FormatsVideo {
+        static blotName = "video"; // blot的名称，需要唯一
+        static tagName = "iframe"; // 渲染的标签名
+        static create(value) {
+          let node = super.create();
+          console.log("LinkBlot", value, node);
+          node.setAttribute("class", value?.class || "");
+          node.setAttribute("alt", value?.alt || "");
+          node.setAttribute("title", value?.title || "");
+          node.setAttribute("src", value?.src || "");
+          node.setAttribute("data-name", value?.name || "");
+          // node.onclick = () => {
+          //   console.log("点击");
+          // };
+          const d = document.createElement("p");
+          d.appendChild(node);
+          d.appendChild(document.createElement("span"));
+          return node;
+        }
+
+        static value(node) {
+          // console.log("valuenode", node);
+          return {
+            class: node.getAttribute("class"),
+            title: node.getAttribute("title"),
+            alt: node.getAttribute("alt"),
+            src: node.getAttribute("src"),
+            name: node.getAttribute("name"),
+          };
+        }
       }
+      Quill.register(VideoBlot);
 
-      static value(node) {
-        // console.log("valuenode", node);
-        return {
-          class: node.getAttribute("class"),
-          title: node.getAttribute("title"),
-          alt: node.getAttribute("alt"),
-          src: node.getAttribute("src"),
-          name: node.getAttribute("name"),
-        };
-      }
-    }
-    Quill.register(VideoBlot);
+      let Break = Quill.import("blots/break");
+      Quill.register(Break);
 
-    let Break = Quill.import("blots/break");
-    Quill.register(Break);
+      // const Video = Quill.import("formats/video");
+      // Video.className = "saki-richtext-video";
+      // Quill.register(Video, true);
 
-    // const Video = Quill.import("formats/video");
-    // Video.className = "saki-richtext-video";
-    // Quill.register(Video, true);
+      // class SpanBlock extends Inline {
+      //   static create(value) {
+      //     console.log(value);
+      //     let node = super.create();
+      //     node.setAttribute("class", "spanblock");
+      //     return node;
+      //   }
+      // }
 
-    // class SpanBlock extends Inline {
-    //   static create(value) {
-    //     console.log(value);
-    //     let node = super.create();
-    //     node.setAttribute("class", "spanblock");
-    //     return node;
-    //   }
-    // }
-
-    // SpanBlock.blotName = "spanblock";
-    // SpanBlock.tagName = "img";
-    // Quill.register(SpanBlock);
-    // console.log("rrrrrr", this.toolbarConfig);
-    this.quill = new Quill(this.editorEl, {
-      theme: this.theme,
-      modules: {
-        history: {
-          delay: 2000,
-          maxStack: 500,
-          userOnly: true,
-        },
-        clipboard: {
-          matchers: [
-            [
-              Node.ELEMENT_NODE,
-              (_: any, delta: any) => {
-                if (this.clearAllStylesWhenPasting) {
-                  const opsList = [];
-                  delta.ops.forEach((op) => {
-                    if (op.insert && typeof op.insert === "string") {
-                      opsList.push({
-                        insert: op.insert,
-                      });
-                    }
-                  });
-                  delta.ops = opsList;
-                }
-                return delta;
-              },
+      // SpanBlock.blotName = "spanblock";
+      // SpanBlock.tagName = "img";
+      // Quill.register(SpanBlock);
+      // console.log("rrrrrr", this.toolbarConfig);
+      this.quill = new Quill(this.editorEl, {
+        theme: this.theme,
+        modules: {
+          history: {
+            delay: 2000,
+            maxStack: 500,
+            userOnly: true,
+          },
+          clipboard: {
+            matchers: [
+              [
+                Node.ELEMENT_NODE,
+                (_: any, delta: any) => {
+                  if (this.clearAllStylesWhenPasting) {
+                    const opsList = [];
+                    delta.ops.forEach((op) => {
+                      if (op.insert && typeof op.insert === "string") {
+                        opsList.push({
+                          insert: op.insert,
+                        });
+                      }
+                    });
+                    delta.ops = opsList;
+                  }
+                  return delta;
+                },
+              ],
             ],
-          ],
-        },
-        toolbar: {
-          ...this.toolbarConfig,
-        },
-        keyboard: {
-          bindings: {
-            short_enter: {
-              key: 13,
-              shortKey: true,
-              handler: (range: any, ctx: any) => {
-                this.KeyEvent(this.shortEnter, range, ctx);
+          },
+          toolbar: {
+            ...this.toolbarConfig,
+          },
+          keyboard: {
+            bindings: {
+              short_enter: {
+                key: 13,
+                shortKey: true,
+                handler: (range: any, ctx: any) => {
+                  this.KeyEvent(this.shortEnter, range, ctx);
+                },
               },
-            },
-            enter: {
-              key: 13,
-              handler: (range: any, ctx: any) => {
-                console.log("KeyEvent");
-                this.KeyEvent(this.enter, range, ctx);
-                // submit form }
+              enter: {
+                key: 13,
+                handler: (range: any, ctx: any) => {
+                  console.log("KeyEvent");
+                  this.KeyEvent(this.enter, range, ctx);
+                  // submit form }
+                },
               },
             },
           },
+          // 加粗 斜体 下划线 删除线  // 引用  代码块
+          // [], // 1、2 级标题
+          // [], // 上标/下标
+          // [], // 缩进
+          // // [{ direction: "rtl" }], // 文本方向
+          // [], // 字体大小
+          // // [{ header: [1, 2, 3, 4, 5, 6, false] }], // 标题
+          // [],
+          // [], // 有序、无序列表
+          // [], // 对齐方式
+          // [], // 清除文本格式
+          // ["link", "image", "video"], // 链接、图片 'image'、视频, "video"
+          //工具菜单栏配置
         },
-        // 加粗 斜体 下划线 删除线  // 引用  代码块
-        // [], // 1、2 级标题
-        // [], // 上标/下标
-        // [], // 缩进
-        // // [{ direction: "rtl" }], // 文本方向
-        // [], // 字体大小
-        // // [{ header: [1, 2, 3, 4, 5, 6, false] }], // 标题
-        // [],
-        // [], // 有序、无序列表
-        // [], // 对齐方式
-        // [], // 清除文本格式
-        // ["link", "image", "video"], // 链接、图片 'image'、视频, "video"
-        //工具菜单栏配置
-      },
-      readOnly: this.disabled, //是否只读
-      placeholder: this.placeholder, //提示
-      // theme: 'snow' //主题 snow/bubble
-      // syntax: false, //语法检测
-    });
+        readOnly: this.disabled, //是否只读
+        placeholder: this.placeholder, //提示
+        // theme: 'snow' //主题 snow/bubble
+        // syntax: false, //语法检测
+      });
 
-    this.quill.root.oninput = () => {
-      console.log("oninpuit");
-      this.editorChange("text-change");
-    };
+      this.quill.root.oninput = () => {
+        console.log("oninpuit");
+        this.editorChange("text-change");
+      };
 
-    this.quill.root.onfocus = () => {
-      console.log("onfocus");
-      this.focus = true;
-    };
+      this.quill.root.onfocus = () => {
+        console.log("onfocus");
+        this.focus = true;
+        this.focusfunc.emit();
+      };
 
-    this.quill.root.onblur = () => {
-      this.focus = false;
-    };
+      this.quill.root.onblur = () => {
+        this.focus = false;
+        this.blurfunc.emit();
+      };
 
-    this.quill.on("editor-change", (eventName: string, params: any) => {
-      if (eventName === "selection-change") {
-        this.selectionRangeStatic = params;
-      }
-      console.log(eventName, params);
-      this.editorChange(eventName);
-    });
-    this.quill.on(
-      "selection-change",
-      (
-        range: { index: number; length: Number },
-        oldRange: { index: number; length: Number }
-      ) => {
-        // console.log(range, oldRange);
-        this.cursorPosition = range?.index || oldRange?.index || 0;
-        // console.log(this.cursorPosition);
-      }
-    );
+      this.quill.on("editor-change", (eventName: string, params: any) => {
+        if (eventName === "selection-change") {
+          this.selectionRangeStatic = params;
+        }
+        console.log(eventName, params);
+        this.editorChange(eventName);
+      });
+      this.quill.on(
+        "selection-change",
+        (
+          range: { index: number; length: Number },
+          oldRange: { index: number; length: Number }
+        ) => {
+          // console.log(range, oldRange);
+          this.cursorPosition = range?.index || oldRange?.index || 0;
+          // console.log(this.cursorPosition);
+        }
+      );
 
-    this.quill.keyboard.addBinding(
-      {
-        key: "Z",
-        ctrlKey: true,
-      },
-      () => {
-        console.log("historyUndo");
-        // this.historyUndo();
-      }
-    );
+      this.quill.keyboard.addBinding(
+        {
+          key: "Z",
+          ctrlKey: true,
+        },
+        () => {
+          console.log("historyUndo");
+          // this.historyUndo();
+        }
+      );
 
-    this.quill.keyboard.addBinding(
-      {
-        key: "Y",
-        ctrlKey: true,
-      },
-      () => {
-        console.log("historyRedo");
-        // this.historyRedo();
-      }
-    );
+      this.quill.keyboard.addBinding(
+        {
+          key: "Y",
+          ctrlKey: true,
+        },
+        () => {
+          console.log("historyRedo");
+          // this.historyRedo();
+        }
+      );
 
-    const el: HTMLElement = this.editorEl.querySelector(".ql-editor");
-    el.classList.add("scrollBarHover");
-    this.isInit = true;
+      const el: HTMLElement = this.editorEl.querySelector(".ql-editor");
+      el.classList.add("scrollBarHover");
+      this.isInit = true;
+    } catch (error) {
+      console.error(error);
+    }
   }
   @Method()
   async initValue(value: string) {
@@ -575,6 +585,21 @@ export class RichTextComponent {
   editorChange = (eventName: string) => {
     // console.log("editorChange");
     if (eventName === "text-change" && this.isInit) {
+      const text = this.quill.getText().trim();
+
+      if (text.length > this.maxLength) {
+        // 计算需要删除的字符数
+        const overCount = text.length - this.maxLength;
+        // 获取当前选区位置
+        const selection = this.quill.getSelection();
+        // 删除超限部分（从尾部向前删除）
+        this.quill.deleteText(this.maxLength, overCount);
+        // 恢复光标位置
+        if (selection) {
+          this.quill.setSelection(selection.index, 0);
+        }
+      }
+
       console.log({
         content: this.quill.getText(),
         richText: this.quill.root.innerHTML,

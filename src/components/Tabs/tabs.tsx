@@ -517,6 +517,8 @@ export class TabsComponent {
                         color: item.color || "",
                         fontSize: item.fontSize || "14px",
                         fontWeight: item.fontWeight || "500",
+                        minWidth: this.headerItemMinWidth,
+                        padding: this.headerItemPadding,
                       }}
                       class={
                         "nav-item hover-background-color-eee " +

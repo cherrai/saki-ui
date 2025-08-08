@@ -3,6 +3,7 @@ import qs from "qs";
 import { snackbar } from "./saki-ui-core/snackbar/snackbar";
 import { sakiuiEventListener } from "../store/config";
 import { initI18n } from "./i18n/i18n";
+import moment from "moment";
 // import { snackbar } from "./saki-ui-core";
 
 export const initSakiUIMethods = () => {
@@ -156,4 +157,15 @@ let zIndex = 1000;
 export const getZindex = () => {
   zIndex = zIndex + 1;
   return zIndex;
+};
+
+export const formatContentTime = (date: number) => {
+  return moment(Number(date) * 1000).calendar(null, {
+    sameDay: "[今天] HH:mm",
+    nextDay: "[明天] HH:mm",
+    nextWeek: "MM月DD日 HH:mm",
+    lastDay: "[昨天] HH:mm",
+    lastWeek: "[前天] HH:mm",
+    sameElse: "YY年MM月DD日",
+  });
 };

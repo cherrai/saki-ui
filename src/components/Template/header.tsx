@@ -11,6 +11,7 @@ export class TemplateHeaderComponent {
   @Prop() fixed = false;
   @Prop() visible = false;
   @Prop() bgColor = "";
+  @Prop() maxWidth = "";
   @Prop() height = "";
   @Prop() borderBottom = "";
   @Prop() textColor = "";
@@ -44,23 +45,34 @@ export class TemplateHeaderComponent {
           "--text-color": this.textColor,
         }}
       >
-        <div class="tb-h-left">
-          <slot name="left"></slot>
-          <div class="logo-text">
-            {/* {layout.headerLogoText} */}
-            {/* {t("appTitle", {
+        <div
+          style={{
+            ...["maxWidth"].reduce(
+              (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
+              {}
+            ),
+            "background-color": this.bgColor,
+            "--text-color": this.textColor,
+          }}
+          class={"h-layout"}
+        >
+          <div class="tb-h-left">
+            <slot name="left"></slot>
+            <div class="logo-text">
+              {/* {layout.headerLogoText} */}
+              {/* {t("appTitle", {
               ns: "common",
             })} */}
 
-            {/* <MenuDropdownComponent /> */}
+              {/* <MenuDropdownComponent /> */}
+            </div>
           </div>
-        </div>
-        <div class="tb-h-center">
-          <slot name="center"></slot>
-        </div>
-        <div class="tb-h-right">
-          <slot name="right"></slot>
-          {/* {game.generateKillerSudokuStatus === 0 ? (
+          <div class="tb-h-center">
+            <slot name="center"></slot>
+          </div>
+          <div class="tb-h-right">
+            <slot name="right"></slot>
+            {/* {game.generateKillerSudokuStatus === 0 ? (
             <div class="tb-h-r-generating">
               <saki-animation-loading
                 type="rotateEaseInOut"
@@ -83,14 +95,15 @@ export class TemplateHeaderComponent {
           ) : (
             ""
           )} */}
-          {this.meowApps ? (
-            <meow-apps-dropdown
-              bg-color="rgba(0,0,0,0)"
-              language={state.lang}
-            ></meow-apps-dropdown>
-          ) : (
-            ""
-          )}
+            {this.meowApps ? (
+              <meow-apps-dropdown
+                bg-color="rgba(0,0,0,0)"
+                language={state.lang}
+              ></meow-apps-dropdown>
+            ) : (
+              ""
+            )}
+          </div>
         </div>
       </div>
     );

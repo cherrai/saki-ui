@@ -134,34 +134,38 @@ a {
   text-decoration: none;
 }
 
-// a.link-anima {
-//   position: relative;
-//   padding-bottom: 5px;
+a.link-anima {
+  position: relative;
+  padding-bottom: 5px;
 
-//   &::after {
-//     content: "";
-//     width: 0%;
-//     height: 3px;
-//     position: absolute;
-//     bottom: 0;
-//     background-color: var(--saki-default-bottom-border-color);
-//     z-index: 10000;
-//     left: 50%;
-//     transform: translateX(-50%);
-//     transition: all 0.5s;
-//   }
+  color:#666;
 
-//   &:hover {
-//     // background-color: var(--saki-default-bottom-border-color);
-//     // text-decoration: underline;
-//     &::after {
-//       width: 40px;
-//       // @media screen and (max-width: 1024px) {
-//       //   // width: 100% !important;
-//       // }
-//     }
-//   }
-// }
+  &::after {
+    content: "";
+    width: 0%;
+    height: 3px;
+    position: absolute;
+    bottom: 1px;
+    background-color: var(--saki-default-bottom-border-color);
+    z-index: 10000;
+    left: 0%;
+    transform: translateX(0%);
+    transition: all 0.5s;
+  }
+
+  &:hover {
+    // background-color: var(--saki-default-bottom-border-color);
+    // text-decoration: underline;
+    &::after {
+      width: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      // @media screen and (max-width: 1024px) {
+      //   // width: 100% !important;
+      // }
+    }
+  }
+}
 
 // 点赞变色
 // .goodActive {
