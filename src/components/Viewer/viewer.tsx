@@ -69,7 +69,7 @@ export class ViewerComponent {
         (window as any).lgVideo,
         // (window as any).lgThumbnail,
       ], // 启用缩放、全屏、视频支持
-      selector: "a",
+      selector: ".saki-viewer, a",
       // selectWithin: ".row", // 限定在 .row 内搜索
       // selector: ".item a", // 选择 .row 内的 .item a 元素
       mode: "lg-fade", // 动画效果

@@ -1,0 +1,52 @@
+.saki-pagination-component {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .sp-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .sp-l-item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      cursor: pointer;
+      width: 36px;
+      height: 36px;
+      border-radius: 6px;
+      margin: 0 4px;
+      &.active {
+        background-color: var(--active-bg-color);
+        color: var(--active-text-color);
+        &:hover {
+          background-color: var(--active-bg-hover-color);
+        }
+        &:active {
+          background-color: var(--active-bg-active-color);
+        }
+      }
+      &:hover {
+        background-color: var(--bg-hover-color);
+      }
+      &:active {
+        background-color: var(--bg-active-color);
+      }
+      span {
+        font-size: 14px;
+      }
+    }
+  }
+  .sp-prev {
+    span {
+      white-space: nowrap;
+    }
+  }
+  .sp-next {
+    span {
+      white-space: nowrap;
+    }
+  }
+}

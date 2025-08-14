@@ -10,9 +10,12 @@ export class TemplateHeaderComponent {
   @Prop() meowApps = false;
   @Prop() fixed = false;
   @Prop() visible = false;
-  @Prop() bgColor = "";
+  @Prop() bgColor = "rgba(255, 255, 255, 0.6)";
+  @Prop() boxShadow = "";
+  @Prop() bgHoverColor = "";
+  @Prop() bgActiveColor = "";
   @Prop() maxWidth = "";
-  @Prop() height = "";
+  @Prop() height = "50px";
   @Prop() borderBottom = "";
   @Prop() textColor = "";
   @State() showLanguageDropdown = false;
@@ -35,14 +38,17 @@ export class TemplateHeaderComponent {
             "justifyContent",
             "alignItems",
             "width",
-            "height",
             "borderBottom",
+            "boxShadow",
           ].reduce(
             (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
             {}
           ),
-          "background-color": this.bgColor,
+          "--height": this.height,
           "--text-color": this.textColor,
+          "--bg-color": this.bgColor,
+          "--bg-hover-color": this.bgHoverColor,
+          "--bg-active-color": this.bgActiveColor,
         }}
       >
         <div
@@ -51,7 +57,7 @@ export class TemplateHeaderComponent {
               (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
               {}
             ),
-            "background-color": this.bgColor,
+            // "background-color": this.bgColor,
             "--text-color": this.textColor,
           }}
           class={"h-layout"}

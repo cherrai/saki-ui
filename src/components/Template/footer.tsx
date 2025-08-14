@@ -30,6 +30,8 @@ export class TemplateFooterComponent {
   @Prop() githubLink = "";
   @Prop() githubText = "Github";
 
+  @Prop() year = "";
+
   @Prop() blog = true;
   @Prop() blogLink = "https://aiiko.club/1";
   @Prop() blogText = "Shiina Aiiko";
@@ -242,7 +244,7 @@ export class TemplateFooterComponent {
         </div>
         <div class="f-right">
           <span class="f-r-copyright">
-            {"© " + new Date().getFullYear() + " "}
+            {"© " + (this.year || new Date().getFullYear() + " ")}
           </span>
 
           {this.appTitle ||

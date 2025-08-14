@@ -58,7 +58,8 @@
   }
 }
 
-.saki-comment-item-component {
+.saki-comment-item-component,
+.saki-comment-notification-item-component {
   display: flex;
   justify-content: space-between;
 
@@ -118,7 +119,8 @@
 
     .link-nickname {
       font-size: 14px;
-      color: #666;
+      color: #222;
+      font-weight: 700;
     }
 
     .ci-r-header {
@@ -216,6 +218,9 @@
         .im-img {
         }
       }
+    }
+    .ci-subpage {
+      width: 100%;
     }
     .ci-r-info {
       width: 100%;

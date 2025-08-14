@@ -134,19 +134,19 @@ a {
   text-decoration: none;
 }
 
-a.link-anima {
+a.link-anima,.link-anima {
   position: relative;
-  padding-bottom: 5px;
+  // padding-bottom: 5px;
 
   color:#666;
 
   &::after {
     content: "";
     width: 0%;
-    height: 3px;
+    height: 5px;
     position: absolute;
-    bottom: 1px;
-    background-color: var(--saki-default-bottom-border-color);
+    bottom: -2px;
+    background-color: var(--saki-default-color);
     z-index: 10000;
     left: 0%;
     transform: translateX(0%);
@@ -158,8 +158,8 @@ a.link-anima {
     // text-decoration: underline;
     &::after {
       width: 100%;
-      left: 50%;
-      transform: translateX(-50%);
+      // left: 50%;
+      // transform: translateX(-50%);
       // @media screen and (max-width: 1024px) {
       //   // width: 100% !important;
       // }

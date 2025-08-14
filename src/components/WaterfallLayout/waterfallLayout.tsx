@@ -1,5 +1,13 @@
 import { Debounce } from "@nyanyajs/utils/dist/debounce";
-import { Component, Element, h, Method, Prop, State } from "@stencil/core";
+import {
+  Component,
+  Element,
+  h,
+  Method,
+  Prop,
+  State,
+  Watch,
+} from "@stencil/core";
 // import 'cropperjs/dist/cropper.css';
 // import Cropper from "cropperjs";
 
@@ -21,11 +29,17 @@ export class WaterfallLayoutComponent {
   // @Prop() padding: string = "0 0";
   @Prop() trackMargin: string = "";
   @Prop() trackPadding: string = "0 5px";
+  @Prop() columnLength = 0;
 
   @State() renderList: {
     height: number;
     list: HTMLSakiWaterfallLayoutItemElement[];
   }[] = [];
+
+  @Watch("columnLength")
+  watchcolumnLength() {
+    this.watchDomResize();
+  }
 
   @Element() el: HTMLElement;
   componentDidLoad() {
@@ -53,7 +67,9 @@ export class WaterfallLayoutComponent {
         }
       });
 
-      resizeObserver.observe(document.body);
+      resizeObserver.observe(
+        document.body.querySelector(".saki-waterfall-layout-component")
+      );
 
       // window.addEventListener("resize", () => {
       //   this.watchDomResize();
@@ -108,6 +124,7 @@ export class WaterfallLayoutComponent {
   }
 
   getColumnLength(width: number): number {
+    if (this.columnLength) return this.columnLength;
     if (width <= 400) {
       return 2;
     }

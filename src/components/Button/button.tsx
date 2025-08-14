@@ -218,8 +218,9 @@ export class ButtonComponent {
     return (
       <div
         onClick={(e) => {
-          // console.log(21);
+          // console.log(21 );
           e.stopPropagation();
+          e.preventDefault();
           if (!this.disabled) {
             this.tap.emit();
             if (new Date().getTime() - this.tapTime <= 700) {

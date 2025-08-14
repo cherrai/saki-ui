@@ -14,10 +14,12 @@ export class CommentItemComponent {
   @Prop() nickname = "";
   @Prop() avatar = "";
   @Prop() userLink = "";
+  @Prop() userMargin = "";
 
   @Prop() parentNickname = "";
   @Prop() parentAvatar = "";
   @Prop() parentUserLink = "";
+  @Prop() replyText = "";
 
   @Prop() media: MediaItem[] = [];
 
@@ -37,6 +39,7 @@ export class CommentItemComponent {
   @Prop() loadReplyCount = 0;
 
   @Prop() rootComment = false;
+  @Prop() enableReply = false;
 
   @Event({
     cancelable: false,
@@ -63,6 +66,11 @@ export class CommentItemComponent {
     bubbles: false,
   })
   viewAll: EventEmitter;
+  @Event({
+    cancelable: false,
+    bubbles: false,
+  })
+  tap: EventEmitter;
   clickLink(e: MouseEvent) {
     console.log("SOC", this.linkOpenMode);
     if (this.linkOpenMode === "ClickEvent") {
@@ -97,10 +105,13 @@ export class CommentItemComponent {
         }}
         class={
           "saki-comment-item-component " +
-          (this.rootComment ? "rootComment" : "replyComment")
+          (this.rootComment ? "rootComment " : "replyComment ")
         }
       >
         <a
+          style={{
+            margin: this.userMargin,
+          }}
           onClick={this.clickLink.bind(this)}
           href={this.userLink}
           target=""
@@ -131,6 +142,11 @@ export class CommentItemComponent {
               >
                 {this.nickname}
               </a>
+              {this.replyText ? (
+                <span class={"reply-text"}>{this.replyText}</span>
+              ) : (
+                ""
+              )}
               {this.parentUserLink ? (
                 <span>
                   <span class={"reply-text"}>
@@ -210,6 +226,10 @@ export class CommentItemComponent {
           ) : (
             ""
           )}
+
+          <div class={"ci-subpage"}>
+            <slot name="subpage"></slot>
+          </div>
 
           <div class={"ci-r-info"}>
             <div class={"ci-ri-left"}>
@@ -293,27 +313,32 @@ export class CommentItemComponent {
               ) : (
                 ""
               )}
-              <saki-button
-                height="30px"
-                margin="0 0 0 8px"
-                fontSize="13px"
-                color="#999"
-                border="none"
-                type="Normal"
-                onTap={() => {
-                  this.reply.emit();
-                }}
-              >
-                <span
-                  style={{
-                    whiteSpace: "nowrap",
+
+              {this.enableReply ? (
+                <saki-button
+                  height="30px"
+                  margin="0 0 0 8px"
+                  fontSize="13px"
+                  color="#999"
+                  border="none"
+                  type="Normal"
+                  onTap={() => {
+                    this.reply.emit();
                   }}
                 >
-                  {t("reply", {
-                    ns: "comments",
-                  })}
-                </span>
-              </saki-button>
+                  <span
+                    style={{
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    {t("reply", {
+                      ns: "comments",
+                    })}
+                  </span>
+                </saki-button>
+              ) : (
+                ""
+              )}
             </div>
             <div class={"ci-ri-right"}>
               <slot name={"infoRight"}></slot>
