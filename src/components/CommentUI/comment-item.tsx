@@ -1,7 +1,7 @@
-import { Component, Event, EventEmitter, h, Prop, State } from "@stencil/core";
+import { Component, Event, EventEmitter, h, Prop } from "@stencil/core";
 import { CommentItem, MediaItem } from "./typings";
 import { t } from "i18next";
-import { formatContentTime } from "../../modules/methods";
+// import { formatContentTime } from "../../modules/methods";
 
 @Component({
   tag: "saki-comment-item",
@@ -29,7 +29,7 @@ export class CommentItemComponent {
   @Prop() padding = "";
 
   @Prop() content = "";
-  @Prop() createTime = 0;
+  @Prop() createTime = "";
 
   @Prop() likeCount = 0;
   @Prop() isLiked = false;
@@ -234,7 +234,8 @@ export class CommentItemComponent {
           <div class={"ci-r-info"}>
             <div class={"ci-ri-left"}>
               <span class={"ci-r-i-time"}>
-                {formatContentTime(this.createTime)}
+                {/* {formatContentTime(this.createTime)} */}
+                {this.createTime}
               </span>
               <saki-button
                 width="30px"
@@ -278,7 +279,7 @@ export class CommentItemComponent {
               <saki-button
                 width="30px"
                 height="30px"
-                margin="0 2px 0 8px"
+                margin="0 2px 0 4px"
                 border-radius="15px"
                 type="CircleIconGrayHover"
                 onTap={() => {

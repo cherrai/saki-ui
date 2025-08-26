@@ -1,4 +1,5 @@
 import { Component, Element, h, Prop, State, Watch } from "@stencil/core";
+import { findScrollableParent } from "../../modules/methods";
 // import 'cropperjs/dist/cropper.css';
 // import Cropper from "cropperjs";
 
@@ -41,7 +42,16 @@ export class ImagesComponent {
     this.loaded = false;
   }
   componentDidLoad() {
-    // console.log("this.lazyload", this.lazyload, this.src);
+    // console.log(
+    //   "this.lazyload",
+    //   this.lazyload,
+    //   this.src,
+    //   this.load,
+    //   this.toDisplayArea,
+    //   this.load && this.toDisplayArea,
+    //   this.loaded,
+    //   (this.load && this.toDisplayArea) || this.loaded
+    // );
     // if (this.src.indexOf("c61baa0aa19cf71fae58b8f54afc4a60") >= 0) {
     //   console.log("saaaaaaaaaaaa", this.el, this.getParentElement(this.el));
     //   console.log(
@@ -51,16 +61,17 @@ export class ImagesComponent {
     // }
     if (this.lazyload) {
       let options = {
-        root: this.getParentElement(this.el),
+        root: findScrollableParent(this.el),
         rootMargin: "0px",
         threshold: 1.0,
       };
 
       let observer = new IntersectionObserver((e) => {
         // if (this.src.indexOf("c61baa0aa19cf71fae58b8f54afc4a60") >= 0) {
-        //   console.log("saaaaaaaaaaaa", e, e?.[0]?.target);
+        // console.log("saaaaaaaaaaaa", options);
         // }
         if (e?.[0]?.intersectionRatio === 1 && !this.toDisplayArea) {
+          // console.log("saaaaaaaaaaaa", options, e?.[0]);
           // console.log("imagesssssss obs", e, e?.[0]?.intersectionRatio);
           this.toDisplayArea = true;
           observer.disconnect();
@@ -74,7 +85,7 @@ export class ImagesComponent {
 
   getParentElement(el: HTMLElement) {
     if (!el?.parentElement) {
-      return el?.localName !== "saki-scroll-view" ? document.body : el;
+      return el?.localName !== "saki-scroll-view" ? document : el;
     }
     // if (this.src.indexOf("c61baa0aa19cf71fae58b8f54afc4a60") >= 0) {
     //   // console.log("saaaaaaaaaaaa 1", el);
@@ -143,7 +154,11 @@ export class ImagesComponent {
           "--saki-images-background-hover-color": this.backgroundHoverColor,
           "--saki-images-background-active-color": this.backgroundActiveColor,
         }}
-        class={"saki-images-component " + (this.loaded ? "load" : "")}
+        class={
+          "saki-images-component " +
+          (this.loaded ? "load " : "") +
+          (this.lazyload ? "lazyload" : "")
+        }
       >
         {!this.defaultSrc && !this.src ? (
           <div class={"images-default-bg"}></div>
@@ -167,6 +182,7 @@ export class ImagesComponent {
               ),
             }}
             onLoad={() => {
+              // console.log("onloadddddd", this);
               this.loaded = true;
             }}
             src={this.src || this.defaultSrc}

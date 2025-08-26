@@ -105,9 +105,33 @@ export class ViewerComponent {
     if (ViewerComponent.isAddJs) return;
 
     const styleUrls = [
-      "https://cdn.jsdelivr.net/npm/lightgallery/css/lightgallery.css",
-      "https://cdn.jsdelivr.net/npm/lightgallery/css/lg-rotate.css",
-      "https://cdn.jsdelivr.net/npm/lightgallery/css/lg-thumbnail.css",
+      // "https://cdn.jsdelivr.net/npm/lightgallery/css/lightgallery.css",
+      // "https://cdn.jsdelivr.net/npm/lightgallery/css/lg-rotate.css",
+      // "https://cdn.jsdelivr.net/npm/lightgallery/css/lg-thumbnail.css",
+      // "https://saass.aiiko.club/static/lib/lightgallery/lightgallery.css",
+      // "https://saass.aiiko.club/static/lib/lightgallery/lg-rotate.css",
+      // "https://saass.aiiko.club/static/lib/lightgallery/lg-thumbnail.css",
+
+      // "https://cdn.bootcdn.net/ajax/libs/lightgallery/2.9.0-beta.1/css/lightgallery.min.css",
+      // "https://cdn.bootcdn.net/ajax/libs/lightgallery/2.9.0-beta.1/css/lg-zoom.min.css",
+      // "https://cdn.bootcdn.net/ajax/libs/lightgallery/2.9.0-beta.1/css/lg-fullscreen.min.css",
+      // "https://cdn.bootcdn.net/ajax/libs/lightgallery/2.9.0-beta.1/css/lg-video.min.css",
+      // "https://cdn.bootcdn.net/ajax/libs/lightgallery/2.9.0-beta.1/css/lg-rotate.min.css",
+      // "https://cdn.bootcdn.net/ajax/libs/lightgallery/2.9.0-beta.1/css/lg-thumbnail.min.css",
+
+      "https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.9.0-beta.1/css/lightgallery.min.css",
+      "https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.9.0-beta.1/css/lg-zoom.min.css",
+      "https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.9.0-beta.1/css/lg-fullscreen.min.css",
+      "https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.9.0-beta.1/css/lg-video.min.css",
+      "https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.9.0-beta.1/css/lg-rotate.min.css",
+      "https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.9.0-beta.1/css/lg-thumbnail.min.css",
+
+      // "https://saass.aiiko.club/static/lib/lightgallery/lightgallery.min.css",
+      // "https://saass.aiiko.club/static/lib/lightgallery/lg-zoom.min.css",
+      // "https://saass.aiiko.club/static/lib/lightgallery/lg-fullscreen.min.css",
+      // "https://saass.aiiko.club/static/lib/lightgallery/lg-video.min.css",
+      // "https://saass.aiiko.club/static/lib/lightgallery/lg-rotate.min.css",
+      // "https://saass.aiiko.club/static/lib/lightgallery/lg-thumbnail.min.css",
     ];
 
     styleUrls.forEach((v) => {
@@ -118,12 +142,39 @@ export class ViewerComponent {
     });
 
     const scriptUrls = [
-      "https://cdn.jsdelivr.net/npm/lightgallery/lightgallery.umd.js",
-      "https://cdn.jsdelivr.net/npm/lightgallery/plugins/zoom/lg-zoom.umd.js",
-      "https://cdn.jsdelivr.net/npm/lightgallery/plugins/fullscreen/lg-fullscreen.umd.js",
-      "https://cdn.jsdelivr.net/npm/lightgallery/plugins/video/lg-video.umd.js",
-      "https://cdn.jsdelivr.net/npm/lightgallery/plugins/rotate/lg-rotate.umd.js",
-      "https://cdn.jsdelivr.net/npm/lightgallery/plugins/thumbnail/lg-thumbnail.umd.js",
+      // "https://cdn.jsdelivr.net/npm/lightgallery/lightgallery.umd.js",
+      // "https://cdn.jsdelivr.net/npm/lightgallery/plugins/zoom/lg-zoom.umd.js",
+      // "https://cdn.jsdelivr.net/npm/lightgallery/plugins/fullscreen/lg-fullscreen.umd.js",
+      // "https://cdn.jsdelivr.net/npm/lightgallery/plugins/video/lg-video.umd.js",
+      // "https://cdn.jsdelivr.net/npm/lightgallery/plugins/rotate/lg-rotate.umd.js",
+      // "https://cdn.jsdelivr.net/npm/lightgallery/plugins/thumbnail/lg-thumbnail.umd.js",
+      // "https://saass.aiiko.club/static/lib/lightgallery/lightgallery.umd.js",
+      // "https://saass.aiiko.club/static/lib/lightgallery/lg-zoom.umd.js",
+      // "https://saass.aiiko.club/static/lib/lightgallery/lg-fullscreen.umd.js",
+      // "https://saass.aiiko.club/static/lib/lightgallery/lg-video.umd.js",
+      // "https://saass.aiiko.club/static/lib/lightgallery/lg-rotate.umd.js",
+      // "https://saass.aiiko.club/static/lib/lightgallery/lg-thumbnail.umd.js",
+
+      // "https://cdn.bootcdn.net/ajax/libs/lightgallery/2.9.0-beta.1/lightgallery.umd.min.js",
+      // "https://cdn.bootcdn.net/ajax/libs/lightgallery/2.9.0-beta.1/plugins/zoom/lg-zoom.umd.min.js",
+      // "https://cdn.bootcdn.net/ajax/libs/lightgallery/2.9.0-beta.1/plugins/fullscreen/lg-fullscreen.umd.min.js",
+      // "https://cdn.bootcdn.net/ajax/libs/lightgallery/2.9.0-beta.1/plugins/video/lg-video.umd.min.js",
+      // "https://cdn.bootcdn.net/ajax/libs/lightgallery/2.9.0-beta.1/plugins/rotate/lg-rotate.umd.min.js",
+      // "https://cdn.bootcdn.net/ajax/libs/lightgallery/2.9.0-beta.1/plugins/thumbnail/lg-thumbnail.umd.min.js",
+
+      "https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.9.0-beta.1/lightgallery.umd.min.js",
+      "https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.9.0-beta.1/plugins/zoom/lg-zoom.umd.min.js",
+      "https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.9.0-beta.1/plugins/fullscreen/lg-fullscreen.umd.min.js",
+      "https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.9.0-beta.1/plugins/video/lg-video.umd.min.js",
+      "https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.9.0-beta.1/plugins/rotate/lg-rotate.umd.min.js",
+      "https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.9.0-beta.1/plugins/thumbnail/lg-thumbnail.umd.min.js",
+
+      // "https://saass.aiiko.club/static/lib/lightgallery/lightgallery.umd.min.js",
+      // "https://saass.aiiko.club/static/lib/lightgallery/lg-zoom.umd.min.js",
+      // "https://saass.aiiko.club/static/lib/lightgallery/lg-fullscreen.umd.min.js",
+      // "https://saass.aiiko.club/static/lib/lightgallery/lg-video.umd.min.js",
+      // "https://saass.aiiko.club/static/lib/lightgallery/lg-rotate.umd.min.js",
+      // "https://saass.aiiko.club/static/lib/lightgallery/lg-thumbnail.umd.min.js",
     ];
 
     scriptUrls.forEach((v) => {

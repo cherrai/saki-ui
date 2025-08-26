@@ -1,0 +1,108 @@
+.saki-catalog-button-component {
+  // position: absolute;
+  // right: 10px;
+  // bottom: 30px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+  &:hover {
+    .catalog-item {
+      background-color: #ccc;
+    }
+  }
+
+  .catalog-item {
+    width: 16px;
+    height: 8px;
+    border-radius: 4px;
+    background-color: #eee;
+    margin: 16px 0;
+    transition: background-color 0.3s;
+
+    &.active {
+      background-color: var(--saki-default-color);
+    }
+  }
+}
+
+.saki-catalog-render-component {
+  padding: 0px 0;
+
+  .cp-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 10px 0 0;
+
+    .cp-l-item {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      padding: 4px 20px 4px calc(20px + var(--catalog-left));
+      position: relative;
+
+      &:hover {
+        span {
+          color: var(--saki-default-color);
+        }
+      }
+
+      &.active {
+        &::before {
+          width: 100%;
+        }
+
+        &::after {
+          border-bottom-color: #fff;
+        }
+
+        span {
+          color: #fff;
+        }
+      }
+
+      &::before {
+        content: "";
+        width: 0%;
+        height: 100%;
+        background-color: var(--saki-default-color);
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 0%;
+        // border-radius: 6px;
+        transition: width 0.4s;
+        z-index: -1;
+      }
+
+      // &::after {
+      //   content: "";
+      //   width: calc(0px + var(--catalog-left));
+      //   height: 0px;
+
+      //   position: absolute;
+      //   left: 20px;
+      //   top: 50%;
+      //   // transform: translateY(calc(-50% - 4px));
+      //   // border-radius: 6px;
+      //   transition: width .4s;
+
+      //   border-bottom: 2px dashed #666;
+      // }
+
+      span {
+        color: #666;
+        font-size: 14px;
+        cursor: pointer;
+        transition: color 0.2s;
+
+        &:nth-child(1) {
+        }
+
+        &:nth-child(2) {
+          padding: 0 0 0 4px;
+        }
+      }
+    }
+  }
+}

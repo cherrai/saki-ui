@@ -11,6 +11,7 @@ import { initSakiUIMethods } from "../../modules/methods";
 import { state } from "../../store";
 import { sakiuiEventListener } from "../../store/config";
 import { Debounce } from "@nyanyajs/utils/dist/debounce";
+import { snackbar } from "@saki-ui/core";
 
 @Component({
   tag: "saki-init",
@@ -31,6 +32,8 @@ export class SakiInitComponent {
     initSakiUIMethods();
     this.mounted.emit();
     sakiuiEventListener.dispatch("mounted", "");
+
+    this.oldBlogTip();
 
     if (this.debug) {
       const socket = new WebSocket(this.debugWSUrl);
@@ -57,6 +60,23 @@ export class SakiInitComponent {
   @Method()
   async getSakiuiEventListener() {
     return (window as any)?.sakiui?.sakiuiEventListener;
+  }
+  oldBlogTip() {
+    if (location.origin === "https://v1-blog.aiiko.club") {
+      // snackbar({})
+
+      const url = "https://aiiko.club";
+      snackbar({
+        message: `老博客已弃用，请前往新博客~ 点击此消息可直接前往！`,
+        horizontal: "center",
+        vertical: "top",
+        backgroundColor: "var(--saki-default-color)",
+        color: "#fff",
+        onTap() {
+          window.open(url);
+        },
+      }).open();
+    }
   }
   render() {
     return <div class={"saki-init"}></div>;

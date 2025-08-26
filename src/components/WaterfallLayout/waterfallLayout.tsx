@@ -19,6 +19,8 @@ import {
 export class WaterfallLayoutComponent {
   d = new Debounce();
   imgEl: HTMLElement;
+  observer: MutationObserver;
+  resizeObserver: ResizeObserver;
 
   list: HTMLSakiWaterfallLayoutItemElement[] = [];
 
@@ -29,6 +31,7 @@ export class WaterfallLayoutComponent {
   // @Prop() padding: string = "0 0";
   @Prop() trackMargin: string = "";
   @Prop() trackPadding: string = "0 5px";
+  @Prop() trackSpacing: number = 10;
   @Prop() columnLength = 0;
 
   @State() renderList: {
@@ -41,55 +44,24 @@ export class WaterfallLayoutComponent {
     this.watchDomResize();
   }
 
+  @Watch("trackSpacing")
+  watchtrackSpacing() {
+    console.log("thistrackSpacing", this.trackSpacing);
+    this.bindEvent();
+  }
+
   @Element() el: HTMLElement;
   componentDidLoad() {
     this.initRenderList(3);
 
     setTimeout(() => {
       this.watchDom();
-      const observer = new MutationObserver(this.watchDom.bind(this));
-      observer.observe(this.el, {
-        attributes: false,
-        childList: true,
-        subtree: false,
-      });
 
-      let lastWidth = null;
-      const resizeObserver = new ResizeObserver((entries) => {
-        for (const entry of entries) {
-          const { width } = entry.contentRect;
-          if (width !== lastWidth) {
-            console.log(`Width changed to: ${width}`);
-            lastWidth = width;
-            this.watchDomResize();
-            // 执行宽度相关逻辑
-          }
-        }
-      });
-
-      resizeObserver.observe(
-        document.body.querySelector(".saki-waterfall-layout-component")
-      );
-
+      this.bindEvent();
       // window.addEventListener("resize", () => {
       //   this.watchDomResize();
       // });
     }, 300);
-  }
-  initRenderList(len: number) {
-    console.log("dddd", "initRenderList");
-    this.renderList = [];
-    for (let i = 0; i < len; i++) {
-      this.renderList.push({
-        height: i,
-        list: [],
-      });
-    }
-
-    this.list.forEach((el) => {
-      // el.itemWidth = w / this.renderList.length;
-      el.addTrack = false;
-    });
   }
 
   @Method()
@@ -104,23 +76,51 @@ export class WaterfallLayoutComponent {
       list.forEach((v) => {
         // !v.show && this.addItem(v);
 
-        console.log("wlist111", v.added);
+        // console.log("wlist111", v.added);
         if (!v.added) {
           v.added = true;
           this.list.push(v);
         }
       });
-      console.log("wlist111", this.list, list, this.renderList);
+      // console.log("wlist111", this.list, list, this.renderList);
       this.initList();
     }, 100);
   }
-  initList() {
-    console.log("dddd", "initList");
-    this.list.forEach((v) => {
-      console.log("dddd", v.addTrack);
 
-      !v.addTrack && this.addItem(v);
+  bindEvent() {
+    this.observer?.disconnect();
+    this.resizeObserver?.disconnect();
+
+    setTimeout(() => {
+      this.watchDomResize();
+    }, 300);
+
+    this.observer = new MutationObserver(this.watchDom.bind(this));
+    this.observer.observe(this.el, {
+      attributes: false,
+      childList: true,
+      subtree: false,
     });
+
+    let lastWidth = null;
+    this.resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const { width } = entry.contentRect;
+        if (width !== lastWidth) {
+          console.log(`Width changed to: ${width}`);
+          lastWidth = width;
+
+          setTimeout(() => {
+            this.watchDomResize();
+          }, 300);
+          // 执行宽度相关逻辑
+        }
+      }
+    });
+
+    this.resizeObserver.observe(
+      document.body.querySelector(".saki-waterfall-layout-component")
+    );
   }
 
   getColumnLength(width: number): number {
@@ -130,7 +130,7 @@ export class WaterfallLayoutComponent {
     }
     return 2 + Math.floor((width - 400) / 300);
   }
-  watchDomResize() {
+  watchDomResize(b: boolean = false) {
     const layoutEl: HTMLDivElement = this.el.querySelector(
       ".saki-waterfall-layout-component"
     );
@@ -142,19 +142,20 @@ export class WaterfallLayoutComponent {
     ) as NodeListOf<HTMLSakiWaterfallLayoutItemElement>;
 
     list.forEach((el) => {
-      el.itemWidth = w / this.renderList.length;
+      el.itemWidth = w / this.renderList.length - this.trackSpacing;
     });
 
     let length = this.getColumnLength(w);
     // console.log(
-    //   "this.renderList.length",
+    //   "this.renderList.length wla ",
     //   list,
     //   w,
     //   length,
-    //   this.renderList.length
+    //   this.renderList.length,
+    //   w / this.renderList.length - this.trackSpacing
     // );
 
-    if (length !== this.renderList.length) {
+    if (length !== this.renderList.length || b) {
       this.initRenderList(length);
 
       setTimeout(() => {
@@ -163,8 +164,33 @@ export class WaterfallLayoutComponent {
     }
   }
 
+  initRenderList(len: number) {
+    // console.log("dddd", "initRenderList");
+    this.renderList = [];
+    for (let i = 0; i < len; i++) {
+      this.renderList.push({
+        height: i,
+        list: [],
+      });
+    }
+
+    this.list.forEach((el) => {
+      // el.itemWidth = w / this.renderList.length;
+      el.addTrack = false;
+    });
+  }
+
+  initList() {
+    // console.log("dddd", "initList");
+    this.list.forEach((v) => {
+      // console.log("dddd", v.addTrack);
+
+      !v.addTrack && this.addItem(v);
+    });
+  }
+
   addItem(el: HTMLSakiWaterfallLayoutItemElement) {
-    console.log("wlist", el);
+    // console.log("wlist", el);
 
     let index = 0;
     // let h = 100000;
@@ -189,17 +215,19 @@ export class WaterfallLayoutComponent {
     // const tw = w - 10;
     const th = Math.max(160, ((w - 10) * el.height) / el.width || 0);
 
-    console.log(
-      "v.height 111",
-      hObj,
-      w,
-      el.width,
-      el.height,
-      th,
-      index,
-      this.renderList[index].height,
-      el
-    );
+    // console.log(
+    //   "v.height 111 wla",
+    //   hObj,
+    //   w,
+    //   el.width,
+    //   el.height,
+    //   th,
+    //   index,
+    //   this.renderList[index].height,
+    //   el,
+    //   this.trackSpacing,
+    //   el.itemWidth
+    // );
     this.renderList[index].height += th;
     this.renderList[index].list.push(el);
 
@@ -208,7 +236,10 @@ export class WaterfallLayoutComponent {
     el.show = true;
     el.addTrack = true;
 
-    el.itemWidth = w;
+    el.itemWidth =
+      this.el.offsetWidth / this.renderList.length - this.trackSpacing;
+
+    // el.itemWidth = w - this.trackSpacing;
 
     itemEl.appendChild(el as any);
   }

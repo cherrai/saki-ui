@@ -169,3 +169,35 @@ export const formatContentTime = (date: number) => {
     sameElse: "YY年MM月DD日",
   });
 };
+
+export const findScrollableParent = (element: HTMLElement) => {
+  let current = element;
+  while (current && current !== document.body) {
+    if (isScrollable(current)) {
+      return current;
+    }
+    current = current.parentElement;
+  }
+  // 如果没有找到，检查 body 或 html 元素
+  return isScrollable(document.documentElement) ? document : null;
+};
+export const isScrollable = (element: HTMLElement) => {
+  // 获取 computed style
+  const style = window.getComputedStyle(element);
+  const overflowX = style.overflowX;
+  const overflowY = style.overflowY;
+
+  // 检查 overflow 是否为 'auto' 或 'scroll'
+  const isOverflowAutoOrScroll =
+    overflowX === "auto" ||
+    overflowX === "scroll" ||
+    overflowY === "auto" ||
+    overflowY === "scroll";
+
+  // 检查内容是否超出容器尺寸
+  const isContentOverflowing =
+    element.scrollHeight > element.clientHeight ||
+    element.scrollWidth > element.clientWidth;
+
+  return isOverflowAutoOrScroll && isContentOverflowing;
+};

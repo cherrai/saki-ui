@@ -12,8 +12,8 @@ export class TemplateHeaderComponent {
   @Prop() visible = false;
   @Prop() bgColor = "rgba(255, 255, 255, 0.6)";
   @Prop() boxShadow = "";
-  @Prop() bgHoverColor = "";
-  @Prop() bgActiveColor = "";
+  @Prop() bgHoverColor = "rgba(255, 255, 255, 1)";
+  @Prop() bgActiveColor = "rgba(255, 255, 255, 1)";
   @Prop() maxWidth = "";
   @Prop() height = "50px";
   @Prop() borderBottom = "";

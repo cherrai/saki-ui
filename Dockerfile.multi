@@ -5,13 +5,13 @@ COPY .npmrc /root/
 COPY package.json yarn.lock ./
 
 RUN \
-  yarn install --frozen-lockfile --registry https://registry.npm.aiiko.club
+  yarn install --registry https://registry.npm.aiiko.club
 
 
 COPY . .
 
 RUN \
-  yarn build 
+  yarn build
 
 FROM node:18.19.1-alpine3.19
 
@@ -21,7 +21,7 @@ COPY --from=BUILD_IMAGE \
   /app/dist \
   /dist
 
-RUN \ 
+RUN \
   echo "$(date +'%Y-%m-%d_%T')" > \
   "/dist/build_time_$(date +'%Y-%m-%d_%T').txt" && \
   cp -r /dist/saki-ui/ / && \
@@ -32,7 +32,7 @@ RUN \
   tar cpvzf /dist/saki-ui-react.tgz /saki-ui-react && \
   # yarn global add spa-http-server --registry https://registry.npmmirror.com/ && \
   rm -rf /saki-ui && \
-  rm -rf /saki-ui-react 
+  rm -rf /saki-ui-react
 
 EXPOSE 32300
 

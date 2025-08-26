@@ -25,11 +25,8 @@ export class WaterfallLayoutItemComponent {
   componentDidLoad() {}
 
   render() {
-    const width = this.itemWidth - 10;
-    const height = Math.max(
-      160,
-      ((this.itemWidth - 10) * this.height) / this.width
-    );
+    const width = this.itemWidth;
+    const height = Math.max(160, (this.itemWidth * this.height) / this.width);
 
     return (
       <div

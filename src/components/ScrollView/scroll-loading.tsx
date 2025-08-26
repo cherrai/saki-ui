@@ -57,7 +57,7 @@ export class TabsComponent {
         this.d.increase(() => {
           // console.log("出现了222", e);
           this.loadData.emit();
-        }, 300);
+        }, 50);
       }
     }, options);
     observer.observe(this.el);

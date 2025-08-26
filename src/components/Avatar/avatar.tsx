@@ -82,6 +82,7 @@ export class AvatarComponent {
   @Element() el: HTMLElement;
 
   componentDidLoad() {
+    // console.log("this.lazyload avatar", this.lazyload, this.src);
     // setTimeout(() => {
     //   this.onEdit();
     // }, 4000);
