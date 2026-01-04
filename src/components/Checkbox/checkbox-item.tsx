@@ -13,7 +13,7 @@ import {
 @Component({
   tag: "saki-checkbox-item",
   styleUrl: "checkbox.scss",
-  shadow: true,
+  shadow: false,
 })
 export class CheckboxItemComponent {
   @Prop() type: "Radio" | "Checkbox" = "Radio";
@@ -39,6 +39,7 @@ export class CheckboxItemComponent {
   @Prop() activeColor: string = "var(--saki-default-color)";
   @Prop() iconActiveColor: string = "var(--saki-default-color)";
   // @Prop() textAlign: string = "center";
+  @Prop() iconMode: boolean = false;
   @Prop() disabled: boolean = false;
   @Prop() onlyIconClickable: boolean = false;
   @Prop({
@@ -82,7 +83,7 @@ export class CheckboxItemComponent {
           "--saki-background-color": this.backgroundColor,
           "--saki-background-hover-color": this.backgroundHoverColor,
           "--saki-background-active-color": this.backgroundActiveColor,
-          ...["fontSize"].reduce(
+          ...["margin", "padding", "fontSize"].reduce(
             (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
             {}
           ),
@@ -101,8 +102,6 @@ export class CheckboxItemComponent {
           <div
             style={{
               ...[
-                "margin",
-                "padding",
                 "width",
                 "height",
                 "borderRadius",
@@ -136,8 +135,6 @@ export class CheckboxItemComponent {
             }}
             style={{
               ...[
-                "margin",
-                "padding",
                 "width",
                 "height",
                 "borderRadius",

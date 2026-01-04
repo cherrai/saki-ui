@@ -69,12 +69,12 @@ export const initSakiUIMethods = () => {
           "*"
         );
       },
-      dispatch: (method: string, val: any) => {
+      dispatch: (type: string, val: any) => {
         window?.parent?.postMessage(
           {
             type: "dispatchMethod",
             data: {
-              method: method,
+              type: type,
               value: val,
             },
           },

@@ -34,6 +34,7 @@ export class SwitchComponent {
       <div
         onClick={() => {
           !this.disabled && this.change.emit(!this.value);
+          !this.disabled && this.changevalue.emit(!this.value);
         }}
         class={
           "saki-switch-component " +

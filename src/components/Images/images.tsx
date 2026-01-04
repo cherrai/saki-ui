@@ -20,6 +20,8 @@ export class ImagesComponent {
   @Prop() fileWidth: number = 0;
   @Prop() fileHeight: number = 0;
   @Prop() maxPixel: number = 0;
+  @Prop() maxWidth: string = "";
+  @Prop() maxHeight: string = "";
   @Prop() border: string = "";
   @Prop() borderRadius: string = "";
   @Prop() padding: string = "";
@@ -106,6 +108,12 @@ export class ImagesComponent {
 
   getPixel(width: number, height: number, maxPixel: number) {
     if (!this.maxPixel || !this.fileWidth || !this.fileHeight) {
+      if (this.fileHeight && this.fileWidth) {
+        return {
+          width: this.el.offsetWidth,
+          height: (this.el.offsetWidth * this.fileHeight) / this.fileWidth,
+        };
+      }
       return {
         width: 0,
         height: 0,
@@ -144,7 +152,14 @@ export class ImagesComponent {
         style={{
           width: pixel.width ? pixel.width + "px" : this.width,
           height: pixel.height ? pixel.height + "px" : this.height,
-          ...["margin", "padding", "border", "borderRadius"].reduce(
+          ...[
+            "margin",
+            "padding",
+            "border",
+            "borderRadius",
+            "maxWidth",
+            "maxHeight",
+          ].reduce(
             (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
             {}
           ),

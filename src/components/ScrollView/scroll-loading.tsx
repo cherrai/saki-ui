@@ -43,24 +43,26 @@ export class TabsComponent {
     this.formatLoadingText();
   }
   componentDidLoad() {
-    let options = {
-      root: this.el.querySelector(".saki-scroll-loading-component"),
-      rootMargin: "0px",
-      threshold: 1.0,
-    };
-    let observer = new IntersectionObserver((e) => {
-      // if (this.src.indexOf("c61baa0aa19cf71fae58b8f54afc4a60") >= 0) {
-      //   console.log("saaaaaaaaaaaa", e, e?.[0]?.target);
-      // }
-      // console.log("出现了111", e);
-      if (e?.[0]?.intersectionRatio === 1) {
-        this.d.increase(() => {
-          // console.log("出现了222", e);
-          this.loadData.emit();
-        }, 50);
-      }
-    }, options);
-    observer.observe(this.el);
+    setTimeout(() => {
+      let options = {
+        root: this.el.querySelector(".saki-scroll-loading-component"),
+        rootMargin: "0px",
+        threshold: 1.0,
+      };
+      let observer = new IntersectionObserver((e) => {
+        // if (this.src.indexOf("c61baa0aa19cf71fae58b8f54afc4a60") >= 0) {
+        //   console.log("saaaaaaaaaaaa", e, e?.[0]?.target);
+        // }
+        // console.log("出现了111", e);
+        if (e?.[0]?.intersectionRatio === 1) {
+          this.d.increase(() => {
+            // console.log("出现了222", e);
+            this.loadData.emit();
+          }, 50);
+        }
+      }, options);
+      observer.observe(this.el);
+    }, 2000);
   }
   formatLoadingText() {
     switch (this.type) {

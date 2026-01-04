@@ -8,6 +8,20 @@
     "zh-TW": "中文（繁體）",
     "system": "使用設備語言"
   },
+  "comments": {
+    "comments": "評論",
+    "commentPlaceholder": "想說些什麼呢？",
+    "reply": "回覆",
+    "replyTotalCount": "共{{count}}條回覆",
+    "viewAll": "看全部",
+    "replyToUser": "回覆 @{{user}}: ",
+    "hot": "熱門",
+    "new": "最新",
+    "old": "最早"
+  },
+  "blog": {
+    "myBlog": "我的部落格"
+  },
   "prompt": {
     "copy": "複製",
     "login": "登入",
@@ -61,7 +75,22 @@
     "moveToBottom": "移至底部",
 
     "replace": "替換",
-    "import": "導入"
+    "import": "導入",
+
+    "commentSuccessful": "評論成功",
+    "replySuccessfully": "回覆成功",
+
+    "liked": "已按讚!",
+    "disliked": "已反對!",
+    "unliked": "已取消按讚!",
+    "undisliked": "已取消反對!",
+
+    "like": "按讚",
+    "dislike": "反對",
+    "comment": "評論",
+
+    "previousPage": "上一頁",
+    "nextPage": "下一頁"
   },
   "weather": {
     "loadWeather": "正在獲取天氣...",

@@ -8,6 +8,16 @@
     flex: 1;
     padding: 0 5px;
   }
+  .waterfall {
+    width: 100%;
+    position: relative;
+    // saki-waterfall-layout-item {
+    //   position: absolute;
+    //   left: 0;
+    //   top: 0;
+    //   transition: translate 0.2s;
+    // }
+  }
   // .waterfall {
   //   column-gap: 12px;
   //   width: 100%;
@@ -59,17 +69,11 @@
 
 .saki-waterfall-layout-item-component {
   width: 100%;
-  background-color: #eee;
-  overflow: hidden;
+  // background-color: #eee;
+  // overflow: hidden;
+  opacity: 0;
+  transition: opacity 1s;
   saki-images {
     // width: 100%;
-  }
-}
-
-.lg-components {
-  .lg-thumb {
-    .lg-thumb-item {
-      height: 60px;
-    }
   }
 }

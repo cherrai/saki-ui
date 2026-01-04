@@ -1,3 +1,4 @@
+import { Debounce } from "@nyanyajs/utils/dist/debounce";
 import {
   Component,
   Element,
@@ -16,6 +17,7 @@ import {
   shadow: true,
 })
 export class CarouselComponent {
+  d = new Debounce();
   timer: NodeJS.Timeout;
   list: HTMLSakiCarouselItemElement[] = [];
   @State() scrollIndex = 0;
@@ -36,6 +38,14 @@ export class CarouselComponent {
   @Prop() autoplayInterval = 3000;
   @Prop() draggable = false;
 
+  @Prop() numbers = false;
+  @Prop() numbersDirection:
+    | "TopLeft"
+    | "TopRight"
+    | "BottomLeft"
+    | "BottomRight" = "TopRight";
+  @Prop() numbersAutoHide = true;
+
   @Element() el: HTMLDivElement;
 
   @Event() resizeChange: EventEmitter;
@@ -55,68 +65,71 @@ export class CarouselComponent {
       subtree: true,
     });
     new ResizeObserver(() => {
-      // console.log("carousel ", entries);
       this.initListEl();
-    }).observe(this.el);
+    }).observe(document.body);
   }
   initListEl() {
-    const ciList = this.el.querySelectorAll("saki-carousel-item");
+    this.d.increase(() => {
+      const ciList = this.el.querySelectorAll("saki-carousel-item");
 
-    const compElRect = this.compEl.getBoundingClientRect();
-    this.list = [];
-    ciList.forEach((el, i) => {
-      if (!el.clone) {
-        el.width = compElRect.width + "px";
-        el.height = compElRect.height + "px";
-        el.index = i + 1;
-        this.list.push(el);
+      const compElRect = this.compEl.getBoundingClientRect();
+      this.list = [];
+      ciList.forEach((el, i) => {
+        if (!el.clone) {
+          el.width = compElRect.width + "px";
+          el.height = compElRect.height + "px";
+          el.index = i + 1;
+          this.list.push(el);
+        }
+      });
+      // console.log(
+      //   "carousel",
+      //   this.el.querySelector(".saki-cascader-component"),
+      //   this.el.getBoundingClientRect(),
+      //   this.list,
+      //   this.list[0].getBoundingClientRect(),
+      //   this.compEl
+      // );
+
+      // const cloneEl: HTMLSakiCarouselItemElement = this.list[
+      //   this.list.length - 1
+      // ].cloneNode() as any;
+      // cloneEl.clone = true;
+
+      // this.el.prepend(cloneEl);
+
+      this.listEl = this.compEl.querySelector(".c-list");
+
+      // console.log(
+      //   "carousel",
+      //   this.list,
+      //   this.scrollIndex >= this.list.length - 1
+      // );
+
+      this.listWidth = compElRect.width * this.list.length + "px";
+      this.listHeight = compElRect.height + "px";
+
+      clearInterval(this.timer);
+      if (this.autoplay) {
+        this.scrollIndex = 0;
+        this.timer = setInterval(() => {
+          this.scrollIndex =
+            this.scrollIndex === this.list.length - 1
+              ? 0
+              : this.scrollIndex + 1;
+
+          this.direction = 1;
+          this.switch(this.scrollIndex);
+        }, this.autoplayInterval);
       }
-    });
-    // console.log(
-    //   "carousel",
-    //   this.el.querySelector(".saki-cascader-component"),
-    //   this.el.getBoundingClientRect(),
-    //   this.list,
-    //   this.list[0].getBoundingClientRect(),
-    //   this.compEl
-    // );
 
-    // const cloneEl: HTMLSakiCarouselItemElement = this.list[
-    //   this.list.length - 1
-    // ].cloneNode() as any;
-    // cloneEl.clone = true;
-
-    // this.el.prepend(cloneEl);
-
-    this.listEl = this.compEl.querySelector(".c-list");
-
-    // console.log(
-    //   "carousel",
-    //   this.list,
-    //   this.scrollIndex >= this.list.length - 1
-    // );
-
-    this.listWidth = compElRect.width * this.list.length + "px";
-    this.listHeight = compElRect.height + "px";
-
-    clearInterval(this.timer);
-    if (this.autoplay) {
-      this.scrollIndex = 0;
-      this.timer = setInterval(() => {
-        this.scrollIndex =
-          this.scrollIndex === this.list.length - 1 ? 0 : this.scrollIndex + 1;
-
-        this.direction = 1;
-        this.switch(this.scrollIndex);
-      }, this.autoplayInterval);
-    }
-
-    this.resizeChange.emit(compElRect);
+      this.resizeChange.emit(compElRect);
+    }, 50);
   }
 
   @Method()
   async getScrollIndex() {
-    return this.scrollIndex
+    return this.scrollIndex;
   }
   @Method()
   async switch(index: number) {
@@ -266,6 +279,23 @@ export class CarouselComponent {
                 ></div>
               );
             })}
+          </div>
+        ) : (
+          ""
+        )}
+
+        {this.numbers ? (
+          <div
+            class={
+              "c-numbers " +
+              this.numbersDirection +
+              " " +
+              (this.numbersAutoHide ? "autoHide" : "")
+            }
+          >
+            <span>{this.scrollIndex + 1}</span>
+            <span>/</span>
+            <span>{this.list.length}</span>
           </div>
         ) : (
           ""

@@ -87,6 +87,10 @@ export class AppPortalComponent {
 
   @Event() closeApp: EventEmitter;
   @Event() switchEnableGPS: EventEmitter;
+  @Event() method: EventEmitter<{
+    type: string;
+    value: any;
+  }>;
 
   @Element() el: HTMLElement;
 
@@ -175,7 +179,7 @@ export class AppPortalComponent {
   }
   onMessage = (e: MessageEvent) => {
     if (this.entryUrl.indexOf(e.origin) >= 0) {
-      console.log("onMessage", e.data, e.data?.data);
+      console.log("onMessage SelectFilesModal", e.data, e.data?.data);
       switch (e.data.type) {
         case "setAppInfo":
           this.appInfo = e.data?.data || {
@@ -194,6 +198,14 @@ export class AppPortalComponent {
         case "loaded":
           this.loadPage = false;
           // this.updateUser.emit();
+          break;
+
+        case "dispatchMethod":
+          e.data?.data?.type &&
+            this.method.emit({
+              type: e.data?.data?.type,
+              value: e.data?.data?.value,
+            });
           break;
         case "verifyAccount":
           // this.verifyAccount.emit({

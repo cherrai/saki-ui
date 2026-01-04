@@ -8,6 +8,20 @@
     "zh-TW": "Chinese(Traditional)",
     "system": "Use device language"
   },
+  "comments": {
+    "comments": "Comments",
+    "commentPlaceholder": "What do you want to say?",
+    "reply": "Reply",
+    "replyTotalCount": "Total {{count}} replies",
+    "viewAll": "View All",
+    "replyToUser": "Reply @{{user}}: ",
+    "hot": "Hot",
+    "new": "Latest",
+    "old": "Oldest"
+  },
+  "blog": {
+    "myBlog": "My Blog"
+  },
   "prompt": {
     "copy": "Copy",
     "login": "Login",
@@ -61,7 +75,22 @@
     "moveToBottom": "Move to bottom",
 
     "replace": "Replace",
-    "import": "Import"
+    "import": "Import",
+
+    "commentSuccessful": "Comment successful",
+    "replySuccessfully": "Reply successful",
+
+    "liked": "Like!",
+    "disliked": "Disliked!",
+    "unliked": "Unliked!",
+    "undisliked": "Undisliked!",
+
+    "like": "Like",
+    "dislike": "Dislike",
+    "comment": "Comment",
+
+    "previousPage": "Previous Page",
+    "nextPage": "Next Page"
   },
 
   "weather": {

@@ -19,6 +19,9 @@
     "new": "最新",
     "old": "最早"
   },
+  "blog": {
+    "myBlog": "我的博客"
+  },
   "prompt": {
     "copy": "复制",
     "login": "登录",

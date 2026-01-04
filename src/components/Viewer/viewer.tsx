@@ -3,7 +3,7 @@ import { Component, h, Prop, State, Watch, Element } from "@stencil/core";
 @Component({
   tag: "saki-viewer",
   styleUrl: "viewer.scss",
-  shadow: true,
+  shadow: false,
 })
 export class ViewerComponent {
   static isAddJs = false;
