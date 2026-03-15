@@ -125,7 +125,7 @@ export class DropdownComponent {
             {
               duration: 100,
               iterations: 1,
-            }
+            },
           );
           animate.onfinish = () => {
             this.isAddVisibleClass = true;
@@ -133,7 +133,7 @@ export class DropdownComponent {
             this.bodyClosable &&
               sakiuiEventListener.on(
                 "body-click:dropdown-event-" + this.id,
-                this.bodyClientEvent.bind(this)
+                this.bodyClientEvent.bind(this),
               );
             // console.log(this.el.getBoundingClientRect());
           };
@@ -179,7 +179,7 @@ export class DropdownComponent {
         {
           duration: 100,
           iterations: 1,
-        }
+        },
       );
       animate.onfinish = () => {
         this.removeMainEl();
@@ -198,6 +198,8 @@ export class DropdownComponent {
   }
   getDropDownElePosition() {
     // console.log("getDropDownElePosition", this.contentRect);
+
+    // console.log("dppppp", this.top, this.left);
     if (!this.contentRect?.width) return;
     // this.getRect();
     const clientWidth =
@@ -217,7 +219,7 @@ export class DropdownComponent {
     switch (this.floatingDirection) {
       case "Center":
         this.left = this.formartLeft(
-          this.coreRect.left + this.coreRect.width / 2
+          this.coreRect.left + this.coreRect.width / 2,
         );
 
         // 算右边
@@ -230,6 +232,13 @@ export class DropdownComponent {
       default:
         break;
     }
+    // console.log(
+    //   "dppppp",
+    //   this.top,
+    //   this.left,
+    //   this.coreRect.left,
+    //   this.contentRect.width,
+    // );
     // console.log("cccccccccccccccccc", this.left, this.contentRect);
     if (this.left + this.contentRect.width > clientWidth) {
       this.left =
@@ -240,8 +249,10 @@ export class DropdownComponent {
         25 -
         (clientWidth - this.coreRect.right);
     }
+    // console.log("dppppp", this.top, this.left, this.contentRect.width);
     // console.log("this.formartLeft(this.left)",this.left, this.formartLeft(this.left));
     this.left = this.formartLeft(this.left) + this.offsetX;
+    // console.log("dppppp", this.top, this.left, this.contentRect.width);
     // console.log(this.top);
     // 当内容在顶部、且高度超过浏览器高度、则会出现内容在顶部之上的情况
 
@@ -299,6 +310,8 @@ export class DropdownComponent {
     } else {
       this.horizontal = "Right";
     }
+
+    // console.log("dppppp", this.top, this.left);
   }
   formartTop(top: number) {
     return top < 10 ? 10 : top;
@@ -473,7 +486,7 @@ export class DropdownComponent {
                 "maxHeight",
               ].reduce(
                 (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
-                {}
+                {},
               ),
               zIndex: String(this.zIndex),
             }}

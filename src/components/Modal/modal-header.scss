@@ -5,7 +5,7 @@
   align-items: center;
   height: 56px;
 
-  transition: background-color .3s;
+  transition: background-color 0.3s;
 
   &.border {
     position: relative;
@@ -30,7 +30,7 @@
     .modal-l-close {
       width: 36px;
       height: 36px;
-      margin: 10px;
+      // margin: 10px;
       border-radius: 50%;
       display: flex;
       justify-content: center;
@@ -54,7 +54,7 @@
   }
 
   .modal-center {
-    width: var(--saki-center-width) ;
+    width: var(--saki-center-width);
     // flex: 1;
     // flex: auto;
     display: flex;

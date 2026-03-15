@@ -82,6 +82,7 @@ export class DatePickerComponent {
     minute: number;
     second: number;
   }>;
+  @Event() cncelSelect: EventEmitter;
   @Watch("visible")
   watchVisible() {
     console.log("ddd", this.date, this.visible);
@@ -120,7 +121,7 @@ export class DatePickerComponent {
       return;
     }
     this.days = this.getDaysOfThisMonth(
-      `${this.selectDate.getFullYear()}-${this.selectDate.getMonth() + 1}`
+      `${this.selectDate.getFullYear()}-${this.selectDate.getMonth() + 1}`,
     );
   }
   @Watch("showTimePage")
@@ -154,8 +155,8 @@ export class DatePickerComponent {
       console.log(this.time);
       this.initTimeContent(
         moment(this.time ? `2018-05-18 ${this.time}` : new Date()).format(
-          "H:mm:ss"
-        )
+          "H:mm:ss",
+        ),
       );
 
       this.setTimeInterval();
@@ -210,7 +211,7 @@ export class DatePickerComponent {
       .filter((v) => v)
       .reverse();
     const nextDays = this.getNextDay(new Date(date), false, true).filter(
-      (v) => v
+      (v) => v,
     );
 
     // console.log(lastDays);
@@ -284,8 +285,8 @@ export class DatePickerComponent {
     ].concat(
       this.getLastDay(
         new Date(date.setSeconds(-3600 * 24)),
-        lastMonth || nowDay === 1
-      )
+        lastMonth || nowDay === 1,
+      ),
     );
   }
   getNextDay(date: Date, nextMonth: boolean, first: boolean): DaysMap {
@@ -319,7 +320,7 @@ export class DatePickerComponent {
     const nextDays = this.getNextDay(
       nextDay,
       first ? false : nextMonth || nextDay.getDate() === 1,
-      false
+      false,
     );
 
     return (
@@ -341,7 +342,7 @@ export class DatePickerComponent {
     return (
       <saki-dropdown
         onClose={() => {
-          console.log("close");
+          console.log("ddd close");
           this.close.emit();
         }}
         visible={this.visible}
@@ -381,8 +382,8 @@ export class DatePickerComponent {
                     {this.showDatePage === 3
                       ? `${this.yearContent + 1} - ${this.yearContent + 11}`
                       : this.showDatePage === 2
-                      ? this.selectYear
-                      : moment(this.selectDate).format("MMMM, YYYY")}
+                        ? this.selectYear
+                        : moment(this.selectDate).format("MMMM, YYYY")}
                   </div>
                 </saki-button>
                 {this.timePicker && this.showDatePage === 1 ? (
@@ -395,7 +396,7 @@ export class DatePickerComponent {
                   >
                     <div class={"dp-h-l-time"}>
                       {moment(
-                        `2018-05-18 ${this.timeContent.h}:${this.timeContent.m}:${this.timeContent.s}`
+                        `2018-05-18 ${this.timeContent.h}:${this.timeContent.m}:${this.timeContent.s}`,
                       ).format("HH:mm:ss")}
                     </div>
                   </saki-button>
@@ -458,7 +459,7 @@ export class DatePickerComponent {
             <div
               style={{
                 zIndex: String(
-                  this.showDatePage === 2 ? 1000 + this.showDatePage : -1
+                  this.showDatePage === 2 ? 1000 + this.showDatePage : -1,
                 ),
               }}
               class={
@@ -490,7 +491,7 @@ export class DatePickerComponent {
             <div
               style={{
                 zIndex: String(
-                  this.showDatePage === 3 ? 1000 + this.showDatePage : -1
+                  this.showDatePage === 3 ? 1000 + this.showDatePage : -1,
                 ),
               }}
               class={"dp-select-year " + (this.showDatePage >= 3 ? "show" : "")}
@@ -522,7 +523,7 @@ export class DatePickerComponent {
               <div
                 style={{
                   zIndex: String(
-                    this.showTimePage === 1 ? 1000 + this.showTimePage : -1
+                    this.showTimePage === 1 ? 1000 + this.showTimePage : -1,
                   ),
                 }}
                 class={
@@ -623,7 +624,7 @@ export class DatePickerComponent {
                     <div
                       onClick={() => {
                         this.selectedDate = new Date(
-                          v.y + "-" + v.m + "-" + v.d
+                          v.y + "-" + v.m + "-" + v.d,
                         );
                         this.emitSelectDate();
                         if (this.selectDate.getMonth() + 1 !== v.m) {
@@ -672,9 +673,8 @@ export class DatePickerComponent {
                       <div class={"dp-cancelButton show"}>
                         <saki-button
                           onTap={() => {
-                            this.selectDate = new Date(this.date);
-                            this.selectedDate = this.selectDate;
-                            this.emitSelectDate();
+                            this.date = "";
+                            this.cncelSelect.emit();
                           }}
                           width="100%"
                           border="none"

@@ -1,5 +1,14 @@
-import { Component, h, Method, Prop, State } from "@stencil/core";
+import {
+  Component,
+  Event,
+  EventEmitter,
+  h,
+  Method,
+  Prop,
+  State,
+} from "@stencil/core";
 import state from "../../store";
+import { SakiIconComponent } from "../Icon/icon";
 
 @Component({
   tag: "saki-template-menu-dropdown",
@@ -10,6 +19,7 @@ export class TemplateMenuDropdownComponent {
   @Prop() appText = "";
   @Prop() appLogo = "";
   @Prop() textColor = "#555";
+  @Prop() buttonBgColor = "rgba(0,0,0,0)";
   @Prop() iconColor: string = "#999";
   @Prop() fixed = false;
   @Prop() openNewPage = true;
@@ -22,7 +32,13 @@ export class TemplateMenuDropdownComponent {
     url: string;
     logo: string;
     logoText: string;
+    icon?: SakiIconComponent["type"];
+    iconSize?: string;
+    active?: boolean;
+    method?: "Event" | "";
   }[] = [];
+
+  @Event() openPage: EventEmitter;
 
   componentWillLoad() {}
   componentDidLoad() {}
@@ -49,7 +65,7 @@ export class TemplateMenuDropdownComponent {
           <div class="md-button">
             <saki-button
               border="none"
-              bg-color="rgba(0,0,0,0)"
+              bg-color={this.buttonBgColor}
               onTap={() => {
                 this.openMenuDropDownMenu = !this.openMenuDropDownMenu;
               }}
@@ -78,36 +94,108 @@ export class TemplateMenuDropdownComponent {
           </div>
           <div class="tool-box-layout-menu-list scrollBarHover" slot="main">
             <saki-menu
-              onSelectvalue={() => {
+              onSelectvalue={(v) => {
+                this.openPage.emit(v.detail);
                 this.openMenuDropDownMenu = false;
               }}
             >
               {this.appList.map((v, i) => {
                 return (
-                  <saki-menu-item key={i} padding="0" value={v.url}>
+                  <saki-menu-item
+                    key={i}
+                    padding="0"
+                    value={v.url}
+                    active={v.active || false}
+                  >
                     <div class="tblml-item">
-                      <a
-                        target={this.openNewPage ? "_blank" : ""}
-                        href={v.url}
-                        rel="noopener noreferrer"
-                      >
-                        <div class={"tblm-i-left"}>
-                          <saki-avatar
-                            nickname={v.logoText}
-                            border-radius={"6px"}
-                            width="32px"
-                            height="32px"
-                            lazyload={false}
-                            src={v.logo || ""}
-                          ></saki-avatar>
-                        </div>
+                      {v.method === "Event" ? (
+                        <div class={"tblmli-link"}>
+                          {v.icon || v.logo || v.logoText ? (
+                            <div class={"tblm-i-left"}>
+                              {v.icon ? (
+                                <div
+                                  style={{
+                                    width: "20px",
+                                  }}
+                                >
+                                  <saki-icon
+                                    margin="0 6px 0 0"
+                                    color="#666"
+                                    type={v.icon}
+                                    width={v.iconSize || "16px"}
+                                    height={v.iconSize || "16px"}
+                                  ></saki-icon>
+                                </div>
+                              ) : v.logo || v.logoText ? (
+                                <saki-avatar
+                                  nickname={v.logoText}
+                                  border-radius={"6px"}
+                                  width="32px"
+                                  height="32px"
+                                  lazyload={false}
+                                  src={v.logo || ""}
+                                ></saki-avatar>
+                              ) : (
+                                ""
+                              )}
+                            </div>
+                          ) : (
+                            ""
+                          )}
 
-                        <div class={"tblm-i-right"}>
-                          <span>
-                            {v.title["en-US"] ? v.title[state.lang] : v.title}
-                          </span>
+                          <div class={"tblm-i-right"}>
+                            <span>
+                              {v.title["en-US"] ? v.title[state.lang] : v.title}
+                            </span>
+                          </div>
                         </div>
-                      </a>
+                      ) : (
+                        <a
+                          class={"tblmli-link"}
+                          target={this.openNewPage ? "_blank" : ""}
+                          href={v.url}
+                          rel="noopener noreferrer"
+                        >
+                          {v.icon || v.logo || v.logoText ? (
+                            <div class={"tblm-i-left"}>
+                              {v.icon ? (
+                                <div
+                                  style={{
+                                    width: "20px",
+                                  }}
+                                >
+                                  <saki-icon
+                                    margin="0 6px 0 0"
+                                    color="#666"
+                                    type={v.icon}
+                                    width={v.iconSize || "16px"}
+                                    height={v.iconSize || "16px"}
+                                  ></saki-icon>
+                                </div>
+                              ) : v.logo || v.logoText ? (
+                                <saki-avatar
+                                  nickname={v.logoText}
+                                  border-radius={"6px"}
+                                  width="32px"
+                                  height="32px"
+                                  lazyload={false}
+                                  src={v.logo || ""}
+                                ></saki-avatar>
+                              ) : (
+                                ""
+                              )}
+                            </div>
+                          ) : (
+                            ""
+                          )}
+
+                          <div class={"tblm-i-right"}>
+                            <span>
+                              {v.title["en-US"] ? v.title[state.lang] : v.title}
+                            </span>
+                          </div>
+                        </a>
+                      )}
                     </div>
                   </saki-menu-item>
                 );

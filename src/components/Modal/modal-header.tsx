@@ -20,6 +20,8 @@ export class ModalHeaderComponent {
   @Prop() height: string = "56px";
   @Prop() leftWidth: string = "";
   @Prop() centerWidth: string = "";
+  @Prop() margin: string = "";
+  @Prop() padding: string = " 0 0 0 10px";
   @Prop() rightWidth: string = "112px";
   @Prop() fontSize: string = "";
   @Prop() backgroundColor: string = "#fff";
@@ -41,9 +43,9 @@ export class ModalHeaderComponent {
     return (
       <div
         style={{
-          ...["height", "backgroundColor"].reduce(
+          ...["margin", "padding", "height", "backgroundColor"].reduce(
             (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
-            {}
+            {},
           ),
           "--saki-left-width": this.leftWidth || this.rightWidth,
           "--saki-center-width":
@@ -84,7 +86,7 @@ export class ModalHeaderComponent {
               }}
               width="36px"
               height="36px"
-              margin="10px"
+              // margin="10px"
               type="CircleIconGrayHover"
             >
               <svg
@@ -125,7 +127,7 @@ export class ModalHeaderComponent {
             style={{
               ...["fontSize"].reduce(
                 (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
-                {}
+                {},
               ),
             }}
             title={this.title}
