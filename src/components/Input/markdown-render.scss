@@ -1,0 +1,39 @@
+@import "../../globals/markdown.scss";
+
+.saki-markdown-render-component {
+  width: 100%;
+  position: relative;
+
+  .mr-message {
+    width: 100%;
+    padding: 0 0 0 0px;
+    // overflow: hidden;
+    // font-style: italic;
+
+    // 默认折叠状态
+    // max-height: 240px;
+    overflow-y: auto; // 必须是 auto，否则无法通过 JS 滚动
+    transition:
+      max-height 0.3s,
+      border-left 0.3s; // 展开时的平滑过渡
+
+    // 隐藏滚动条（让它看起来像自动隐藏了上面）
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    // 展开状态
+    // &.loaded-message {
+    //   max-height: 0px;
+    //   border-left: 1px solid rgba(0, 0, 0, 0);
+    // }
+    // &.is-expanded {
+    //   max-height: var(--tc-m-h); // 用一个足够大的值代替 auto 以实现动画效果
+    //   overflow-y: visible; // 展开后允许内容溢出或正常显示
+    //   // font-style: normal; // 展开后可以取消斜体增加阅读性
+    //   border-left: 1px solid #ccc;
+    // }
+  }
+}

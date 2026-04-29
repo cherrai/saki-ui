@@ -1,0 +1,78 @@
+@import "../../globals/markdown.scss";
+
+.saki-chat-ai-bubble-component {
+  width: 100%;
+  .ab-loading-text {
+    display: flex;
+    justify-content: flex-start;
+    font-weight: 700;
+    font-size: 16px;
+    span {
+      margin: 0 10px 0 0;
+    }
+    &.is-expanded {
+      saki-icon {
+        transform: rotate(180deg);
+        transition: transform 0.3s;
+      }
+    }
+  }
+  .ab-error-message {
+    font-style: italic;
+    font-size: 14px;
+    color: #666;
+    border-left: 4px solid #da5375;
+    margin: 0 10px 10px;
+    width: calc(100% - 20px);
+    padding: 10px;
+    background-color: #eee;
+  }
+  .ab-thinking-message {
+    border-left: 1px solid #ccc;
+    padding: 0 0 0 20px;
+    width: calc(100% - 10px);
+    overflow: hidden;
+    margin: 0 0 0 10px;
+    // font-style: italic;
+
+    // 默认折叠状态
+    max-height: 240px;
+    overflow-y: auto; // 必须是 auto，否则无法通过 JS 滚动
+    transition:
+      max-height 0.3s,
+      border-left 0.3s; // 展开时的平滑过渡
+
+    // 隐藏滚动条（让它看起来像自动隐藏了上面）
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    // 展开状态
+    &.loaded-message {
+      max-height: 0px;
+      border-left: 1px solid rgba(0, 0, 0, 0);
+    }
+    &.is-expanded {
+      max-height: var(--tc-m-h); // 用一个足够大的值代替 auto 以实现动画效果
+      overflow-y: visible; // 展开后允许内容溢出或正常显示
+      // font-style: normal; // 展开后可以取消斜体增加阅读性
+      border-left: 1px solid #ccc;
+    }
+  }
+  .ab-message {
+    padding: 6px 10px;
+  }
+  .ab-warning-message {
+    border-radius: 8px;
+    padding: 14px;
+    background: rgba(255, 152, 0, 0.1);
+    border-left: 4px solid #ff9800;
+    margin-top: 16px;
+    font-size: 0.9em;
+    color: #24292e;
+  }
+}
+
+// ai-markdown-viewer.scss

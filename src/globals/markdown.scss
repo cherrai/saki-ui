@@ -1,0 +1,228 @@
+.markdown-host {
+  display: block;
+
+  // --- 1. 定义主题变量库 ---
+  // 默认模式 (暗色文字/浅色背景)
+  --md-primary-blue: #3498db;
+  --md-danger-red: #e74c3c;
+  --md-text-main: #24292e;
+  --md-text-light: #586069;
+  --md-bg-code: rgba(27, 31, 35, 0.05);
+  --md-border-color: #dfe2e5;
+  --md-h-color: #1a1a1a;
+  --md-quote-bg: #f9fbfd;
+  --md-table-th-bg: #f6f8fa;
+  --md-table-tr-2n: #fcfcfc;
+  --md-img-shadow: rgba(0, 0, 0, 0.08);
+
+  // 亮色文字模式 (Light Mode - 适用于深色背景)
+  &.light-mode {
+    --md-text-main: #e6edf3;
+    --md-text-light: #8b949e;
+    --md-border-color: #30363d;
+    --md-h-color: #ffffff;
+    --md-bg-code: rgba(110, 118, 129, 0.2);
+    --md-quote-bg: rgba(110, 118, 129, 0.1);
+    --md-table-th-bg: #161b22;
+    --md-table-tr-2n: #0d1117;
+    --md-img-shadow: rgba(0, 0, 0, 0.3);
+  }
+
+  $font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+
+  .markdown-body {
+    font-family:
+      -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
+      sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--md-text-main); // 使用变量
+    word-wrap: break-word;
+
+    // --- 标题体系 ---
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      margin-top: 32px;
+      margin-bottom: 12px;
+      font-weight: 600;
+      color: var(--md-h-color); // 使用变量
+
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+
+    h1 {
+      font-size: 29.6px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid var(--md-border-color); // 使用变量
+    }
+    h2 {
+      font-size: 24px;
+      padding-bottom: 3px;
+      border-bottom: 1px solid var(--md-border-color); // 改为变量，同步主题
+    }
+    h3 {
+      font-size: 20px;
+    }
+
+    // --- 基础排版 ---
+    p {
+      margin-bottom: 12px;
+    }
+
+    strong {
+      font-weight: 600;
+      // 这里的颜色跟随主色，或者你可以单独定义 --md-text-bold
+      color: var(--md-text-main);
+    }
+
+    em {
+      font-style: italic;
+      // 如果你想在 light-mode 下 em 也有特殊颜色，可以加变量，否则默认继承文字颜色
+    }
+
+    del {
+      color: var(--md-text-light); // 使用变量
+      text-decoration: line-through;
+    }
+
+    hr {
+      height: 3px;
+      padding: 0;
+      margin: 32px 0;
+      background-color: var(--md-border-color); // 使用变量
+      border: 0;
+    }
+
+    // --- 链接 ---
+    a {
+      color: var(--md-primary-blue); // 使用变量
+      text-decoration: none;
+      transition: color 0.2s;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    // --- 列表与任务清单 ---
+    ul,
+    ol {
+      padding-left: 24px;
+      margin-bottom: 12px;
+
+      li {
+        margin: 6px 0;
+
+        ul,
+        ol {
+          margin-top: 0;
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    .task-list-item {
+      list-style-type: none;
+      padding-left: 0;
+      input[type="checkbox"] {
+        margin-right: 8px;
+        vertical-align: middle;
+      }
+    }
+
+    // --- 引用块 ---
+    blockquote {
+      margin: 24px 0;
+      padding: 12px 20px;
+      color: var(--md-text-light); // 使用变量
+      background-color: var(--md-quote-bg); // 使用变量
+      border-left: 4px solid var(--md-primary-blue); // 使用变量
+      border-radius: 0 6px 6px 0;
+
+      p:last-child {
+        margin-bottom: 0;
+      }
+
+      strong {
+        color: var(--md-primary-blue); // 使用变量
+      }
+    }
+
+    // --- 代码块与行内代码 ---
+    code {
+      padding: 3px 6px;
+      font-size: 14px;
+      background-color: var(--md-bg-code); // 使用变量
+      border-radius: 4px;
+      font-family: $font-mono;
+      color: inherit; // 确保行内代码文字跟随主体颜色
+    }
+
+    pre {
+      margin: 24px 0;
+      padding: 16px;
+      overflow: auto;
+      background-color: #282c34; // 代码块背景通常固定保持暗色
+      color: #abb2bf;
+      border-radius: 8px;
+      box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.2);
+
+      code {
+        background-color: transparent;
+        padding: 0;
+        color: inherit;
+        font-size: 14px;
+        white-space: pre;
+      }
+    }
+
+    // --- 表格 ---
+    table {
+      width: 100%;
+      margin: 24px 0;
+      border-collapse: collapse;
+      font-size: 15px;
+      display: block;
+      overflow-x: auto;
+
+      th,
+      td {
+        padding: 10px 14px;
+        border: 1px solid var(--md-border-color); // 使用变量
+        text-align: left;
+      }
+
+      th {
+        background-color: var(--md-table-th-bg); // 使用变量
+        font-weight: 600;
+      }
+
+      tr {
+        background-color: transparent; // 改为透明，利用容器背景
+        &:nth-child(2n) {
+          background-color: var(--md-table-tr-2n); // 使用变量
+        }
+      }
+    }
+
+    // --- 图片 ---
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px var(--md-img-shadow); // 使用变量
+      margin: 16px 0;
+      display: block;
+    }
+
+    // --- 兜底处理 ---
+    *:last-child {
+      margin-bottom: 0 !important;
+    }
+  }
+}

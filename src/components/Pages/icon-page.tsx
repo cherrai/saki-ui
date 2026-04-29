@@ -1122,7 +1122,7 @@ export class SakiPagesIconComponent {
         style={{
           ...["margin", "padding"].reduce(
             (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
-            {}
+            {},
           ),
         }}
         title={this.title}
@@ -1178,7 +1178,7 @@ export class SakiPagesIconComponent {
             加载更多
           </div>
 
-          <saki-carousel
+          {/* <saki-carousel
             margin="0 0 20px 0"
             width="100%"
             height="300px"
@@ -1251,7 +1251,7 @@ export class SakiPagesIconComponent {
             >
               <saki-button>网页</saki-button>;
             </saki-carousel-nav-item>
-          </saki-carousel-nav>
+          </saki-carousel-nav> */}
           {/* <saki-carousel width="500px" height="300px" autoplay>
             {[
               "https://api.aiiko.club/public/images/upload/1/20250114/img_19fd1f07838688d21ab66d2f8cf98d9d.jpg",
@@ -1271,7 +1271,7 @@ export class SakiPagesIconComponent {
               );
             })}
           </saki-carousel> */}
-          <saki-breadcrumb
+          {/* <saki-breadcrumb
             onClickvalue={(e) => {
               console.log("saki-breadcrumb", e);
             }}
@@ -1311,12 +1311,12 @@ export class SakiPagesIconComponent {
             onChangevalue={(e) => {
               console.log("saki-cascader-dropdown", e);
               e.target.buttonTextRender(
-                e.detail.values.map((v) => v.text).join(" > ")
+                e.detail.values.map((v) => v.text).join(" > "),
               );
             }}
             values={["CQ0", "CQ02"]}
             options={cascaderOptions}
-          ></saki-cascader-dropdown>
+          ></saki-cascader-dropdown> */}
 
           {/* <saki-cascader
             onChangevalue={(e) => {
@@ -1324,7 +1324,7 @@ export class SakiPagesIconComponent {
             }}
             options={cascaderOptions}
           ></saki-cascader> */}
-          <div
+          {/* <div
             style={{
               margin: "0px 0 0 500px",
             }}
@@ -1389,7 +1389,7 @@ export class SakiPagesIconComponent {
                 </saki-context-menu>
               </div>
             </saki-context-menu-item>
-          </saki-context-menu>
+          </saki-context-menu> */}
 
           {/* <saki-cascader>
             <saki-cascader-item>1</saki-cascader-item>

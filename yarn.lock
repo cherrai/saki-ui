@@ -267,6 +267,11 @@
   resolved "https://registry.npmmirror.com/@types/sortablejs/-/sortablejs-1.15.8.tgz#11ed555076046e00869a5ef85d1e7651e7a66ef6"
   integrity sha512-b79830lW+RZfwaztgs1aVPgbasJ8e7AXtZYHTELNXZPsERt4ymJdjV4OccDbHQAvHrCcFpbF78jkm0R6h/pZVg==
 
+"@types/trusted-types@^2.0.7":
+  version "2.0.7"
+  resolved "https://registry.npmmirror.com/@types/trusted-types/-/trusted-types-2.0.7.tgz#baccb07a970b91707df3a3e8ba6896c57ead2d11"
+  integrity sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==
+
 "@webpack-cli/configtest@^1.2.0":
   version "1.2.0"
   resolved "https://registry.npm.aiiko.club/@webpack-cli/configtest/-/configtest-1.2.0.tgz#7b20ce1c12533912c3b217ea68262365fa29a6f5"
@@ -539,6 +544,13 @@ dhkea-js@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npm.aiiko.club/dhkea-js/-/dhkea-js-1.0.0.tgz#4239f112a170fd173a60663b641d772da3c0ea50"
   integrity sha512-2iT3MaxWQBgmlC5Y5vnDk3H/rdu1v7FZbZmF8sb6n6W022xetxLYqK6uMnP9M+8PBFxvf5kWGCFUa/zDk8n0BQ==
+
+dompurify@^3.3.3:
+  version "3.3.3"
+  resolved "https://registry.npmmirror.com/dompurify/-/dompurify-3.3.3.tgz#680cae8af3e61320ddf3666a3bc843f7b291b2b6"
+  integrity sha512-Oj6pzI2+RqBfFG+qOaOLbFXLQ90ARpcGG6UePL82bJLtdsa6CYJD7nmiU8MW9nQNOtCHV3lZ/Bzq1X0QYbBZCA==
+  optionalDependencies:
+    "@types/trusted-types" "^2.0.7"
 
 dunder-proto@^1.0.1:
   version "1.0.1"
@@ -939,6 +951,11 @@ long@^5.0.0:
   version "5.3.2"
   resolved "https://registry.npm.aiiko.club/long/-/long-5.3.2.tgz#1d84463095999262d7d7b7f8bfd4a8cc55167f83"
   integrity sha512-mNAgZ1GmyNhD7AuqnTG3/VQ26o760+ZYBPKjPvugO8+nLbYfX6TVpJPseBvopbdY+qpZ/lKUnmEc1LeZYS3QAA==
+
+marked@^18.0.0:
+  version "18.0.0"
+  resolved "https://registry.npmmirror.com/marked/-/marked-18.0.0.tgz#30c5b7629eb2253b8f6d83d94b376e63479076cc"
+  integrity sha512-2e7Qiv/HJSXj8rDEpgTvGKsP8yYtI9xXHKDnrftrmnrJPaFNM7VRb2YCzWaX4BP1iCJ/XPduzDJZMFoqTCcIMA==
 
 math-intrinsics@^1.1.0:
   version "1.1.0"

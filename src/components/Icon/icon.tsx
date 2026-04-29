@@ -11,13 +11,75 @@ export type IconType = keyof typeof SakiIconComponent.typeData;
 export class SakiIconComponent {
   static d = new Debounce();
   static typeData = {
+    LiveChat: () => (
+      <svg viewBox="0 0 1066 1024" xmlns="http://www.w3.org/2000/svg">
+        {/* 对话气泡主体 */}
+        <path d="M446.848 147.2h170.666667v85.333333h-170.666667a256 256 0 0 0-256 256c0 154.026667 105.045333 254.549333 341.333333 361.813334v-105.813334h85.333334a256 256 0 0 0 256-256h85.333333a341.333333 341.333333 0 0 1-341.333333 341.333334v149.333333c-213.333333-85.333333-512-213.333333-512-490.666667a341.333333 341.333333 0 0 1 341.333333-341.333333z" />
+        {/* 右上角三条竖线 */}
+        <g transform="translate(680, 20)">
+          <rect x="0" y="80" width="90" height="245" rx="45" />
+          <rect x="155" y="0" width="90" height="405" rx="45" />
+          <rect x="310" y="120" width="90" height="205" rx="45" />
+        </g>
+      </svg>
+    ),
+    LiveChatFill: () => (
+      <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+        <path d="M853.333333 469.333333c29.781333 0 58.410667-5.12 84.992-14.464A341.333333 341.333333 0 0 1 597.333333 810.709333v149.333334c-213.333333-85.333333-512-213.333333-512-490.666667a341.333333 341.333333 0 0 1 341.333334-341.333333h170.666666c4.864 0 9.685333 0.085333 14.506667 0.298666A256 256 0 0 0 853.333333 469.376z" />
+        <g transform="translate(680, 20)">
+          <rect x="0" y="80" width="82" height="225" rx="41" />
+          <rect x="140" y="0" width="82" height="365" rx="41" />
+          <rect x="280" y="120" width="82" height="185" rx="41" />
+        </g>
+      </svg>
+    ),
+    Stop: () => (
+      <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M950.857143 109.714286l0 804.571429q0 14.857143-10.857143 25.714286t-25.714286 10.857143l-804.571429 0q-14.857143 0-25.714286-10.857143t-10.857143-25.714286l0-804.571429q0-14.857143 10.857143-25.714286t25.714286-10.857143l804.571429 0q14.857143 0 25.714286 10.857143t10.857143 25.714286z"
+          p-id="2782"
+        ></path>
+      </svg>
+    ),
+    AiChat: () => (
+      <svg viewBox="0 0 1066 1024" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M903.936 365.952l-10.538667 24.149333a21.589333 21.589333 0 0 1-39.808 0l-10.538666-24.149333a186.154667 186.154667 0 0 0-94.677334-96l-32.426666-14.464a22.613333 22.613333 0 0 1 0-41.088l30.634666-13.610667a186.282667 186.282667 0 0 0 96-99.242666l10.837334-26.069334a21.589333 21.589333 0 0 1 40.149333 0l10.794667 26.069334a186.282667 186.282667 0 0 0 96.085333 99.242666l30.592 13.653334a22.613333 22.613333 0 0 1 0 41.045333l-32.426667 14.421333a186.154667 186.154667 0 0 0-94.677333 96.042667zM446.848 147.2h170.666667v85.333333h-170.666667a256 256 0 0 0-256 256c0 154.026667 105.045333 254.549333 341.333333 361.813334v-105.813334h85.333334a256 256 0 0 0 256-256h85.333333a341.333333 341.333333 0 0 1-341.333333 341.333334v149.333333c-213.333333-85.333333-512-213.333333-512-490.666667a341.333333 341.333333 0 0 1 341.333333-341.333333z"
+          p-id="5082"
+        ></path>
+      </svg>
+    ),
+    AiChatFill: () => (
+      <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M883.797333 346.88l-10.538666 24.106667a21.589333 21.589333 0 0 1-39.808 0l-10.538667-24.149334a186.154667 186.154667 0 0 0-94.677333-96l-32.426667-14.464a22.613333 22.613333 0 0 1 0-41.088l30.634667-13.610666a186.282667 186.282667 0 0 0 96-99.242667l10.837333-26.069333a21.589333 21.589333 0 0 1 40.149333 0l10.794667 26.026666a186.282667 186.282667 0 0 0 96.042667 99.285334l30.592 13.653333a22.613333 22.613333 0 0 1 0 41.045333l-32.426667 14.421334a186.154667 186.154667 0 0 0-94.634667 96.042666zM853.333333 469.333333c29.781333 0 58.410667-5.12 84.992-14.464A341.333333 341.333333 0 0 1 597.333333 810.709333v149.333334c-213.333333-85.333333-512-213.333333-512-490.666667a341.333333 341.333333 0 0 1 341.333334-341.333333h170.666666c4.864 0 9.685333 0.085333 14.506667 0.298666A256 256 0 0 0 853.333333 469.376z"
+          p-id="4934"
+        ></path>
+      </svg>
+    ),
+    AiChat2: () => (
+      <svg viewBox="0 0 1066 1024" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M446.848 147.2h170.666667v85.333333h-170.666667a256 256 0 0 0-256 256c0 154.026667 105.045333 254.549333 341.333333 361.813334v-105.813334h85.333334a256 256 0 0 0 256-256h85.333333a341.333333 341.333333 0 0 1-341.333333 341.333334v149.333333c-213.333333-85.333333-512-213.333333-512-490.666667a341.333333 341.333333 0 0 1 341.333333-341.333333z"
+          fill="#000"
+        />
+
+        <g transform="translate(590,20) scale(0.42)">
+          <path d="M1024 113.777778l-97.393778 710.087111a99.157333 99.157333 0 0 1-32.597333 62.008889c-18.204444 16.213333-39.480889 24.348444-63.886222 24.348444h-82.204445l99.214222-722.944c2.958222-21.447111 12.344889-39.025778 28.103112-52.849778 15.815111-13.767111 34.133333-20.650667 54.954666-20.650666H1024z m-439.751111 0.910222a189694.407111 189694.407111 0 0 1 62.976 275.569778 123225.543111 123225.543111 0 0 0 98.759111 429.966222c4.778667 23.267556 0.170667 43.918222-13.824 62.008889a66.218667 66.218667 0 0 1-54.954667 27.079111h-92.046222l-30.321778-165.376H254.634667l-44.657778 100.124444c-23.893333 43.52-57.230222 65.251556-100.124445 65.251556H0l0.170667-0.341333 1.308444-2.730667 36.067556-73.614222a289300.252444 289300.252444 0 0 0 203.662222-417.109334c37.546667-76.8 69.973333-143.132444 97.393778-198.826666 38.684444-67.982222 92.046222-102.001778 159.914666-102.001778h85.788445zM469.902222 261.688889h-0.853333l-160.824889 352.711111h226.019556l-64.284445-352.711111z" />
+        </g>
+      </svg>
+    ),
+    AiChatFill2: () => (
+      <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+        <path d="M853.333333 469.333333c29.781333 0 58.410667-5.12 84.992-14.464A341.333333 341.333333 0 0 1 597.333333 810.709333v149.333334c-213.333333-85.333333-512-213.333333-512-490.666667a341.333333 341.333333 0 0 1 341.333334-341.333333h170.666666c4.864 0 9.685333 0.085333 14.506667 0.298666A256 256 0 0 0 853.333333 469.376z" />
+
+        <g transform="translate(590,20) scale(0.42)">
+          <path d="M1024 113.777778l-97.393778 710.087111a99.157333 99.157333 0 0 1-32.597333 62.008889c-18.204444 16.213333-39.480889 24.348444-63.886222 24.348444h-82.204445l99.214222-722.944c2.958222-21.447111 12.344889-39.025778 28.103112-52.849778 15.815111-13.767111 34.133333-20.650667 54.954666-20.650666H1024z m-439.751111 0.910222a189694.407111 189694.407111 0 0 1 62.976 275.569778 123225.543111 123225.543111 0 0 0 98.759111 429.966222c4.778667 23.267556 0.170667 43.918222-13.824 62.008889a66.218667 66.218667 0 0 1-54.954667 27.079111h-92.046222l-30.321778-165.376H254.634667l-44.657778 100.124444c-23.893333 43.52-57.230222 65.251556-100.124445 65.251556H0l0.170667-0.341333 1.308444-2.730667 36.067556-73.614222a289300.252444 289300.252444 0 0 0 203.662222-417.109334c37.546667-76.8 69.973333-143.132444 97.393778-198.826666 38.684444-67.982222 92.046222-102.001778 159.914666-102.001778h85.788445zM469.902222 261.688889h-0.853333l-160.824889 352.711111h226.019556l-64.284445-352.711111z" />
+        </g>
+      </svg>
+    ),
     FullScreen2: () => (
-      <svg
-        viewBox="0 0 1024 1024"
-        version="1.1"
-        xmlns="http://www.w3.org/2000/svg"
-        p-id="14665"
-      >
+      <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M105.1 554.4c-22.1 0-40-17.9-40-40v-330c0-66.2 53.8-120 120-120h326.2c22.1 0 40 17.9 40 40s-17.9 40-40 40H185.1c-22.1 0-40 17.9-40 40v330c0 22.1-17.9 40-40 40zM860.9 960.1H511.3c-22.1 0-40-17.9-40-40s17.9-40 40-40h349.5c11 0 20-9 20-20V511.4c0-22.1 17.9-40 40-40s40 17.9 40 40v348.7c0.1 55.1-44.8 100-99.9 100zM948.9 76.4c-7.8-7.8-18-11.7-28.3-11.7H725.8c-22.1 0-40 17.9-40 40s17.9 40 40 40H824L619.6 349.1c-15.6 15.6-15.6 40.9 0 56.6 7.8 7.8 18 11.7 28.3 11.7s20.5-3.9 28.3-11.7l204.5-204.5v98.2c0 22.1 17.9 40 40 40s40-17.9 40-40V104.7c-0.1-10.3-4-20.5-11.8-28.3zM404.1 620.2c-15.6-15.6-40.9-15.6-56.6 0l-203 203V725c0-22.1-17.9-40-40-40s-40 17.9-40 40v194.8c0 10.2 3.9 20.5 11.7 28.3 7.8 7.8 18 11.7 28.3 11.7h194.8c22.1 0 40-17.9 40-40s-17.9-40-40-40h-98.2l203-203c15.7-15.7 15.7-41 0-56.6z"
           p-id="14666"
@@ -27,7 +89,6 @@ export class SakiIconComponent {
     FullScreen: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="13683"
       >
@@ -40,7 +101,6 @@ export class SakiIconComponent {
     ExitFullScreen: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="6773"
       >
@@ -53,7 +113,6 @@ export class SakiIconComponent {
     Offline: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="14134"
       >
@@ -70,7 +129,6 @@ export class SakiIconComponent {
     Online: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="5490"
       >
@@ -83,7 +141,6 @@ export class SakiIconComponent {
     Round: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="6828"
       >
@@ -96,7 +153,6 @@ export class SakiIconComponent {
     Arrive: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="5528"
       >
@@ -109,7 +165,6 @@ export class SakiIconComponent {
     Mountains: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="3252"
       >
@@ -122,7 +177,6 @@ export class SakiIconComponent {
     PaperAirplaneTop: () => (
       <svg
         viewBox="0 0 1026 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="1603"
       >
@@ -135,7 +189,6 @@ export class SakiIconComponent {
     PaperAirplaneLeft: () => (
       <svg
         viewBox="0 0 1026 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="1749"
       >
@@ -148,7 +201,6 @@ export class SakiIconComponent {
     PaperAirplaneRight: () => (
       <svg
         viewBox="0 0 1026 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="1895"
       >
@@ -161,7 +213,6 @@ export class SakiIconComponent {
     ArticleFill: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="26361"
       >
@@ -174,7 +225,6 @@ export class SakiIconComponent {
     Article: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="26514"
       >
@@ -187,7 +237,6 @@ export class SakiIconComponent {
     Device: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="4663"
       >
@@ -200,7 +249,6 @@ export class SakiIconComponent {
     EyeLightSlash: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="4426"
       >
@@ -213,7 +261,6 @@ export class SakiIconComponent {
     EyeLight: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="4279"
       >
@@ -226,7 +273,6 @@ export class SakiIconComponent {
     DislikeFill: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="9748"
       >
@@ -239,7 +285,6 @@ export class SakiIconComponent {
     Dislike: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="9895"
       >
@@ -252,7 +297,6 @@ export class SakiIconComponent {
     LikeFill: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="9601"
       >
@@ -265,7 +309,6 @@ export class SakiIconComponent {
     Like: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="9454"
       >
@@ -278,7 +321,6 @@ export class SakiIconComponent {
     Tag: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="1530"
       >
@@ -291,7 +333,6 @@ export class SakiIconComponent {
     TagFill: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="4060"
       >
@@ -304,7 +345,6 @@ export class SakiIconComponent {
     NekoFill: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="1679"
       >
@@ -325,7 +365,6 @@ export class SakiIconComponent {
     NekoPaw: () => (
       <svg
         viewBox="0 0 1304 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="2619"
       >
@@ -354,7 +393,6 @@ export class SakiIconComponent {
     GoogleColor: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="14840"
       >
@@ -383,7 +421,6 @@ export class SakiIconComponent {
     Google: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="13092"
       >
@@ -396,7 +433,6 @@ export class SakiIconComponent {
     QQColor: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="15954"
       >
@@ -435,7 +471,6 @@ export class SakiIconComponent {
     QQ: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="6518"
       >
@@ -448,7 +483,6 @@ export class SakiIconComponent {
     Geofencing: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="6883"
       >
@@ -461,7 +495,6 @@ export class SakiIconComponent {
     UVIndexSun: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="2542"
       >
@@ -474,7 +507,6 @@ export class SakiIconComponent {
     UVIndexSunFill: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="2689"
       >
@@ -487,7 +519,6 @@ export class SakiIconComponent {
     Wind: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="29967"
       >
@@ -500,7 +531,6 @@ export class SakiIconComponent {
     Rainfall: () => (
       <svg
         viewBox="0 0 1260 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="25953"
       >
@@ -513,7 +543,6 @@ export class SakiIconComponent {
     Windmill: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="23822"
       >
@@ -526,7 +555,6 @@ export class SakiIconComponent {
     PressureGauge: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="21078"
       >
@@ -539,7 +567,6 @@ export class SakiIconComponent {
     Humidity: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="17735"
       >
@@ -560,7 +587,6 @@ export class SakiIconComponent {
     Umbrella: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="11900"
       >
@@ -573,7 +599,6 @@ export class SakiIconComponent {
     UmbrellaFill: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="12047"
       >
@@ -586,7 +611,6 @@ export class SakiIconComponent {
     Thermometer: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="12970"
       >
@@ -599,7 +623,6 @@ export class SakiIconComponent {
     Leaf: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="9838"
       >
@@ -620,7 +643,6 @@ export class SakiIconComponent {
     Code: () => (
       <svg
         viewBox="0 0 1025 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="7990"
       >
@@ -633,7 +655,6 @@ export class SakiIconComponent {
     CityFill: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="39387"
       >
@@ -646,7 +667,6 @@ export class SakiIconComponent {
     City: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="20094"
       >
@@ -663,7 +683,6 @@ export class SakiIconComponent {
     Road: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="6585"
       >
@@ -676,7 +695,6 @@ export class SakiIconComponent {
     MapFootprints: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="9205"
       >
@@ -689,7 +707,6 @@ export class SakiIconComponent {
     Disable: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="2252"
       >
@@ -702,7 +719,6 @@ export class SakiIconComponent {
     UploadCloud: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="3678"
       >
@@ -715,7 +731,6 @@ export class SakiIconComponent {
     DownloadCloud: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="3531"
       >
@@ -728,7 +743,6 @@ export class SakiIconComponent {
     Permissions: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="6103"
       >
@@ -746,7 +760,6 @@ export class SakiIconComponent {
     PenWrite: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="8901"
       >
@@ -763,7 +776,6 @@ export class SakiIconComponent {
     MenuSlim: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="8921"
       >
@@ -776,7 +788,6 @@ export class SakiIconComponent {
     MoveTo: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="50030"
       >
@@ -789,7 +800,6 @@ export class SakiIconComponent {
     Sort: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="9024"
       >
@@ -802,7 +812,6 @@ export class SakiIconComponent {
     MoveTop: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="7309"
       >
@@ -815,7 +824,6 @@ export class SakiIconComponent {
     MoveBottom: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="8289"
       >
@@ -828,7 +836,6 @@ export class SakiIconComponent {
     Sound: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="3174"
       >
@@ -841,7 +848,6 @@ export class SakiIconComponent {
     SoundFill: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="3327"
       >
@@ -854,7 +860,6 @@ export class SakiIconComponent {
     SoundDisable: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="3023"
       >
@@ -867,7 +872,6 @@ export class SakiIconComponent {
     SoundDisableFill: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="2419"
       >
@@ -880,7 +884,6 @@ export class SakiIconComponent {
     Note: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="3408"
       >
@@ -893,7 +896,6 @@ export class SakiIconComponent {
     CloseAside: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="7820"
       >
@@ -906,7 +908,6 @@ export class SakiIconComponent {
     StarFill: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="2593"
       >
@@ -919,7 +920,6 @@ export class SakiIconComponent {
     Star: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="2446"
       >
@@ -932,7 +932,6 @@ export class SakiIconComponent {
     BlankPageFill: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="16448"
       >
@@ -949,7 +948,6 @@ export class SakiIconComponent {
     BlankPage: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="16591"
       >
@@ -962,7 +960,6 @@ export class SakiIconComponent {
     TodoListFill: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="3427"
       >
@@ -975,7 +972,6 @@ export class SakiIconComponent {
     TodoList: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="3574"
       >
@@ -1000,7 +996,6 @@ export class SakiIconComponent {
     Rocket: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="5877"
       >
@@ -1017,7 +1012,6 @@ export class SakiIconComponent {
     Position: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="2383"
       >
@@ -1030,7 +1024,6 @@ export class SakiIconComponent {
     PositionFill: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="2534"
       >
@@ -1043,7 +1036,6 @@ export class SakiIconComponent {
     PositionShare: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="16549"
       >
@@ -1056,7 +1048,6 @@ export class SakiIconComponent {
     Camera2: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="20744"
       >
@@ -1069,7 +1060,6 @@ export class SakiIconComponent {
     Camera2Fill: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="20593"
       >
@@ -1082,7 +1072,6 @@ export class SakiIconComponent {
     Camera: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="1151"
       >
@@ -1099,7 +1088,6 @@ export class SakiIconComponent {
     Shutdown: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="4084"
       >
@@ -1112,7 +1100,6 @@ export class SakiIconComponent {
     Backup: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="8585"
       >
@@ -1125,7 +1112,6 @@ export class SakiIconComponent {
     BackupFill: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="4200"
       >
@@ -1138,7 +1124,6 @@ export class SakiIconComponent {
     Minus: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="2453"
       >
@@ -1151,7 +1136,6 @@ export class SakiIconComponent {
     Add: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="2603"
       >
@@ -1164,7 +1148,6 @@ export class SakiIconComponent {
     ZoomIn: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="1356"
       >
@@ -1177,7 +1160,6 @@ export class SakiIconComponent {
     ZoomOut: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="1503"
       >
@@ -1190,7 +1172,6 @@ export class SakiIconComponent {
     Train: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="13726"
       >
@@ -1203,7 +1184,6 @@ export class SakiIconComponent {
     PublicTransport: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="11521"
       >
@@ -1220,7 +1200,6 @@ export class SakiIconComponent {
     Plane: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="4857"
       >
@@ -1233,7 +1212,6 @@ export class SakiIconComponent {
     Motorcycle: () => (
       <svg
         viewBox="0 0 1315 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="4882"
       >
@@ -1246,7 +1224,6 @@ export class SakiIconComponent {
     PowerWalking: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="7118"
       >
@@ -1259,7 +1236,6 @@ export class SakiIconComponent {
     Walking: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="2711"
       >
@@ -1276,7 +1252,6 @@ export class SakiIconComponent {
     Running: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="6729"
       >
@@ -1289,7 +1264,6 @@ export class SakiIconComponent {
     Bike: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="5202"
       >
@@ -1302,7 +1276,6 @@ export class SakiIconComponent {
     Truck: () => (
       <svg
         viewBox="0 0 1025 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="7893"
       >
@@ -1315,7 +1288,6 @@ export class SakiIconComponent {
     Drive: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="9423"
       >
@@ -1328,7 +1300,6 @@ export class SakiIconComponent {
     Filter: () => (
       <svg
         viewBox="0 0 1031 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="7090"
       >
@@ -1345,7 +1316,6 @@ export class SakiIconComponent {
     FilterFill: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="7238"
       >
@@ -1362,7 +1332,6 @@ export class SakiIconComponent {
     Flag: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="8849"
       >
@@ -1375,7 +1344,6 @@ export class SakiIconComponent {
     FlagFill: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="8996"
       >
@@ -1388,7 +1356,6 @@ export class SakiIconComponent {
     Index: () => (
       <svg
         viewBox="0 0 1029 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="1794"
       >
@@ -1401,7 +1368,6 @@ export class SakiIconComponent {
     Route: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="4748"
       >
@@ -1422,7 +1388,6 @@ export class SakiIconComponent {
     Layer: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="12832"
       >
@@ -1439,7 +1404,6 @@ export class SakiIconComponent {
     Sun: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="3766"
       >
@@ -1452,7 +1416,6 @@ export class SakiIconComponent {
     SunFill: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="3641"
       >
@@ -1465,7 +1428,6 @@ export class SakiIconComponent {
     Moon: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="3619"
       >
@@ -1478,7 +1440,6 @@ export class SakiIconComponent {
     MoonFill: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="1869"
       >
@@ -1491,7 +1452,6 @@ export class SakiIconComponent {
     Question: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="5531"
       >
@@ -1508,7 +1468,6 @@ export class SakiIconComponent {
     IsLock: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="6582"
       >
@@ -1529,7 +1488,6 @@ export class SakiIconComponent {
     Unlock: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="4046"
       >
@@ -1542,7 +1500,6 @@ export class SakiIconComponent {
     Lock: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="4193"
       >
@@ -1555,7 +1512,6 @@ export class SakiIconComponent {
     Grid: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="16135"
       >
@@ -1568,7 +1524,6 @@ export class SakiIconComponent {
     List: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="8342"
       >
@@ -1581,7 +1536,6 @@ export class SakiIconComponent {
     Statistics: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="3547"
       >
@@ -1594,7 +1548,6 @@ export class SakiIconComponent {
     Email: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="2983"
       >
@@ -1607,7 +1560,6 @@ export class SakiIconComponent {
     WeChatFill: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="4095"
       >
@@ -1624,7 +1576,6 @@ export class SakiIconComponent {
     UserLine: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="13981"
       >
@@ -1637,7 +1588,6 @@ export class SakiIconComponent {
     QRCode: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="1759"
       >
@@ -1650,7 +1600,6 @@ export class SakiIconComponent {
     Hook: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="1698"
       >
@@ -1663,7 +1612,6 @@ export class SakiIconComponent {
     DeviceList: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="9408"
       >
@@ -1676,7 +1624,6 @@ export class SakiIconComponent {
     ChatFill: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="9899"
       >
@@ -1689,7 +1636,6 @@ export class SakiIconComponent {
     Chat: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="9759"
       >
@@ -1706,7 +1652,6 @@ export class SakiIconComponent {
     Copy: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="3085"
       >
@@ -1723,7 +1668,6 @@ export class SakiIconComponent {
     ClearFill: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="1520"
       >
@@ -1736,7 +1680,6 @@ export class SakiIconComponent {
     Keyboard: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="5925"
       >
@@ -1749,7 +1692,6 @@ export class SakiIconComponent {
     Touch: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="7061"
       >
@@ -1770,7 +1712,6 @@ export class SakiIconComponent {
     Erase: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="3382"
       >
@@ -1783,7 +1724,6 @@ export class SakiIconComponent {
     Undo: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="12273"
       >
@@ -1796,7 +1736,6 @@ export class SakiIconComponent {
     Pause: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="3378"
       >
@@ -1809,7 +1748,6 @@ export class SakiIconComponent {
     Play: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="5167"
       >
@@ -1822,7 +1760,6 @@ export class SakiIconComponent {
     CurrentPosition: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="4817"
       >
@@ -1835,7 +1772,6 @@ export class SakiIconComponent {
     Link: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="4407"
       >
@@ -1856,7 +1792,6 @@ export class SakiIconComponent {
     Download: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="1747"
       >
@@ -1869,7 +1804,6 @@ export class SakiIconComponent {
     TripRoute: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="6561"
       >
@@ -1890,7 +1824,6 @@ export class SakiIconComponent {
     Logout: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="3480"
       >
@@ -1903,7 +1836,6 @@ export class SakiIconComponent {
     GPS: () => (
       <svg
         viewBox="0 0 1026 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="2687"
       >
@@ -1920,7 +1852,6 @@ export class SakiIconComponent {
     GPSFill: () => (
       <svg
         viewBox="0 0 1026 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="2536"
       >
@@ -1937,7 +1868,6 @@ export class SakiIconComponent {
     ListSort: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="3245"
       >
@@ -1950,7 +1880,6 @@ export class SakiIconComponent {
     Countdown: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="1894"
       >
@@ -1963,7 +1892,6 @@ export class SakiIconComponent {
     Quit: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="8392"
       >
@@ -1976,7 +1904,6 @@ export class SakiIconComponent {
     Terminal: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="5260"
       >
@@ -1989,7 +1916,6 @@ export class SakiIconComponent {
     Github: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="15527"
       >
@@ -2003,7 +1929,6 @@ export class SakiIconComponent {
     CloudStorage: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="14568"
       >
@@ -2024,7 +1949,6 @@ export class SakiIconComponent {
     Share: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="4075"
       >
@@ -2041,7 +1965,6 @@ export class SakiIconComponent {
     ShareFill: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="8163"
       >
@@ -2054,7 +1977,6 @@ export class SakiIconComponent {
     PasswordFill: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="1896"
       >
@@ -2067,7 +1989,6 @@ export class SakiIconComponent {
     TrashFill: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="7530"
       >
@@ -2084,7 +2005,6 @@ export class SakiIconComponent {
     Trash: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="6838"
       >
@@ -2101,7 +2021,6 @@ export class SakiIconComponent {
     Refresh: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="11370"
       >
@@ -2115,7 +2034,6 @@ export class SakiIconComponent {
     Refresh2: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="6593"
       >
@@ -2128,7 +2046,6 @@ export class SakiIconComponent {
     Refresh3: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="2593"
       >
@@ -2141,7 +2058,6 @@ export class SakiIconComponent {
     Upload: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="5977"
       >
@@ -2158,7 +2074,6 @@ export class SakiIconComponent {
     Time: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="6874"
       >
@@ -2171,7 +2086,6 @@ export class SakiIconComponent {
     TimeFill: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="7027"
       >
@@ -2184,7 +2098,6 @@ export class SakiIconComponent {
     Menu: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="2528"
       >
@@ -2197,7 +2110,6 @@ export class SakiIconComponent {
     MicroPhoneDisable: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="2824"
       >
@@ -2222,7 +2134,6 @@ export class SakiIconComponent {
     MicroPhoneDisableFill: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="2379"
       >
@@ -2235,7 +2146,6 @@ export class SakiIconComponent {
     MicroPhone: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="9017"
       >
@@ -2248,7 +2158,6 @@ export class SakiIconComponent {
     MicroPhoneFill: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="8877"
       >
@@ -2261,7 +2170,6 @@ export class SakiIconComponent {
     Notifications: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="2819"
       >
@@ -2274,7 +2182,6 @@ export class SakiIconComponent {
     Confirm: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="3453"
       >
@@ -2291,7 +2198,6 @@ export class SakiIconComponent {
     BottomTriangle: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="1644"
       >
@@ -2304,7 +2210,6 @@ export class SakiIconComponent {
     Bottom: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="8962"
       >
@@ -2317,7 +2222,6 @@ export class SakiIconComponent {
     Right: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="7088"
       >
@@ -2330,7 +2234,6 @@ export class SakiIconComponent {
     Left: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="7233"
       >
@@ -2343,7 +2246,6 @@ export class SakiIconComponent {
     Top: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="7378"
       >
@@ -2356,7 +2258,6 @@ export class SakiIconComponent {
     ArrowLeft: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="5772"
       >
@@ -2369,7 +2270,6 @@ export class SakiIconComponent {
     ArrowBottom: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="5208"
       >
@@ -2382,7 +2282,6 @@ export class SakiIconComponent {
     ArrowTop: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="5347"
       >
@@ -2395,7 +2294,6 @@ export class SakiIconComponent {
     ArrowRight: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="5631"
       >
@@ -2409,7 +2307,6 @@ export class SakiIconComponent {
       <svg
         class="saki-icon emoji"
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="2363"
       >
@@ -2438,7 +2335,6 @@ export class SakiIconComponent {
     Reply: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="4050"
       >
@@ -2451,7 +2347,6 @@ export class SakiIconComponent {
     ScreeShareFill: () => (
       <svg
         viewBox="0 0 1025 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="5913"
       >
@@ -2464,7 +2359,6 @@ export class SakiIconComponent {
     ScreeShare: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="2537"
       >
@@ -2477,7 +2371,6 @@ export class SakiIconComponent {
     Eye: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="9757"
       >
@@ -2490,7 +2383,6 @@ export class SakiIconComponent {
     EyeSlash: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="5663"
       >
@@ -2503,7 +2395,6 @@ export class SakiIconComponent {
     Detail: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="25661"
       >
@@ -2516,7 +2407,6 @@ export class SakiIconComponent {
     File: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="10388"
       >
@@ -2530,7 +2420,6 @@ export class SakiIconComponent {
     FileFill: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="16944"
       >
@@ -2543,7 +2432,6 @@ export class SakiIconComponent {
     FolderFill: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="1592"
       >
@@ -2556,7 +2444,6 @@ export class SakiIconComponent {
     Folder: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="11491"
       >
@@ -2569,7 +2456,6 @@ export class SakiIconComponent {
     Video: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="16040"
       >
@@ -2582,7 +2468,6 @@ export class SakiIconComponent {
     Image: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="14324"
       >
@@ -2595,7 +2480,6 @@ export class SakiIconComponent {
     Paperclip: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="12577"
       >
@@ -2608,7 +2492,6 @@ export class SakiIconComponent {
     Send: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="4264"
       >
@@ -2621,7 +2504,6 @@ export class SakiIconComponent {
     Pen: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="2538"
       >
@@ -2634,7 +2516,6 @@ export class SakiIconComponent {
     Magnifier: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="8399"
       >
@@ -2651,7 +2532,6 @@ export class SakiIconComponent {
     Close: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="11599"
       >
@@ -2664,7 +2544,6 @@ export class SakiIconComponent {
     Message: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="3634"
       >
@@ -2677,7 +2556,6 @@ export class SakiIconComponent {
     Call: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="9482"
       >
@@ -2690,7 +2568,6 @@ export class SakiIconComponent {
     More: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="10686"
       >
@@ -2711,7 +2588,6 @@ export class SakiIconComponent {
     JoinGroup: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="2033"
       >
@@ -2724,7 +2600,6 @@ export class SakiIconComponent {
     Group: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="3142"
       >
@@ -2738,7 +2613,6 @@ export class SakiIconComponent {
       <svg
         class="saki-icon add-user"
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="17621"
       >
@@ -2751,7 +2625,6 @@ export class SakiIconComponent {
     Messages: () => (
       <svg
         viewBox="0 0 1098 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="7584"
       >
@@ -2764,7 +2637,6 @@ export class SakiIconComponent {
     Settings: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="15269"
       >
@@ -2777,7 +2649,6 @@ export class SakiIconComponent {
     SettingsFill: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="10568"
       >
@@ -2790,7 +2661,6 @@ export class SakiIconComponent {
     User: () => (
       <svg
         viewBox="0 0 1032 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="15771"
       >
@@ -2803,7 +2673,6 @@ export class SakiIconComponent {
     NotificationsFill: () => (
       <svg
         viewBox="0 0 1024 1024"
-        version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="16678"
       >
@@ -2822,7 +2691,7 @@ export class SakiIconComponent {
   @Prop() title = "";
   @Prop() type: IconType | "" = "";
 
-  @Element() el;
+  @Element() el: any;
 
   getTypeEl(type: typeof this.type) {
     try {
@@ -2832,7 +2701,7 @@ export class SakiIconComponent {
       //   default:
       //     return "";
       // }
-      return SakiIconComponent.typeData[type]?.() || "";
+      return (SakiIconComponent as any).typeData[type]?.() || "";
     } catch (error) {
       console.error(
         error,
@@ -2844,11 +2713,13 @@ export class SakiIconComponent {
   }
   componentDidLoad() {}
   render() {
+    const thisAny = this as any;
     return (
       <div
         style={{
           ...["margin", "padding"].reduce(
-            (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
+            (fin, cur) =>
+              thisAny[cur] ? { ...fin, [cur]: thisAny[cur] } : fin,
             {},
           ),
           "--saki-icon-color": this.color,

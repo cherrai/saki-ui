@@ -5,13 +5,14 @@
       width: var(--saki-loading-width);
       height: var(--saki-loading-height);
       animation: circleAnimation 1.2s linear infinite;
-      margin-right: 6px;
+      // margin-right: 6px;
 
       border-radius: 50%;
 
       &::after {
         content: "";
-        border: var(--saki-loading-border) solid var(--saki-loading-border-color);
+        border: var(--saki-loading-border) solid
+          var(--saki-loading-border-color);
         border-radius: 50%;
         border-top: var(--saki-loading-border) solid transparent;
         width: 100%;
@@ -35,7 +36,7 @@
       width: var(--saki-loading-width);
       height: var(--saki-loading-height);
       // animation: circleAnimation 1.2s linear infinite;
-      margin-right: 6px;
+      // margin-right: 6px;
 
       border-radius: 50%;
 

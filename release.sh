@@ -1,10 +1,10 @@
 #! /bin/bash
 name="saki-ui"
 port=32300
-version="v1.0.13"
+version="v1.0.14"
 branch="main"
 DIR=$(cd $(dirname $0) && pwd)
-allowMethods=("devBuild sh copyReactTypes buildReactTargetDir zip unzip removeBuildFile copyFile protos stop npmconfig install gitpull dockerremove start logs")
+allowMethods=("backup restore devBuild sh copyReactTypes buildReactTargetDir zip unzip removeBuildFile copyFile protos stop npmconfig install gitpull dockerremove start logs")
 
 gitpull() {
   echo "-> 正在拉取远程仓库"
@@ -166,6 +166,23 @@ removeBuildFile() {
   #   fi
   # done
 }
+
+backup() {
+  # backupTime=$(date +'%Y-%m-%d_%T')
+  # zip -q -r ./saass_$backupTime.zip ./static
+  tar cvzf $DIR/saki_ui_build.tgz -C $DIR/build .
+
+  # unzip -d ./ build_2023-07-04_21:11:13.zip
+}
+
+
+restore() {
+  mkdir -p $DIR/build
+  tar -zxvf $DIR/saki_ui_build.tgz \
+    -C $DIR/build
+}
+
+
 
 stop() {
   docker stop $name

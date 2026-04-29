@@ -10,6 +10,8 @@ export class SakiAnimationLoadingComponent {
   @Prop() width = "20px";
   @Prop() height = "20px";
   @Prop() border = "3px";
+  @Prop() margin = "";
+  @Prop() padding = "";
   @Prop() borderColor = "var(--saki-default-color)";
   componentWillLoad() {}
 
@@ -21,6 +23,11 @@ export class SakiAnimationLoadingComponent {
           "--saki-loading-height": this.height,
           "--saki-loading-border": this.border,
           "--saki-loading-border-color": this.borderColor,
+          ...["margin", "padding"].reduce(
+            (fin, cur) =>
+              (this as any)[cur] ? { ...fin, [cur]: (this as any)[cur] } : fin,
+            {},
+          ),
         }}
         class={"saki-animation-loading-component " + this.type}
       >

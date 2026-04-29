@@ -9,6 +9,7 @@ import {
   Watch,
 } from "@stencil/core";
 import moment from "moment";
+import { l } from "./chatLanguages";
 // import * as nyanyalog from "nyanyajs-log";
 // import "moment/dist/locale/zh-cn";
 
@@ -31,6 +32,7 @@ export class ChatBubbleComponent {
   @Prop() previousMessageUid: string = "";
   @Prop() previousMessageSendTime: number = 0;
   @Prop() previousMessageType: (typeof this)["type"] | "" = "";
+  @Prop() showCenterTime = true;
 
   // 1 success
   // 0 sending
@@ -139,7 +141,9 @@ export class ChatBubbleComponent {
   getTimeConfig(language: string, name: string) {
     // console.log("formatCallTypeText", type);
 
-    return window["mwc"]?.l?.(language, name) || "";
+    // console.log("AIRoadbook", window["mwc"]);
+
+    return (window["mwc"]?.l || l)?.(language, name) || "";
   }
 
   componentWillLoad() {
@@ -190,6 +194,7 @@ export class ChatBubbleComponent {
     return false;
   }
   isShowTime() {
+    if (!this.showCenterTime) return false;
     if (this.userInfoDisplayMode === "Full") return true;
     return (
       this.isShowCenterTime ||
@@ -260,7 +265,7 @@ export class ChatBubbleComponent {
           "--width": "0px",
           ...["padding"].reduce(
             (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
-            {}
+            {},
           ),
         }}
         // onContextMenu={() => {
@@ -272,12 +277,12 @@ export class ChatBubbleComponent {
         }}
         class={"saki-chat-bubble-component " + " "}
       >
-        {this.isShowCenterTime ? (
+        {this.isShowCenterTime && this.showCenterTime ? (
           <div class={"bubble-center-time"}>
             <span>
               {/* {this.sendTime + ", "} */}
               {moment(this.sendTime * 1000).calendar(
-                this.getTimeConfig(this.language, "centerTimeMomentConfig")
+                this.getTimeConfig(this.language, "centerTimeMomentConfig"),
               )}
             </span>
           </div>
@@ -295,30 +300,35 @@ export class ChatBubbleComponent {
             "bubble-message " +
             this.type +
             (this.selected ? " selected " : "") +
-            (this.isShowTime() && this.displayTime ? " showTime " : "") +
+            (this.displayTime ? " showTime " : "") +
             (this.userInfoDisplayMode === "Full"
               ? " showUserInfo "
               : this.isShowTime()
-              ? " showUserInfo "
-              : "")
+                ? " showUserInfo "
+                : "")
           }
         >
-          <div class="bubble-m-userinfo">
-            <div
-              onClick={() => {
-                this.tap.emit("avatar");
-              }}
-              class="bubble-u-avatar"
-            >
-              <saki-avatar
-                width={"36px"}
-                height={"36px"}
-                borderRadius={"50%"}
-                nickname={this.nickname}
-                src={this.avatar}
-              ></saki-avatar>
+          {this.avatar || this.nickname ? (
+            <div class="bubble-m-userinfo">
+              <div
+                onClick={() => {
+                  this.tap.emit("avatar");
+                }}
+                class="bubble-u-avatar"
+              >
+                <saki-avatar
+                  width={"36px"}
+                  height={"36px"}
+                  borderRadius={"50%"}
+                  nickname={this.nickname}
+                  src={this.avatar}
+                ></saki-avatar>
+              </div>
             </div>
-          </div>
+          ) : (
+            ""
+          )}
+
           <div class={"bubble-m-main"}>
             {/* {this.sendTime + ", "} */}
             {this.displayTime ? (
@@ -328,14 +338,14 @@ export class ChatBubbleComponent {
                   {moment(this.sendTime * 1000).calendar(
                     this.getTimeConfig(
                       this.language,
-                      "sendTimeFullMomentConfig"
-                    )
+                      "sendTimeFullMomentConfig",
+                    ),
                   )}
                 </span>
                 <span class={"short-time"}>
                   {this.editText ? this.editText + " · " : ""}
                   {moment(this.sendTime * 1000).calendar(
-                    this.getTimeConfig(this.language, "sendTimeMomentConfig")
+                    this.getTimeConfig(this.language, "sendTimeMomentConfig"),
                   )}
                 </span>
               </div>

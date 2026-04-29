@@ -1,10 +1,4 @@
-import {
-  Component,
-  Prop,
-  Event,
-  EventEmitter,
-  h,
-} from "@stencil/core";
+import { Component, Prop, Event, EventEmitter, h } from "@stencil/core";
 
 @Component({
   tag: "saki-chat-edit",
@@ -14,21 +8,35 @@ import {
 export class ChatEditComponent {
   @Prop() title = "";
   @Prop() message = "";
+  @Prop() iconSize = "40px";
+  @Prop() padding = "0 10px";
+  @Prop() margin = "0px";
   @Event() close: EventEmitter;
   componentDidLoad() {}
   render() {
     return (
-      <div class={"saki-chat-edit-component "}>
+      <div
+        style={{
+          margin: this.margin,
+        }}
+        class={"saki-chat-edit-component "}
+      >
         <saki-row
           width="100%"
           height="50px"
-          padding="0 10px"
+          padding={this.padding}
           alignItems="center"
         >
           <saki-col>
             <saki-row alignItems="center">
               <saki-col>
-                <div class={"cr-icon"}>
+                <div
+                  style={{
+                    width: this.iconSize,
+                    height: this.iconSize,
+                  }}
+                  class={"cr-icon"}
+                >
                   <saki-icon color="#999" type="Pen"></saki-icon>
                 </div>
               </saki-col>
