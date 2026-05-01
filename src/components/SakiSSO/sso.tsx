@@ -85,6 +85,7 @@ export class SSOLoginComponent {
             disableHeader: !this.disableHeader ? "false" : "true",
             redirectUri: encodeURIComponent(location.href),
           })}
+          allow="identity-credentials-get"
           frameborder="0"
         ></iframe>
       </div>
