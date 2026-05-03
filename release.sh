@@ -54,8 +54,8 @@ copyReactTypes() {
 
 devBuild() {
   yarn build
-  rm -rf /home/shiina_aiiko/Workspace/Development/@Aiiko/ShiinaAiikoDevWorkspace/@OpenSourceProject/meow-sticky-note/meow-sticky-note-client/public/saki-ui
-  cp -r ./dist /home/shiina_aiiko/Workspace/Development/@Aiiko/ShiinaAiikoDevWorkspace/@OpenSourceProject/meow-sticky-note/meow-sticky-note-client/public/saki-ui
+  rm -rf /home/shiina_aiiko/Workspace/Development/@Aiiko/ShiinaAiikoDevWorkspace/OpenSourceProject/meow-sticky-note/meow-sticky-note-client/public/saki-ui
+  cp -r ./dist /home/shiina_aiiko/Workspace/Development/@Aiiko/ShiinaAiikoDevWorkspace/OpenSourceProject/meow-sticky-note/meow-sticky-note-client/public/saki-ui
 }
 
 buildReactTargetDir() {
