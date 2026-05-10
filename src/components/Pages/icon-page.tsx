@@ -1,3 +1,4 @@
+import { snackbar } from "@saki-ui/core";
 import { Component, h, Prop, State } from "@stencil/core";
 import { copyText } from "../../modules/methods";
 import { SakiIconComponent } from "../Icon/icon";
@@ -21,240 +22,240 @@ export class SakiPagesIconComponent {
   // @State() types = [];
 
   render() {
-    const cascaderOptions = [
-      {
-        value: "CQ",
-        text: "重庆市",
-        list: [
-          {
-            value: "CQ",
-            text: "重庆市",
+    // const cascaderOptions = [
+    //   {
+    //     value: "CQ",
+    //     text: "重庆市",
+    //     list: [
+    //       {
+    //         value: "CQ",
+    //         text: "重庆市",
 
-            list: [
-              {
-                value: "CQ",
-                text: "重庆市",
-              },
-              {
-                value: "CQ",
-                text: "重庆市",
-              },
-              {
-                value: "CQ",
-                text: "重庆市",
-              },
-              {
-                value: "CQ",
-                text: "重庆市",
-              },
-              {
-                value: "CQ",
-                text: "重庆市",
-              },
-              {
-                value: "CQ",
-                text: "重庆市",
-              },
-              {
-                value: "CQ",
-                text: "重庆市",
-              },
-              {
-                value: "CQ",
-                text: "重庆市",
-              },
-              {
-                value: "CQ",
-                text: "重庆市",
-              },
-              {
-                value: "CQ",
-                text: "重庆市",
-              },
-              {
-                value: "CQ",
-                text: "重庆市",
-              },
-              {
-                value: "CQ",
-                text: "重庆市",
-              },
-            ],
-          },
-          {
-            value: "CQ",
-            text: "重庆市",
+    //         list: [
+    //           {
+    //             value: "CQ",
+    //             text: "重庆市",
+    //           },
+    //           {
+    //             value: "CQ",
+    //             text: "重庆市",
+    //           },
+    //           {
+    //             value: "CQ",
+    //             text: "重庆市",
+    //           },
+    //           {
+    //             value: "CQ",
+    //             text: "重庆市",
+    //           },
+    //           {
+    //             value: "CQ",
+    //             text: "重庆市",
+    //           },
+    //           {
+    //             value: "CQ",
+    //             text: "重庆市",
+    //           },
+    //           {
+    //             value: "CQ",
+    //             text: "重庆市",
+    //           },
+    //           {
+    //             value: "CQ",
+    //             text: "重庆市",
+    //           },
+    //           {
+    //             value: "CQ",
+    //             text: "重庆市",
+    //           },
+    //           {
+    //             value: "CQ",
+    //             text: "重庆市",
+    //           },
+    //           {
+    //             value: "CQ",
+    //             text: "重庆市",
+    //           },
+    //           {
+    //             value: "CQ",
+    //             text: "重庆市",
+    //           },
+    //         ],
+    //       },
+    //       {
+    //         value: "CQ",
+    //         text: "重庆市",
 
-            list: [],
-          },
-          {
-            value: "CQ",
-            text: "重庆市",
+    //         list: [],
+    //       },
+    //       {
+    //         value: "CQ",
+    //         text: "重庆市",
 
-            list: [
-              {
-                value: "CQ",
-                text: "重庆市",
-              },
-              {
-                value: "CQ",
-                text: "重庆市",
-              },
-              {
-                value: "CQ",
-                text: "重庆市",
-              },
-              {
-                value: "CQ",
-                text: "重庆市",
-              },
-            ],
-          },
-          {
-            value: "CQ",
-            text: "重庆市",
+    //         list: [
+    //           {
+    //             value: "CQ",
+    //             text: "重庆市",
+    //           },
+    //           {
+    //             value: "CQ",
+    //             text: "重庆市",
+    //           },
+    //           {
+    //             value: "CQ",
+    //             text: "重庆市",
+    //           },
+    //           {
+    //             value: "CQ",
+    //             text: "重庆市",
+    //           },
+    //         ],
+    //       },
+    //       {
+    //         value: "CQ",
+    //         text: "重庆市",
 
-            list: [
-              {
-                value: "CQ",
-                text: "重庆市",
-              },
-              {
-                value: "CQ",
-                text: "重庆市",
-              },
-              {
-                value: "CQ",
-                text: "重庆市",
-              },
-              {
-                value: "CQ",
-                text: "重庆市",
-              },
-            ],
-          },
-        ],
-      },
-      {
-        value: "CQ",
-        text: "重庆市",
-      },
-      {
-        value: "CQ",
-        text: "重庆市",
+    //         list: [
+    //           {
+    //             value: "CQ",
+    //             text: "重庆市",
+    //           },
+    //           {
+    //             value: "CQ",
+    //             text: "重庆市",
+    //           },
+    //           {
+    //             value: "CQ",
+    //             text: "重庆市",
+    //           },
+    //           {
+    //             value: "CQ",
+    //             text: "重庆市",
+    //           },
+    //         ],
+    //       },
+    //     ],
+    //   },
+    //   {
+    //     value: "CQ",
+    //     text: "重庆市",
+    //   },
+    //   {
+    //     value: "CQ",
+    //     text: "重庆市",
 
-        list: [
-          {
-            value: "CQ",
-            text: "重庆市",
+    //     list: [
+    //       {
+    //         value: "CQ",
+    //         text: "重庆市",
 
-            list: [
-              {
-                value: "CQ",
-                text: "重庆市",
-              },
-              {
-                value: "CQ",
-                text: "重庆市",
-              },
-              {
-                value: "CQ",
-                text: "重庆市",
-              },
-              {
-                value: "CQ",
-                text: "重庆市",
-              },
-            ],
-          },
-          {
-            value: "CQ",
-            text: "重庆市",
+    //         list: [
+    //           {
+    //             value: "CQ",
+    //             text: "重庆市",
+    //           },
+    //           {
+    //             value: "CQ",
+    //             text: "重庆市",
+    //           },
+    //           {
+    //             value: "CQ",
+    //             text: "重庆市",
+    //           },
+    //           {
+    //             value: "CQ",
+    //             text: "重庆市",
+    //           },
+    //         ],
+    //       },
+    //       {
+    //         value: "CQ",
+    //         text: "重庆市",
 
-            list: [
-              {
-                value: "CQ",
-                text: "重庆市",
-              },
-              {
-                value: "CQ",
-                text: "重庆市",
-              },
-              {
-                value: "CQ",
-                text: "重庆市",
-              },
-              {
-                value: "CQ",
-                text: "重庆市",
-              },
-            ],
-          },
-          {
-            value: "CQ",
-            text: "重庆市",
+    //         list: [
+    //           {
+    //             value: "CQ",
+    //             text: "重庆市",
+    //           },
+    //           {
+    //             value: "CQ",
+    //             text: "重庆市",
+    //           },
+    //           {
+    //             value: "CQ",
+    //             text: "重庆市",
+    //           },
+    //           {
+    //             value: "CQ",
+    //             text: "重庆市",
+    //           },
+    //         ],
+    //       },
+    //       {
+    //         value: "CQ",
+    //         text: "重庆市",
 
-            list: [
-              {
-                value: "CQ",
-                text: "重庆市",
-              },
-              {
-                value: "CQ",
-                text: "重庆市",
-              },
-              {
-                value: "CQ",
-                text: "重庆市",
-              },
-              {
-                value: "CQ",
-                text: "重庆市",
-              },
-            ],
-          },
-          {
-            value: "CQ",
-            text: "重庆市",
+    //         list: [
+    //           {
+    //             value: "CQ",
+    //             text: "重庆市",
+    //           },
+    //           {
+    //             value: "CQ",
+    //             text: "重庆市",
+    //           },
+    //           {
+    //             value: "CQ",
+    //             text: "重庆市",
+    //           },
+    //           {
+    //             value: "CQ",
+    //             text: "重庆市",
+    //           },
+    //         ],
+    //       },
+    //       {
+    //         value: "CQ",
+    //         text: "重庆市",
 
-            list: [
-              {
-                value: "CQ",
-                text: "重庆市",
-              },
-              {
-                value: "CQ",
-                text: "重庆市",
-              },
-              {
-                value: "CQ",
-                text: "重庆市",
-              },
-              {
-                value: "CQ",
-                text: "重庆市",
-              },
-            ],
-          },
-        ],
-      },
-    ].map((v, i) => {
-      v.value = v.value + i;
-      v.text = v.text + i;
-      if (v.list) {
-        v.list = v.list.map((sv, si) => {
-          sv.value = sv.value + i + "" + si;
-          sv.text = sv.text + i + "" + si;
-          sv.list = sv.list.map((ssv, ssi) => {
-            ssv.value = ssv.value + i + "" + si + "" + ssi;
-            ssv.text = ssv.text + i + "" + si + "" + ssi;
-            return ssv;
-          });
-          return sv;
-        });
-      }
-      return v;
-    });
+    //         list: [
+    //           {
+    //             value: "CQ",
+    //             text: "重庆市",
+    //           },
+    //           {
+    //             value: "CQ",
+    //             text: "重庆市",
+    //           },
+    //           {
+    //             value: "CQ",
+    //             text: "重庆市",
+    //           },
+    //           {
+    //             value: "CQ",
+    //             text: "重庆市",
+    //           },
+    //         ],
+    //       },
+    //     ],
+    //   },
+    // ].map((v, i) => {
+    //   v.value = v.value + i;
+    //   v.text = v.text + i;
+    //   if (v.list) {
+    //     v.list = v.list.map((sv, si) => {
+    //       sv.value = sv.value + i + "" + si;
+    //       sv.text = sv.text + i + "" + si;
+    //       sv.list = sv.list.map((ssv, ssi) => {
+    //         ssv.value = ssv.value + i + "" + si + "" + ssi;
+    //         ssv.text = ssv.text + i + "" + si + "" + ssi;
+    //         return ssv;
+    //       });
+    //       return sv;
+    //     });
+    //   }
+    //   return v;
+    // });
 
     // const imagesUrls2 = [
     //   {
@@ -1550,6 +1551,71 @@ export class SakiPagesIconComponent {
           ></saki-slider>
         </div>
 
+        <div class={"pl-buttons"}>
+          <saki-button
+            onTap={async () => {
+              const sleep = (ms: number) =>
+                new Promise((resolve) => setTimeout(resolve, ms));
+
+              for (let i = 0; i < 3; i++) {
+                snackbar({
+                  message: "TopCenter 第" + i,
+                  autoHideDuration: 3000,
+                  // autoHideDuration: 0,
+                  // vertical: "top",
+                  vertical: "center",
+                  horizontal: "left",
+                  backgroundColor: "var(--saki-default-color)",
+                  color: "#fff",
+                }).open();
+                await sleep(500);
+                snackbar({
+                  message: "TopCenter 第" + i,
+                  autoHideDuration: 3000,
+                  // autoHideDuration: 0,
+                  vertical: "top",
+                  horizontal: "center",
+                  backgroundColor: "var(--saki-default-color)",
+                  color: "#fff",
+                }).open();
+                await sleep(500);
+                snackbar({
+                  message: "CenterCenter 第" + i,
+                  autoHideDuration: 3000,
+                  // autoHideDuration: 0,
+                  vertical: "center",
+                  horizontal: "center",
+                  backgroundColor: "var(--saki-default-color)",
+                  color: "#fff",
+                }).open();
+                await sleep(500);
+                snackbar({
+                  message: "TopRight 第" + i,
+                  autoHideDuration: 3000,
+                  vertical: "top",
+                  horizontal: "right",
+                  backgroundColor: "var(--saki-default-color)",
+                  color: "#fff",
+                }).open();
+                await sleep(500);
+                snackbar({
+                  message: "BottomRight 第" + i,
+                  autoHideDuration: 3000,
+                  // autoHideDuration: 0,
+                  vertical: "bottom",
+                  // horizontal: "right",
+
+                  horizontal: "center",
+                  backgroundColor: "var(--saki-default-color)",
+                  color: "#fff",
+                }).open();
+                await sleep(500);
+              }
+            }}
+          >
+            发起消息框
+          </saki-button>
+        </div>
         <div class={"pl-main"}>
           {this.types.map((v) => {
             return (

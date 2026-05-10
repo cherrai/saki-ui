@@ -20,7 +20,7 @@ import { snackbar } from "@saki-ui/core";
 })
 export class SakiInitComponent {
   @Prop() debug = false;
-  @Prop() debugWSUrl = "ws://192.168.204.132:32300";
+  @Prop() debugWSUrl = "ws://127.0.0.1:32300";
   @Event() mounted: EventEmitter;
   @Element() el: HTMLElement;
   watchFocusFunc() {}

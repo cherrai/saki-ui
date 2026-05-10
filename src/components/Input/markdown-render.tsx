@@ -9,7 +9,6 @@ import {
 } from "@stencil/core";
 import { marked } from "marked";
 import DOMPurify from "dompurify";
-import { Debounce } from "@nyanyajs/utils/dist/debounce";
 
 @Component({
   tag: "saki-markdown-render",

@@ -1,3 +1,4 @@
+import { getShortId } from "@nyanyajs/utils/dist/shortId";
 import {
   Component,
   State,
@@ -7,7 +8,10 @@ import {
   Prop,
   Watch,
   Method,
+  Element,
+  Listen,
 } from "@stencil/core";
+import { snackbarManager } from "./snackbar-manager";
 
 interface OpenParams {
   message: string;
@@ -27,6 +31,8 @@ interface MessagesItem extends OpenParams {
   shadow: true,
 })
 export class SnackbarComponent {
+  @Element() el: HTMLElement;
+  @State() id = getShortId(12);
   @Prop({ mutable: true }) visible: boolean = false;
   @Prop() closeIcon: boolean = false;
   @Prop() allowContentClick: boolean = false;
@@ -55,6 +61,10 @@ export class SnackbarComponent {
   @State() hide: boolean = true;
   @State() messages: MessagesItem[] = [];
   @State() updateTime: number = 0;
+  @State() layoutData: ReturnType<typeof snackbarManager.getLayoutData> = {
+    offset: 0,
+    totalHeight: 0,
+  };
   @Event({
     eventName: "close",
     composed: true,
@@ -64,6 +74,13 @@ export class SnackbarComponent {
   closeFunc: EventEmitter;
   @Event() tap: EventEmitter;
   @Event() load: EventEmitter;
+
+  @Listen("saki-snackbar-update", { target: "window" })
+  handlePositionUpdate() {
+    this.layoutData = snackbarManager.getLayoutData(this.id);
+    console.log("ssss offset", this.id, this.layoutData);
+  }
+
   @Watch("visible")
   watchVisible() {
     if (this.visible) {
@@ -73,8 +90,22 @@ export class SnackbarComponent {
           this.close();
         }, this.autoHideDuration);
       }
+      requestAnimationFrame(() => {
+        const rect = this.el.shadowRoot
+          .querySelector(".snackbar-wrap")
+          .getBoundingClientRect();
+
+        // console.log("ssss rect.height", rect.height);
+        snackbarManager.register({
+          id: this.id,
+          vertical: this.vertical,
+          horizontal: this.horizontal,
+          height: rect.height,
+        });
+      });
     } else {
       clearTimeout(this.timer);
+      snackbarManager.unregister(this.id);
     }
   }
   componentDidLoad() {
@@ -103,6 +134,19 @@ export class SnackbarComponent {
   }
 
   render() {
+    const dynamicStyle: any = {};
+    const distance = `var(--saki-snackbar-distance)`;
+
+    // 垂直对齐逻辑
+    if (this.vertical === "top") {
+      dynamicStyle.top = `calc(${distance} + ${this.layoutData.offset}px)`;
+    } else if (this.vertical === "bottom") {
+      dynamicStyle.bottom = `calc(${distance} + ${this.layoutData.offset}px)`;
+    } else if (this.vertical === "center") {
+      // 居中堆叠：基于 50% 偏移
+      dynamicStyle.top = `calc(50% + ${this.layoutData.offset - this.layoutData.totalHeight / 2}px)`;
+    }
+
     return (
       <div
         class={
@@ -115,7 +159,12 @@ export class SnackbarComponent {
           "--saki-snackbar-distance": this.borderDistance,
         }}
       >
-        <div class={"snackbar-wrap " + (this.vertical + this.horizontal)}>
+        <div
+          style={{
+            ...dynamicStyle,
+          }}
+          class={"snackbar-wrap " + (this.vertical + this.horizontal)}
+        >
           <div
             class={
               "snackbar-content" +
@@ -148,7 +197,7 @@ export class SnackbarComponent {
                 "fontWeight",
               ].reduce(
                 (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
-                {}
+                {},
               ),
               ...[
                 "backgroundColor",
@@ -162,7 +211,7 @@ export class SnackbarComponent {
                   this[cur]
                     ? { ...fin, ["--saki-snackbar-" + cur]: this[cur] }
                     : fin,
-                {}
+                {},
               ),
               "--saki-snackbar-padding": this.padding,
             }}
@@ -203,31 +252,6 @@ export class SnackbarComponent {
             </div>
           </div>
         </div>
-        {/* {this.messages.map((v, i) => {
-            return (
-              <saki-snackbar-message
-                left="0px"
-                top={50 * i + "px"}
-                autoHideDuration={v.autoHideDuration}
-                // onLoad={(e) => {
-                //   console.log(e);
-                // }}
-                ref={(e) => {
-                  console.log(e.offsetHeight);
-                }}
-                onClose={() => {
-                  this.messages = this.messages.filter((sv) => {
-                    return v.key !== sv.key;
-                  });
-                  this.updateTime = new Date().getTime();
-                }}
-                message={v.message + "_" + i + "_" + this.messages.length}
-              >
-                {i}
-              </saki-snackbar-message>
-            );
-          })} */}
-        {/* <saki-snackbar-message></saki-snackbar-message> */}
       </div>
     );
   }

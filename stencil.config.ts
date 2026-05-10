@@ -40,6 +40,7 @@ export const config: Config = {
     {
       type: "dist",
       esmLoaderPath: "../loader",
+      // copy: [{ src: "assets/icons", dest: "assets/icons" }],
     },
     // reactOutputTarget({
     //   componentCorePackage: 'component-library',
@@ -56,6 +57,7 @@ export const config: Config = {
     {
       type: "www",
       serviceWorker: null, // disable service workers
+      // copy: [{ src: "assets/icons", dest: "assets/icons" }],
     },
     reactOutputTarget({
       componentCorePackage: "../types/components",

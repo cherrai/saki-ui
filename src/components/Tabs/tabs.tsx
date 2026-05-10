@@ -259,7 +259,7 @@ export class TabsComponent {
               ref={(e) => {
                 if (this.navEl && !this.navElMutationObserver) {
                   this.navElMutationObserver = new MutationObserver(
-                    this.initNavRef.bind(this)
+                    this.initNavRef.bind(this),
                   );
                   this.navElMutationObserver.observe(
                     this.navEl.querySelector(".nav-list"),
@@ -267,7 +267,7 @@ export class TabsComponent {
                       attributes: false,
                       childList: true,
                       subtree: true,
-                    }
+                    },
                   );
                   return;
                 }
@@ -312,15 +312,16 @@ export class TabsComponent {
                             this.dropdownStartIndex === -1
                               ? "flex"
                               : i < this.dropdownStartIndex - 1
-                              ? "flex"
-                              : // "none"
-                              this.activeIndex >= this.dropdownStartIndex - 1
-                              ? i === this.activeIndex
                                 ? "flex"
-                                : "none"
-                              : i === this.dropdownStartIndex - 1
-                              ? "flex"
-                              : "none",
+                                : // "none"
+                                  this.activeIndex >=
+                                    this.dropdownStartIndex - 1
+                                  ? i === this.activeIndex
+                                    ? "flex"
+                                    : "none"
+                                  : i === this.dropdownStartIndex - 1
+                                    ? "flex"
+                                    : "none",
                           // this.activeIndex>this.dropdownStartIndex?
                           // this.activeIndex < this.dropdownStartIndex ? "flex" : (
                           //   "none"
@@ -338,7 +339,11 @@ export class TabsComponent {
                         data-a={this.dropdownStartIndex}
                         data-ai={this.activeIndex}
                         data-aii={i}
-                        class={"nav-item hover-background-color-eee"}
+                        class={{
+                          "nav-item": true,
+                          "hover-background-color-eee": true,
+                          // active: i === this.activeIndex,
+                        }}
                         key={i}
                       >
                         <span>{v.name}</span>

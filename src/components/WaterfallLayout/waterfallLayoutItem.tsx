@@ -89,7 +89,7 @@ export class WaterfallLayoutItemComponent {
     // console.log("media comp", width, ";", this.width, height, this.height);
     return (
       <div
-        ref={(e) => {
+        ref={() => {
           // console.log("getWH", e, e.querySelector(".im-img"), e.offsetHeight);
         }}
         style={{
@@ -99,7 +99,7 @@ export class WaterfallLayoutItemComponent {
           opacity: this.show ? "1" : "0",
           ...["margin", "padding", "borderRadius"].reduce(
             (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
-            {}
+            {},
           ),
         }}
         class={"saki-waterfall-layout-item-component "}

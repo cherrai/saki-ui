@@ -1,0 +1,50 @@
+.saki-snackbar-message-component {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transform: scale(0.9);
+  opacity: 0;
+  transition:
+    transform 0.3s,
+    opacity 0.3s;
+  .ss-left {
+    display: flex;
+    justify-content: flex-start;
+    flex: 1;
+  }
+  .ss-right {
+    display: flex;
+    justify-content: flex-end;
+    margin-left: 10px;
+    &.closeIcon {
+      width: 36px;
+    }
+    .delete-icon {
+      position: absolute;
+      right: 6px;
+      // bottom: calc(var(--saki-snackbar-padding));
+      top: 50%;
+      transform: translateY(-50%);
+      width: 30px;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: background-color 0.3s;
+      border-radius: 50%;
+      cursor: pointer;
+      &:hover {
+        background-color: #eee;
+      }
+      &:active {
+        background-color: #ccc;
+      }
+      .icon {
+        height: 18px;
+        width: 18px;
+        fill: #666;
+        cursor: pointer;
+      }
+    }
+  }
+}

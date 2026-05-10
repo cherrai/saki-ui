@@ -1,4 +1,3 @@
-import { deepCopy } from "@nyanyajs/utils/dist/common/common";
 import { Debounce } from "@nyanyajs/utils/dist/debounce";
 import {
   Component,
@@ -136,7 +135,7 @@ export class WaterfallLayoutComponent {
     });
 
     this.resizeObserver.observe(
-      this.layoutEl
+      this.layoutEl,
       // document.body.querySelector(".saki-waterfall-layout-component")
     );
   }
@@ -148,7 +147,7 @@ export class WaterfallLayoutComponent {
     }
     return 2 + Math.floor((width - 400) / 300);
   }
-  watchDomResize(b: boolean = false) {
+  watchDomResize() {
     this.list = [];
     const layoutEl = this.layoutEl;
     // const layoutEl: HTMLDivElement = this.el.querySelector(
@@ -170,10 +169,10 @@ export class WaterfallLayoutComponent {
       w,
       parseFloat(layoutEl.style.paddingLeft),
       this.layoutItemWidth,
-      this.trackSpacing
+      this.trackSpacing,
     );
     const list = this.el?.querySelectorAll(
-      "saki-waterfall-layout-item"
+      "saki-waterfall-layout-item",
     ) as NodeListOf<HTMLSakiWaterfallLayoutItemElement>;
 
     list.forEach((el) => {
@@ -271,7 +270,7 @@ export class WaterfallLayoutComponent {
         style={{
           ...["margin", "padding"].reduce(
             (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
-            {}
+            {},
           ),
         }}
         class={"saki-waterfall-layout-component " + (this.loaded ? "load" : "")}

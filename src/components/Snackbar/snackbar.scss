@@ -51,53 +51,40 @@
   }
   .snackbar-wrap {
     position: fixed;
-    top: 0;
-    left: 0;
+    // top: 0;
+    // left: 0;
     z-index: 100000;
+    transition: all 0.3s ease; // 让堆叠移动时有平滑动画
 
-    &.topcenter {
-      top: var(--saki-snackbar-distance);
+    &.topcenter,
+    &.bottomcenter {
       left: 50%;
       transform: translateX(-50%);
     }
-    &.topleft {
-      top: var(--saki-snackbar-distance);
+
+    &.topleft,
+    &.bottomleft,
+    &.centerleft {
       left: var(--saki-snackbar-distance);
     }
-    &.topright {
-      top: var(--saki-snackbar-distance);
+
+    &.topright,
+    &.bottomright,
+    &.centerright {
       right: var(--saki-snackbar-distance);
     }
+
     &.centercenter {
-      top: 50%;
       left: 50%;
+      // 注意：垂直方向 JS 给出了 top: 50% + offset，
+      // 所以 transform 只需要处理水平和自身的垂直中心修正
       transform: translate(-50%, -50%);
     }
-    &.centerleft {
-      top: 50%;
-      transform: translate(0, -50%);
-      left: var(--saki-snackbar-distance);
-    }
+
+    &.centerleft,
     &.centerright {
-      top: 50%;
-      transform: translate(0, -50%);
-      right: var(--saki-snackbar-distance);
-    }
-    &.bottomcenter {
-      top: auto;
-      bottom: var(--saki-snackbar-distance);
-      left: 50%;
-      transform: translateX(-50%);
-    }
-    &.bottomleft {
-      top: auto;
-      bottom: var(--saki-snackbar-distance);
-      left: var(--saki-snackbar-distance);
-    }
-    &.bottomright {
-      top: auto;
-      bottom: var(--saki-snackbar-distance);
-      right: var(--saki-snackbar-distance);
+      // 垂直方向同样由 JS 处理
+      transform: translateY(-50%);
     }
     .snackbar-content {
       display: flex;
@@ -105,7 +92,9 @@
       align-items: center;
       transform: scale(0.9);
       opacity: 0;
-      transition: transform 0.3s, opacity 0.3s;
+      transition:
+        transform 0.3s,
+        opacity 0.3s;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       background-color: var(--saki-snackbar-backgroundColor);
       color: var(--saki-snackbar-color);
@@ -148,56 +137,6 @@
             cursor: pointer;
           }
         }
-      }
-    }
-  }
-}
-
-// 暂时弃用
-.saki-snackbar-message-component {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transform: scale(0.9);
-  opacity: 0;
-  transition: transform 0.3s, opacity 0.3s;
-  .ss-left {
-    display: flex;
-    justify-content: flex-start;
-    flex: 1;
-  }
-  .ss-right {
-    display: flex;
-    justify-content: flex-end;
-    margin-left: 10px;
-    &.closeIcon {
-      width: 36px;
-    }
-    .delete-icon {
-      position: absolute;
-      right: 6px;
-      // bottom: calc(var(--saki-snackbar-padding));
-      top: 50%;
-      transform: translateY(-50%);
-      width: 30px;
-      height: 30px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: background-color 0.3s;
-      border-radius: 50%;
-      cursor: pointer;
-      &:hover {
-        background-color: #eee;
-      }
-      &:active {
-        background-color: #ccc;
-      }
-      .icon {
-        height: 18px;
-        width: 18px;
-        fill: #666;
-        cursor: pointer;
       }
     }
   }

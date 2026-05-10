@@ -1,4 +1,3 @@
-
 .hover-background-color-eee {
   &:hover {
     background-color: #eee;
@@ -7,6 +6,9 @@
   &:active {
     background-color: #ddd;
   }
+  // &.active {
+  //   background-color: #eee;
+  // }
   @media screen and (max-width: 414px) {
     &:hover {
       background-color: transparent;
@@ -14,5 +16,8 @@
     &:active {
       background-color: #ddd;
     }
+    // &.active {
+    //   background-color: #eee;
+    // }
   }
 }

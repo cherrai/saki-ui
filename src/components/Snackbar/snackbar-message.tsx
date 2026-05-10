@@ -13,7 +13,7 @@ import {
 // 暂时弃用
 @Component({
   tag: "saki-snackbar-message",
-  styleUrl: "snackbar.scss",
+  styleUrl: "snackbar-message.scss",
   shadow: false,
 })
 export class SnackbarMessageComponent {
@@ -52,7 +52,7 @@ export class SnackbarMessageComponent {
   componentDidLoad() {
     console.log(this.el);
     const el: HTMLElement = this.el.querySelector(
-      ".saki-snackbar-message-component"
+      ".saki-snackbar-message-component",
     );
 
     this.load.emit({
@@ -83,7 +83,7 @@ export class SnackbarMessageComponent {
           transition: "all .3s",
           ...["top", "left"].reduce(
             (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
-            {}
+            {},
           ),
           "--saki-snackbar-padding": this.padding,
         }}
