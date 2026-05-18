@@ -77,13 +77,17 @@ export class AsideModalComponent {
       this.open.emit();
       this.visibleStyle = true;
       document.body.appendChild(this.modalEl);
-      setTimeout(() => {
+
+      requestAnimationFrame(() => {
         this.isAddVisibleClass = true;
-      }, 10);
+      });
     } else {
       this.close.emit();
       this.isAddVisibleClass = false;
       this.closing = true;
+      setTimeout(() => {
+        this.visibleStyle = false;
+      }, 290);
     }
   }
   @Watch("hide")
@@ -95,9 +99,9 @@ export class AsideModalComponent {
       }, 300);
     } else {
       this.isAddHideClass = false;
-      setTimeout(() => {
+      requestAnimationFrame(() => {
         this.isAddVisibleClass = true;
-      }, 10);
+      });
     }
   }
   componentDidLoad() {
@@ -168,7 +172,7 @@ export class AsideModalComponent {
               "overflow",
             ].reduce(
               (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
-              {}
+              {},
             ),
             zIndex: String(this.zIndex),
             "--saki-aside-modal-offset-x": this.offsetX + "px",
@@ -189,7 +193,8 @@ export class AsideModalComponent {
             this.horizontal +
             this.vertical +
             " " +
-            (this.isAddVisibleClass ? "visible" : "")
+            (this.isAddVisibleClass ? "visible " : "") +
+            (this.isAddHideClass ? "hide " : "")
           }
         >
           <slot></slot>

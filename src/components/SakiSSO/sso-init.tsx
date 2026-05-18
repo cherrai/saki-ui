@@ -65,7 +65,7 @@ export class SSOInitComponent {
     // }
   }
   onMessage = (e: MessageEvent) => {
-    console.log("onMessage", e);
+    // console.log("onMessage", e);
     switch (e.data.type) {
       case "login":
         this.login.emit({

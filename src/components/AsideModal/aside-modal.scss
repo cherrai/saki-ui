@@ -1,8 +1,10 @@
 .saki-aside-modal-component {
   visibility: hidden;
+  display: none;
 
   // visibility: hidden;
   &.visibleStyle {
+    display: block;
     visibility: visible;
   }
 
@@ -137,6 +139,10 @@
     border-radius: 4px;
     overflow: hidden;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
+    &.hide {
+      display: none;
+    }
 
     &.LeftTop {
       left: -100%;

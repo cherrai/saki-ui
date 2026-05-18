@@ -35,6 +35,7 @@ export class TemplateMenuDropdownComponent {
     icon?: SakiIconComponent["type"];
     iconSize?: string;
     active?: boolean;
+    padding?: string;
     method?: "Event" | "";
   }[] = [];
 
@@ -103,7 +104,7 @@ export class TemplateMenuDropdownComponent {
                 return (
                   <saki-menu-item
                     key={i}
-                    padding="0"
+                    padding={v.padding || "0px"}
                     value={v.url}
                     active={v.active || false}
                   >
