@@ -121,7 +121,7 @@ export class DatePickerComponent {
       return;
     }
     this.days = this.getDaysOfThisMonth(
-      `${this.selectDate.getFullYear()}-${this.selectDate.getMonth() + 1}`,
+      `${this.selectDate.getFullYear()}-${String(this.selectDate.getMonth() + 1).padStart(2, "0")}`,
     );
   }
   @Watch("showTimePage")
@@ -250,8 +250,11 @@ export class DatePickerComponent {
     });
   }
   getLastDay(date: Date, lastMonth: boolean): DaysMap {
-    const nowDay = date.getDate();
     const nowYear = date.getFullYear();
+    if (!nowYear) {
+      return;
+    }
+    const nowDay = date.getDate();
     const nowMonth = date.getMonth() + 1;
     const nowWeek = date.getDay();
     // console.log(nowDay);

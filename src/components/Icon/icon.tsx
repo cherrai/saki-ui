@@ -47,6 +47,8 @@ export class SakiIconComponent {
     }
   }
   static typeData = {
+    Network: () => "",
+    Android: () => "",
     LiveChat: () => "",
     LiveChatFill: () => "",
     Stop: () => "",
