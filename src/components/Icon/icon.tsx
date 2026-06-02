@@ -47,6 +47,7 @@ export class SakiIconComponent {
     }
   }
   static typeData = {
+    Curve: () => "",
     Network: () => "",
     Android: () => "",
     LiveChat: () => "",

@@ -92,11 +92,24 @@ export class SSOLoginComponent {
   @Method()
   async setThirdPartyLoginData(params: {
     type: string;
-    user: {
-      openId: string;
-      name: string;
-      avatar: string;
-      email: string;
+    // 通用字段（谷歌和QQ都有）
+    accessToken?: string;
+    // Google 专属字段
+    idToken?: string;
+    // QQ 专属字段（通过接口 https://graph.qq.com/oauth2.0/me 获取）
+    openid?: string;
+    unionid?: string;
+    user?: {
+      id: string;
+      // 通用字段（谷歌和QQ都有）
+      name?: string;
+      avatar?: string;
+      // QQ 专属字段
+      avatarBig?: string;
+      gender?: string;
+      city?: string;
+      // Google 专属字段
+      email?: string;
     };
   }) {
     if (this.iframeEl?.contentWindow) {

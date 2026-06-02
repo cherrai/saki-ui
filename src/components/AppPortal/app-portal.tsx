@@ -212,6 +212,17 @@ export class AppPortalComponent {
           //   token: e.data.data.token,
           // });
           break;
+        case "selectFiles":
+          // this.verifyAccount.emit({
+          //   token: e.data.data.token,
+          // });
+
+          // e.data?.data
+          this.selectFiles({
+            accept: e.data?.data?.accept || "*/*",
+            multiple: e.data?.data?.multiple || false,
+          });
+          break;
 
         default:
           break;
@@ -225,6 +236,54 @@ export class AppPortalComponent {
   //     .concat(moreList)
   //     .concat(this.moreList.slice(targetIndex, this.moreList.length));
   // }
+  selectFiles({ accept, multiple }: { accept: string; multiple: boolean }) {
+    return new Promise<FileList | null>((resolve, reject) => {
+      try {
+        console.log("AppPortal",accept, multiple)
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = accept;
+        input.multiple = multiple;
+
+        input.oninput = () => {
+        console.log("AppPortal",input.files)
+          resolve(input.files);
+          this.sendMessageToIframe({
+            type: "selectFilesResult",
+            payload: {
+              files: input.files,
+            },
+          });
+        };
+        input.onblur = () => {
+          console.log("close");
+        };
+        input.onfocus = () => {
+          console.log("close");
+        };
+        input.click();
+      } catch (error) {
+        console.error(error);
+        reject(error);
+      }
+    });
+  }
+  sendMessageToIframe(params: { type: string; payload: any }) {
+    if (this.iframe?.contentWindow) {
+      const messageData = {
+        type: params.type, // 自定义的消息类型
+        payload: params.payload,
+        resource: "saki-app-portal",
+      };
+
+      // 2. 提取出子页面的真实 Origin (例如: https://aiko.club)
+      const targetOrigin = new URL(this.entryUrl).origin;
+
+      // 3. 发送消息
+      this.iframe.contentWindow.postMessage(params, targetOrigin);
+      console.log("父页面消息已发出", messageData);
+    }
+  }
   render() {
     let moreMenuItemWidth = 70;
     let moreMenuRowCount = 5;
