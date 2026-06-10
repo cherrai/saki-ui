@@ -23,7 +23,7 @@ export class TabsComponent {
   navElMutationObserver: MutationObserver;
   navElDropdown: HTMLSakiDropdownElement;
   disableUpdate = false;
-  navItemList: NodeListOf<HTMLDivElement>;
+  navItemList: NodeListOf<HTMLDivElement> | undefined;
 
   // Flex
   @State() navSubLineWidth = "";
@@ -49,7 +49,7 @@ export class TabsComponent {
   @Prop() headerItemPadding = "0px 2px";
 
   // Default
-  @Prop() headerPadding = "";
+  @Prop() headerPadding = "0 6px";
 
   @State() itemComponents: NodeListOf<HTMLSakiTabsItemElement>;
   @State() itemList: {
@@ -59,7 +59,6 @@ export class TabsComponent {
     fontSize: string;
     color: string;
     fontWeight: string;
-    borderBottom: boolean;
 
     dropdown?: boolean;
 
@@ -139,7 +138,6 @@ export class TabsComponent {
           fontSize: item.fontSize,
           color: item.color,
           fontWeight: item.fontWeight,
-          borderBottom: item.borderBottom,
           dropdown: false,
           width: 0,
         });
@@ -166,12 +164,12 @@ export class TabsComponent {
       this.navLineLeft = "60px";
       return;
     }
-    let wObj = {};
-    this.navItemList.forEach((_: HTMLDivElement, index) => {
+    let wObj: Record<number, number> = {};
+    this.navItemList?.forEach((_: HTMLDivElement, index) => {
       wObj[index] =
         index === 0
           ? 0
-          : wObj[index - 1] + this.navItemList[index - 1].offsetWidth;
+          : wObj[index - 1] + (this.navItemList?.[index - 1]?.offsetWidth || 0);
 
       // console.log(
       //   "wObj",
@@ -183,17 +181,17 @@ export class TabsComponent {
     });
     // console.log("wObj", wObj, el.querySelector("span").offsetWidth);
 
-    this.navSubLineWidth = el.querySelector("span").offsetWidth + "px";
+    this.navSubLineWidth = el?.querySelector("span")?.offsetWidth + "px";
     this.navLineWidth = el.offsetWidth + "px";
     this.navLineLeft = wObj[index] + "px";
     return;
   }
   initNavRef = () => {
     this.navItemList = this.navEl
-      .querySelector(".nav-list")
-      .querySelectorAll(".nav-item");
-    if (!this.navItemList.length) return;
-    let wObj = {};
+      ?.querySelector(".nav-list")
+      ?.querySelectorAll(".nav-item");
+    if (!this.navItemList?.length) return;
+    let wObj: Record<number, number> = {};
     this.dropdownStartIndex = -1;
     this.navItemList.forEach((v: HTMLDivElement, index) => {
       wObj[index] = (index - 1 >= 1 ? wObj[index - 1] : 0) + v.offsetWidth;
@@ -262,7 +260,7 @@ export class TabsComponent {
                     this.initNavRef.bind(this),
                   );
                   this.navElMutationObserver.observe(
-                    this.navEl.querySelector(".nav-list"),
+                    this.navEl?.querySelector(".nav-list") as any,
                     {
                       attributes: false,
                       childList: true,
@@ -271,7 +269,9 @@ export class TabsComponent {
                   );
                   return;
                 }
-                this.navEl = e;
+                if (e) {
+                  this.navEl = e;
+                }
               }}
               class={"s-nav " + (this.navMoreIcon ? "more" : "")}
             >
@@ -354,6 +354,7 @@ export class TabsComponent {
                 <div class={"nav-more"}>
                   <saki-dropdown
                     ref={(e) => {
+                      if (!e) return;
                       this.navElDropdown = e;
                     }}
                     visible={this.navMoreShowDropDown}
@@ -448,6 +449,11 @@ export class TabsComponent {
         );
 
       case "Default":
+        const paddingValues = this.headerItemPadding.split(" ");
+        const lineGap =
+          parseInt(
+            paddingValues[3] || paddingValues[1] || paddingValues[0] || "0",
+          ) || 0;
         return (
           <div
             class={"saki-tabs-component defalut " + (this.full ? "full" : "")}
@@ -455,99 +461,50 @@ export class TabsComponent {
             <div
               style={{
                 backgroundColor: this.headerBackgroundColor,
-                padding: this.headerPadding,
                 maxWidth: this.headerMaxWidth,
                 borderBottom: this.headerBorderBottom,
               }}
-              ref={(e) => {
-                this.navEl = e;
-              }}
-              class="s-nav"
+              class={"s-nav"}
             >
-              <div
-                ref={(e) => {
-                  this.navWrapEl = e;
+              <saki-tabs-nav
+                defaultValue={this.activeTabLabel}
+                showLine={true}
+                lineGap={lineGap + "px"}
+                padding={this.headerPadding}
+                gap={"4px"}
+                onTabChange={(e) => {
+                  const item = this.itemList[e.detail.index];
+                  this.tap.emit({
+                    name: item.name,
+                    label: item.label,
+                    activeIndex: e.detail.index,
+                  });
+                  this.itemComponents.forEach((subItem, subIndex) => {
+                    subItem.switchActiveFunc(e.detail.index === subIndex);
+                  });
+                  this.activeIndex = e.detail.index;
                 }}
-                class={"s-n-wrap"}
               >
                 {this.itemList.map((item, index) => {
                   return (
-                    <div
-                      ref={(e) => {
-                        if (e?.offsetWidth) {
-                          !item.width &&
-                            (this.updateTime = new Date().getTime());
-                          item.width = e.offsetWidth || 0;
-                        }
-                      }}
-                      onClick={() => {
-                        // console.log(e);
-                        this.tap.emit({
-                          name: item.name,
-                          label: item.label,
-                          activeIndex: index,
-                        });
-                        this.itemComponents.forEach((subItem, subIndex) => {
-                          subItem.switchActiveFunc(index === subIndex);
-                        });
-                        this.activeIndex = index;
-                        const tempWidth = this.itemList.reduce((a, c, i) => {
-                          if (i >= this.activeIndex) {
-                            return a;
-                          }
-                          return a + (c.width || 0);
-                        }, 0 - this.navScrollX);
-
-                        // console.log(tempWidth);
-                        // console.log(tempWidth - this.navEl.offsetWidth / 2);
-
-                        if (tempWidth / this.navEl.offsetWidth >= 0.6) {
-                          this.navScrollX =
-                            this.navScrollX +
-                            (tempWidth - this.navEl.offsetWidth / 2);
-                        }
-                        if (tempWidth / this.navEl.offsetWidth <= 0.3) {
-                          this.navScrollX =
-                            this.navScrollX - this.navEl.offsetWidth / 2;
-                        }
-                        this.navScrollX =
-                          this.navScrollX <= 0 ? 0 : this.navScrollX;
-                        // console.log(tempWidth / this.navEl.offsetWidth >= 0.6);
-                        // console.log(this.navScrollX);
-                        this.navWrapEl.scrollTo(this.navScrollX, 0);
-                        this.navScrollX = this.navWrapEl.scrollLeft;
-                        // console.log(this.navEl.offsetWidth);
-                      }}
-                      style={{
-                        color: item.color || "",
-                        fontSize: item.fontSize || "14px",
-                        fontWeight: item.fontWeight || "500",
-                        minWidth: this.headerItemMinWidth,
-                        padding: this.headerItemPadding,
-                      }}
-                      class={
-                        "nav-item hover-background-color-eee " +
-                        (item.borderBottom ? "borderBottom " : "") +
-                        (this.activeIndex === index ? "active " : "")
-                      }
-                      key={index}
-                    >
-                      <div>
+                    <saki-tabs-nav-item value={item.label}>
+                      <div
+                        style={{
+                          color: item.color || "",
+                          fontSize: item.fontSize || "14px",
+                          fontWeight: item.fontWeight || "500",
+                          minWidth: this.headerItemMinWidth,
+                          height: this.headerItemHeight,
+                          padding: this.headerItemPadding,
+                        }}
+                        class={"nav-item"}
+                      >
                         <span>{item.name}</span>
                       </div>
-                    </div>
+                    </saki-tabs-nav-item>
                   );
                 })}
-              </div>
-              {/* <div
-                style={{
-                  width: this.itemList[this.activeIndex].width + "px",
-                  left: "0px",
-                }}
-                class="nav-line"
-              >
-                <div class="line"></div>
-              </div> */}
+              </saki-tabs-nav>
             </div>
             <div class="s-main">
               <slot></slot>

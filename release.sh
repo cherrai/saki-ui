@@ -1,7 +1,7 @@
 #! /bin/bash
 name="saki-ui"
 port=32300
-version="v1.0.14"
+version="v1.0.15"
 branch="main"
 DIR=$(cd $(dirname $0) && pwd)
 allowMethods=("backup restore devBuild sh copyReactTypes buildReactTargetDir zip unzip removeBuildFile copyFile protos stop npmconfig install gitpull dockerremove start logs")
@@ -175,14 +175,11 @@ backup() {
   # unzip -d ./ build_2023-07-04_21:11:13.zip
 }
 
-
 restore() {
   mkdir -p $DIR/build
   tar -zxvf $DIR/saki_ui_build.tgz \
     -C $DIR/build
 }
-
-
 
 stop() {
   docker stop $name

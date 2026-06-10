@@ -1,0 +1,35 @@
+.saki-tabs-nav-component {
+  width: 100%;
+
+  .nav-container {
+    display: flex;
+    align-items: center;
+    gap: var(--tabs-nav-gap);
+    padding: var(--tabs-nav-padding);
+    overflow: hidden;
+    position: relative;
+
+    &.scrollable {
+      overflow-x: auto;
+      overflow-y: hidden;
+      scrollbar-width: thin;
+      scrollbar-color: #ccc transparent;
+
+      &::-webkit-scrollbar {
+        width: 0px;
+        height: 0px;
+      }
+
+      // 2. 仅对 Firefox 生效的独立沙箱
+      @supports (scrollbar-width: none) {
+        scrollbar-width: none;
+      }
+    }
+  }
+
+  .nav-line {
+    position: absolute;
+    bottom: 0px;
+    transition: all 0.3s ease;
+  }
+}

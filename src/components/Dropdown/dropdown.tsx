@@ -496,7 +496,7 @@ export class DropdownComponent {
               }
             }}
             class={
-              "main-content scrollBarDefault saki-images-lazyload " +
+              "main-content scrollBarHover saki-images-lazyload " +
               (this.positionAnimation ? "positionAnimation" : "")
             }
           >
