@@ -27,7 +27,7 @@ export class SakiTabsNavComponent {
   @Prop() lineColor: string = "var(--saki-default-color)";
   @Prop() lineHeight: string = "4px";
   @Prop() lineWidth: string = "";
-  @Prop() lineGap: string = "0px";  // 线条与item的间距，宽度减少 gap*2，left 增加 gap
+  @Prop() lineGap: string = "0px"; // 线条与item的间距，宽度减少 gap*2，left 增加 gap
   @Prop() lineRadius: string = "2px";
   @Prop() gap: string = "8px";
   @Prop() padding: string = "0 12px 12px";
@@ -156,7 +156,8 @@ export class SakiTabsNavComponent {
 
     // 加上 lineGap（线条宽度减少，两侧各偏移 gap）
     leftOffset += lineGapValue;
-    const lineWidth = this.lineWidth || `${activeEl.offsetWidth - lineGapValue * 2}px`;
+    const lineWidth =
+      this.lineWidth || `${activeEl.offsetWidth - lineGapValue * 2}px`;
     const lineLeft = `${leftOffset}px`;
 
     this.lineStyle = { width: lineWidth, left: lineLeft };
@@ -170,10 +171,29 @@ export class SakiTabsNavComponent {
     );
     if (!activeEl) return;
 
-    activeEl.scrollIntoView({
+    // 获取滚动容器（父盒子）
+    const scrollContainer = this.navContainer; // 或者 this.navContainer.querySelector('.nav-list')
+    if (!scrollContainer) return;
+
+    // 获取 activeEl 的 DOM 元素
+    const activeDom = activeEl || activeEl;
+
+    // 计算滚动位置
+    const containerRect = scrollContainer.getBoundingClientRect();
+    const activeRect = activeDom.getBoundingClientRect();
+
+    // 计算需要滚动的距离（让 active 居中）
+    const scrollOffset =
+      activeRect.left -
+      containerRect.left +
+      scrollContainer.scrollLeft -
+      containerRect.width / 2 +
+      activeRect.width / 2;
+
+    // 只滚动父盒子
+    scrollContainer.scrollTo({
+      left: scrollOffset,
       behavior: "smooth",
-      block: "nearest",
-      inline: "center",
     });
   }
 
@@ -196,7 +216,9 @@ export class SakiTabsNavComponent {
               this.navContainer = e as HTMLElement;
             }
           }}
-          class={"nav-container" + (this.isScrollable ? " scrollable " : "")}
+          class={
+            "nav-container" + (this.isScrollable || true ? " scrollable " : "")
+          }
           style={{
             "--tabs-nav-gap": this.gap,
             "--tabs-nav-padding": this.padding,

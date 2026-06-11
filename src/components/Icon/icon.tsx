@@ -47,6 +47,10 @@ export class SakiIconComponent {
     }
   }
   static typeData = {
+    WaterFill: () => "",
+    Water: () => "",
+    ElectricFill: () => "",
+    Electric: () => "",
     Curve: () => "",
     Network: () => "",
     Android: () => "",

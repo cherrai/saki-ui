@@ -11,16 +11,17 @@ import {
 
 // import { prefix } from "../../../stencil.config";
 // console.log(prefix + "-tabs");
-// import { Debounce } from "@nyanyajs/utils";
+import { Debounce } from "@nyanyajs/utils/dist/debounce";
 @Component({
   tag: "saki-tabs",
   styleUrl: "tabs.scss",
   shadow: true,
 })
 export class TabsComponent {
-  // debounce = new Debounce();
+  debounce = new Debounce();
   timer: NodeJS.Timeout;
-  navElMutationObserver: MutationObserver;
+  mutationObserver?: MutationObserver;
+  navElMutationObserver?: ResizeObserver;
   navElDropdown: HTMLSakiDropdownElement;
   disableUpdate = false;
   navItemList: NodeListOf<HTMLDivElement> | undefined;
@@ -103,20 +104,44 @@ export class TabsComponent {
         }
       });
   }
-  componentWillLoad() {
+  handleResize = () => {
+    // this.initNavRef();
+    this.getLineStyle(this.activeIndex);
+  };
+  componentDidLoad() {
     this.init();
-    new MutationObserver(this.init.bind(this)).observe(this.el, {
+    this.initNavRef();
+    this.mutationObserver = new MutationObserver(this.init.bind(this));
+
+    this.mutationObserver.observe(this.el, {
       attributes: false,
       childList: true,
       subtree: false,
     });
-    window.addEventListener("resize", () => {
-      this.getLineStyle(this.activeIndex);
-    });
+    window.addEventListener("resize", this.handleResize.bind(this));
+
+    this.navElMutationObserver?.disconnect();
+    this.navElMutationObserver = undefined;
   }
+  disconnectedCallback() {
+    // 2. 解绑 ResizeObserver
+    if (this.mutationObserver) {
+      this.mutationObserver.disconnect();
+      this.mutationObserver = undefined;
+    }
+    if (this.navElMutationObserver) {
+      this.navElMutationObserver.disconnect();
+      this.navElMutationObserver = undefined;
+    }
+
+    // 3. 解绑 window 事件
+    window.removeEventListener("resize", this.handleResize.bind(this));
+  }
+
   init() {
     clearTimeout(this.timer);
     this.timer = setTimeout(() => {
+      // console.log("initNavRef init");
       clearTimeout(this.timer);
       this.itemComponents = this.el.querySelectorAll("saki-tabs-item");
       this.itemList = [];
@@ -153,8 +178,14 @@ export class TabsComponent {
     }, 10);
   }
   getLineStyle(index: number) {
-    // console.log(this.navItemList);
-    // console.log(index, this.itemList);
+    let tempIndex = 0;
+    this.itemList.some((v, i) => {
+      if (!v.dropdown) {
+        tempIndex = i;
+      }
+      return v.dropdown;
+    });
+    console.log("getLineStyle", index, tempIndex);
     const el = this.navItemList?.[index];
     // console.log(el, el?.offsetWidth, this.itemList);
     // console.log(this.activeIndex);
@@ -183,64 +214,68 @@ export class TabsComponent {
 
     this.navSubLineWidth = el?.querySelector("span")?.offsetWidth + "px";
     this.navLineWidth = el.offsetWidth + "px";
-    this.navLineLeft = wObj[index] + "px";
+    this.navLineLeft = wObj[tempIndex < index ? tempIndex : index] + "px";
     return;
   }
   initNavRef = () => {
-    this.navItemList = this.navEl
-      ?.querySelector(".nav-list")
-      ?.querySelectorAll(".nav-item");
-    if (!this.navItemList?.length) return;
-    let wObj: Record<number, number> = {};
-    this.dropdownStartIndex = -1;
-    this.navItemList.forEach((v: HTMLDivElement, index) => {
-      wObj[index] = (index - 1 >= 1 ? wObj[index - 1] : 0) + v.offsetWidth;
-      this.itemList[index] = {
-        ...this.itemList[index],
-        width: v.offsetWidth,
-        dropdown:
-          wObj[index] - this.navEl.offsetWidth >=
-          this.moreContentWidthDifference,
-        left: wObj[index],
-      };
+    this.debounce.increase(() => {
+      // console.log("initNavRef", this.navEl, this.itemList, this.type);
 
-      // console.log(
-      //   "initNavRef",
-      //   wObj[index],
-      //   v.offsetWidth,
-      //   this.navEl.offsetWidth,
-      //   this.itemList[index]
-      // );
-
-      // console.log(this.itemList[index].dropdown)
-
-      if (!this.disableMoreButton) {
-        if (this.itemList[index].dropdown) {
-          // v.style.display = "none";
-          this.navMoreIcon = true;
-
-          this.dropdownStartIndex === -1 && (this.dropdownStartIndex = index);
-        } else {
-          // v.style.display = "flex";
-          this.navMoreIcon = false;
-        }
-      }
-    });
-    // console.log(" this.itemList", this.itemList);
-    if (!this.navMoreIcon) {
+      this.navItemList = this.navEl
+        ?.querySelector(".nav-list")
+        ?.querySelectorAll(".nav-item");
+      if (!this.navItemList?.length) return;
+      let wObj: Record<number, number> = {};
       this.dropdownStartIndex = -1;
-    }
-    this.getLineStyle.call(this, this.activeIndex);
-    this.navMoreIcon &&
-      setTimeout(() => {
-        this.getLineStyle.call(this, this.activeIndex);
-      }, 500);
+      this.navItemList.forEach((v: HTMLDivElement, index) => {
+        wObj[index] = (index - 1 >= 1 ? wObj[index - 1] : 0) + v.offsetWidth;
+        this.itemList[index] = {
+          ...this.itemList[index],
+          width: v.offsetWidth,
+          dropdown:
+            wObj[index] - this.navEl.offsetWidth >=
+            this.moreContentWidthDifference,
+          left: wObj[index],
+        };
 
-    // this.tap.emit({
-    //   name: this.itemList[this.activeIndex].name,
-    //   label: this.itemList[this.activeIndex].label,
-    //   activeIndex: this.activeIndex,
-    // });
+        // console.log(
+        //   "initNavRef",
+        //   wObj[index],
+        //   v.offsetWidth,
+        //   this.navEl.offsetWidth,
+        //   this.itemList[index],
+        // );
+
+        // console.log(this.itemList[index].dropdown)
+
+        if (!this.disableMoreButton) {
+          if (this.itemList[index].dropdown) {
+            // v.style.display = "none";
+            this.navMoreIcon = true;
+
+            this.dropdownStartIndex === -1 && (this.dropdownStartIndex = index);
+          } else {
+            // v.style.display = "flex";
+            this.navMoreIcon = false;
+          }
+        }
+      });
+      // console.log(" this.itemList", this.itemList);
+      if (!this.navMoreIcon) {
+        this.dropdownStartIndex = -1;
+      }
+      this.getLineStyle.call(this, this.activeIndex);
+      this.navMoreIcon &&
+        setTimeout(() => {
+          this.getLineStyle.call(this, this.activeIndex);
+        }, 500);
+
+      // this.tap.emit({
+      //   name: this.itemList[this.activeIndex].name,
+      //   label: this.itemList[this.activeIndex].label,
+      //   activeIndex: this.activeIndex,
+      // });
+    }, 700);
   };
   render() {
     switch (this.type) {
@@ -255,23 +290,9 @@ export class TabsComponent {
                 // padding: this.headerPadding,
               }}
               ref={(e) => {
-                if (this.navEl && !this.navElMutationObserver) {
-                  this.navElMutationObserver = new MutationObserver(
-                    this.initNavRef.bind(this),
-                  );
-                  this.navElMutationObserver.observe(
-                    this.navEl?.querySelector(".nav-list") as any,
-                    {
-                      attributes: false,
-                      childList: true,
-                      subtree: true,
-                    },
-                  );
-                  return;
-                }
-                if (e) {
-                  this.navEl = e;
-                }
+                if (!e) return;
+
+                this.navEl = e;
               }}
               class={"s-nav " + (this.navMoreIcon ? "more" : "")}
             >
@@ -282,7 +303,17 @@ export class TabsComponent {
                 }}
                 class={"nav-wrap"}
               >
-                <div class={"nav-list"}>
+                <div
+                  ref={(e) => {
+                    if (e && this.navEl && !this.navElMutationObserver) {
+                      this.navElMutationObserver = new ResizeObserver(
+                        this.initNavRef.bind(this),
+                      );
+                      this.navElMutationObserver.observe(e as any);
+                    }
+                  }}
+                  class={"nav-list"}
+                >
                   {this.itemList.map((v, i) => {
                     return (
                       <div
@@ -308,20 +339,6 @@ export class TabsComponent {
                           fontSize: v.fontSize || "14px",
                           fontWeight: v.fontWeight || "500",
                           color: v.color || "",
-                          display:
-                            this.dropdownStartIndex === -1
-                              ? "flex"
-                              : i < this.dropdownStartIndex - 1
-                                ? "flex"
-                                : // "none"
-                                  this.activeIndex >=
-                                    this.dropdownStartIndex - 1
-                                  ? i === this.activeIndex
-                                    ? "flex"
-                                    : "none"
-                                  : i === this.dropdownStartIndex - 1
-                                    ? "flex"
-                                    : "none",
                           // this.activeIndex>this.dropdownStartIndex?
                           // this.activeIndex < this.dropdownStartIndex ? "flex" : (
                           //   "none"
@@ -342,6 +359,25 @@ export class TabsComponent {
                         class={{
                           "nav-item": true,
                           "hover-background-color-eee": true,
+
+                          dpActive: this.activeIndex === i,
+
+                          flex:
+                            this.dropdownStartIndex === -1
+                              ? true
+                              : i < this.dropdownStartIndex - 1
+                                ? true
+                                : this.activeIndex >=
+                                    this.dropdownStartIndex - 1
+                                  ? i === this.activeIndex
+                                  : i === this.dropdownStartIndex - 1,
+                          none: !(this.dropdownStartIndex === -1
+                            ? true
+                            : i < this.dropdownStartIndex - 1
+                              ? true
+                              : this.activeIndex >= this.dropdownStartIndex - 1
+                                ? i === this.activeIndex
+                                : i === this.dropdownStartIndex - 1),
                           // active: i === this.activeIndex,
                         }}
                         key={i}
