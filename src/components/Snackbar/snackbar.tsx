@@ -38,7 +38,7 @@ export class SnackbarComponent {
   @Prop() allowContentClick: boolean = false;
   @Prop() autoHideDuration: number = 0;
   @Prop() message: string = "";
-  @Prop() borderDistance: string = "10px";
+  @Prop() borderDistance: string = "20px";
   @Prop() borderRadius: string = "6px";
   @Prop() backgroundColor: string = "#fff";
   @Prop() backgroundHoverColor: string = "";
@@ -92,15 +92,15 @@ export class SnackbarComponent {
       }
       requestAnimationFrame(() => {
         const rect = this.el.shadowRoot
-          .querySelector(".snackbar-wrap")
-          .getBoundingClientRect();
+          ?.querySelector(".snackbar-wrap")
+          ?.getBoundingClientRect();
 
         // console.log("ssss rect.height", rect.height);
         snackbarManager.register({
           id: this.id,
           vertical: this.vertical,
           horizontal: this.horizontal,
-          height: rect.height,
+          height: rect?.height || 0,
         });
       });
     } else {
@@ -146,6 +146,8 @@ export class SnackbarComponent {
       // 居中堆叠：基于 50% 偏移
       dynamicStyle.top = `calc(50% + ${this.layoutData.offset - this.layoutData.totalHeight / 2}px)`;
     }
+
+    const thisAny = this as any;
 
     return (
       <div
@@ -196,7 +198,8 @@ export class SnackbarComponent {
                 "color",
                 "fontWeight",
               ].reduce(
-                (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
+                (fin, cur) =>
+                  thisAny[cur] ? { ...fin, [cur]: thisAny[cur] } : fin,
                 {},
               ),
               ...[
@@ -208,8 +211,8 @@ export class SnackbarComponent {
                 "activeColor",
               ].reduce(
                 (fin, cur) =>
-                  this[cur]
-                    ? { ...fin, ["--saki-snackbar-" + cur]: this[cur] }
+                  thisAny[cur]
+                    ? { ...fin, ["--saki-snackbar-" + cur]: thisAny[cur] }
                     : fin,
                 {},
               ),

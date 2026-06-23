@@ -94,6 +94,11 @@ start() {
     --network host \
     -f Dockerfile.multi
 
+  # 检查构建是否成功
+  if [ $? -ne 0 ]; then
+    echo "❌ Docker build 失败，停止执行"
+    exit 1
+  fi
   rm $DIR/.npmrc
   rm $DIR/.yarnrc
 
