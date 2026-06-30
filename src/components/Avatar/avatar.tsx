@@ -95,6 +95,7 @@ export class AvatarComponent {
     }
   }
   render() {
+    const thisAny = this as any;
     return (
       <div
         style={{
@@ -105,8 +106,9 @@ export class AvatarComponent {
             "borderRadius",
             "boxShadow",
           ].reduce(
-            (fin, cur) => (this[cur] ? { ...fin, [cur]: this[cur] } : fin),
-            {}
+            (fin, cur) =>
+              thisAny[cur] ? { ...fin, [cur]: thisAny[cur] } : fin,
+            {},
           ),
           "--saki-avatar-width": this.width,
           "--saki-avatar-height": this.height,
@@ -211,6 +213,7 @@ export class AvatarComponent {
           >
             <saki-avatar-edit
               ref={(e) => {
+                if (!e) return;
                 this.cropEl = e;
               }}
               width={this.cropContainerWidth}

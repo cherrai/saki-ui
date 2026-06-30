@@ -1,6 +1,9 @@
 .scrollBarDefault {
-  // 1. 核心业务与 Chrome 独享样式
-  overflow: overlay !important;
+  // 1. 跨浏览器稳定的滚动样式
+  //    overflow: overlay 已在 Chromium 114+ 废弃；改用 auto，
+  //    并用 scrollbar-gutter: stable 保证滚动条不挤占内容宽度。
+  overflow: auto !important;
+  scrollbar-gutter: stable;
   &::-webkit-scrollbar {
     width: 8px;
     height: 4px;
@@ -34,8 +37,9 @@
 }
 
 .scrollBarHover {
-  // 1. 核心业务与 Chrome 独享样式
-  overflow: overlay !important;
+  // 1. 跨浏览器稳定的滚动样式（同上）
+  overflow: auto !important;
+  scrollbar-gutter: stable;
   &:hover {
     &::-webkit-scrollbar-thumb {
       background-color: rgba(204, 204, 204, 0.4);
@@ -80,8 +84,9 @@
 }
 
 .scrollBarAuto {
-  // 1. 核心业务与 Chrome 独享样式
-  overflow: overlay;
+  // 1. 跨浏览器稳定的滚动样式（同上）
+  overflow: auto;
+  scrollbar-gutter: stable;
   &:hover {
     &::-webkit-scrollbar-thumb {
       background-color: #afafb06e;

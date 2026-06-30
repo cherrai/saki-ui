@@ -21,6 +21,7 @@ export class DialogProgressBarComponent {
   // ms
   @Prop() delay: number = 500;
   @Prop() tipText: string = "";
+  @Prop() tipFontSize: string = "16px";
   @Prop() tipColor: string = "";
   @State() visible: boolean = false;
   @Event({
@@ -70,6 +71,7 @@ export class DialogProgressBarComponent {
           <div
             style={{
               color: this.tipColor,
+              fontSize: this.tipFontSize,
             }}
             class={"dpb-tip"}
           >

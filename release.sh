@@ -1,7 +1,7 @@
 #! /bin/bash
 name="saki-ui"
 port=32300
-version="v1.0.15"
+version="v1.0.16"
 branch="main"
 DIR=$(cd $(dirname $0) && pwd)
 allowMethods=("backup restore devBuild sh copyReactTypes buildReactTargetDir zip unzip removeBuildFile copyFile protos stop npmconfig install gitpull dockerremove start logs")
@@ -123,6 +123,7 @@ start() {
   mkdir -p $DIR/build/packages
   mv $DIR/build/saki-ui.tgz $DIR/build/packages/$name-$version.tgz
   mv $DIR/build/saki-ui-react.tgz $DIR/build/packages/$name-react-$version.tgz
+  # mv $DIR/build/saki-ui-custom-elements.tgz $DIR/build/packages/$name-custom-elements-$version.tgz
 
   rm -rf $DIR/build/packages/$version
   mkdir -p $DIR/build/packages/$version
@@ -152,7 +153,8 @@ unzip() {
 }
 
 zip() {
-  # tar cvzf ./build.tgz -C ./ build
+  # tar cvzf ./build.tgz -C ./ build、
+  # -C ./ build/packages/saki-ui-custom-elements-$version.tgz \
   tar cvzf ./build.tgz \
     -C ./ build/packages/$version \
     -C ./ build/packages/saki-ui-$version.tgz \

@@ -50,6 +50,7 @@ export const config: Config = {
     { type: "dist-hydrate-script" },
     {
       type: "dist-custom-elements-bundle",
+      externalRuntime: false,
     },
     {
       type: "docs-readme",

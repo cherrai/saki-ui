@@ -35,11 +35,14 @@ RUN \
   mkdir -p /saki-ui-react && \
   cp -r /dist/react/ /saki-ui-react/components/ && \
   cp -r /dist/types/ /saki-ui-react/types/ && \
+  cp -r /dist/custom-elements/ /saki-ui-custom-elements/ && \
   tar cpvzf /dist/saki-ui.tgz /saki-ui/ && \
   tar cpvzf /dist/saki-ui-react.tgz /saki-ui-react && \
+  tar cpvzf /dist/saki-ui-custom-elements.tgz /saki-ui-custom-elements && \
   # yarn global add spa-http-server --registry https://registry.npmmirror.com/ && \
   rm -rf /saki-ui && \
-  rm -rf /saki-ui-react
+  rm -rf /saki-ui-react && \
+  rm -rf /saki-ui-custom-elements
 
 EXPOSE 32300
 

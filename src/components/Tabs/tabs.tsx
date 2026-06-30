@@ -521,7 +521,7 @@ export class TabsComponent {
                   this.activeIndex = e.detail.index;
                 }}
               >
-                {this.itemList.map((item, index) => {
+                {this.itemList.map((item) => {
                   return (
                     <saki-tabs-nav-item value={item.label}>
                       <div

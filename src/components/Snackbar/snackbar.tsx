@@ -48,7 +48,7 @@ export class SnackbarComponent {
   @Prop() activeColor: string = "";
   @Prop() fontWeight: string = "";
   @Prop() padding: string = "10px";
-  @Prop() fontSize: string = "";
+  @Prop() fontSize: string = "16px";
   @Prop() height: string = "";
   @Prop() maxHeight: string = "";
   @Prop() minHeight: string = "";

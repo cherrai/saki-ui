@@ -115,7 +115,7 @@ export class SakiTabsNavComponent {
   updateActiveState() {
     if (!this.itemComponents?.length) return;
 
-    this.itemComponents.forEach((item, index) => {
+    this.itemComponents.forEach((item) => {
       const isActive = item.value === this.defaultValue;
       item.setActive(isActive);
     });

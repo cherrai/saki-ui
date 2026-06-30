@@ -70,7 +70,7 @@ export class DialogAlertComponent {
             <saki-modal-header
               closeIcon={false}
               height="40px"
-              fontSize="16px"
+              fontSize="18px"
               right-width="56px"
               titleAvatar={this.titleAvatar}
               titleAvatarText={this.titleAvatarText}
@@ -81,7 +81,7 @@ export class DialogAlertComponent {
           )}
           {this.content ? (
             <saki-modal-content
-              font-size="14px"
+              font-size="16px"
               margin="0px 10px 10px 10px"
               text-align="center"
               content={this.content}
@@ -95,8 +95,9 @@ export class DialogAlertComponent {
                 <saki-button
                   margin="0 4px"
                   width={this.flexButton ? "auto" : "auto"}
-                  height="30px"
-                  font-size="13px"
+                  height="40px"
+                  font-size="14px"
+                  padding="6px 12px"
                   border="1px solid #eee"
                   onTap={() => {
                     this.visible = false;
@@ -114,8 +115,9 @@ export class DialogAlertComponent {
                 <saki-button
                   margin="0 4px"
                   width={this.flexButton ? "auto" : "auto"}
-                  height="30px"
-                  font-size="13px"
+                  height="40px"
+                  font-size="14px"
+                  padding="6px 12px"
                   onTap={() => {
                     this.visible = false;
                     this.closeFunc.emit();

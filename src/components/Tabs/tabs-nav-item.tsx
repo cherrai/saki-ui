@@ -12,11 +12,11 @@ export class SakiTabsNavItemComponent {
   @Prop() badge: boolean = false;
   @Prop() badgeContent = "!";
 
-  private isActive = false;
+  // private isActive = false;
 
   @Method()
   setActive(active: boolean) {
-    this.isActive = active;
+    // this.isActive = active;
     this.el.classList.toggle("active", active);
   }
 

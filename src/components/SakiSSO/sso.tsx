@@ -8,7 +8,6 @@ import {
   Listen,
   Method,
   Prop,
-  State,
 } from "@stencil/core";
 import { Query } from "../../modules/methods";
 
@@ -136,7 +135,9 @@ export class SSOLoginComponent {
       >
         <iframe
           ref={(e) => {
-            this.iframeEl = e;
+            if (e) {
+              this.iframeEl = e;
+            }
           }}
           src={Query(this.url, {
             appId: this.appId,
