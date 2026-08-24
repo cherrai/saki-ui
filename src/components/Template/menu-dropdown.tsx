@@ -84,7 +84,7 @@ export class TemplateMenuDropdownComponent {
               ) : (
                 ""
               )}
-              <span class="logo-text">{this.appText}</span>
+              <span class="logo-text text-two-elipsis">{this.appText}</span>
 
               <div
                 class={"icon " + (this.openMenuDropDownMenu ? "active" : "")}
