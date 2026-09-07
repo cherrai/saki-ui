@@ -352,7 +352,7 @@ export class DatePickerComponent {
         floating-direction="Left"
         z-index={this.zIndex}
         // mask={this.mask}
-        bodyClosable={true}
+        bodyClosable={false}
       >
         <div class={"saki-date-picker-core"}>
           <slot></slot>

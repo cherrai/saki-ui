@@ -119,7 +119,15 @@ export class InputComponent {
   @Watch("focus")
   watchFocusFunc() {
     if (this.type === "Number") {
-      this.value = this.value.replace(/\D/g, "");
+      this.value = this.value
+    // 1. 只保留数字、小数点、负号
+    .replace(/[^0-9.-]/g, '')
+    // 2. 只允许第一个负号（如果在开头）
+    .replace(/(?!^-)-/g, '')
+    // 3. 只允许一个小数点（第一个保留）
+    .replace(/(\..*?)\./g, '$1')
+    // 4. 如果负号后面紧跟着小数点，自动补0（如 "-.5" → "-0.5"）
+    .replace(/^-\./, '-0.');
 
       this.max &&
         Number(this.value) > this.max &&
