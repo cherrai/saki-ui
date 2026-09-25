@@ -352,7 +352,7 @@ export class DatePickerComponent {
         floating-direction="Left"
         z-index={this.zIndex}
         // mask={this.mask}
-        bodyClosable={false}
+        bodyClosable={true}
       >
         <div class={"saki-date-picker-core"}>
           <slot></slot>
@@ -655,7 +655,8 @@ export class DatePickerComponent {
               {this.cancelButton || showTodayButton ? (
                 <div class={"dp-buttons"}>
                   <div class={"dp-b-left"}>
-                    <div class={"dp-today " + (showTodayButton ? "show " : "")}>
+                    {
+                      showTodayButton?<div class={"dp-today " + (showTodayButton ? "show " : "")}>
                       <saki-button
                         onTap={() => {
                           this.selectDate = new Date();
@@ -669,7 +670,9 @@ export class DatePickerComponent {
                       >
                         今日
                       </saki-button>
-                    </div>
+                    </div>:""
+                    }
+                    
                   </div>
                   <div class={"dp-b-right"}>
                     {this.cancelButton ? (
@@ -690,6 +693,19 @@ export class DatePickerComponent {
                     ) : (
                       ""
                     )}
+                    <div class={"dp-close show"}>
+                      <saki-button
+                        onTap={() => {this.close.emit()
+                          this.visible = false
+                        }}
+                        border="none"
+                        width="36px"
+                        height="36px"
+                        type="CircleIconGrayHover"
+                      >
+                        <saki-icon color="#666" type="Close"></saki-icon>
+                      </saki-button>
+                    </div>
                   </div>
                 </div>
               ) : (

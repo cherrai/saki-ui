@@ -16,7 +16,7 @@ import {
 })
 export class ButtonComponent {
   tapTime = 0;
-  @Prop() type: "Normal" | "Primary" | "CircleIconGrayHover" = "Normal";
+  @Prop() type: "Normal" | "Primary" | "CircleIconGrayHover" | "ExpandableIcon" = "Normal";
   @Prop({ mutable: true }) bgHoverColor: string = "";
   @Prop({ mutable: true }) bgActiveColor: string = "";
   @Prop({ mutable: true }) bgColor: string = "#fff";
@@ -38,6 +38,8 @@ export class ButtonComponent {
   // @Prop({ mutable: true }) activeColor: string = "";
   @Prop({ mutable: true }) disabled: boolean = false;
   @Prop({ mutable: true }) loading: boolean = false;
+  @Prop() expanded: boolean = false;
+  @Prop() expandWidth: string = "36px";
   @Prop({ mutable: true }) loadingColor: string = "";
   @Prop({ mutable: true }) loadingWidth: string = "24px";
   @Prop({ mutable: true }) bindKeys: string[] = [];
@@ -147,6 +149,18 @@ export class ButtonComponent {
         }
         break;
 
+      case "ExpandableIcon":
+        this.setPramas("border", "none");
+        this.setPramas("fontSize", "13px");
+        this.setPramas("borderRadius", "18px");
+        this.setPramas("height", "36px");
+        this.setPramas("padding", "0 10px");
+        this.setPramas("color", "var(--saki-default-color)");
+        this.setPramas("bgColor", "transparent");
+        this.setPramas("bgHoverColor", "rgba(0,0,0,0.04)");
+        this.setPramas("bgActiveColor", "rgba(0,0,0,0.08)");
+        break;
+
       default:
         break;
     }
@@ -238,6 +252,13 @@ export class ButtonComponent {
         onTouchStart={() => {
           this.longTap();
         }}
+        class={
+          "saki-button-component " +
+          this.type +
+          (this.loading ? " loading" : " ") +
+          (this.disabled ? " disabled" : "") +
+          (this.expanded ? " expanded" : "")
+        }
         style={{
           ...[
             "border",
@@ -263,19 +284,8 @@ export class ButtonComponent {
           "--button-color": this.color,
           "--button-loading-color": this.loadingColor || "#3874fb",
           "--button-loading-width": this.loadingWidth,
-
-          // "--button-bg-color": this.bgActiveColor this.getBgColor("bg"),
-          // "--button-bg-hover-color":  this.getBgColor("bg-hover"),
-          // "--button-bg-active-color": this.getBgColor("bg-active"),
-          // 'background-color': ,
-          // 'border':
+          "--expand-width": this.expandWidth,
         }}
-        class={
-          "saki-button-component " +
-          this.type +
-          (this.loading ? " loading" : " ") +
-          (this.disabled ? " disabled" : "")
-        }
       >
         <div
           style={{
@@ -287,6 +297,7 @@ export class ButtonComponent {
           class="button-content"
         >
           <slot></slot>
+            <slot name="label"></slot>
         </div>
         <div class={"button-loading "}></div>
         {/* <div class="button-loading"></div> */}

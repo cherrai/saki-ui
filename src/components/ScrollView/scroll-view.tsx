@@ -595,8 +595,11 @@ export class ScrollViewComponent {
         class={
           "saki-scroll-view-component " +
           this.mode +
-          " scrollBar" +
-          this.scrollBar
+          (
+            this.mode !== "Inherit" ? " scrollBar" +
+          this.scrollBar:""
+          )
+         
         }
       >
         {this.mode === "Inherit" ? (

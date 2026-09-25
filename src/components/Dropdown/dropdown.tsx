@@ -60,6 +60,10 @@ export class DropdownComponent {
   mainEl: HTMLDivElement;
   coreEl: HTMLDivElement;
   @State() closing: boolean = false;
+  // 记录本次打开的时刻，用于“外部点击关闭”的冷却：忽略导致本次打开的那一下点击
+  private openedAt: number = 0;
+  // 打开淡入动画句柄：用 fill:'forwards' 桥接到 .visible 提交，关闭时需 cancel 以免其末帧常驻覆盖
+  private openAnim?: Animation;
 
   @Event() tap: EventEmitter;
   @Event() open: EventEmitter;
@@ -86,6 +90,8 @@ export class DropdownComponent {
   watchVisibleFunc() {
     // console.log("dropdown watch bodyClosable", this, this.mainEl, this.visible);
     if (this.visible) {
+      // 每次打开刷新时刻：bodyClientEvent 据此对紧随其后的“打开点击”做冷却忽略
+      this.openedAt = Date.now();
       // console.log(this.mask);
       if (!this.mask) {
         this.bodyPosition = document.body.style.position;
@@ -113,20 +119,23 @@ export class DropdownComponent {
             [
               {
                 opacity: "0",
-                transform: ` translate(${
+                transform: `scale(0.9) translate(${
                   this.horizontal === "Left" ? "10px" : "-10px"
                 },${this.vertical === "Top" ? "-10px" : "10px"})`,
               },
               {
                 opacity: "1",
-                transform: "translate(0,0)",
+                transform: "scale(1) translate(0,0)",
               },
             ],
             {
               duration: 100,
               iterations: 1,
+              // 保持末帧，桥接到 onfinish 后 .visible 类异步提交；避免动画结束瞬间回落基础态 opacity:0 造成「一闪」
+              fill: "forwards",
             },
           );
+          this.openAnim = animate;
           animate.onfinish = () => {
             this.isAddVisibleClass = true;
 
@@ -155,6 +164,9 @@ export class DropdownComponent {
       }
       // console.log("this.close");
       // this.close1.emit();
+      // 取消打开动画的 fill:forwards 末帧，否则它会常驻覆盖、导致关闭后 opacity 又被钉在 1
+      this.openAnim?.cancel();
+      this.openAnim = undefined;
       this.isAddVisibleClass = false;
       // this.left = -9999;
       // this.top = -9999;
@@ -391,6 +403,10 @@ export class DropdownComponent {
   }
   bodyClientEvent(e: MouseEvent) {
     console.log("bodyClosable ", this, e.target);
+    // 冷却窗口：打开走 focus(mousedown)、关闭走全局 click，同一手势的 click 可能晚于
+    // handler 注册(动画 onfinish ≈110ms)才到达（触摸端尤其明显），会被误判为“点外部”而秒关。
+    // 打开后 500ms 内忽略外部点击，只放行随后的、真正的另一次点击。
+    if (Date.now() - this.openedAt < 500) return;
     this.getParentEl.call(this, e.target);
   }
   getParentEl(el: HTMLElement) {

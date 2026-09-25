@@ -194,6 +194,47 @@
     border-radius: 6px;
   }
 
+  // ===================== ExpandableIcon 类型 =====================
+  &.ExpandableIcon {
+    min-width: var(--expand-width, 36px);
+    width: fit-content;
+    overflow: hidden;
+    transition: background-color 0.2s;
+    border-radius: 18px;
+
+    // 用 grid 0fr→1fr 实现自适应宽度动画
+    .button-content {
+      display: grid;
+      grid-template-columns: auto 0fr;
+      align-items: center;
+      column-gap: 0;
+      transition: grid-template-columns 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                  column-gap 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    // label slot 默认收起
+    ::slotted([slot="label"]) {
+      overflow: hidden;
+      min-width: 0;
+      opacity: 0;
+      white-space: nowrap;
+      transition: opacity 0.2s 0.05s;
+    }
+
+    // hover / expanded 展开
+    &:hover,
+    &.expanded {
+      .button-content {
+        grid-template-columns: auto 1fr;
+        column-gap: 6px;
+      }
+
+      ::slotted([slot="label"]) {
+        opacity: 1;
+      }
+    }
+  }
+
   display: flex;
   justify-content: center;
   align-items: center;
