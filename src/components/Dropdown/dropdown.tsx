@@ -402,12 +402,18 @@ export class DropdownComponent {
     }, 300);
   }
   bodyClientEvent(e: MouseEvent) {
-    console.log("bodyClosable ", this, e.target);
     // 冷却窗口：打开走 focus(mousedown)、关闭走全局 click，同一手势的 click 可能晚于
-    // handler 注册(动画 onfinish ≈110ms)才到达（触摸端尤其明显），会被误判为“点外部”而秒关。
+    // handler 注册(动画 onfinish ≈110ms)才到达（触摸端尤其明显），会被误判为"点外部"而秒关。
     // 打开后 500ms 内忽略外部点击，只放行随后的、真正的另一次点击。
     if (Date.now() - this.openedAt < 500) return;
-    this.getParentEl.call(this, e.target);
+    // 当日期选择器等浮层在 mousedown/mouseup 之间出现并覆盖原元素时，
+    // 浏览器将 click target 设为 body（共同祖先），需还原真实点击位置
+    let target = e.target as HTMLElement;
+    if (target === document.body || target === document.documentElement) {
+      const stack = document.elementsFromPoint(e.clientX, e.clientY);
+      if (stack.length > 0) target = stack[0] as HTMLElement;
+    }
+    this.getParentEl.call(this, target);
   }
   getParentEl(el: HTMLElement) {
     // console.log(
@@ -429,6 +435,19 @@ export class DropdownComponent {
     }
     if (this.id === el?.getAttribute("data-id")) {
       return;
+    }
+    // 嵌套 dropdown 识别：若点击目标在另一个 dropdown 的 mainEl 内，
+    // 且该 dropdown 的组件在本 dropdown 的内容区域里，视为内部点击，不关闭
+    if (el?.classList?.contains("saki-dropdown-main") && el !== this.mainEl) {
+      const nestedId = el.getAttribute("data-id");
+      if (
+        nestedId &&
+        this.mainEl?.querySelector(
+          `.saki-dropdown-component[data-id="${nestedId}"]`,
+        )
+      ) {
+        return;
+      }
     }
     return this.getParentEl.call(this, el?.parentElement);
   }

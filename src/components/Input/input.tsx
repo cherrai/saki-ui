@@ -39,6 +39,7 @@ export class InputComponent {
   @Prop() searchContent: boolean = false;
 
   @Prop() autoComplete: string = "";
+  @Prop() enterKeyHint: string = "";
   @Prop() textAlign: string = "left";
   @Prop() subtitle: string = "";
   @Prop() borderRadius: string = "";
@@ -443,8 +444,10 @@ export class InputComponent {
               min={this.min}
               max={this.max}
               autocomplete={this.autoComplete}
+              enterkeyhint={this.enterKeyHint || undefined}
               onKeyDown={(e) => {
                 if (e.keyCode === 13) {
+                  e.preventDefault();
                   this.pressenter.emit();
                 }
               }}

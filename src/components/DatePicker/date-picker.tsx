@@ -27,7 +27,7 @@ type DaysMap = {
 @Component({
   tag: "saki-date-picker",
   styleUrl: "date-picker.scss",
-  // shadow: true,
+  shadow: false,
 })
 export class DatePickerComponent {
   @Element() el: HTMLElement;
@@ -57,7 +57,7 @@ export class DatePickerComponent {
   @State() showTimePage: number = 0;
   @State() days: DaysMap = [];
   @State() selectDate: Date = new Date();
-  @State() selectedDate: Date = undefined;
+  @State() selectedDate: Date | undefined = undefined;
   @State() selectYear: number = 0;
 
   @State() timer: NodeJS.Timeout;
@@ -235,15 +235,15 @@ export class DatePickerComponent {
     }
     this.selectdate.emit({
       date:
-        `${this.selectedDate.getFullYear()}-${
-          this.selectedDate.getMonth() + 1
-        }-${this.selectedDate.getDate()}` +
+        `${this.selectedDate?.getFullYear()}-${
+          (this.selectedDate?.getMonth() || -1) + 1
+        }-${this.selectedDate?.getDate()}` +
         (this.timePicker
           ? ` ${this.timeContent.h}:${this.timeContent.m}:${this.timeContent.s}`
           : ""),
-      year: this.selectedDate.getFullYear(),
-      month: this.selectedDate.getMonth() + 1,
-      day: this.selectedDate.getDate(),
+      year: this.selectedDate?.getFullYear() || -1,
+      month: (this.selectedDate?.getMonth() || -1) + 1,
+      day: this.selectedDate?.getDate() || -1,
       hour: this.timeContent.h,
       minute: this.timeContent.m,
       second: this.timeContent.s,
@@ -252,7 +252,7 @@ export class DatePickerComponent {
   getLastDay(date: Date, lastMonth: boolean): DaysMap {
     const nowYear = date.getFullYear();
     if (!nowYear) {
-      return;
+      return [];
     }
     const nowDay = date.getDate();
     const nowMonth = date.getMonth() + 1;
@@ -655,24 +655,27 @@ export class DatePickerComponent {
               {this.cancelButton || showTodayButton ? (
                 <div class={"dp-buttons"}>
                   <div class={"dp-b-left"}>
-                    {
-                      showTodayButton?<div class={"dp-today " + (showTodayButton ? "show " : "")}>
-                      <saki-button
-                        onTap={() => {
-                          this.selectDate = new Date();
-                          this.selectedDate = this.selectDate;
-                          this.emitSelectDate();
-                        }}
-                        width="100%"
-                        border="none"
-                        padding="8px 10px"
-                        color="var(--saki-default-color)"
+                    {showTodayButton ? (
+                      <div
+                        class={"dp-today " + (showTodayButton ? "show " : "")}
                       >
-                        今日
-                      </saki-button>
-                    </div>:""
-                    }
-                    
+                        <saki-button
+                          onTap={() => {
+                            this.selectDate = new Date();
+                            this.selectedDate = this.selectDate;
+                            this.emitSelectDate();
+                          }}
+                          width="100%"
+                          border="none"
+                          padding="8px 10px"
+                          color="var(--saki-default-color)"
+                        >
+                          今日
+                        </saki-button>
+                      </div>
+                    ) : (
+                      ""
+                    )}
                   </div>
                   <div class={"dp-b-right"}>
                     {this.cancelButton ? (
@@ -695,8 +698,9 @@ export class DatePickerComponent {
                     )}
                     <div class={"dp-close show"}>
                       <saki-button
-                        onTap={() => {this.close.emit()
-                          this.visible = false
+                        onTap={() => {
+                          this.close.emit();
+                          this.visible = false;
                         }}
                         border="none"
                         width="36px"
